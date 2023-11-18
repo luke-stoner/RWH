@@ -43,8 +43,7 @@
 
 @font-face {
   font-family: "cnn-font";
-  src:
-    url("/fonts/cnn-webfont.woff2") format("woff2"),
+  src: url("/fonts/cnn-webfont.woff2") format("woff2"),
     url("/fonts/cnn-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
@@ -52,4 +51,58 @@
 
 h1 {
   font-family: "cnn-font", sans-serif;
+}
+
+#myVideo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-color: black; /* in case the video doesn't fit the whole page*/
+  background-image: /* our video */ ;
+  background-position: center center;
+  background-size: contain;
+  object-fit: cover; /*cover video background */
+  z-index: 3;
+}
+
+/* Hiding video controls
+	* See: https://css-tricks.com/custom-controls-in-html5-video-full-screen/
+  * See: https://github.com/alvarotrigo/fullPage.js/blob/master/examples/background-video.html
+	* --------------------------------------- */
+video::-webkit-media-controls {
+  display: none !important;
+}
+
+#section-1 {
+  overflow: hidden;
+}
+
+/* Layer with position absolute in order to have it over the video
+	* --------------------------------------- */
+#section-1 .layer {
+  position: absolute;
+  z-index: 4;
+  width: 100%;
+  left: 0;
+  top: 43%;
+
+  /*
+		* Preventing flicker on some browsers
+		* See http://stackoverflow.com/a/36671466/1081396  or issue #183
+		*/
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+/* Centered texts for title
+	* --------------------------------------- */
+#section-1 {
+  text-align: center;
+  overflow: hidden;
+  color: white;
 }
