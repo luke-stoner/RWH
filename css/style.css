@@ -51,8 +51,12 @@
 
 h1 {
   font-family: "cnn-font", sans-serif;
+  padding-top: 50px;
   padding-bottom: 50px;
+    padding-left: 25px;
+  padding-right: 25px;
 }
+
 
 #myVideo {
   position: absolute;
@@ -107,3 +111,20 @@ video::-webkit-media-controls {
   overflow: hidden;
   color: white;
 }
+
+
+  #candidate-info-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure the container takes up the full height of the parent */
+  }
+
+  #candidate-info-photo {
+    height: 20%; /* 40% of the parent container height */
+  }
+
+  #candidate-info-name {
+    padding-top: 10px;
+    height: 30%; /* 20% of the parent container height */
+    /* background-color: lightgreen; Optional: Add background color for visual separation */
+  }

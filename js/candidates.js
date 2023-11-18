@@ -169,10 +169,16 @@ d3.select("head")
   .text(".candidate-circle:hover { cursor: pointer; }");
 
 function handleCircleClick(event, candidate) {
-  console.log(candidate);
   const photoDiv = document.getElementById("candidate-info-photo");
-  const bioDiv = document.getElementById("candidate-info-bio");
+  const nameDiv = document.getElementById("candidate-info-name");
 
-  photoDiv.innerHTML = `<img src="${candidate.image}" alt="${candidate.first} ${candidate.last}" style="width: 100%;" class="img-fluid hover-animate delay-1">`;
-  bioDiv.textContent = candidate.description;
+  photoDiv.innerHTML = `<img src="${candidate.image}" alt="${candidate.first} ${candidate.last}" style="width: 100%;" class="img-fluid hover-animate delay-1 rounded-circle">`;
+
+  // Create an <h5> element and set its content
+  const nameElement = document.createElement("h5");
+  nameElement.textContent = `${candidate.first} ${candidate.last} (${candidate.party})`;
+
+  // Clear any existing content in the nameDiv and append the <h5> element
+  nameDiv.innerHTML = "";
+  nameDiv.appendChild(nameElement);
 }
