@@ -40,3 +40,16 @@
 .delay-4 {
   animation-delay: 0.8s;
 }
+
+@font-face {
+  font-family: "cnn-font";
+  src:
+    url("/fonts/cnn-webfont.woff2") format("woff2"),
+    url("/fonts/cnn-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 {
+  font-family: "cnn-font", sans-serif;
+}
