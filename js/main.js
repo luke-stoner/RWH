@@ -1,5 +1,5 @@
-$(document).ready(function () {
-  $("#fullpage").fullpage({
+document.addEventListener("DOMContentLoaded", function () {
+  new fullpage("#fullpage", {
     // Options
     sectionsColor: [
       "#FFFFFF",
