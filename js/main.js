@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
   new fullpage("#fullpage", {
-    // Options
     sectionsColor: [
       "#FFFFFF",
       "#FFFFFF",
@@ -22,3 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
     navigationPosition: "right",
   });
 });
+
+
+
