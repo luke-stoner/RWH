@@ -26,6 +26,10 @@
 }
 
 .delay-1 {
+  animation-delay: 0.0s;
+}
+
+.delay-1 {
   animation-delay: 0.2s;
 }
 

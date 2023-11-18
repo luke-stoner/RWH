@@ -3,7 +3,7 @@ const candidate_descriptions = [
     first: "Joe",
     last: "Biden",
     party: "D",
-    image: "img/candidate_portraits/biden2.png",
+    image: "img/candidate_portraits/biden.png",
     description:
       "Joe Biden is an American politician who has served as the 46th President of the United States since January 20, 2021. Prior to his presidency, Biden had a long political career, including serving as Vice President under President Barack Obama from 2009 to 2017. He is a member of the Democratic Party and has also represented the state of Delaware in the U.S. Senate from 1973 to 2009. Biden's political career has spanned several decades, and he has focused on a wide range of domestic and foreign policy issues during his tenure in public office.",
   },
@@ -51,12 +51,22 @@ const candidate_descriptions = [
     first: "Nikki",
     last: "Haley",
     party: "R",
+    image: "img/candidate_portraits/haley.png",
     description:
       "Nikki Haley is an American politician and diplomat. She served as the United States Ambassador to the United Nations from 2017 to 2018 during the Trump administration. Prior to her diplomatic role, she was the Governor of South Carolina from 2011 to 2017. Nikki Haley is a member of the Republican Party and has been known for her work on foreign policy and international relations.",
   },
   {
+    first: "Will",
+    last: "Hurd",
+    party: "R",
+    image: "img/candidate_portraits/hurd.png",
+    description:
+      "Will Hurd is an American politician who served as the U.S. Representative for Texas's 23rd congressional district from 2015 to 2021. He is a member of the Republican Party. Before entering politics, Hurd had a background in cybersecurity and served as an officer in the Central Intelligence Agency (CIA). He was known for his bipartisan approach and focus on national security and technology issues during his time in Congress.",
+  },
+  {
     first: "Perry",
     last: "Johnson",
+    image: "img/candidate_portraits/johnson.png",
     party: "R",
     description:
       "Perry Lawrence Johnson is an American businessman, author, and political candidate from Michigan. Johnson has written several books on international quality control standards and certification.",
@@ -94,12 +104,12 @@ const candidate_descriptions = [
       "Tim Scott is an American politician who serves as the junior United States Senator from South Carolina. He has been in office since 2013 and was reelected in 2016 and 2022. Scott is a member of the Republican Party and has a background in entrepreneurship and real estate. He has been involved in various legislative initiatives, including criminal justice reform and economic opportunity programs.",
   },
   {
-    first: "Will",
-    last: "Hurd",
+    first: "Donald",
+    last: "Trump",
     party: "R",
-    image: "img/candidate_portraits/hurd.png",
+    image: "img/candidate_portraits/trump.png",
     description:
-      "Will Hurd is an American politician who served as the U.S. Representative for Texas's 23rd congressional district from 2015 to 2021. He is a member of the Republican Party. Before entering politics, Hurd had a background in cybersecurity and served as an officer in the Central Intelligence Agency (CIA). He was known for his bipartisan approach and focus on national security and technology issues during his time in Congress.",
+      "Donald Trump is an American businessman and politician. He served as the 45th President of the United States from 2017 to 2021. Before entering politics, he was a real estate developer and television personality, known for hosting the reality show 'The Apprentice.'",
   },
   {
     first: "Marianne",
@@ -108,14 +118,6 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/williamson.png",
     description:
       "Marianne Williamson is an American author, spiritual teacher, and lecturer. She gained recognition for her self-help books and teachings on spirituality. In 2020, she ran as a Democratic candidate for the U.S. presidential election, emphasizing issues such as healthcare reform and addressing social and economic inequalities.",
-  },
-  {
-    first: "Donald",
-    last: "Trump",
-    party: "R",
-    image: "img/candidate_portraits/trump.png",
-    description:
-      "Donald Trump is an American businessman and politician. He served as the 45th President of the United States from 2017 to 2021. Before entering politics, he was a real estate developer and television personality, known for hosting the reality show 'The Apprentice.'",
   },
 ];
 
@@ -149,7 +151,7 @@ svg
   .attr("cy", (d, i) => Math.floor(i / columns) * rowHeight + circleRadius)
   .attr("r", circleRadius)
   .attr("fill", (d) => party_color[d.party])
-  .on("click", (event, d) => handleCircleClick(event, d));
+  .on("mouseover", (event, d) => handleCircleMouseOver(event, d)); // Change to mouseover
 
 svg
   .selectAll("text")
@@ -168,11 +170,12 @@ d3.select("head")
   .append("style")
   .text(".candidate-circle:hover { cursor: pointer; }");
 
-function handleCircleClick(event, candidate) {
+function handleCircleMouseOver(event, candidate) {
+  // Change the function name
   const photoDiv = document.getElementById("candidate-info-photo");
   const nameDiv = document.getElementById("candidate-info-name");
 
-  photoDiv.innerHTML = `<img src="${candidate.image}" alt="${candidate.first} ${candidate.last}" style="width: 100%;" class="img-fluid hover-animate delay-1 rounded-circle">`;
+  photoDiv.innerHTML = `<img src="${candidate.image}" alt="${candidate.first} ${candidate.last}" style="width: 100%;" class="img-fluid hover-animate delay-0 rounded-circle">`;
 
   // Create an <h5> element and set its content
   const nameElement = document.createElement("h5");
