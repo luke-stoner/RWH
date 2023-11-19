@@ -126,7 +126,7 @@ const party_color = { R: "#B31942", D: "#0A3161", I: "gray" };
 // Dimensions and layout parameters
 const width = 900; // Increase the width for more spacing
 const height = 600; // Increase the height to accommodate the spacing
-const circleRadius = 70; // Increase the circle radius
+const circleRadius = 65; // Increase the circle radius
 const circlePadding = 40; // Increase the circle padding to space them out
 const columns = 5;
 const rowHeight = 2 * circleRadius + circlePadding;
@@ -140,6 +140,30 @@ const svg = d3
   .attr("height", height)
   .attr("class", "candidate-svg");
 
+// Define the shadow filter
+const filter = svg
+  .append("defs")
+  .append("filter")
+  .attr("id", "drop-shadow")
+  .attr("height", "130%");
+
+filter
+  .append("feGaussianBlur")
+  .attr("in", "SourceAlpha")
+  .attr("stdDeviation", 5)
+  .attr("result", "blur");
+
+filter
+  .append("feOffset")
+  .attr("in", "blur")
+  .attr("dx", 3)
+  .attr("dy", 3)
+  .attr("result", "offsetBlur");
+
+const feMerge = filter.append("feMerge");
+feMerge.append("feMergeNode").attr("in", "offsetBlur");
+feMerge.append("feMergeNode").attr("in", "SourceGraphic");
+
 // Create and position circles
 svg
   .selectAll("circle")
@@ -151,7 +175,8 @@ svg
   .attr("cy", (d, i) => Math.floor(i / columns) * rowHeight + circleRadius)
   .attr("r", circleRadius)
   .attr("fill", (d) => party_color[d.party])
-  .on("mouseover", (event, d) => handleCircleMouseOver(event, d)); // Change to mouseover
+  .attr("filter", "url(#drop-shadow)") // Apply the shadow filter
+  .on("mouseover", (event, d) => handleCircleMouseOver(event, d));
 
 svg
   .selectAll("text")
