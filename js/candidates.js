@@ -73,7 +73,7 @@ const candidate_descriptions = [
   },
   {
     first: "Robert",
-    last: "Kennedy",
+    last: "Kennedy Jr",
     party: "I",
     image: "img/candidate_portraits/kennedy-jr.png",
     description:
