@@ -1,0 +1,177 @@
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f7f7f7;
+}
+
+h1 {
+  font-weight: 100;
+  margin-top: 50px;
+  color: #4B6D4A;
+}
+
+h1 sup {
+  font-size: 11px;
+  top: -18px;
+  font-weight: 400;
+  color: #5b835a;
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 18px;
+  color: #91988B;
+  margin-bottom: 40px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 24px;
+  color: #5b835a;
+}
+
+#edition-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#edition-table td {
+  border-bottom: 1px solid #91988B; /* Add a bottom border */
+  padding-left: 10px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#edition-container {
+  background-color: oldlace;
+  width: 400px; /* Set the desired width */
+  height: 400px; /* Set the desired height */
+  color: #5b835a;
+}
+
+#edition-name {
+  text-align: center;
+  padding-top: 40px;
+  font-size: 22px;
+}
+
+body {
+  background-color: whitesmoke;
+}
+
+#start-label {
+  color: #4B6D4A;
+}
+
+#end-label {
+  color: #4B6D4A;
+}
+
+#stat-selection {
+  color: #4B6D4A;
+  background-color: oldlace;
+}
+/****************/
+/*  USER INPUT  */
+/****************/
+
+
+/***************/
+/*   DETAILS   */
+/***************/
+
+#world-cup-edition {
+  display: none;
+  background-color: #F5EFEF;
+  padding: 20px;
+  border: thin solid #4B6D4A; border-radius: 5px
+}
+
+
+/****************/
+/*  LINE CHART  */
+/****************/
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #91988B;
+  shape-rendering: crispEdges;
+}
+.axis text {
+  font-size: 11px;
+}
+
+.line {
+  fill: none;
+  stroke: #86AC86;
+  stroke-width: 3px;
+}
+
+.tooltip-circle {
+  fill: #5C865B;
+  cursor: pointer;
+}
+
+.tooltip-title {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.d3-tip {
+  line-height: 1;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+  z-index: 100;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+
+/****************/
+/*    SLIDER    */
+/****************/
+
+#time-period-slider {
+  width: 200px;
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.range-slider-value {
+  background-color: #EFE9E9;
+  color: #888;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding: 2px 10px;
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.noUi-connect {
+  background: #92B592;
+}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CS171 - HW 7</title>
+
+    <!-- CSS LIBRARIES -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.css" integrity="sha512-DGB74Gyw93qON+V0QxSRs1er6sqoPyFoy23HBL5LN7MRJBcjeCU22zega+vOEGE0XQLoVrv4ExcaesSTwZQA2w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- YOUR CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Changing Winds</h1>
+    <h2>How has candidate coverage changed over time?</h2>
+
+    <div class="row">
+        <div class="col-auto">
+            <div class="form-group">
+                <!-- Select box to choose the ranking type -->
+                <select class="form-control" id="stat-selection">
+                    <option value="GOALS">Number of Mentions</option>
+                    <option value="TEAMS">Average Sentiment Score</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div id="slider-container">
+                <div id="slider"></div>
+                <div id="slider-label">
+                    <span id="start-label">1930</span>
+                    <span id="end-label">2014</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-auto">
+            <div id="chart-area"></div>
+        </div>
+    </div>
+        <div class="col-auto">
+            <h3>Candidates</h3>
+            <div id="checkboxes">
+                <label><input type="checkbox" id="Biden" checked> Joe Biden</label><br>
+                <label><input type="checkbox" id="Burgum" checked> Doug Burgum</label><br>
+                <label><input type="checkbox" id="Christie" checked> Chris Christie</label><br>
+                <label><input type="checkbox" id="DeSantis" checked> Ron DeSantis</label><br>
+                <label><input type="checkbox" id="Elder" checked> Larry Elder</label><br>
+                <label><input type="checkbox" id="Haley" checked> Nikki Haley</label><br>
+                <label><input type="checkbox" id="Hurd" checked> Will Hurd</label><br>
+                <label><input type="checkbox" id="Hutchinson" checked> Asa Hutchinson</label><br>
+                <label><input type="checkbox" id="Johnson" checked> Perry Johnson</label><br>
+                <label><input type="checkbox" id="Kennedy" checked> Robert Kennedy</label><br>
+                <label><input type="checkbox" id="Pence" checked> Mike Pence</label><br>
+                <label><input type="checkbox" id="Ramaswamy" checked> Vivek Ramaswamy</label><br>
+                <label><input type="checkbox" id="Scott" checked> Tim Scott</label><br>
+                <label><input type="checkbox" id="Trump" checked> Donald Trump</label><br>
+                <label><input type="checkbox" id="Williamson" checked> Marianne Williamson</label><br>
+            </div>
+        </div>
+</div>
+
+<!-- embedding JS libraries -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.min.js"
+        integrity="sha512-mZXUH8DAODwCHioWP3gltQwa953LbABMlzTYwYkKqv8eNxOk37B1HgNNuCMfFxgrpW5C34WJbxPDcM58+s1dJA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- d3 -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<!-- Your implementation -->
+<script src="js/main.js"></script>
+</body>
+</html>
