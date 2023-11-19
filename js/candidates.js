@@ -121,7 +121,7 @@ const candidate_descriptions = [
   },
 ];
 
-const party_color = { R: "#E81B23", D: "#0000FF", I: "gray" };
+const party_color = { R: "#B31942", D: "#0A3161", I: "gray" };
 
 // Dimensions and layout parameters
 const width = 900; // Increase the width for more spacing
@@ -171,17 +171,16 @@ d3.select("head")
   .text(".candidate-circle:hover { cursor: pointer; }");
 
 function handleCircleMouseOver(event, candidate) {
-  // Change the function name
   const photoDiv = document.getElementById("candidate-info-photo");
-  const nameDiv = document.getElementById("candidate-info-name");
-
   photoDiv.innerHTML = `<img src="${candidate.image}" alt="${candidate.first} ${candidate.last}" style="width: 100%;" class="img-fluid hover-animate delay-0 rounded-circle">`;
 
-  // Create an <h5> element and set its content
+  const nameDiv = document.getElementById("candidate-info-name");
+
+  // Clear the content of nameDiv
   const nameElement = document.createElement("h5");
   nameElement.textContent = `${candidate.first} ${candidate.last} (${candidate.party})`;
 
-  // Clear any existing content in the nameDiv and append the <h5> element
   nameDiv.innerHTML = "";
+
   nameDiv.appendChild(nameElement);
 }

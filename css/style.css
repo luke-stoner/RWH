@@ -26,7 +26,7 @@
 }
 
 .delay-1 {
-  animation-delay: 0.0s;
+  animation-delay: 0s;
 }
 
 .delay-1 {
@@ -55,12 +55,8 @@
 
 h1 {
   font-family: "cnn-font", sans-serif;
-  padding-top: 50px;
-  padding-bottom: 50px;
-    padding-left: 25px;
-  padding-right: 25px;
-}
 
+}
 
 #myVideo {
   position: absolute;
@@ -116,19 +112,76 @@ video::-webkit-media-controls {
   color: white;
 }
 
+#candidate-info-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
-  #candidate-info-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Ensure the container takes up the full height of the parent */
-  }
+#candidate-info-photo {
+  height: 20%;
+}
 
-  #candidate-info-photo {
-    height: 20%; /* 40% of the parent container height */
-  }
+#candidate-info-name {
+  padding-top: 10px;
+  height: 30%;
+}
 
-  #candidate-info-name {
-    padding-top: 10px;
-    height: 30%; /* 20% of the parent container height */
-    /* background-color: lightgreen; Optional: Add background color for visual separation */
+/* For down arrow on scrolling*/
+
+.scroll-text {
+  padding-top: 4vh;
+  font-size: 75%;
+  margin-bottom: 0px;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 8px;
+  animation: blink 2s infinite; 
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1; /* Fully visible */
   }
+  50% {
+    opacity: 0; /* Invisible */
+  }
+  100% {
+    opacity: 1; /* Fully visible */
+  }
+}
+
+#candidate-introduction{
+  border: solid;
+  background: #f5f5f5;
+}
+
+.section{
+ background-position: center;
+}
+
+#section-3{
+  background-image: url(https://images.unsplash.com/photo-1510265382668-7b564935d7b5?q=80&w=3132&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+}
+
+.underline{
+    height: 1.5vh;
+    margin-bottom: 4vh;
+}
+
+.redBlock{
+    background-color: #B31942;
+}
+
+.blueBlock{
+    background-color: #0A3161;
+}
