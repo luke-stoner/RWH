@@ -124,13 +124,17 @@ const candidate_descriptions = [
 const party_color = { R: "#B31942", D: "#0A3161", I: "gray" };
 
 // Dimensions and layout parameters
-const width = 900; // Increase the width for more spacing
-const height = 600; // Increase the height to accommodate the spacing
-const circleRadius = 65; // Increase the circle radius
-const circlePadding = 40; // Increase the circle padding to space them out
-const columns = 5;
-const rowHeight = 2 * circleRadius + circlePadding;
-const colWidth = 2 * circleRadius + circlePadding;
+const width = 900;
+const height = 600;
+const margin = 20;
+const circleRadius = 65;
+const circlePadding = 20;
+const columns = Math.floor(
+  (width - 2 * margin) / (2 * circleRadius + circlePadding)
+); // Calculate the number of columns dynamically
+const rows = Math.ceil(candidate_descriptions.length / columns); // Calculate the number of rows based on the number of columns
+const colWidth = (width - 2 * margin) / columns; // Calculate the width of each column based on the number of columns
+const rowHeight = (height - 2 * margin) / rows; // Calculate the height of each row based on the number of rows
 
 // Create SVG element inside the div#candidate-info
 const svg = d3
@@ -166,22 +170,44 @@ feMerge.append("feMergeNode").attr("in", "SourceGraphic");
 
 // Create and position circles
 svg
-  .selectAll("circle")
+  .selectAll("g") // Use <g> elements to group circles and text together
   .data(candidate_descriptions)
   .enter()
+  .append("g")
+  .on("mouseover", function (event, d) {
+    // Increase the circle's radius and apply the hover effect to both circle and text
+    d3.select(this)
+      .select(".candidate-circle")
+      .transition()
+      .duration(200)
+      .attr("r", circleRadius + 5);
+    d3.select(this).select(".candidate-label").classed("hovered-text", true);
+    handleCircleMouseOver(event, d);
+  })
+  .on("mouseout", function () {
+    // Restore the original circle radius and remove the hover effect from text
+    d3.select(this)
+      .select(".candidate-circle")
+      .transition()
+      .duration(200)
+      .attr("r", circleRadius);
+    d3.select(this).select(".candidate-label").classed("hovered-text", false);
+  });
+
+// Append circles inside the <g> elements
+svg
+  .selectAll("g")
   .append("circle")
   .attr("class", "candidate-circle")
   .attr("cx", (d, i) => (i % columns) * colWidth + circleRadius)
   .attr("cy", (d, i) => Math.floor(i / columns) * rowHeight + circleRadius)
   .attr("r", circleRadius)
   .attr("fill", (d) => party_color[d.party])
-  .attr("filter", "url(#drop-shadow)") // Apply the shadow filter
-  .on("mouseover", (event, d) => handleCircleMouseOver(event, d));
+  .attr("filter", "url(#drop-shadow)");
 
+// Append text inside the <g> elements
 svg
-  .selectAll("text")
-  .data(candidate_descriptions)
-  .enter()
+  .selectAll("g")
   .append("text")
   .text((d) => `${d.last}`)
   .attr("x", (d, i) => (i % columns) * colWidth + circleRadius)
@@ -191,6 +217,7 @@ svg
   .attr("class", "candidate-label")
   .attr("fill", "white");
 
+// ... (Your existing code)
 
 function handleCircleMouseOver(event, candidate) {
   const photoDiv = document.getElementById("candidate-info-photo");
