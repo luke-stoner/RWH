@@ -147,7 +147,7 @@ const width = 900;
 const height = 600;
 const margin = 20;
 const circleRadius = 65;
-const circlePadding = 20;
+const circlePadding = 30;
 const columns = Math.floor(
   (width - 2 * margin) / (2 * circleRadius + circlePadding)
 ); // Calculate the number of columns dynamically
@@ -188,13 +188,12 @@ feMerge.append("feMergeNode").attr("in", "offsetBlur");
 feMerge.append("feMergeNode").attr("in", "SourceGraphic");
 
 // Create and position circles
-svg
-  .selectAll("g") // Use <g> elements to group circles and text together
+const circles = svg
+  .selectAll("g")
   .data(candidate_descriptions)
   .enter()
   .append("g")
   .on("mouseover", function (event, d) {
-    // Increase the circle's radius and apply the hover effect to both circle and text
     d3.select(this)
       .select(".candidate-circle")
       .transition()
@@ -204,7 +203,6 @@ svg
     handleCircleMouseOver(event, d);
   })
   .on("mouseout", function () {
-    // Restore the original circle radius and remove the hover effect from text
     d3.select(this)
       .select(".candidate-circle")
       .transition()
@@ -213,30 +211,30 @@ svg
     d3.select(this).select(".candidate-label").classed("hovered-text", false);
   });
 
-// Append circles inside the <g> elements
-svg
-  .selectAll("g")
+circles
   .append("circle")
   .attr("class", "candidate-circle")
-  .attr("cx", (d, i) => (i % columns) * colWidth + circleRadius)
-  .attr("cy", (d, i) => Math.floor(i / columns) * rowHeight + circleRadius)
+  .attr("cx", (d, i) => (i % columns) * colWidth + margin + circleRadius)
+  .attr(
+    "cy",
+    (d, i) => Math.floor(i / columns) * rowHeight + margin + circleRadius
+  )
   .attr("r", circleRadius)
   .attr("fill", (d) => party_color[d.party])
   .attr("filter", "url(#drop-shadow)");
 
-// Append text inside the <g> elements
-svg
-  .selectAll("g")
+circles
   .append("text")
   .text((d) => `${d.last}`)
-  .attr("x", (d, i) => (i % columns) * colWidth + circleRadius)
-  .attr("y", (d, i) => Math.floor(i / columns) * rowHeight + circleRadius + 4)
+  .attr("x", (d, i) => (i % columns) * colWidth + margin + circleRadius)
+  .attr(
+    "y",
+    (d, i) => Math.floor(i / columns) * rowHeight + margin + circleRadius + 4
+  )
   .attr("text-anchor", "middle")
   .attr("alignment-baseline", "middle")
   .attr("class", "candidate-label")
   .attr("fill", "white");
-
-// ... (Your existing code)
 
 function handleCircleMouseOver(event, candidate) {
   // Candidate Image
@@ -250,20 +248,21 @@ function handleCircleMouseOver(event, candidate) {
   nameDiv.innerHTML = "";
   nameDiv.appendChild(nameElement);
 
-  // Candidate info
+  // Candidate party
   const partyDiv = document.getElementById("candidate-info-party");
   const partyElement = document.createElement("h5");
   partyElement.textContent = `Party: ${candidate.party}`;
   partyDiv.innerHTML = "";
   partyDiv.appendChild(partyElement);
 
+  // Candidate state
   const stateDiv = document.getElementById("candidate-info-state");
   const stateElement = document.createElement("h5");
   stateElement.textContent = `State: ${candidate.state}`;
   stateDiv.innerHTML = "";
   stateDiv.appendChild(stateElement);
 
-
+  // Candidate birthday
   const birthdayDiv = document.getElementById("candidate-info-birthday");
   const birthdayElement = document.createElement("h5");
   birthdayElement.textContent = `Birthday: ${candidate.birthday}`;
