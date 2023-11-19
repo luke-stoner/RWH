@@ -191,9 +191,6 @@ svg
   .attr("class", "candidate-label")
   .attr("fill", "white");
 
-d3.select("head")
-  .append("style")
-  .text(".candidate-circle:hover { cursor: pointer; }");
 
 function handleCircleMouseOver(event, candidate) {
   const photoDiv = document.getElementById("candidate-info-photo");
