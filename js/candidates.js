@@ -253,9 +253,10 @@ const legendItems = legend
   .attr("transform", (d, i) => `translate(${i * 120}, 0)`);
 
 legendItems
-  .append("rect")
-  .attr("width", 20)
-  .attr("height", 20)
+  .append("circle")
+  .attr("r", 10)
+  .attr("cx", 10)
+  .attr("cy", 10)
   .attr("fill", (d) => party_color[d]);
 
 legendItems
