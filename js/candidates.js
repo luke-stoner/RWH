@@ -250,11 +250,11 @@ const legendItems = legend
   .enter()
   .append("g")
   .attr("class", "legend-item")
-  .attr("transform", (d, i) => `translate(${i * 120}, 0)`);
+  .attr("transform", (d, i) => `translate(${i * 120}, -10)`);
 
 legendItems
   .append("circle")
-  .attr("r", 10)
+  .attr("r", 7)
   .attr("cx", 10)
   .attr("cy", 10)
   .attr("fill", (d) => party_color[d]);
@@ -262,8 +262,8 @@ legendItems
 legendItems
   .append("text")
   .text((d) => d)
-  .attr("x", 30)
-  .attr("y", 15)
+  .attr("x", 20)
+  .attr("y", 12)
   .attr("alignment-baseline", "middle");
 
 function handleCircleMouseOver(event, candidate) {
