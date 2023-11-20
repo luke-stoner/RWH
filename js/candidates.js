@@ -137,9 +137,9 @@ const candidate_descriptions = [
 ];
 
 const party_color = {
-  Republican: "#B31942",
-  Democrat: "#0A3161",
-  Independent: "gray",
+  Republican: REPUBLICAN_RED,
+  Democrat: DEMOCRAT_BLUE,
+  Independent: INDEPENDENT_GRAY,
 };
 
 // Create SVG
