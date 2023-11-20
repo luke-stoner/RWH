@@ -233,9 +233,9 @@ circles
   .attr("text-anchor", "middle")
   .attr("alignment-baseline", "middle")
   .attr("class", "candidate-label")
-  .attr("fill", "white");
+  .attr("fill", "white")
+  .style("user-select", "none");
 
-// Legend
 const legendWidth = Object.keys(party_color).length * 120;
 const legendX = (width - legendWidth) / 2;
 
