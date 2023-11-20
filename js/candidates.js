@@ -186,6 +186,19 @@ const feMerge = filter.append("feMerge");
 feMerge.append("feMergeNode").attr("in", "offsetBlur");
 feMerge.append("feMergeNode").attr("in", "SourceGraphic");
 
+// Create a tooltip div
+const tooltip = d3
+  .select("body")
+  .append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 50)
+  .style("position", "absolute")
+  .style("background-color", "rgba(255, 255, 255, 0.8)") // Slightly transparent white
+  .style("border", "solid")
+  .style("border-width", "2px")
+  .style("border-radius", "5px")
+  .style("padding", "5px");
+
 // Candidate Circles
 const circles = svg
   .selectAll("g")
@@ -193,21 +206,16 @@ const circles = svg
   .enter()
   .append("g")
   .on("mouseover", function (event, d) {
-    d3.select(this)
-      .select(".candidate-circle")
-      .transition()
-      .duration(200)
-      .attr("r", circleRadius + 5);
-    d3.select(this).select(".candidate-label").classed("hovered-text", true);
-    handleCircleMouseOver(event, d);
+    handleCircleMouseOver(event, d, this);
+  })
+  .on("mousemove", function (event) {
+    // Update tooltip position while moving the mouse
+    tooltip
+      .style("left", event.pageX + 10 + "px")
+      .style("top", event.pageY + 10 + "px");
   })
   .on("mouseout", function () {
-    d3.select(this)
-      .select(".candidate-circle")
-      .transition()
-      .duration(200)
-      .attr("r", circleRadius);
-    d3.select(this).select(".candidate-label").classed("hovered-text", false);
+    handleCircleMouseOut(this);
   });
 
 circles
@@ -266,7 +274,30 @@ legendItems
   .attr("y", 12)
   .attr("alignment-baseline", "middle");
 
-function handleCircleMouseOver(event, candidate) {
+function handleCircleMouseOver(event, candidate, element) {
+  d3.select(element)
+    .select(".candidate-circle")
+    .transition()
+    .duration(200)
+    .attr("r", circleRadius + 5);
+  d3.select(element).select(".candidate-label").classed("hovered-text", true);
+
+  // Show the tooltip
+  tooltip.transition().duration(200).style("opacity", 1);
+
+  // Populate the tooltip content
+  tooltip
+    .html(
+      `<strong>${candidate.first} ${candidate.last}</strong><br>Party: ${
+        candidate.party
+      }<br>State: ${candidate.state}<br>Age: ${calculateAge(
+        candidate.birthday
+      )}`
+    )
+    .style("left", event.pageX + 10 + "px")
+    .style("top", event.pageY + 10 + "px");
+
+  // Show candidate photo and name
   const photoDiv = document.getElementById("candidate-info-photo");
   photoDiv.innerHTML = `<img src="${candidate.image}" alt="${candidate.first} ${candidate.last}" style="width: 100%;" class="img-fluid hover-animate delay-0 rounded-circle">`;
 
@@ -275,4 +306,33 @@ function handleCircleMouseOver(event, candidate) {
   nameElement.textContent = `${candidate.first} ${candidate.last}`;
   nameDiv.innerHTML = "";
   nameDiv.appendChild(nameElement);
+}
+
+function handleCircleMouseOut(element) {
+  d3.select(element)
+    .select(".candidate-circle")
+    .transition()
+    .duration(200)
+    .attr("r", circleRadius);
+  d3.select(element).select(".candidate-label").classed("hovered-text", false);
+
+  // Hide the tooltip
+  tooltip.transition().duration(200).style("opacity", 0);
+}
+
+function calculateAge(birthday) {
+  var birthdayDate = new Date(birthday);
+  var today = new Date();
+
+  var age = today.getFullYear() - birthdayDate.getFullYear();
+  var monthDifference = today.getMonth() - birthdayDate.getMonth();
+
+  if (
+    monthDifference < 0 ||
+    (monthDifference === 0 && today.getDate() < birthdayDate.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
 }
