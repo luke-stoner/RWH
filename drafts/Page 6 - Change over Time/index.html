@@ -25,18 +25,14 @@
             <div class="form-group">
                 <!-- Select box to choose the ranking type -->
                 <select class="form-control" id="stat-selection">
-                    <option value="GOALS">Number of Mentions</option>
-                    <option value="TEAMS">Average Sentiment Score</option>
+                    <option value="volume">Number of Mentions</option>
+                    <option value="sentiment">Average Sentiment Score</option>
                 </select>
             </div>
         </div>
         <div class="col-auto">
             <div id="slider-container">
-                <div id="slider"></div>
-                <div id="slider-label">
-                    <span id="start-label">1930</span>
-                    <span id="end-label">2014</span>
-                </div>
+                <div id="slider-range"></div>
             </div>
         </div>
     </div>
@@ -76,6 +72,7 @@
 
 <!-- d3 -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/d3-simple-slider"></script>
 
 <!-- Your implementation -->
 <script src="js/main.js"></script>
