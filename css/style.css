@@ -195,6 +195,8 @@ video::-webkit-media-controls {
   color: #0a3161;
 }
 
+/* Breaking News Bar */
+
 .news-container {
   position: absolute;
   bottom: 0;
@@ -207,6 +209,7 @@ video::-webkit-media-controls {
 
 .news-container .title {
   position: absolute;
+  left: 0;
   background: #df2020;
   height: 100%;
   display: flex;
@@ -227,7 +230,7 @@ video::-webkit-media-controls {
 .news-container ul li {
   white-space: nowrap;
   padding: 10px 24px;
-  color: #FFFFFF;
+  color: #ffffff;
   position: relative;
 }
 
