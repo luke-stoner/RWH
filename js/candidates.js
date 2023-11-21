@@ -85,7 +85,7 @@ const candidate_descriptions = [
     last: "Kennedy Jr",
     party: "Independent",
     party_short: "I",
-    image: "img/candidate_portraits/kennedy-jr.png",
+    image: "img/candidate_portraits/kennedy.png",
     birthday: "January 17, 1954",
     state: "Washington, D.C",
   },
