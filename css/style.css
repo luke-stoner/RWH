@@ -178,11 +178,11 @@ video::-webkit-media-controls {
 }
 
 .redBlock {
-  background-color: #FA5A50;
+  background-color: #fa5a50;
 }
 
 .blueBlock {
-  background-color: #5768AC;
+  background-color: #5768ac;
 }
 
 .section {
@@ -256,4 +256,13 @@ video::-webkit-media-controls {
   to {
     transform: translateX(-1083px);
   }
+}
+
+#white-house {
+  height: 100%;
+  position: relative;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(20px 5px 4px #a8a8a8);
 }
