@@ -23,6 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-const REPUBLICAN_RED = "#B31942";
-const DEMOCRAT_BLUE = "#0A3161";
+const REPUBLICAN_RED = "#FA5A50";
+const DEMOCRAT_BLUE = "#5768AC";
 const INDEPENDENT_GRAY = "#808080";
