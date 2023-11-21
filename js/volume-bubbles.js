@@ -126,7 +126,7 @@ d3.csv("data/labeled.csv").then(function(csvData) {
     node.append("circle")
         .attr("r", function(d) { return d.r; })
         .style("fill", function(d) {
-            return d.data.party === "D" ? "#1475b7" : "#c93235";
+            return d.data.party === "D" ? DEMOCRAT_BLUE : REPUBLICAN_RED;
         });
 
     // Append images to each node, using the clipPath

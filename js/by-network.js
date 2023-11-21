@@ -63,7 +63,7 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("y", (d) => yPos(d.network))
     .attr("width", (d) => xScaleDem(d.avgScore)) // Width in the opposite direction
     .attr("height", barHeight - spacing) // Adjusted the bar height
-    .style("fill", "blue");
+    .style("fill", DEMOCRAT_BLUE);
 
   // Draw Republicans
   svg
@@ -76,7 +76,7 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("y", (d) => yPos(d.network))
     .attr("width", (d) => xScaleRep(d.avgScore))
     .attr("height", barHeight - spacing) // Adjusted the bar height
-    .style("fill", "red");
+    .style("fill", REPUBLICAN_RED);
 
   // Manually add network labels
   svg
