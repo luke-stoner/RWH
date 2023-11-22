@@ -177,7 +177,7 @@ video::-webkit-media-controls {
 }
 
 .redBlock {
-  background-color: #C90A3D;
+  background-color: #c90a3d;
 }
 
 .blueBlock {
@@ -270,4 +270,45 @@ video::-webkit-media-controls {
   background-color: #000000;
   background-image: none;
   color: white;
+}
+
+#section-0 p {
+  font-size: x-large;
+}
+
+.fade-in-paragraph {
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Add animation delay to paragraphs */
+.fade-in-paragraph:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.fade-in-paragraph:nth-child(2) {
+  animation-delay: 3s;
+}
+
+.fade-in-paragraph:nth-child(3) {
+  animation-delay: 6s;
+}
+
+.fade-in-paragraph:nth-child(4) {
+  animation-delay: 9s;
+}
+
+#accept-button {
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+  animation-delay: 12s; 
 }
