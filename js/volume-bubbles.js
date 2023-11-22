@@ -26,8 +26,8 @@ d3.csv("data/labeled.csv").then(function(csvData) {
     var data = parseData(csvData);
     // Define the size of the SVG and margins
     var width = 960,
-        height = 500,
-        margin = {top: 20, right: 20, bottom: 20, left: 20};
+        height = 400, // was 500
+        margin = {top: 0, right: 20, bottom: 20, left: 20};
 
     // Compute the inner dimensions
     var innerWidth = width - margin.left - margin.right,
@@ -45,18 +45,6 @@ d3.csv("data/labeled.csv").then(function(csvData) {
         .size([innerWidth, innerHeight])
         .padding(2);
 
-    // // Process the data to create a hierarchy
-    // var root = d3.hierarchy({children: data})
-    //     .sum(function(d) { return d.frequency; }) // Size of the bubbles
-    //     .sort(function(a, b) { return b.value - a.value; }); // Sort bubbles by size
-    //
-    // // Create the nodes and link data
-    // // Create the nodes and link data
-    // var node = svg.selectAll(".node")
-    //     .data(pack(root).leaves())
-    //     .enter().append("g")
-    //     .attr("class", "node")
-    //     .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
     // Process the data to create a hierarchy and sort
     var root = d3.hierarchy({children: data})
         .sum(function(d) { return d.frequency; }); // Size of the bubbles
@@ -85,28 +73,6 @@ d3.csv("data/labeled.csv").then(function(csvData) {
         .domain([0, d3.max(data, function(d) { return d.frequency; })])
         .range([0, 50]); // Change 50 to the maximum size you want in the legend
 
-    // Define the sizes you want to show in the legend
-    var legendSizes = [10, 50, 100]; // Example sizes
-
-    // Create the legend group
-    var legend = svg.append("g")
-        .attr("class", "legend")
-        .selectAll("g")
-        .data(legendSizes)
-        .enter().append("g")
-        .attr("transform", function(d, i) { return "translate(" + (innerWidth - 150) + "," + (i * 60 + 20) + ")"; });
-
-    // Append circles to the legend group
-    legend.append("circle")
-        .attr("r", function(d) { return sizeScale(d); })
-        .style("fill", "#ccc")
-        .style("opacity", 0.5);
-
-    // Append text to the legend group
-    legend.append("text")
-        .attr("x", function(d) { return sizeScale(d) + 10; })
-        .attr("y", 5)
-        .text(function(d) { return "Frequency: " + d; });
 
     // Transition for circles
     // Sort data to ensure that smaller circles are on top
@@ -115,12 +81,6 @@ d3.csv("data/labeled.csv").then(function(csvData) {
     // Define the transition
     var t = d3.transition()
         .duration(750);
-
-    // Draw the circles with a delay based on the order
-    // node.data(pack(root).leaves())
-    //     .transition(t)
-    //     .delay(function(d, i) { return i * 50; }) // Delay by index
-    //     .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
     // Append circle for each node and set the fill based on party
     node.append("circle")
@@ -138,7 +98,58 @@ d3.csv("data/labeled.csv").then(function(csvData) {
         .attr("height", function(d) { return 2 * d.r; })
         .attr("width", function(d) { return 2 * d.r; });
 
-    // ... (any additional features or labels)
+    ////ADDING LEGEND
+    // Define the legend sizes
+    // Calculate minimum, median, and maximum
+    var sortedData = data.map(d => d.frequency).sort((a, b) => a - b);
+
+    var minSize = sortedData[0];
+    var medianSize = sortedData[Math.floor(sortedData.length / 2)];
+    var maxSize = sortedData[sortedData.length - 1];
+
+    // Update the legendSizes array
+    // Update the legendSizes array
+    // Update the legendSizes array
+    var legendSizes = [minSize, medianSize, maxSize];
+
+    // Adjust the sizeScale function if necessary
+    // For example, setting a reasonable maximum size for the largest circle
+    sizeScale.range([5, 30]); // Adjust the range as needed
+
+    // Calculate SVG dimensions
+    var spacing = 80; // Space between each legend item
+    var maxLegendCircleSize = sizeScale(maxSize);
+    var legendWidth = legendSizes.length * (maxLegendCircleSize * 2 + spacing);
+
+    // Create an SVG for the legend
+    var legendSvg = d3.select("#legend-container").append("svg")
+        .attr("width", legendWidth)
+        .attr("height", maxLegendCircleSize * 2 + 30); // Extra space for labels
+
+    // Create a group for each legend item
+    var legend = legendSvg.selectAll(".legend")
+        .data(legendSizes)
+        .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) {
+            var xPosition = i * (maxLegendCircleSize * 2 + spacing) + 40;
+            return "translate(" + xPosition + ",0)";
+        });
+
+    // Draw circles for each legend item
+    legend.append("circle")
+        .attr("cx", maxLegendCircleSize) // Center the circle in its group
+        .attr("cy", maxLegendCircleSize) // Align vertically
+        .attr("r", function(d) { return sizeScale(d); })
+        .style("fill", "#ccc"); // Grey color
+
+    // Add text labels to the legend
+    legend.append("text")
+        .attr("x", maxLegendCircleSize)
+        .attr("y", maxLegendCircleSize * 2 + 20) // Position below the circle
+        .text(function(d) { return `${d} mentions`; })
+        .attr("font-size", "12px")
+        .attr("text-anchor", "middle"); // Center the text under the circle
 }).catch(function(error) {
     console.error('Error loading the data:', error);
 });
