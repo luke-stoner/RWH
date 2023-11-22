@@ -2,7 +2,7 @@
 d3.csv("data/labeled.csv").then(function (data) {
   // Extract unique network names and sort them
   var networks = Array.from(new Set(data.map((d) => d.network))).sort(
-    d3.ascending,
+    d3.ascending
   );
 
   // Calculate average scores for each network and party
@@ -11,7 +11,7 @@ d3.csv("data/labeled.csv").then(function (data) {
       data,
       (v) => d3.mean(v, (d) => d.label),
       (d) => d.network,
-      (d) => d.party,
+      (d) => d.party
     )
     .map(([network, partyData]) => {
       return partyData.map(([party, avgScore]) => {
@@ -21,74 +21,118 @@ d3.csv("data/labeled.csv").then(function (data) {
     .flat();
 
   // Filter out separate datasets for Democrats and Republicans
-  var demData = avgScores.filter((d) => d.party === "D");
-  var repData = avgScores.filter((d) => d.party === "R");
+  var leftData = avgScores
+    .filter((d) => d.party === "D")
+    .map((d) => d.avgScore); // Extract avgScore values
+  var rightData = avgScores
+    .filter((d) => d.party === "R")
+    .map((d) => d.avgScore); // Extract avgScore values
 
-  // 3. Create SVG with extra width for spacing
-  var svgWidth = 900;
-  var svgHeight = 600;
-  var svg = d3
+  console.log(networks);
+  console.log(leftData);
+  console.log(rightData);
+
+  var labelArea = 160;
+
+  var chart,
+    width = 400,
+    bar_height = 20,
+    height = bar_height * networks.length;
+
+  var rightOffset = width + labelArea;
+
+  var chart = d3
     .select("#by-network")
     .append("svg")
-    .attr("width", svgWidth)
-    .attr("height", svgHeight);
+    .attr("class", "chart")
+    .attr("width", labelArea + width + width)
+    .attr("height", height);
 
-  // Manually calculate y-positions
-  var barHeight = svgHeight / networks.length;
-  var yPos = (network) => networks.indexOf(network) * barHeight;
-
-  // Adjust the bar width and spacing
-  var barWidth = 50; // Adjust this value as needed
-  var spacing = 10; // Adjust this value as needed
-
-  var xScaleDem = d3
+  var xFrom = d3
     .scaleLinear()
-    .domain([0, d3.max(demData, (d) => d.avgScore)])
-    .range([0, 400]);
+    .domain([0, d3.max(leftData)])
+    .range([0, width]);
 
-  var xScaleRep = d3
-    .scaleLinear()
-    .domain([0, d3.max(repData, (d) => d.avgScore)])
-    .range([0, 400]);
+  var y = d3.scaleOrdinal().domain(networks).range([10, height]);
 
-  // 4. Draw Bar Charts
-  // Draw Democrats
-  svg
-    .selectAll(".bar.dem")
-    .data(demData)
+  var yPosByIndex = function (d, index) {
+    return y(index);
+  };
+
+  chart
+    .selectAll("rect.left")
+    .data(leftData)
     .enter()
     .append("rect")
-    .attr("class", "bar dem")
-    .attr("x", (d) => 400 - xScaleDem(d.avgScore)) // Start from the right
-    .attr("y", (d) => yPos(d.network))
-    .attr("width", (d) => xScaleDem(d.avgScore)) // Width in the opposite direction
-    .attr("height", barHeight - spacing) // Adjusted the bar height
-    .style("fill", DEMOCRAT_BLUE);
+    .attr("x", function (pos) {
+      return width - xFrom(pos);
+    })
+    .attr("y", yPosByIndex)
+    .attr("class", "left")
+    .attr("width", xFrom)
+    .attr("height", y.bandwidth()); // Use y.bandwidth() to set the height of the right bars
 
-  // Draw Republicans
-  svg
-    .selectAll(".bar.rep")
-    .data(repData)
+  chart
+    .selectAll("rect.right")
+    .data(rightData)
     .enter()
     .append("rect")
-    .attr("class", "bar rep")
-    .attr("x", 500)
-    .attr("y", (d) => yPos(d.network))
-    .attr("width", (d) => xScaleRep(d.avgScore))
-    .attr("height", barHeight - spacing) // Adjusted the bar height
-    .style("fill", REPUBLICAN_RED);
+    .attr("x", rightOffset)
+    .attr("y", yPosByIndex)
+    .attr("class", "right")
+    .attr("width", xTo)
+    .attr("height", y.bandwidth()); // Use y.bandwidth() to set the height of the right bars
 
-  // Manually add network labels
-  svg
-    .selectAll(".network-label")
-    .data(networks)
-    .enter()
-    .append("text")
-    .attr("class", "network-label")
-    .attr("x", 450) // Centered between the two sets of bars
-    .attr("y", (d, i) => i * barHeight + barHeight / 2)
-    .attr("dy", ".35em") // Vertically center
-    .attr("text-anchor", "middle") // Center align
-    .text((d) => d)
-    .style("fill", "black");
+  // chart
+  //   .selectAll("text.leftscore")
+  //   .data(leftData)
+  //   .enter()
+  //   .append("text")
+  //   .attr("x", function (d) {
+  //     return width - xFrom(d);
+  //   })
+  //   .attr("y", function (d, z) {
+  //     return y(z) + y.bandwidth() / 2;
+  //   })
+  //   .attr("dx", "20")
+  //   .attr("dy", ".36em")
+  //   .attr("text-anchor", "end")
+  //   .attr("class", "leftscore")
+  //   .text(String);
+
+  // chart
+  //   .selectAll("text.name")
+  //   .data(networks)
+  //   .enter()
+  //   .append("text")
+  //   .attr("x", labelArea / 2 + width)
+  //   .attr("y", function (d) {
+  //     return y(d) + y.bandwidth() / 2;
+  //   })
+  //   .attr("dy", ".20em")
+  //   .attr("text-anchor", "middle")
+  //   .attr("class", "name")
+  //   .text(String);
+
+  // var xTo = d3.scale
+  //   .linear()
+  //   .domain([0, d3.max(rightData)])
+  //   .range([0, width]);
+
+  // chart
+  //   .selectAll("text.score")
+  //   .data(rightData)
+  //   .enter()
+  //   .append("text")
+  //   .attr("x", function (d) {
+  //     return xTo(d) + rightOffset;
+  //   })
+  //   .attr("y", function (d, z) {
+  //     return y(z) + y.bandwidth() / 2;
+  //   })
+  //   .attr("dx", -5)
+  //   .attr("dy", ".36em")
+  //   .attr("text-anchor", "end")
+  //   .attr("class", "score")
+  //   .text(String);
 });
