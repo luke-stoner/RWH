@@ -13,9 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (destination.index === 0 || destination.index === 1) {
         const newsBar = document.getElementById("breaking-news");
         newsBar.style.visibility = "hidden";
-      }
-
-      if (destination.index !== 0 && destination.index !== 1) {
+      } else {
         const newsBar = document.getElementById("breaking-news");
         newsBar.style.visibility = "visible";
       }
