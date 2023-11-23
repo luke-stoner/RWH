@@ -1,5 +1,11 @@
 TweenMax.defaultEase = Linear.easeOut;
 
+// Hide the news bar to start
+const newsBar = document.getElementById("breaking-news");
+newsBar.style.visibility = "hidden";
+
+const video = document.getElementById("myVideo");
+
 document.addEventListener("DOMContentLoaded", function () {
   var fullPageInstance = new fullpage("#fullpage", {
     navigation: true,
@@ -11,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const tl = new TimelineMax({ delay: 0.1 });
       const newsBar = document.getElementById("breaking-news");
 
-      if (destination.index === 0 || destination.index === 1) {
+      if (destination.index === 0 || !video.ended) {
         newsBar.style.visibility = "hidden";
       } else {
         newsBar.style.visibility = "visible";
@@ -51,13 +57,12 @@ document.addEventListener("DOMContentLoaded", function () {
     function () {
       this.removeAttribute("controls");
       this.removeAttribute("data-autoplay");
-      this.pause();
       this.classList.add("video-fade-out");
 
       fullPageInstance.setAllowScrolling(true);
       fullPageInstance.setKeyboardScrolling(true);
       navBar.style.visibility = "visible";
-
+      newsBar.style.visibility = "visible";
     },
     false
   );
