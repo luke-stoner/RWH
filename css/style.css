@@ -22,7 +22,7 @@
 
 .hover-animate {
   animation: float 3s ease-in-out infinite;
-  display: inline-block; /* Ensures the transform applies correctly */
+  display: inline-block;
 }
 
 .delay-1 {
@@ -65,11 +65,11 @@ h1 {
   width: 100%;
   height: 100%;
   background-size: 100% 100%;
-  background-color: black; /* in case the video doesn't fit the whole page*/
+  background-color: black;
   background-position: center center;
   background-size: cover;
-  object-fit: cover; /*cover video background */
-  z-index: 3;
+  object-fit: cover;
+  z-index: 0;
 }
 
 /* Hiding video controls
@@ -314,3 +314,19 @@ video::-webkit-media-controls {
   animation: fadeIn 1s ease-in-out forwards;
   animation-delay: 12s;
 }
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.video-fade-out {
+  animation-name: fadeOut;
+  animation-duration: 2s; 
+  animation-fill-mode: forwards;
+}
+
+#website-title{
+  color: #000000;
+}
+

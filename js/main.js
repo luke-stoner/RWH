@@ -10,15 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
     onLeave: (origin, destination, direction) => {
       const tl = new TimelineMax({ delay: 0.1 });
       const newsBar = document.getElementById("breaking-news");
-      const navBar = document.getElementById("fp-nav");
-      navBar.style.visibility = "hidden";
 
       if (destination.index === 0 || destination.index === 1) {
         newsBar.style.visibility = "hidden";
-        navBar.style.visibility = "hidden";
       } else {
         newsBar.style.visibility = "visible";
-        navBar.style.visibility = "visible";
       }
 
       if (destination.index === 2) {
@@ -39,19 +35,32 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     },
   });
-    const navBar = document.getElementById("fp-nav");
-    navBar.style.visibility = "hidden";
+  const navBar = document.getElementById("fp-nav");
+  navBar.style.visibility = "hidden";
 
   fullPageInstance.setAllowScrolling(false);
   fullPageInstance.setKeyboardScrolling(false);
 
   function enableScrolling() {
-    fullPageInstance.setAllowScrolling(true);
-    fullPageInstance.setKeyboardScrolling(true);
     fullPageInstance.moveSectionDown();
   }
   const scrollButton = document.getElementById("accept-button");
   scrollButton.addEventListener("click", enableScrolling);
+  document.getElementById("myVideo").addEventListener(
+    "ended",
+    function () {
+      this.removeAttribute("controls");
+      this.removeAttribute("data-autoplay");
+      this.pause();
+      this.classList.add("video-fade-out");
+
+      fullPageInstance.setAllowScrolling(true);
+      fullPageInstance.setKeyboardScrolling(true);
+      navBar.style.visibility = "visible";
+
+    },
+    false
+  );
 });
 
 const REPUBLICAN_RED = "#C90A3D";
