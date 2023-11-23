@@ -53,10 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const navBar = document.getElementById("fp-nav");
   navBar.style.visibility = "hidden";
 
+  // Disable scrolling initially
   fullPageInstance.setAllowScrolling(false);
   fullPageInstance.setKeyboardScrolling(false);
 
-
+  // Event listeners to guide user through video playing process
   acceptButton.addEventListener("click", userAccepted);
   video.addEventListener("ended", videoEnded, false);
 
