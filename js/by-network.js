@@ -39,7 +39,7 @@ d3.csv("data/labeled.csv").then(function (data) {
     .append("svg")
     .attr("class", "chart")
     .attr("width", labelArea + width + width)
-    .attr("height", height);
+    .attr("height", height + 40); // Increased height to accommodate the legend
 
   // Scales
   const xFrom = d3
@@ -119,4 +119,39 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("text-anchor", "start")
     .attr("class", "score")
     .text((d) => `${(d * 100).toFixed(1)}%`);
+
+  // Define the legend data and labels
+  const legendData = [
+    { label: "Democrat", color: DEMOCRAT_BLUE },
+    { label: "Republican", color: REPUBLICAN_RED },
+  ];
+
+  // Create a group for the legend
+  const legend = chart
+    .append("g")
+    .attr("class", "legend")
+    .attr(
+      "transform",
+      `translate(${labelArea / 2 + width - 100}, ${height + 20})`
+    );
+
+  // Create legend rectangles and labels
+  legend
+    .selectAll("rect")
+    .data(legendData)
+    .enter()
+    .append("rect")
+    .attr("x", (d, i) => i * 115)
+    .attr("width", 20)
+    .attr("height", 20)
+    .attr("fill", (d) => d.color);
+
+  legend
+    .selectAll("text")
+    .data(legendData)
+    .enter()
+    .append("text")
+    .attr("x", (d, i) => i * 115 + 25)
+    .attr("y", 15)
+    .text((d) => d.label);
 });
