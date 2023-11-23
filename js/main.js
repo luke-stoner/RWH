@@ -12,6 +12,7 @@ newsBar.style.visibility = "hidden";
 
 const video = document.getElementById("myVideo");
 const acceptButton = document.getElementById("accept-button");
+const whiteHouse = document.getElementById("white-house");
 
 document.addEventListener("DOMContentLoaded", function () {
   var fullPageInstance = new fullpage("#fullpage", {
@@ -22,8 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     onLeave: (origin, destination, direction) => {
       const tl = new TimelineMax({ delay: 0.1 });
-      const newsBar = document.getElementById("breaking-news");
 
+      // Show/Hide breaking news bar
       if (destination.index === 0) {
         newsBar.style.visibility = "hidden";
       } else if (destination.index === 1 && !video.ended) {
@@ -33,10 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (destination.index === 2) {
-        const whiteHouse = document.getElementById("white-house");
         tl.fromTo(
           whiteHouse,
-          0.7,
+          1.2,
           { x: "100%", opacity: 0, scale: 0.5 },
           { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut }
         );
