@@ -39,13 +39,18 @@ d3.csv("data/labeled.csv").then(function (data) {
     .append("svg")
     .attr("class", "chart")
     .attr("width", labelArea + width + width)
-    .attr("height", height + 40); // Increased height to accommodate the legend
+    .attr("height", height + 40); 
 
   // Scales
   const xFrom = d3
     .scaleLinear()
     .domain([0, d3.max(democratSentiment)])
     .range([width, 0]);
+  
+  const xTo = d3
+    .scaleLinear()
+    .domain([0, d3.max(republicanSentiment)])
+    .range([0, width]);
 
   const y = d3.scaleBand().domain(networks).range([0, height]).padding(0.1);
 
@@ -88,11 +93,7 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("class", "name")
     .text((d) => d);
 
-  // Right bars scale
-  const xTo = d3
-    .scaleLinear()
-    .domain([0, d3.max(republicanSentiment)])
-    .range([0, width]);
+
 
   // Right bars
   chart
