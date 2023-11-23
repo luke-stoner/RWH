@@ -1,3 +1,9 @@
+// Constants
+const REPUBLICAN_RED = "#C90A3D";
+const DEMOCRAT_BLUE = "#5768AC";
+const INDEPENDENT_GRAY = "#808080";
+
+// Set default ease
 TweenMax.defaultEase = Linear.easeOut;
 
 // Hide the news bar to start
@@ -5,6 +11,7 @@ const newsBar = document.getElementById("breaking-news");
 newsBar.style.visibility = "hidden";
 
 const video = document.getElementById("myVideo");
+const acceptButton = document.getElementById("accept-button");
 
 document.addEventListener("DOMContentLoaded", function () {
   var fullPageInstance = new fullpage("#fullpage", {
@@ -41,33 +48,30 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     },
   });
+
+  // Start with navbar hidden
   const navBar = document.getElementById("fp-nav");
   navBar.style.visibility = "hidden";
 
   fullPageInstance.setAllowScrolling(false);
   fullPageInstance.setKeyboardScrolling(false);
 
-  function enableScrolling() {
+
+  acceptButton.addEventListener("click", userAccepted);
+  video.addEventListener("ended", videoEnded, false);
+
+  function userAccepted() {
     fullPageInstance.moveSectionDown();
   }
-  const scrollButton = document.getElementById("accept-button");
-  scrollButton.addEventListener("click", enableScrolling);
-  document.getElementById("myVideo").addEventListener(
-    "ended",
-    function () {
-      this.removeAttribute("controls");
-      this.removeAttribute("data-autoplay");
-      this.classList.add("video-fade-out");
 
-      fullPageInstance.setAllowScrolling(true);
-      fullPageInstance.setKeyboardScrolling(true);
-      navBar.style.visibility = "visible";
-      newsBar.style.visibility = "visible";
-    },
-    false
-  );
+  function videoEnded() {
+    this.removeAttribute("controls");
+    this.removeAttribute("data-autoplay");
+    this.classList.add("video-fade-out");
+
+    fullPageInstance.setAllowScrolling(true);
+    fullPageInstance.setKeyboardScrolling(true);
+    navBar.style.visibility = "visible";
+    newsBar.style.visibility = "visible";
+  }
 });
-
-const REPUBLICAN_RED = "#C90A3D";
-const DEMOCRAT_BLUE = "#5768AC";
-const INDEPENDENT_GRAY = "#808080";
