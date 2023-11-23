@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const tl = new TimelineMax({ delay: 0.1 });
       const newsBar = document.getElementById("breaking-news");
 
-      if (destination.index === 0 || !video.ended) {
+      if (destination.index === 0) {
+        newsBar.style.visibility = "hidden";
+      } else if (destination.index === 1 && !video.ended) {
         newsBar.style.visibility = "hidden";
       } else {
         newsBar.style.visibility = "visible";
