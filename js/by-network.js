@@ -1,71 +1,40 @@
-// 1. Load the CSV file
+// Load the CSV file
 d3.csv("data/labeled.csv").then(function (data) {
   // Extract unique network names and sort them
-  var networks = Array.from(new Set(data.map((d) => d.network))).sort(
+  const networks = Array.from(new Set(data.map((d) => d.network))).sort(
     d3.ascending
   );
 
   // Calculate average scores for each network and party
-  var avgScores = d3
+  const avgScores = d3
     .rollups(
       data,
       (v) => d3.mean(v, (d) => d.label),
       (d) => d.network,
       (d) => d.party
     )
-    .map(([network, partyData]) => {
-      return partyData.map(([party, avgScore]) => {
-        return { network, party, avgScore };
-      });
-    })
+    .map(([network, partyData]) =>
+      partyData.map(([party, avgScore]) => ({ network, party, avgScore }))
+    )
     .flat();
 
-  // Filter out separate datasets for Democrats and Republicans
-  var leftData = avgScores
+  // Extract avgScore values for Democrats and Republicans
+  const democratSentiment = avgScores
     .filter((d) => d.party === "D")
-    .map((d) => d.avgScore); // Extract avgScore values
-  var rightData = avgScores
+    .map((d) => d.avgScore);
+  const republicanSentiment = avgScores
     .filter((d) => d.party === "R")
-    .map((d) => d.avgScore); // Extract avgScore values
-
-  var names = networks;
-
-  // Random numbers generator
-  var randomNumbers = function () {
-    var numbers = [];
-    for (var i = 0; i < 20; i++) {
-      numbers.push(parseInt(Math.random() * 19) + 1);
-    }
-    return numbers;
-  };
-
-  // Random names generator
-  var randomNames = function () {
-    var names = [];
-    for (var i = 0; i < 20; i++) {
-      names.push(
-        String.fromCharCode(65 + Math.random() * 25) +
-          String.fromCharCode(65 + Math.random() * 25) +
-          String.fromCharCode(65 + Math.random() * 25)
-      );
-    }
-    return names;
-  };
-
-  // Generate data
-  var names = randomNames();
-  var leftData = randomNumbers();
-  var rightData = randomNumbers();
+    .map((d) => d.avgScore);
 
   // Chart dimensions
-  var labelArea = 160;
-  var width = 400;
-  var barHeight = 20;
-  var height = barHeight * names.length;
-  var rightOffset = width + labelArea;
+  const labelArea = 160;
+  const width = 400;
+  const barHeight = 20;
+  const height = barHeight * networks.length;
+  const rightOffset = width + labelArea;
 
   // Create the SVG container
-  var chart = d3
+  const chart = d3
     .select("#by-network")
     .append("svg")
     .attr("class", "chart")
@@ -73,42 +42,43 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("height", height);
 
   // Scales
-  var xFrom = d3
+  const xFrom = d3
     .scaleLinear()
-    .domain([0, d3.max(leftData)])
+    .domain([0, d3.max(democratSentiment)])
     .range([width, 0]);
 
-  var y = d3.scaleBand().domain(names).range([0, height]).padding(0.1);
+  const y = d3.scaleBand().domain(networks).range([0, height]).padding(0.1);
 
   // Left bars
   chart
     .selectAll("rect.left")
-    .data(leftData)
+    .data(democratSentiment)
     .enter()
     .append("rect")
     .attr("x", (d) => xFrom(d))
-    .attr("y", (d, i) => y(names[i]))
+    .attr("y", (d, i) => y(networks[i]))
     .attr("class", "left")
     .attr("width", (d) => width - xFrom(d))
-    .attr("height", y.bandwidth());
+    .attr("height", y.bandwidth())
+    .attr("fill", DEMOCRAT_BLUE);
 
   // Left labels
   chart
     .selectAll("text.leftscore")
-    .data(leftData)
+    .data(democratSentiment)
     .enter()
     .append("text")
     .attr("x", (d) => xFrom(d) - 5)
-    .attr("y", (d, i) => y(names[i]) + y.bandwidth() / 2)
+    .attr("y", (d, i) => y(networks[i]) + y.bandwidth() / 2)
     .attr("dy", ".35em")
     .attr("text-anchor", "end")
     .attr("class", "leftscore")
-    .text((d) => d);
+    .text((d) => `${(d * 100).toFixed(1)}%`);
 
   // Middle labels (names)
   chart
     .selectAll("text.name")
-    .data(names)
+    .data(networks)
     .enter()
     .append("text")
     .attr("x", labelArea / 2 + width)
@@ -119,33 +89,34 @@ d3.csv("data/labeled.csv").then(function (data) {
     .text((d) => d);
 
   // Right bars scale
-  var xTo = d3
+  const xTo = d3
     .scaleLinear()
-    .domain([0, d3.max(rightData)])
+    .domain([0, d3.max(republicanSentiment)])
     .range([0, width]);
 
   // Right bars
   chart
     .selectAll("rect.right")
-    .data(rightData)
+    .data(republicanSentiment)
     .enter()
     .append("rect")
     .attr("x", rightOffset)
-    .attr("y", (d, i) => y(names[i]))
+    .attr("y", (d, i) => y(networks[i]))
     .attr("class", "right")
     .attr("width", xTo)
-    .attr("height", y.bandwidth());
+    .attr("height", y.bandwidth())
+    .attr("fill", REPUBLICAN_RED);
 
   // Right labels
   chart
     .selectAll("text.score")
-    .data(rightData)
+    .data(republicanSentiment)
     .enter()
     .append("text")
     .attr("x", (d) => xTo(d) + rightOffset + 5)
-    .attr("y", (d, i) => y(names[i]) + y.bandwidth() / 2)
+    .attr("y", (d, i) => y(networks[i]) + y.bandwidth() / 2)
     .attr("dy", ".35em")
     .attr("text-anchor", "start")
     .attr("class", "score")
-    .text((d) => d);
+    .text((d) => `${(d * 100).toFixed(1)}%`);
 });
