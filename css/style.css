@@ -67,7 +67,7 @@ h1 {
   background-size: 100% 100%;
   background-color: black; /* in case the video doesn't fit the whole page*/
   background-position: center center;
-  background-size: contain;
+  background-size: cover;
   object-fit: cover; /*cover video background */
   z-index: 3;
 }
@@ -168,7 +168,9 @@ video::-webkit-media-controls {
 }
 
 #section-3 {
-  background-image: url(https://images.unsplash.com/photo-1510265382668-7b564935d7b5?q=80&w=3132&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-image: url(https://static01.nyt.com/images/2019/04/26/us/politics/25bidenrunsHFO1/25bidenrunsHFO1-videoSixteenByNine3000.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .underline {
@@ -310,5 +312,5 @@ video::-webkit-media-controls {
 #accept-button {
   opacity: 0;
   animation: fadeIn 1s ease-in-out forwards;
-  animation-delay: 12s; 
+  animation-delay: 12s;
 }

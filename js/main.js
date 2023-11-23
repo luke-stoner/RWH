@@ -9,13 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     onLeave: (origin, destination, direction) => {
       const tl = new TimelineMax({ delay: 0.1 });
+      const newsBar = document.getElementById("breaking-news");
+      const navBar = document.getElementById("fp-nav");
+      navBar.style.visibility = "hidden";
 
       if (destination.index === 0 || destination.index === 1) {
-        const newsBar = document.getElementById("breaking-news");
         newsBar.style.visibility = "hidden";
+        navBar.style.visibility = "hidden";
       } else {
-        const newsBar = document.getElementById("breaking-news");
         newsBar.style.visibility = "visible";
+        navBar.style.visibility = "visible";
       }
 
       if (destination.index === 2) {
@@ -36,6 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     },
   });
+    const navBar = document.getElementById("fp-nav");
+    navBar.style.visibility = "hidden";
 
   fullPageInstance.setAllowScrolling(false);
   fullPageInstance.setKeyboardScrolling(false);
