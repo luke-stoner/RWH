@@ -2,6 +2,11 @@
 const REPUBLICAN_RED = "#C90A3D";
 const DEMOCRAT_BLUE = "#5768AC";
 const INDEPENDENT_GRAY = "#808080";
+const PARTY_COLOR_MAP = {
+  R: REPUBLICAN_RED,
+  D: DEMOCRAT_BLUE,
+  I: INDEPENDENT_GRAY,
+};
 
 // Set default ease
 TweenMax.defaultEase = Linear.easeOut;
