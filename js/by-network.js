@@ -42,11 +42,12 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("height", height + 40); // Increased height to accommodate the legend
 
   // Scales
-  const xFrom = d3
-    .scaleLinear()
-    .domain([0, d3.max(democratSentiment)])
-    .range([width, 0]);
+  const maxDemocratScore = d3.max(democratSentiment);
+  const maxRepublicanScore = d3.max(republicanSentiment);
+  const maxScore = Math.max(maxDemocratScore, maxRepublicanScore);
 
+  const xFrom = d3.scaleLinear().domain([0, maxScore]).range([width, 0]);
+  const xTo = d3.scaleLinear().domain([0, maxScore]).range([0, width]);
   const y = d3.scaleBand().domain(networks).range([0, height]).padding(0.1);
 
   // Left bars
@@ -55,7 +56,7 @@ d3.csv("data/labeled.csv").then(function (data) {
     .data(democratSentiment)
     .enter()
     .append("rect")
-    .attr("x", (d) => xFrom(d))
+    .attr("x", function(pos) { return width - xFrom(pos); })
     .attr("y", (d, i) => y(networks[i]))
     .attr("class", "left")
     .attr("width", (d) => width - xFrom(d))
@@ -88,12 +89,6 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("class", "name")
     .text((d) => d);
 
-  // Right bars scale
-  const xTo = d3
-    .scaleLinear()
-    .domain([0, d3.max(republicanSentiment)])
-    .range([0, width]);
-
   // Right bars
   chart
     .selectAll("rect.right")
@@ -103,7 +98,7 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("x", rightOffset)
     .attr("y", (d, i) => y(networks[i]))
     .attr("class", "right")
-    .attr("width", xTo)
+    .attr("width", (d) => xTo(d)) // Corrected width calculation
     .attr("height", y.bandwidth())
     .attr("fill", REPUBLICAN_RED);
 
