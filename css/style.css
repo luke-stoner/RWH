@@ -362,3 +362,7 @@ video::-webkit-media-controls {
     transform: translateY(-10px);
   }
 }
+
+.noUi-connect {
+    background: darkgray !important;
+}
