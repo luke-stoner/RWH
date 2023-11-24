@@ -28,7 +28,10 @@ class ByNetworkVisual {
         max: this.maxDate,
       },
       tooltips: {
-        to: (value) => parseInt(value),
+        to: (value) => {
+          const date = new Date(parseInt(value));
+          return d3.timeFormat("%b %d, %Y")(date);
+        },
       },
     });
 
