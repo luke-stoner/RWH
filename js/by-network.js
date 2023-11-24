@@ -79,7 +79,8 @@ class ByNetworkVisual {
     this.labelArea = 160;
     this.width = 400;
     this.barHeight = 20;
-    this.height = this.barHeight * names.length;
+    this.legendAreaBuffer = 50;
+    this.height = this.barHeight * names.length + this.legendAreaBuffer;
     this.rightOffset = this.width + this.labelArea;
     this.leftPad = 25;
 
@@ -92,6 +93,7 @@ class ByNetworkVisual {
         .attr("class", "chart")
         .attr("width", this.labelArea + this.width + this.width)
         .attr("height", this.height);
+      this.addXAxisTitles();
     }
 
     // Scales
@@ -100,7 +102,11 @@ class ByNetworkVisual {
       .domain([0, d3.max(leftData)])
       .range([0, this.width]);
 
-    this.y = d3.scaleBand().domain(names).range([10, this.height]).padding(0.1);
+    this.y = d3
+      .scaleBand()
+      .domain(names)
+      .range([10, this.height - this.legendAreaBuffer])
+      .padding(0.1);
 
     this.xTo = d3
       .scaleLinear()
@@ -186,6 +192,27 @@ class ByNetworkVisual {
       .attr("text-anchor", "middle")
       .attr("class", "name")
       .text(String);
+  }
+  addXAxisTitles() {
+    // Add Democrat Title
+    this.chart
+      .append("text")
+      .attr("x", this.width / 2)
+      .attr("y", this.height - this.legendAreaBuffer / 2)
+      .attr("text-anchor", "middle")
+      .attr("class", "axis-title")
+      .style("font-weight", "bold") // Set the font-weight to bold
+      .text("Democrat");
+
+    // Add Republican Title
+    this.chart
+      .append("text")
+      .attr("x", this.rightOffset + this.width / 2)
+      .attr("y", this.height - this.legendAreaBuffer / 2)
+      .attr("text-anchor", "middle")
+      .attr("class", "axis-title")
+      .style("font-weight", "bold") 
+      .text("Republican");
   }
 }
 
