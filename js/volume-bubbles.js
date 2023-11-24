@@ -138,15 +138,23 @@ d3.csv("data/labeled.csv")
     ////ADDING LEGEND
     // Define the legend sizes
     // Calculate minimum, median, and maximum
+    function dynamicRound(value) {
+      if (value === 0) return 0;
+
+      let magnitude = Math.pow(10, Math.floor(Math.log10(Math.abs(value))));
+      let roundTo = magnitude / 10;
+
+      return Math.round(value / roundTo) * roundTo;
+    }
+
     var sortedData = data.map((d) => d.frequency).sort((a, b) => a - b);
 
-    var minSize = sortedData[0];
-    var medianSize = sortedData[Math.floor(sortedData.length / 2)];
-    var maxSize = sortedData[sortedData.length - 1];
+    var minSize = dynamicRound(sortedData[0]);
+    var medianSize = dynamicRound(
+      sortedData[Math.floor(sortedData.length / 2)]
+    );
+    var maxSize = dynamicRound(sortedData[sortedData.length - 1]);
 
-    // Update the legendSizes array
-    // Update the legendSizes array
-    // Update the legendSizes array
     var legendSizes = [minSize, medianSize, maxSize];
 
     // Adjust the sizeScale function if necessary
@@ -193,7 +201,7 @@ d3.csv("data/labeled.csv")
       .attr("x", maxLegendCircleSize)
       .attr("y", maxLegendCircleSize * 2 + 20) // Position below the circle
       .text(function (d) {
-        return `${d} mentions`;
+        return `${d.toLocaleString()} mentions`;
       })
       .attr("font-size", "12px")
       .attr("text-anchor", "middle"); // Center the text under the circle
