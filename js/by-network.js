@@ -26,83 +26,85 @@ d3.csv("data/labeled.csv").then(function (data) {
     .filter((d) => d.party === "R")
     .map((d) => d.avgScore);
 
-  // Chart dimensions
-  const labelArea = 160;
-  const width = 400;
-  const barHeight = 20;
-  const height = barHeight * networks.length;
-  const rightOffset = width + labelArea;
+  var names = networks;
+  var leftData = democratSentiment;
+  var rightData = republicanSentiment;
 
-  // Create the SVG container
-  const chart = d3
+  // Chart setup
+  var labelArea = 160;
+  var chart,
+    width = 400,
+    bar_height = 20,
+    height = bar_height * names.length;
+  var rightOffset = width + labelArea;
+  var leftPad = 25;
+
+  // Create SVG element in the specified div
+  var chart = d3
     .select("#by-network")
     .append("svg")
     .attr("class", "chart")
     .attr("width", labelArea + width + width)
-    .attr("height", height + 40); 
+    .attr("height", height);
 
   // Scales
-  const xFrom = d3
+  var xFrom = d3
     .scaleLinear()
-    .domain([0, d3.max(democratSentiment)])
-    .range([width, 0]);
-  
-  const xTo = d3
-    .scaleLinear()
-    .domain([0, d3.max(republicanSentiment)])
+    .domain([0, d3.max(leftData)])
     .range([0, width]);
 
-  const y = d3.scaleBand().domain(networks).range([0, height]).padding(0.1);
+  var y = d3.scaleBand().domain(names).range([10, height]).padding(0.1);
+
+  var xTo = d3
+    .scaleLinear()
+    .domain([0, d3.max(rightData)])
+    .range([0, width]);
 
   // Left bars
   chart
     .selectAll("rect.left")
-    .data(democratSentiment)
-    .enter()
-    .append("rect")
-    .attr("x", (d) => xFrom(d))
-    .attr("y", (d, i) => y(networks[i]))
+    .data(leftData)
+    .join("rect")
+    .attr("x", (d) => width - xFrom(d))
+    .attr("y", (d, i) => y(names[i]))
     .attr("class", "left")
-    .attr("width", (d) => width - xFrom(d))
+    .attr("width", xFrom)
     .attr("height", y.bandwidth())
     .attr("fill", DEMOCRAT_BLUE);
 
   // Left labels
   chart
     .selectAll("text.leftscore")
-    .data(democratSentiment)
-    .enter()
-    .append("text")
-    .attr("x", (d) => xFrom(d) - 5)
-    .attr("y", (d, i) => y(networks[i]) + y.bandwidth() / 2)
-    .attr("dy", ".35em")
+    .data(leftData)
+    .join("text")
+    .attr("x", (d) => width - xFrom(d) + leftPad)
+    .attr("y", (d, i) => y(names[i]) + y.bandwidth() / 2)
+    .attr("dx", "20")
+    .attr("dy", ".36em")
     .attr("text-anchor", "end")
     .attr("class", "leftscore")
-    .text((d) => `${(d * 100).toFixed(1)}%`);
+    .attr("fill", "#FFFFFF")
+    .text((d) => `${(d * 100).toFixed(0)}%`);
 
-  // Middle labels (names)
+  // Middle labels
   chart
     .selectAll("text.name")
-    .data(networks)
-    .enter()
-    .append("text")
+    .data(names)
+    .join("text")
     .attr("x", labelArea / 2 + width)
     .attr("y", (d) => y(d) + y.bandwidth() / 2)
-    .attr("dy", ".35em")
+    .attr("dy", ".20em")
     .attr("text-anchor", "middle")
     .attr("class", "name")
-    .text((d) => d);
-
-
+    .text(String);
 
   // Right bars
   chart
     .selectAll("rect.right")
-    .data(republicanSentiment)
-    .enter()
-    .append("rect")
+    .data(rightData)
+    .join("rect")
     .attr("x", rightOffset)
-    .attr("y", (d, i) => y(networks[i]))
+    .attr("y", (d, i) => y(names[i]))
     .attr("class", "right")
     .attr("width", xTo)
     .attr("height", y.bandwidth())
@@ -111,48 +113,14 @@ d3.csv("data/labeled.csv").then(function (data) {
   // Right labels
   chart
     .selectAll("text.score")
-    .data(republicanSentiment)
-    .enter()
-    .append("text")
-    .attr("x", (d) => xTo(d) + rightOffset + 5)
-    .attr("y", (d, i) => y(networks[i]) + y.bandwidth() / 2)
-    .attr("dy", ".35em")
-    .attr("text-anchor", "start")
+    .data(rightData)
+    .join("text")
+    .attr("x", (d) => xTo(d) + rightOffset)
+    .attr("y", (d, i) => y(names[i]) + y.bandwidth() / 2)
+    .attr("dx", -5)
+    .attr("dy", ".36em")
+    .attr("text-anchor", "end")
     .attr("class", "score")
-    .text((d) => `${(d * 100).toFixed(1)}%`);
-
-  // Define the legend data and labels
-  const legendData = [
-    { label: "Democrat", color: DEMOCRAT_BLUE },
-    { label: "Republican", color: REPUBLICAN_RED },
-  ];
-
-  // Create a group for the legend
-  const legend = chart
-    .append("g")
-    .attr("class", "legend")
-    .attr(
-      "transform",
-      `translate(${labelArea / 2 + width - 100}, ${height + 20})`
-    );
-
-  // Create legend rectangles and labels
-  legend
-    .selectAll("rect")
-    .data(legendData)
-    .enter()
-    .append("rect")
-    .attr("x", (d, i) => i * 115)
-    .attr("width", 20)
-    .attr("height", 20)
-    .attr("fill", (d) => d.color);
-
-  legend
-    .selectAll("text")
-    .data(legendData)
-    .enter()
-    .append("text")
-    .attr("x", (d, i) => i * 115 + 25)
-    .attr("y", 15)
-    .text((d) => d.label);
+    .attr("fill", "#FFFFFF")
+    .text((d) => `${(d * 100).toFixed(0)}%`);
 });

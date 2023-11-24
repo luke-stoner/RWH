@@ -135,9 +135,7 @@ d3.csv("data/labeled.csv")
         return 2 * d.r;
       });
 
-    ////ADDING LEGEND
-    // Define the legend sizes
-    // Calculate minimum, median, and maximum
+    // Add legend
     function dynamicRound(value) {
       if (value === 0) return 0;
 
