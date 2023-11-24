@@ -113,15 +113,10 @@ class ByNetworkVisual {
       .domain([0, d3.max(rightData)])
       .range([0, this.width]);
 
-    this.transition = d3.transition().duration(750); // Define a transition
+    this.transition = d3.transition().duration(750);
 
-    // Update Democrat Chart
     this.updateDemocrat(leftData, names);
-
-    // Update Y-axis Labels
     this.updateAxisLabels(names);
-
-    // Update Republican Chart
     this.updateRepublican(rightData, names);
   }
 
@@ -194,17 +189,15 @@ class ByNetworkVisual {
       .text(String);
   }
   addXAxisTitles() {
-    // Add Democrat Title
     this.chart
       .append("text")
       .attr("x", this.width / 2)
       .attr("y", this.height - this.legendAreaBuffer / 2)
       .attr("text-anchor", "middle")
       .attr("class", "axis-title")
-      .style("font-weight", "bold") // Set the font-weight to bold
+      .style("font-weight", "bold")
       .text("Democrat");
 
-    // Add Republican Title
     this.chart
       .append("text")
       .attr("x", this.rightOffset + this.width / 2)
