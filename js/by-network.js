@@ -1,11 +1,50 @@
-// Load the CSV file
-d3.csv("data/labeled.csv").then(function (data) {
-  // Extract unique network names and sort them
+function loadData() {
+  var slider = document.getElementById("slider");
+
+  d3.csv("data/labeled.csv", (row) => {
+    row.date = d3.timeParse("%Y%m%d")(row.date);
+    return row;
+  }).then((data) => {
+    let minDate = d3.min(data, (d) => d.date).getTime(); // Convert to timestamp
+    let maxDate = d3.max(data, (d) => d.date).getTime(); // Convert to timestamp
+
+    noUiSlider.create(slider, {
+      start: [minDate, maxDate],
+      connect: true,
+      behaviour: "drag",
+      step: 1,
+      range: {
+        min: minDate,
+        max: maxDate,
+      },
+      tooltips: {
+        to: function (value) {
+          return parseInt(value);
+        },
+      },
+    });
+
+    slider.noUiSlider.on("slide", function (values) {
+      let selectedMinYear = new Date(+values[0]);
+      let selectedMaxYear = new Date(+values[1]);
+
+      filteredData = data.filter(
+        (d) => d.date >= selectedMinYear && d.date <= selectedMaxYear
+      );
+
+      // Call the updateVisualization function with the filtered data
+      updateByNetwork(filteredData);
+    });
+
+    updateByNetwork(data);
+  });
+}
+
+function updateByNetwork(data) {
   const networks = Array.from(new Set(data.map((d) => d.network))).sort(
     d3.ascending
   );
 
-  // Calculate average scores for each network and party
   const avgScores = d3
     .rollups(
       data,
@@ -18,10 +57,10 @@ d3.csv("data/labeled.csv").then(function (data) {
     )
     .flat();
 
-  // Extract avgScore values for Democrats and Republicans
   const democratSentiment = avgScores
     .filter((d) => d.party === "D")
     .map((d) => d.avgScore);
+
   const republicanSentiment = avgScores
     .filter((d) => d.party === "R")
     .map((d) => d.avgScore);
@@ -35,17 +74,15 @@ d3.csv("data/labeled.csv").then(function (data) {
   var chart,
     width = 400,
     bar_height = 20,
-    height = bar_height * names.length;
+    height = 900;
   var rightOffset = width + labelArea;
   var leftPad = 25;
-
-  // Create SVG element in the specified div
   var chart = d3
     .select("#by-network")
     .append("svg")
     .attr("class", "chart")
     .attr("width", labelArea + width + width)
-    .attr("height", height);
+    .attr("height", 900);
 
   // Scales
   var xFrom = d3
@@ -60,7 +97,7 @@ d3.csv("data/labeled.csv").then(function (data) {
     .domain([0, d3.max(rightData)])
     .range([0, width]);
 
-  // Left bars
+  // Democrat bars
   chart
     .selectAll("rect.left")
     .data(leftData)
@@ -72,7 +109,7 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("height", y.bandwidth())
     .attr("fill", DEMOCRAT_BLUE);
 
-  // Left labels
+  // Democrat labels
   chart
     .selectAll("text.leftscore")
     .data(leftData)
@@ -86,7 +123,7 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("fill", "#FFFFFF")
     .text((d) => `${(d * 100).toFixed(0)}%`);
 
-  // Middle labels
+  // Y-axis Labels
   chart
     .selectAll("text.name")
     .data(names)
@@ -98,7 +135,7 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("class", "name")
     .text(String);
 
-  // Right bars
+  // Republican Bars
   chart
     .selectAll("rect.right")
     .data(rightData)
@@ -110,7 +147,7 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("height", y.bandwidth())
     .attr("fill", REPUBLICAN_RED);
 
-  // Right labels
+  // Republican Labels
   chart
     .selectAll("text.score")
     .data(rightData)
@@ -123,4 +160,6 @@ d3.csv("data/labeled.csv").then(function (data) {
     .attr("class", "score")
     .attr("fill", "#FFFFFF")
     .text((d) => `${(d * 100).toFixed(0)}%`);
-});
+}
+
+loadData();
