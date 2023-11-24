@@ -104,6 +104,8 @@ class ByNetworkVisual {
       .domain([0, d3.max(rightData)])
       .range([0, this.width]);
 
+    this.transition = d3.transition().duration(750); // Define a transition
+
     // Update Democrat Chart
     this.updateDemocrat(leftData, names);
 
@@ -119,6 +121,7 @@ class ByNetworkVisual {
       .selectAll("rect.right")
       .data(rightData)
       .join("rect")
+      .transition(this.transition)
       .attr("x", this.rightOffset)
       .attr("y", (d, i) => this.y(names[i]))
       .attr("class", "right")
@@ -130,6 +133,7 @@ class ByNetworkVisual {
       .selectAll("text.score")
       .data(rightData)
       .join("text")
+      .transition(this.transition)
       .attr("x", (d) => this.xTo(d) + this.rightOffset)
       .attr("y", (d, i) => this.y(names[i]) + this.y.bandwidth() / 2)
       .attr("dx", -5)
@@ -145,6 +149,7 @@ class ByNetworkVisual {
       .selectAll("rect.left")
       .data(leftData)
       .join("rect")
+      .transition(this.transition)
       .attr("x", (d) => this.width - this.xFrom(d))
       .attr("y", (d, i) => this.y(names[i]))
       .attr("class", "left")
@@ -156,6 +161,7 @@ class ByNetworkVisual {
       .selectAll("text.leftscore")
       .data(leftData)
       .join("text")
+      .transition(this.transition)
       .attr("x", (d) => this.width - this.xFrom(d) + this.leftPad)
       .attr("y", (d, i) => this.y(names[i]) + this.y.bandwidth() / 2)
       .attr("dx", "20")
@@ -170,6 +176,7 @@ class ByNetworkVisual {
       .selectAll("text.name")
       .data(names)
       .join("text")
+      .transition(this.transition)
       .attr("x", this.labelArea / 2 + this.width)
       .attr("y", (d) => this.y(d) + this.y.bandwidth() / 2)
       .attr("dy", ".20em")
