@@ -215,7 +215,37 @@
             ></div>
           </div>
         </div>
-        <div class="section">Slide 6 content goes here</div>
+
+        <div class="section" id="section-6">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-3 text-center"><h1>Average Sentiment By Candidate</h1></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8 text-center" id="candidate-sentiment-bars"></div>
+              <div class="col-md-4 text-center">
+                <div class="row">
+                  <div class="shadow p-3 mb-5 bg-white rounded col-md-12" id="avg-sentiment-info">
+                    <div class="switch-container">
+                      <label class="switch">
+                        <input type="checkbox" id="candidateToggle">
+                        <span class="slider round"></span>
+                      </label>
+                      <label for="candidateToggle" id="toggleLabel">Show Top 5 Candidates</label>
+                    </div>
+                    <h5 style="margin-top: 50%">
+                      Placeholder <br />
+                      Explination of sentiment stuff goes here
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="section">Slide 7 content goes here</div>
         <div class="section" id="section-7">
           <div class="container text-center" id="media-analysis">
@@ -322,5 +352,6 @@
     <script src="js/byNetwork.js"></script>
     <script src="js/candidates.js"></script>
     <script src="js/volume-bubbles.js"></script>
+    <script src="js/candidate-sentiment-bars.js"></script>
   </body>
 </html>

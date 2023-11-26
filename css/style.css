@@ -372,3 +372,18 @@ video::-webkit-media-controls {
 .noUi-connect {
   background: darkgray !important;
 }
+
+
+.switch-container {
+  display: flex;
+  align-items: center;
+}
+
+.switch {
+  /* Style for the switch */
+  margin-right: 10px; /* Spacing between switch and label */
+}
+
+#toggleLabel {
+  /* Style for the label text */
+}
