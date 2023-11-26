@@ -160,7 +160,8 @@ d3.csv("data/labeled.csv", row => {
 			.enter().append('path')
 			.attr('class', 'line')
 			.attr('d', d => line(d.values))
-			.style('stroke', (d, i) => d3.schemeCategory10[i]);
+			.style('stroke', (d, i) => d3.schemeCategory10[i])
+			.style('fill', 'none'); // Ensure that fill is set to none
 
 		// Update scales domain based on aggregatedData
 		xScale.domain([d3.min(aggregatedData, d => d3.min(d.values, v => v.date)), d3.max(aggregatedData, d => d3.max(d.values, v => v.date))]);
@@ -208,7 +209,9 @@ d3.csv("data/labeled.csv", row => {
 		// Update existing lines with transition
 		lines.transition().duration(500)
 			.attr('d', d => line(d.values))
-			.style('stroke', (d) => colorScale(d.candidate)); // Use color scale for line stroke
+			.style('stroke', (d) => colorScale(d.candidate)) // Use color scale for line stroke
+			.style('fill', 'none'); // Again, ensure that fill is set to none
+
 
 		// Append new lines with transition
 		lines.enter().append('path')
