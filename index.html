@@ -128,7 +128,17 @@
             <div class="row">
               <div class="shadow p-3 mb-5 bg-white rounded col-4">
                 <p>
-                  In the age of information, the volume of news available can be overwhelming, making it challenging for individuals to stay informed without feeling inundated. TV news, in particular, is a dynamic but fleeting medium, with crucial data and perspectives that can disappear into the ether if not captured and analyzed in a timely manner. Leveraging the vast dataset of nearly 3 million hours of U.S. local and national TV news from The Internet Archive, our website summarizes key events and narratives from the previous week using machine learning models for the purposes of comparing sentiment across news networks and sources.
+                  In the age of information, the volume of news available can be
+                  overwhelming, making it challenging for individuals to stay
+                  informed without feeling inundated. TV news, in particular, is
+                  a dynamic but fleeting medium, with crucial data and
+                  perspectives that can disappear into the ether if not captured
+                  and analyzed in a timely manner. Leveraging the vast dataset
+                  of nearly 3 million hours of U.S. local and national TV news
+                  from The Internet Archive, our website summarizes key events
+                  and narratives from the previous week using machine learning
+                  models for the purposes of comparing sentiment across news
+                  networks and sources.
                 </p>
               </div>
               <div class="col-md-8">
@@ -219,20 +229,30 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12">
-                <div class="col-3 text-center"><h1>Average Sentiment By Candidate</h1></div>
+                <div class="col-3 text-center">
+                  <h1>Average Sentiment By Candidate</h1>
+                </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-8 text-center" id="candidate-sentiment-bars"></div>
+              <div
+                class="col-md-8 text-center"
+                id="candidate-sentiment-bars"
+              ></div>
               <div class="col-md-4 text-center">
                 <div class="row">
-                  <div class="shadow p-3 mb-5 bg-white rounded col-md-12" id="avg-sentiment-info">
+                  <div
+                    class="shadow p-3 mb-5 bg-white rounded col-md-12"
+                    id="avg-sentiment-info"
+                  >
                     <div class="switch-container">
                       <label class="switch">
-                        <input type="checkbox" id="candidateToggle">
+                        <input type="checkbox" id="candidateToggle" />
                         <span class="slider round"></span>
                       </label>
-                      <label for="candidateToggle" id="toggleLabel">Show Top 5 Candidates</label>
+                      <label for="candidateToggle" id="toggleLabel"
+                        >Show Top 5 Candidates</label
+                      >
                     </div>
                     <h5 style="margin-top: 50%">
                       Placeholder <br />
@@ -249,15 +269,19 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12">
-                <div class="col-3 text-center"><h1>Sentiment By Frequency</h1></div>
+                <div class="col-3 text-center">
+                  <h1>Sentiment By Frequency</h1>
+                </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12 text-center" id="sentiment-by-frequency"></div>
+              <div
+                class="col-md-12 text-center"
+                id="sentiment-by-frequency"
+              ></div>
             </div>
           </div>
         </div>
-
 
         <div class="section" id="section-7">
           <div class="container text-center" id="media-analysis">
@@ -298,7 +322,53 @@
           </div>
         </div>
 
-        <div class="section">Slide 9 content goes here</div>
+        <div class="section" id="section-9">
+          <div class="container">
+            <div class="row"><h1>Coverage by Network</h1></div>
+            <div class="row">
+              <div class="col-6">
+                <div id="network-coverage"></div>
+              </div>
+              <div class="col-6">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01"
+                      >Network</label
+                    >
+                  </div>
+                  <select class="custom-select" id="inputGroupSelect01">
+                    <option selected value="FOXNEWSW">FOXNEWSW</option>
+                    <option value="CSPAN2">CSPAN2</option>
+                    <option value="CSPAN">CSPAN</option>
+                    <option value="FBC">FBC</option>
+                    <option value="CSPAN3">CSPAN3</option>
+                    <option value="CNNW">CNNW</option>
+                    <option value="BBCNEWS">BBCNEWS</option>
+                    <option value="KDTV">KDTV</option>
+                    <option value="MSNBCW">MSNBCW</option>
+                    <option value="KPIX">KPIX</option>
+                    <option value="KSTS">KSTS</option>
+                    <option value="KGO">KGO</option>
+                    <option value="DW">DW</option>
+                    <option value="KNTV">KNTV</option>
+                    <option value="ALJAZ">ALJAZ</option>
+                    <option value="RT">RT</option>
+                    <option value="LINKTV">LINKTV</option>
+                    <option value="KQED">KQED</option>
+                    <option value="CNBC">CNBC</option>
+                    <option value="KTVU">KTVU</option>
+                    <option value="GBN">GBN</option>
+                    <option value="KRON">KRON</option>
+                    <option value="BLOOMBERG">BLOOMBERG</option>
+                    <option value="ESPRESO">ESPRESO</option>
+                    <option value="SFGTV">SFGTV</option>
+                    <option value="COM">COM</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="section">Slide 10 content goes here</div>
         <div class="section">Slide 11 content goes here</div>
         <div class="section">Slide 12 content goes here</div>
@@ -362,6 +432,7 @@
     <script src="js/main.js"></script>
     <script src="js/team.js"></script>
     <script src="js/byNetwork.js"></script>
+    <script src="js/coloredNetwork.js"></script>
     <script src="js/candidates.js"></script>
     <script src="js/volume-bubbles.js"></script>
     <script src="js/candidate-sentiment-bars.js"></script>
