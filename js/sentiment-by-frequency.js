@@ -66,7 +66,7 @@ d3.csv("data/labeled.csv").then(rawData => {
             "translate(" + (effectiveWidth / 2) + " ," +
             (effectiveHeight + margin.bottom - 10) + ")")
         .style("text-anchor", "middle")
-        .text("Frequency");
+        .text("Number of Mentions");
 
     // Add Y Axis label
     svg.append("text")
