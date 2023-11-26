@@ -265,6 +265,7 @@
           </div>
         </div>
 
+<<<<<<< Updated upstream
         <div class="section" id="section-scatterplot">
           <div class="container">
             <div class="row">
@@ -283,7 +284,53 @@
           </div>
         </div>
 
+=======
+        <!--Line Graph (change over time)-->
+>>>>>>> Stashed changes
         <div class="section" id="section-7">
+          <h1>Changing Winds</h1>
+          <h2>How has candidate coverage changed over time?</h2>
+
+          <div class="row">
+            <div class="col-auto">
+              <div class="form-group">
+                <!-- Select box to choose the ranking type -->
+                <select class="form-control" id="line-stat-selection">
+                  <option value="volume">Number of Mentions</option>
+                  <option value="sentiment">Average Sentiment Score</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div id="slider-container">
+                <div id="slider-range"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-auto">
+              <div id="line-chart-area"></div>
+            </div>
+            <div class="col-auto">
+              <h3>Candidates</h3>
+              <div id="checkboxes">
+                <label><input type="checkbox" id="Biden" checked> Joe Biden</label><br>
+                <label><input type="checkbox" id="Christie" checked> Chris Christie</label><br>
+                <label><input type="checkbox" id="DeSantis" checked> Ron DeSantis</label><br>
+                <label><input type="checkbox" id="Haley" checked> Nikki Haley</label><br>
+                <label><input type="checkbox" id="Kennedy" checked> Robert Kennedy</label><br>
+                <label><input type="checkbox" id="Pence" checked> Mike Pence</label><br>
+                <label><input type="checkbox" id="Ramaswamy" checked> Vivek Ramaswamy</label><br>
+                <label><input type="checkbox" id="Scott" checked> Tim Scott</label><br>
+                <label><input type="checkbox" id="Trump" checked> Donald Trump</label><br>
+                <label><input type="checkbox" id="Williamson" checked> Marianne Williamson</label><br>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" id="section-8">
           <div class="container text-center" id="media-analysis">
             <h1>The Media</h1>
             <p>
@@ -301,7 +348,7 @@
           </div>
         </div>
 
-        <div class="section" id="section-8">
+        <div class="section" id="section-9">
           <div class="container">
             <div class="row">
               <div class="col-md-12 text-center" style="margin-bottom: 50px">
@@ -428,6 +475,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
     <!--Internal Scripts-->
     <script src="js/main.js"></script>
     <script src="js/team.js"></script>
@@ -436,6 +484,10 @@
     <script src="js/candidates.js"></script>
     <script src="js/volume-bubbles.js"></script>
     <script src="js/candidate-sentiment-bars.js"></script>
+<<<<<<< Updated upstream
     <script src="js/sentiment-by-frequency.js"></script>
+=======
+    <script src="js/line-chart.js"></script>
+>>>>>>> Stashed changes
   </body>
 </html>
