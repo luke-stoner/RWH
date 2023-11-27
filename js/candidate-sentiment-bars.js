@@ -21,6 +21,8 @@ class SentimentChart {
   }
 
   updateChart(data) {
+    const TRANSITION_DURATION = 750; // Transition duration in milliseconds
+
     // Clear existing chart elements
     this.svg.selectAll("*").remove();
 
@@ -40,45 +42,58 @@ class SentimentChart {
       .style("text-anchor", "end")
       .style("font-size", "16px");
 
-    // Add bars
-    this.svg
+    // Add bars with transition
+    const bars = this.svg
       .selectAll("myRect")
       .data(data)
       .enter()
       .append("rect")
       .attr("x", this.x(0))
       .attr("y", (d) => this.y(d.name))
-      .attr("width", (d) => this.x(d.avg_sentiment))
       .attr("height", this.y.bandwidth())
       .attr("fill", (d) => (d.party === "R" ? REPUBLICAN_RED : DEMOCRAT_BLUE));
 
-    // Add bar extensions
-    this.svg
+    bars
+      .transition()
+      .duration(TRANSITION_DURATION)
+      .attr("width", (d) => this.x(d.avg_sentiment));
+
+    // Add bar extensions with transition
+    const barExtensions = this.svg
       .selectAll("barExtensions")
       .data(data)
       .enter()
       .append("rect")
       .attr("x", this.x(0) - this.y.bandwidth() / 2)
       .attr("y", (d) => this.y(d.name))
-      .attr("width", this.y.bandwidth())
       .attr("height", this.y.bandwidth())
       .attr("fill", (d) => (d.party === "R" ? REPUBLICAN_RED : DEMOCRAT_BLUE));
 
-    // Add background circles
-    this.svg
+    barExtensions
+      .transition()
+      .duration(TRANSITION_DURATION)
+      .attr("width", this.y.bandwidth());
+
+    // Add background circles with transition
+    const backgroundCircles = this.svg
       .selectAll("backgroundCircles")
       .data(data)
       .enter()
       .append("circle")
       .attr("cx", this.x(0) - this.y.bandwidth() / 2)
       .attr("cy", (d) => this.y(d.name) + this.y.bandwidth() / 2)
-      .attr("r", this.y.bandwidth() / 2)
+      .attr("r", 0)
       .attr("fill", "white")
       .attr("stroke", (d) => (d.party === "R" ? REPUBLICAN_RED : DEMOCRAT_BLUE))
       .attr("stroke-width", 3);
 
-    // Add images
-    this.svg
+    backgroundCircles
+      .transition()
+      .duration(TRANSITION_DURATION)
+      .attr("r", this.y.bandwidth() / 2);
+
+    // Add images with transition
+    const images = this.svg
       .selectAll("candidateImages")
       .data(data)
       .enter()
@@ -86,9 +101,15 @@ class SentimentChart {
       .attr("xlink:href", (d) => d.photo)
       .attr("x", this.x(0) - this.y.bandwidth())
       .attr("y", (d) => this.y(d.name))
-      .attr("height", this.y.bandwidth())
-      .attr("width", this.y.bandwidth())
+      .attr("height", 0)
+      .attr("width", 0)
       .attr("clip-path", "circle()");
+
+    images
+      .transition()
+      .duration(TRANSITION_DURATION)
+      .attr("height", this.y.bandwidth())
+      .attr("width", this.y.bandwidth());
   }
 
   loadData(dataUrl, filterFunction) {
