@@ -57,6 +57,10 @@ h1 {
   font-family: "cnn-font", sans-serif;
 }
 
+h2 h3 {
+  font-family: "Roboto", bold;
+}
+
 #myVideo {
   position: absolute;
   right: 0;
