@@ -312,16 +312,44 @@
             <div class="col-auto">
               <h3>Candidates</h3>
               <div id="checkboxes">
-                <label><input type="checkbox" id="Biden" checked> Joe Biden</label><br>
-                <label><input type="checkbox" id="Christie" checked> Chris Christie</label><br>
-                <label><input type="checkbox" id="DeSantis" checked> Ron DeSantis</label><br>
-                <label><input type="checkbox" id="Haley" checked> Nikki Haley</label><br>
-                <label><input type="checkbox" id="Kennedy" checked> Robert Kennedy</label><br>
-                <label><input type="checkbox" id="Pence" checked> Mike Pence</label><br>
-                <label><input type="checkbox" id="Ramaswamy" checked> Vivek Ramaswamy</label><br>
-                <label><input type="checkbox" id="Scott" checked> Tim Scott</label><br>
-                <label><input type="checkbox" id="Trump" checked> Donald Trump</label><br>
-                <label><input type="checkbox" id="Williamson" checked> Marianne Williamson</label><br>
+                <label
+                  ><input type="checkbox" id="Biden" checked /> Joe Biden</label
+                ><br />
+                <label
+                  ><input type="checkbox" id="Christie" checked /> Chris
+                  Christie</label
+                ><br />
+                <label
+                  ><input type="checkbox" id="DeSantis" checked /> Ron
+                  DeSantis</label
+                ><br />
+                <label
+                  ><input type="checkbox" id="Haley" checked /> Nikki
+                  Haley</label
+                ><br />
+                <label
+                  ><input type="checkbox" id="Kennedy" checked /> Robert
+                  Kennedy</label
+                ><br />
+                <label
+                  ><input type="checkbox" id="Pence" checked /> Mike
+                  Pence</label
+                ><br />
+                <label
+                  ><input type="checkbox" id="Ramaswamy" checked /> Vivek
+                  Ramaswamy</label
+                ><br />
+                <label
+                  ><input type="checkbox" id="Scott" checked /> Tim Scott</label
+                ><br />
+                <label
+                  ><input type="checkbox" id="Trump" checked /> Donald
+                  Trump</label
+                ><br />
+                <label
+                  ><input type="checkbox" id="Williamson" checked /> Marianne
+                  Williamson</label
+                ><br />
               </div>
             </div>
           </div>
@@ -367,52 +395,22 @@
         </div>
 
         <div class="section" id="section-9">
-          <div class="container">
-            <div class="row"><h1>Coverage by Network</h1></div>
+          <div class="container text-center">
             <div class="row">
-              <div class="col-6">
+              <h1>Coverage by Network</h1>
+              <p>
+                Is there an equal distribution of network coverage among all
+                parties?
+              </p>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mx-auto">
                 <div id="network-coverage"></div>
-              </div>
-              <div class="col-6">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01"
-                      >Network</label
-                    >
-                  </div>
-                  <select class="custom-select" id="inputGroupSelect01">
-                    <option selected value="FOXNEWSW">FOXNEWSW</option>
-                    <option value="CSPAN2">CSPAN2</option>
-                    <option value="CSPAN">CSPAN</option>
-                    <option value="FBC">FBC</option>
-                    <option value="CSPAN3">CSPAN3</option>
-                    <option value="CNNW">CNNW</option>
-                    <option value="BBCNEWS">BBCNEWS</option>
-                    <option value="KDTV">KDTV</option>
-                    <option value="MSNBCW">MSNBCW</option>
-                    <option value="KPIX">KPIX</option>
-                    <option value="KSTS">KSTS</option>
-                    <option value="KGO">KGO</option>
-                    <option value="DW">DW</option>
-                    <option value="KNTV">KNTV</option>
-                    <option value="ALJAZ">ALJAZ</option>
-                    <option value="RT">RT</option>
-                    <option value="LINKTV">LINKTV</option>
-                    <option value="KQED">KQED</option>
-                    <option value="CNBC">CNBC</option>
-                    <option value="KTVU">KTVU</option>
-                    <option value="GBN">GBN</option>
-                    <option value="KRON">KRON</option>
-                    <option value="BLOOMBERG">BLOOMBERG</option>
-                    <option value="ESPRESO">ESPRESO</option>
-                    <option value="SFGTV">SFGTV</option>
-                    <option value="COM">COM</option>
-                  </select>
-                </div>
               </div>
             </div>
           </div>
         </div>
+
         <div class="section">Slide 10 content goes here</div>
         <div class="section">Slide 11 content goes here</div>
         <div class="section">Slide 12 content goes here</div>
@@ -429,16 +427,14 @@
               <div class="col-md-4 text-center">
                 <div class="row">
                   <div class="col-md-12" id="event-settings">
-                    <h3>
-                     Settings
-                    </h3>
-                    <div class=row-12 id="dropdown-yAxis">
+                    <h3>Settings</h3>
+                    <div class="row-12" id="dropdown-yAxis">
                       <select id="yMenu">
                         <option value="avg_sentiment">Average Sentiment</option>
                         <option value="frequency"># of mentions</option>
                       </select>
                     </div>
-                    <div class=row-12 id="dropdown-event">
+                    <div class="row-12" id="dropdown-event">
                       <select id="eventMenu">
                         <option value="event_1">Placeholder event #1</option>
                         <option value="event_2">Placeholder event #2</option>

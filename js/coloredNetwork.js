@@ -1,11 +1,11 @@
 class NetworkCoverage {
-  static DEFAULT_NETWORK = "FOXNEWSW";
-  static FONT_SIZE = "16px";
+  static FONT_SIZE = "2em"; // Increase the font size
+  static NETWORKS = ["FOXNEWSW", "CSPAN", "MSNBCW", "CNNW"]; // Fixed networks list
 
   constructor(selector, dataPath) {
     this.selector = selector;
     this.dataPath = dataPath;
-    this.gridSize = 80;
+    this.gridSize = 200; // Decreased grid size
     this.margin = { top: 20, right: 20, bottom: 20, left: 20 };
     this.svg = null;
     this.defs = null; // For gradient definitions
@@ -22,10 +22,10 @@ class NetworkCoverage {
       .catch((error) => console.error("Error loading data:", error));
   }
 
-  // Update the visualization with selected or default network
-  updateVisualization(selectedNetwork = NetworkCoverage.DEFAULT_NETWORK) {
+  // Update the visualization for specified networks
+  updateVisualization() {
     this.clearVisualization();
-    let filteredData = this.filterDataByNetwork(selectedNetwork);
+    let filteredData = this.filterDataByNetworks(NetworkCoverage.NETWORKS);
     let networkPercentages = this.calculatePercentages(filteredData);
     this.setupSVG(networkPercentages.length);
     this.createGrid(networkPercentages);
@@ -36,9 +36,9 @@ class NetworkCoverage {
     d3.select(this.selector).select("svg").remove();
   }
 
-  // Filter data by network
-  filterDataByNetwork(network) {
-    return this.allData.filter((d) => d.network === network);
+  // Filter data for specific networks
+  filterDataByNetworks(networks) {
+    return this.allData.filter((d) => networks.includes(d.network));
   }
 
   // Filter data by party
@@ -58,10 +58,15 @@ class NetworkCoverage {
     }));
   }
 
-  // Setup SVG element
-  setupSVG(length) {
-    const width = this.gridSize * length + this.margin.left + this.margin.right;
-    const height = this.gridSize + this.margin.top + this.margin.bottom;
+  // Setup SVG element adjusted for 2x2 grid
+  setupSVG() {
+    const numRows = 2;
+    const numCols = 2;
+    const width =
+      this.gridSize * numCols + this.margin.left + this.margin.right;
+    const height =
+      this.gridSize * numRows + this.margin.top + this.margin.bottom;
+
     this.svg = d3
       .select(this.selector)
       .append("svg")
@@ -88,13 +93,16 @@ class NetworkCoverage {
 
     gradient
       .append("stop")
-      .attr("offset", `${democratPercentage}%`)
-      .attr("stop-color", REPUBLICAN_RED);
+      .attr("offset", `${republicanPercentage}%`)
+      .attr("stop-color", REPUBLICAN_RED); // REPUBLICAN_RED
   }
 
-  // Create grid cells with gradient-filled text
+  // Create grid cells with gradient-filled text for 2x2 layout
   createGrid(networkPercentages) {
     networkPercentages.forEach((networkData, i) => {
+      let col = i % 2; // Column: 0 or 1
+      let row = Math.floor(i / 2); // Row: 0 or 1
+
       // Create gradient for each network
       let gradientId = `gradient-${networkData.network}`;
       this.createGradient(
@@ -106,14 +114,18 @@ class NetworkCoverage {
       let cell = this.svg
         .append("g")
         .attr("class", "cell")
-        .attr("transform", `translate(${i * this.gridSize}, 0)`);
+        .attr(
+          "transform",
+          `translate(${col * this.gridSize}, ${row * this.gridSize})`
+        );
 
       cell
         .append("text")
         .attr("x", this.gridSize / 2)
-        .attr("y", 20)
+        .attr("y", this.gridSize / 2) // Centered vertically within the cell
         .attr("text-anchor", "middle")
         .style("font-size", NetworkCoverage.FONT_SIZE)
+        .style("font-weight", "bold") // Set font-weight to bold
         .attr("fill", `url(#${gradientId})`)
         .text(networkData.network);
     });
@@ -125,10 +137,4 @@ const networkCoverage = new NetworkCoverage(
   "#network-coverage",
   "data/labeled.csv"
 );
-networkCoverage.loadData();
-
-// Dropdown event listener
-d3.select("#inputGroupSelect01").on("change", function () {
-  const selectedNetwork = d3.select(this).property("value");
-  networkCoverage.updateVisualization(selectedNetwork);
-});
+networkCoverage.loadData(); // This will now load and display the specified networks in a 2x2 grid
