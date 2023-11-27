@@ -25,7 +25,7 @@ function updateChart(data, svg, x, y, height) {
         .attr("y", d => y(d.name))
         .attr("width", d => x(d.avg_sentiment))
         .attr("height", y.bandwidth())
-        .attr("fill", d => d.party === "R" ? "#c93235" : "#1475b7");
+        .attr("fill", d => d.party === "R" ? REPUBLICAN_RED : DEMOCRAT_BLUE);
 
     // Add bar extensions
     svg.selectAll("barExtensions")
@@ -36,7 +36,7 @@ function updateChart(data, svg, x, y, height) {
         .attr("y", d => y(d.name))
         .attr("width", y.bandwidth())
         .attr("height", y.bandwidth())
-        .attr("fill", d => d.party === "R" ? "#c93235" : "#1475b7");
+        .attr("fill", d => d.party === "R" ? REPUBLICAN_RED : DEMOCRAT_BLUE);
 
     // Add background circles
     svg.selectAll("backgroundCircles")
@@ -47,7 +47,7 @@ function updateChart(data, svg, x, y, height) {
         .attr("cy", d => y(d.name) + y.bandwidth() / 2)
         .attr("r", y.bandwidth() / 2)
         .attr("fill", "white")
-        .attr("stroke", d => d.party === "R" ? "#c93235" : "#1475b7")
+        .attr("stroke", d => d.party === "R" ? REPUBLICAN_RED : DEMOCRAT_BLUE)
         .attr("stroke-width", 3);
 
     // Add images
