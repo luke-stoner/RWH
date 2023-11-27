@@ -285,71 +285,73 @@
 
         <!--Line Graph (change over time)-->
         <div class="section" id="section-7">
-          <h1>Changing Winds</h1>
-          <h2>How has candidate coverage changed over time?</h2>
+          <div class="container text-center" id="line-chart">
+            <h1>Changing Winds</h1>
+            <h2>How has candidate coverage changed over time?</h2>
 
-          <div class="row">
-            <div class="col-auto">
-              <div class="form-group">
-                <!-- Select box to choose the ranking type -->
-                <select class="form-control" id="line-stat-selection">
-                  <option value="volume">Number of Mentions</option>
-                  <option value="sentiment">Average Sentiment Score</option>
-                </select>
+            <div class="row">
+              <div class="col-auto">
+                <div class="form-group">
+                  <!-- Select box to choose the ranking type -->
+                  <select class="form-control" id="line-stat-selection">
+                    <option value="volume">Number of Mentions</option>
+                    <option value="sentiment">Average Sentiment Score</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div id="slider-container">
+                  <div id="slider-range"></div>
+                </div>
               </div>
             </div>
-            <div class="col-auto">
-              <div id="slider-container">
-                <div id="slider-range"></div>
-              </div>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-auto">
-              <div id="line-chart-area"></div>
-            </div>
-            <div class="col-auto">
-              <h3>Candidates</h3>
-              <div id="checkboxes">
-                <label
-                  ><input type="checkbox" id="Biden" checked /> Joe Biden</label
-                ><br />
-                <label
-                  ><input type="checkbox" id="Christie" checked /> Chris
-                  Christie</label
-                ><br />
-                <label
-                  ><input type="checkbox" id="DeSantis" checked /> Ron
-                  DeSantis</label
-                ><br />
-                <label
-                  ><input type="checkbox" id="Haley" checked /> Nikki
-                  Haley</label
-                ><br />
-                <label
-                  ><input type="checkbox" id="Kennedy" checked /> Robert
-                  Kennedy</label
-                ><br />
-                <label
-                  ><input type="checkbox" id="Pence" checked /> Mike
-                  Pence</label
-                ><br />
-                <label
-                  ><input type="checkbox" id="Ramaswamy" checked /> Vivek
-                  Ramaswamy</label
-                ><br />
-                <label
-                  ><input type="checkbox" id="Scott" checked /> Tim Scott</label
-                ><br />
-                <label
-                  ><input type="checkbox" id="Trump" checked /> Donald
-                  Trump</label
-                ><br />
-                <label
-                  ><input type="checkbox" id="Williamson" checked /> Marianne
-                  Williamson</label
-                ><br />
+            <div class="row">
+              <div class="col-auto">
+                <div id="line-chart-area"></div>
+              </div>
+              <div class="col-auto" style="text-align: left;">
+                <h3>Candidates</h3>
+                <div id="checkboxes">
+                  <label
+                    ><input type="checkbox" id="Biden" checked /> Joe Biden</label
+                  ><br />
+                  <label
+                    ><input type="checkbox" id="Christie"/> Chris
+                    Christie</label
+                  ><br />
+                  <label
+                    ><input type="checkbox" id="DeSantis" checked /> Ron
+                    DeSantis</label
+                  ><br />
+                  <label
+                    ><input type="checkbox" id="Haley" checked /> Nikki
+                    Haley</label
+                  ><br />
+                  <label
+                    ><input type="checkbox" id="Kennedy"/> Robert
+                    Kennedy</label
+                  ><br />
+                  <label
+                    ><input type="checkbox" id="Pence"/> Mike
+                    Pence</label
+                  ><br />
+                  <label
+                    ><input type="checkbox" id="Ramaswamy" checked /> Vivek
+                    Ramaswamy</label
+                  ><br />
+                  <label
+                    ><input type="checkbox" id="Scott"/> Tim Scott</label
+                  ><br />
+                  <label
+                    ><input type="checkbox" id="Trump" checked /> Donald
+                    Trump</label
+                  ><br />
+                  <label
+                    ><input type="checkbox" id="Williamson"/> Marianne
+                    Williamson</label
+                  ><br />
+                </div>
               </div>
             </div>
           </div>

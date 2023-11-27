@@ -2,7 +2,7 @@
 let margin = {top: 40, right: 40, bottom: 60, left: 60};
 
 let width = 900 - margin.left - margin.right;
-let height = 600 - margin.top - margin.bottom;
+let height = 500 - margin.top - margin.bottom;
 
 // initialize svg drawing space
 let svg = d3.select("#line-chart-area").append("svg")
@@ -161,6 +161,7 @@ d3.csv("data/labeled.csv", row => {
 			.attr('class', 'line')
 			.attr('d', d => line(d.values))
 			.style('stroke', (d, i) => d3.schemeCategory10[i])
+			.style('stroke-width', 3)
 			.style('fill', 'none'); // Ensure that fill is set to none
 
 		// Update scales domain based on aggregatedData
@@ -195,7 +196,7 @@ d3.csv("data/labeled.csv", row => {
 			.attr('class', 'datapoint')
 			.attr('cx', d => xScale(d.date))
 			.attr('cy', d => yScale(d.label))
-			.attr('r', 3)
+			.attr('r', 4)
 			.style('fill', 'white') // Filling circles with white color
 			.style('stroke', 'grey') // Adding black stroke
 			.style('stroke-width', 1); // Adjusting stroke width as needed
@@ -210,6 +211,7 @@ d3.csv("data/labeled.csv", row => {
 		lines.transition().duration(500)
 			.attr('d', d => line(d.values))
 			.style('stroke', (d) => colorScale(d.candidate)) // Use color scale for line stroke
+			.style('stroke-width', 3) // Adjusting stroke width as needed
 			.style('fill', 'none'); // Again, ensure that fill is set to none
 
 
@@ -218,6 +220,7 @@ d3.csv("data/labeled.csv", row => {
 			.attr('class', 'line')
 			.attr('d', d => line(d.values))
 			.style('stroke', (d) => colorScale(d.candidate)) // Use color scale for line stroke
+			.style('stroke-width', 3)
 			.style('opacity', 0)
 			.transition().duration(500)
 			.style('opacity', 1);
