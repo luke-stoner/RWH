@@ -73,9 +73,10 @@ class CandidateVisualization {
       .enter()
       .append("g");
 
+    // Add a white circle behind the candidate's image
     this.circles
       .append("circle")
-      .attr("class", "candidate-circle")
+      .attr("class", "candidate-white-circle")
       .attr(
         "cx",
         (d, i) =>
@@ -89,10 +90,9 @@ class CandidateVisualization {
           this.circleRadius
       )
       .attr("r", this.circleRadius)
-      .attr("fill", (d) => this.partyColors[d.party])
-      .attr("filter", "url(#drop-shadow)");
+      .attr("fill", "white");
 
-    // Append images inside the circles
+    // Add the image inside the white circle
     this.circles
       .append("image")
       .attr("xlink:href", (d) => d.image)
@@ -137,29 +137,11 @@ class CandidateVisualization {
       .attr("fill", "black")
       .style("user-select", "none");
 
-    // Shadows for circles
-    const filter = this.svg
-      .append("defs")
-      .append("filter")
-      .attr("id", "drop-shadow")
-      .attr("height", "130%");
-
-    filter
-      .append("feGaussianBlur")
-      .attr("in", "SourceAlpha")
-      .attr("stdDeviation", 5)
-      .attr("result", "blur");
-
-    filter
-      .append("feOffset")
-      .attr("in", "blur")
-      .attr("dx", 3)
-      .attr("dy", 3)
-      .attr("result", "offsetBlur");
-
-    const feMerge = filter.append("feMerge");
-    feMerge.append("feMergeNode").attr("in", "offsetBlur");
-    feMerge.append("feMergeNode").attr("in", "SourceGraphic");
+    // Add the party color outline to the white circle
+    this.circles
+      .select("circle.candidate-white-circle")
+      .attr("stroke", (d) => this.partyColors[d.party])
+      .attr("stroke-width", 4);
   }
 
   createLegend() {
