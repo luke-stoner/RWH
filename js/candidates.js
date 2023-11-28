@@ -39,7 +39,6 @@ class CandidateVisualization {
     };
 
     this.initializeSVG();
-    this.initializeTooltip();
     this.createCandidateCircles();
     this.createLegend();
   }
@@ -67,35 +66,12 @@ class CandidateVisualization {
       .attr("class", "candidate-svg");
   }
 
-  initializeTooltip() {
-    this.tooltip = d3
-      .select("body")
-      .append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 50)
-      .style("position", "absolute")
-      .style("background-color", "rgba(255, 255, 255, 0.8)")
-      .style("border", "solid")
-      .style("border-width", "2px")
-      .style("border-radius", "5px")
-      .style("padding", "5px");
-  }
-
   createCandidateCircles() {
     this.circles = this.svg
       .selectAll("g")
       .data(this.candidates)
       .enter()
-      .append("g")
-      .on("mouseover", (event, candidate) =>
-        this.handleCircleMouseOver(event, candidate)
-      )
-      .on("mousemove", (event) => {
-        this.tooltip
-          .style("left", event.pageX + 10 + "px")
-          .style("top", event.pageY + 10 + "px");
-      })
-      .on("mouseout", (element) => this.handleCircleMouseOut(element));
+      .append("g");
 
     this.circles
       .append("circle")
@@ -216,49 +192,6 @@ class CandidateVisualization {
       .attr("x", 20)
       .attr("y", 12)
       .attr("alignment-baseline", "middle");
-  }
-
-  handleCircleMouseOver(event, candidate) {
-    d3.select(event.target)
-      .select(".candidate-circle")
-      .transition()
-      .duration(200)
-      .attr("r", this.circleRadius + 5);
-    d3.select(event.target)
-      .select(".candidate-label")
-      .classed("hovered-text", true);
-
-    this.tooltip.transition().duration(200).style("opacity", 1);
-
-    this.tooltip
-      .html(
-        `<strong>${candidate.first} ${candidate.last}</strong><br>Party: ${
-          candidate.party
-        }<br>State: ${candidate.state}<br>Age: ${candidate.calculateAge()}`
-      )
-      .style("left", event.pageX + 10 + "px")
-      .style("top", event.pageY + 10 + "px");
-
-    // Show candidate photo and name
-    const photoDiv = document.getElementById("candidate-info-photo");
-    photoDiv.innerHTML = `<img src="${candidate.image}" alt="${candidate.first} ${candidate.last}" style="width: 100%;" class="img-fluid hover-animate delay-0 rounded-circle">`;
-
-    const nameDiv = document.getElementById("candidate-info-name");
-    const nameElement = document.createElement("h5");
-    nameElement.textContent = `${candidate.first} ${candidate.last}`;
-    nameDiv.innerHTML = "";
-    nameDiv.appendChild(nameElement);
-  }
-
-  handleCircleMouseOut(event) {
-    const circle = d3.select(event.target).select(".candidate-circle");
-    const label = d3.select(event.target).select(".candidate-label");
-
-    circle.transition().duration(200).attr("r", this.circleRadius);
-    label.classed("hovered-text", false);
-
-    // Hide the tooltip
-    this.tooltip.transition().duration(200).style("opacity", 0);
   }
 }
 
