@@ -44,7 +44,6 @@ class CandidateVisualization {
   }
 
   initializeSVG() {
-    // Initialize SVG
     this.width = 900;
     this.height = 600;
     this.margin = 20;
@@ -67,11 +66,32 @@ class CandidateVisualization {
   }
 
   createCandidateCircles() {
+    const borderThickness = 7;
+
     this.circles = this.svg
       .selectAll("g")
       .data(this.candidates)
       .enter()
       .append("g");
+
+    // Add the party color outline to the white circle
+    this.circles
+      .append("circle")
+      .attr("class", "candidate-color-circle")
+      .attr(
+        "cx",
+        (d, i) =>
+          (i % this.columns) * this.colWidth + this.margin + this.circleRadius
+      )
+      .attr(
+        "cy",
+        (d, i) =>
+          Math.floor(i / this.columns) * this.rowHeight +
+          this.margin +
+          this.circleRadius
+      )
+      .attr("r", this.circleRadius + borderThickness)
+      .attr("fill", (d) => this.partyColors[d.party]);
 
     // Add a white circle behind the candidate's image
     this.circles
@@ -136,12 +156,6 @@ class CandidateVisualization {
       .attr("class", "candidate-label")
       .attr("fill", "black")
       .style("user-select", "none");
-
-    // Add the party color outline to the white circle
-    this.circles
-      .select("circle.candidate-white-circle")
-      .attr("stroke", (d) => this.partyColors[d.party])
-      .attr("stroke-width", 4);
   }
 
   createLegend() {
