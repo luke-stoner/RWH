@@ -265,24 +265,6 @@
       </div>
     </div>
 
-    <div class="section" id="section-scatterplot">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="col-3 text-center">
-              <h1>Sentiment By Frequency</h1>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div
-                  class="col-md-12 text-center"
-                  id="sentiment-by-frequency"
-          ></div>
-        </div>
-      </div>
-    </div>
-
     <!--Line Graph (change over time)-->
     <div class="section" id="section-7">
       <div class="container text-center" id="line-chart">
@@ -409,6 +391,44 @@
           <div class="col-md-12 mx-auto">
             <div id="network-coverage"></div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="section-scatterplot">
+      <div class="container">
+        <div class="row">
+          <div class="col-auto">
+            <div class="col-auto text-center">
+              <h1>Sentiment By Frequency</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-auto text-center">
+            <div class="form-group">
+              <!-- Select box to choose the ranking type -->
+              <select class="form-control" id="network-selection">
+                <option value="all">All Networks</option>
+                <option value="BBCNEWS">BBC News</option>
+                <option value="CNBC">CNBC</option>
+                <option value="CNNW">CNN</option>
+                <option value="CSPAN">CSPAN</option>
+                <option value="FOXNEWSW">Fox News</option>
+                <option value="MSNBCW">MSNBC</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-auto text-center">
+            <div id="sbf-slider-container">
+              <div id="sbf-slider-range"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center"
+               id="sentiment-by-frequency"
+          ></div>
         </div>
       </div>
     </div>
