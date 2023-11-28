@@ -116,6 +116,28 @@ class CandidateVisualization {
       .attr("fill", (d) => this.partyColors[d.party])
       .attr("filter", "url(#drop-shadow)");
 
+    // Append images inside the circles
+    this.circles
+      .append("image")
+      .attr("xlink:href", (d) => d.image)
+      .attr("x", (d, i) => (i % this.columns) * this.colWidth + this.margin)
+      .attr(
+        "y",
+        (d, i) => Math.floor(i / this.columns) * this.rowHeight + this.margin
+      )
+      .attr("width", 2 * this.circleRadius)
+      .attr("height", 2 * this.circleRadius)
+      .attr(
+        "clip-path",
+        "circle(" +
+          this.circleRadius +
+          "px at " +
+          this.circleRadius +
+          "px " +
+          this.circleRadius +
+          "px)"
+      );
+
     // Display full name below the circle
     this.circles
       .append("text")
@@ -130,7 +152,8 @@ class CandidateVisualization {
         (d, i) =>
           Math.floor(i / this.columns) * this.rowHeight +
           this.margin +
-          2 * this.circleRadius + 20
+          2 * this.circleRadius +
+          20
       )
       .attr("text-anchor", "middle")
       .attr("alignment-baseline", "middle")
