@@ -116,9 +116,10 @@ class CandidateVisualization {
       .attr("fill", (d) => this.partyColors[d.party])
       .attr("filter", "url(#drop-shadow)");
 
+    // Display full name below the circle
     this.circles
       .append("text")
-      .text((d) => `${d.last}`)
+      .text((d) => `${d.first} ${d.last}`)
       .attr(
         "x",
         (d, i) =>
@@ -129,13 +130,12 @@ class CandidateVisualization {
         (d, i) =>
           Math.floor(i / this.columns) * this.rowHeight +
           this.margin +
-          this.circleRadius +
-          4
+          2 * this.circleRadius + 20
       )
       .attr("text-anchor", "middle")
       .attr("alignment-baseline", "middle")
       .attr("class", "candidate-label")
-      .attr("fill", "white")
+      .attr("fill", "black")
       .style("user-select", "none");
 
     // Shadows for circles
