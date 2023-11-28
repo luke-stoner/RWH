@@ -39,13 +39,11 @@ class CandidateVisualization {
     };
 
     this.initializeSVG();
-    this.initializeTooltip();
     this.createCandidateCircles();
     this.createLegend();
   }
 
   initializeSVG() {
-    // Initialize SVG
     this.width = 900;
     this.height = 600;
     this.margin = 20;
@@ -67,39 +65,38 @@ class CandidateVisualization {
       .attr("class", "candidate-svg");
   }
 
-  initializeTooltip() {
-    this.tooltip = d3
-      .select("body")
-      .append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 50)
-      .style("position", "absolute")
-      .style("background-color", "rgba(255, 255, 255, 0.8)")
-      .style("border", "solid")
-      .style("border-width", "2px")
-      .style("border-radius", "5px")
-      .style("padding", "5px");
-  }
-
   createCandidateCircles() {
+    const borderThickness = 7;
+
     this.circles = this.svg
       .selectAll("g")
       .data(this.candidates)
       .enter()
-      .append("g")
-      .on("mouseover", (event, candidate) =>
-        this.handleCircleMouseOver(event, candidate)
-      )
-      .on("mousemove", (event) => {
-        this.tooltip
-          .style("left", event.pageX + 10 + "px")
-          .style("top", event.pageY + 10 + "px");
-      })
-      .on("mouseout", (element) => this.handleCircleMouseOut(element));
+      .append("g");
 
+    // Add the party color outline to the white circle
     this.circles
       .append("circle")
-      .attr("class", "candidate-circle")
+      .attr("class", "candidate-color-circle")
+      .attr(
+        "cx",
+        (d, i) =>
+          (i % this.columns) * this.colWidth + this.margin + this.circleRadius
+      )
+      .attr(
+        "cy",
+        (d, i) =>
+          Math.floor(i / this.columns) * this.rowHeight +
+          this.margin +
+          this.circleRadius
+      )
+      .attr("r", this.circleRadius + borderThickness)
+      .attr("fill", (d) => this.partyColors[d.party]);
+
+    // Add a white circle behind the candidate's image
+    this.circles
+      .append("circle")
+      .attr("class", "candidate-white-circle")
       .attr(
         "cx",
         (d, i) =>
@@ -113,12 +110,34 @@ class CandidateVisualization {
           this.circleRadius
       )
       .attr("r", this.circleRadius)
-      .attr("fill", (d) => this.partyColors[d.party])
-      .attr("filter", "url(#drop-shadow)");
+      .attr("fill", "white");
 
+    // Add the image inside the white circle
+    this.circles
+      .append("image")
+      .attr("xlink:href", (d) => d.image)
+      .attr("x", (d, i) => (i % this.columns) * this.colWidth + this.margin)
+      .attr(
+        "y",
+        (d, i) => Math.floor(i / this.columns) * this.rowHeight + this.margin
+      )
+      .attr("width", 2 * this.circleRadius)
+      .attr("height", 2 * this.circleRadius)
+      .attr(
+        "clip-path",
+        "circle(" +
+          this.circleRadius +
+          "px at " +
+          this.circleRadius +
+          "px " +
+          this.circleRadius +
+          "px)"
+      );
+
+    // Display full name below the circle
     this.circles
       .append("text")
-      .text((d) => `${d.last}`)
+      .text((d) => `${d.first} ${d.last}`)
       .attr(
         "x",
         (d, i) =>
@@ -129,38 +148,14 @@ class CandidateVisualization {
         (d, i) =>
           Math.floor(i / this.columns) * this.rowHeight +
           this.margin +
-          this.circleRadius +
-          4
+          2 * this.circleRadius +
+          20
       )
       .attr("text-anchor", "middle")
       .attr("alignment-baseline", "middle")
       .attr("class", "candidate-label")
-      .attr("fill", "white")
+      .attr("fill", "black")
       .style("user-select", "none");
-
-    // Shadows for circles
-    const filter = this.svg
-      .append("defs")
-      .append("filter")
-      .attr("id", "drop-shadow")
-      .attr("height", "130%");
-
-    filter
-      .append("feGaussianBlur")
-      .attr("in", "SourceAlpha")
-      .attr("stdDeviation", 5)
-      .attr("result", "blur");
-
-    filter
-      .append("feOffset")
-      .attr("in", "blur")
-      .attr("dx", 3)
-      .attr("dy", 3)
-      .attr("result", "offsetBlur");
-
-    const feMerge = filter.append("feMerge");
-    feMerge.append("feMergeNode").attr("in", "offsetBlur");
-    feMerge.append("feMergeNode").attr("in", "SourceGraphic");
   }
 
   createLegend() {
@@ -193,49 +188,6 @@ class CandidateVisualization {
       .attr("x", 20)
       .attr("y", 12)
       .attr("alignment-baseline", "middle");
-  }
-
-  handleCircleMouseOver(event, candidate) {
-    d3.select(event.target)
-      .select(".candidate-circle")
-      .transition()
-      .duration(200)
-      .attr("r", this.circleRadius + 5);
-    d3.select(event.target)
-      .select(".candidate-label")
-      .classed("hovered-text", true);
-
-    this.tooltip.transition().duration(200).style("opacity", 1);
-
-    this.tooltip
-      .html(
-        `<strong>${candidate.first} ${candidate.last}</strong><br>Party: ${
-          candidate.party
-        }<br>State: ${candidate.state}<br>Age: ${candidate.calculateAge()}`
-      )
-      .style("left", event.pageX + 10 + "px")
-      .style("top", event.pageY + 10 + "px");
-
-    // Show candidate photo and name
-    const photoDiv = document.getElementById("candidate-info-photo");
-    photoDiv.innerHTML = `<img src="${candidate.image}" alt="${candidate.first} ${candidate.last}" style="width: 100%;" class="img-fluid hover-animate delay-0 rounded-circle">`;
-
-    const nameDiv = document.getElementById("candidate-info-name");
-    const nameElement = document.createElement("h5");
-    nameElement.textContent = `${candidate.first} ${candidate.last}`;
-    nameDiv.innerHTML = "";
-    nameDiv.appendChild(nameElement);
-  }
-
-  handleCircleMouseOut(event) {
-    const circle = d3.select(event.target).select(".candidate-circle");
-    const label = d3.select(event.target).select(".candidate-label");
-
-    circle.transition().duration(200).attr("r", this.circleRadius);
-    label.classed("hovered-text", false);
-
-    // Hide the tooltip
-    this.tooltip.transition().duration(200).style("opacity", 0);
   }
 }
 
