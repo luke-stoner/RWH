@@ -112,7 +112,7 @@ class CandidateVisualization {
     // Define darker colors for better contrast
     const darkRed = [175, 0, 0];
     const darkYellow = [175, 175, 0];
-    const darkGreen = [0, 100, 0]; 
+    const darkGreen = [0, 100, 0];
 
     // Interpolate between darkRed and darkYellow for values from 0 to 0.5
     // Interpolate between darkYellow and darkGreen for values from 0.5 to 1
@@ -547,7 +547,8 @@ const candidate_descriptions = [
     birthday: "December 3, 1950",
     alternate_image:
       "https://i.abcnewsfe.com/a/80621974-a42e-472d-9d50-767adc28883f/asa-hutchinson-annoucement-02-ap-jef-230426_1682530978181_hpMain_16x9.jpg?w=992",
-    modal_bio: "",
+    modal_bio:
+      "Asa Hutchinson II, born December 3, 1950, is an American attorney, businessman, and politician who served as the 46th governor of Arkansas from 2015 to 2023. A member of the Republican Party, he previously served as a U.S. attorney, U.S. representative, and in two roles in the George W. Bush administration.",
   },
   {
     first: "Nikki",
@@ -559,6 +560,8 @@ const candidate_descriptions = [
     birthday: "January 20, 1972",
     alternate_image:
       "https://static01.nyt.com/images/2023/02/15/multimedia/15pol-haley-trump-vlbk/15pol-haley-trump-vlbk-videoSixteenByNine3000.jpg",
+    modal_bio:
+      "Nikki Haley, born January 20, 1972, is an American politician and diplomat who served as Governor of South Carolina from 2011 to 2017, and as the 29th United States ambassador to the United Nations from January 2017 through December 2018. A member of the Republican Party, Haley is the first Indian American to serve in a presidential cabinet",
   },
   {
     first: "Will",
@@ -570,6 +573,8 @@ const candidate_descriptions = [
     birthday: "August 19, 1977",
     alternate_image:
       "https://static01.nyt.com/images/2023/06/07/multimedia/00pol-hurd-hfo-tvmk/00pol-hurd-hfo-tvmk-videoSixteenByNine3000.jpg",
+    modal_bio:
+      "Will Hurd, born August 19, 1977, is a former CIA officer turned American politician. He served as the U.S. representative for Texas's 23rd congressional district from 2015 to 2021. After a nine-year CIA career, he entered politics in 2014, successfully representing a vast district spanning from San Antonio to El Paso along the U.S.-Mexican border. Hurd was known for his expertise in technology, cybersecurity, and bipartisan collaboration during his congressional tenure.",
   },
   {
     first: "Perry",
@@ -581,6 +586,8 @@ const candidate_descriptions = [
     birthday: "January 23, 1948",
     alternate_image:
       "https://media.cnn.com/api/v1/images/stellar/prod/231020171419-perry-johnson-file-091623.jpg?c=16x9&q=h_720,w_1280,c_fill",
+    modal_bio:
+      "Perry Johnson, born on January 23, 1948, is an American entrepreneur, accomplished author, and a notable political figure hailing from Michigan. Johnson is recognized for his publications on international quality control standards and certification, having authored several books on the subject.",
   },
   {
     first: "Robert",
@@ -592,6 +599,8 @@ const candidate_descriptions = [
     birthday: "January 17, 1954",
     alternate_image:
       "https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2023-05/230405-robert-f-kennedy-jr-se-500p-72a6a6.jpg",
+    modal_bio:
+      "Robert Kennedy Jr., born January 17, 1954, is an American politician, environmental lawyer, and activist  He chairs Children's Health Defense, an anti-vaccine advocacy group, and is an independent candidate in the 2024 presidential election. A member of the Kennedy family, he is the son of U.S. Attorney General and Senator Robert F. Kennedy and the nephew of U.S. President John F. Kennedy and Senator Ted Kennedy. Kennedy has pursued environmental protection, indigenous rights, and renewable energy through litigation, lobbying, teaching, and activism, with notable roles at organizations like Riverkeeper and the Natural Resources Defense Council (NRDC). He also founded the Waterkeeper Alliance in 1999 and served as its board president.",
   },
   {
     first: "Mike",
@@ -603,6 +612,8 @@ const candidate_descriptions = [
     birthday: "June 7, 1959",
     alternate_image:
       "https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2023-10/231014-mike-pence-mjf-1707-bb6d2a.jpg",
+    modal_bio:
+      "Mike Pence, born June 7, 1959, is a Republican politician who served as the 48th Vice President of the United States from 2017 to 2021. Before that, he was Indiana's 50th Governor from 2013 to 2017 and a U.S. House Representative from 2001 to 2013. Despite controversy around the 2020 election, he certified Joe Biden and Kamala Harris as winners and later distanced himself from Trump, criticizing his post-election conduct.",
   },
   {
     first: "Vivek",
@@ -614,6 +625,8 @@ const candidate_descriptions = [
     birthday: "August 9, 1985",
     alternate_image:
       "https://media.vanityfair.com/photos/64d64685f787e518faf0090c/16:9/w_2000,h_1125,c_limit/Vivek%20Ramaswamy.jpg",
+    modal_bio:
+      "Vivek Ramaswamy, born August 9, 1985, is an American entrepreneur and presidential candidate. He founded Roivant Sciences, a pharmaceutical company, in 2014. In February 2023, Ramaswamy announced his candidacy for the Republican Party nomination in the 2024 United States presidential election. Born to Indian immigrant parents in Cincinnati, he holds a bachelor's degree in biology from Harvard College and a J.D. from Yale Law School. Ramaswamy previously worked as an investment partner at a hedge fund and co-founded Strive Asset Management, an investment firm.",
   },
   {
     first: "Tim",
@@ -625,6 +638,8 @@ const candidate_descriptions = [
     birthday: " September 19, 1965",
     alternate_image:
       "https://media.npr.org/assets/img/2023/05/22/ap23142570032377_wide-8ecec39ca8919f0352c0c36ad4b28ea01a4e37b3.jpg",
+    modal_bio:
+      "Tim Scott, born September 19, 1965, is an American politician and businessman, serving as the junior United States Senator from South Carolina since 2013. Prior roles include service in the South Carolina House of Representatives, the U.S. House of Representatives, and as a Charleston city councilor. He also ran for the Republican presidential nomination in 2024 and made history as the first African-American senator elected from the Southern United States since the Reconstruction era.",
   },
   {
     first: "Donald",
@@ -636,6 +651,8 @@ const candidate_descriptions = [
     birthday: "June 14, 1946",
     alternate_image:
       "https://media.npr.org/assets/img/2021/06/26/ap21178075662324_custom-f59e6cb5e1ab5d3af285904eb6c415941672c26d.jpg",
+    modal_bio:
+      "Donald Trump, born June 14, 1946, served as the 45th President of the United States from 2017 to 2021. He is a businessman, media personality, and politician who won the presidency as the Republican nominee in 2016. His presidency was marked by a distinctive style, sometimes described as divisive, as well as significant policy actions like funding for a border wall. His administration faced scrutiny for Trump's refusal to concede the 2020 election.",
   },
   {
     first: "Marianne",
@@ -647,6 +664,8 @@ const candidate_descriptions = [
     birthday: "July 8, 1952",
     alternate_image:
       "https://static.politico.com/7c/c0/a6a93bad4c008f4a8c11cdd0e55f/election-2024-williamson-44761.jpg",
+    modal_bio:
+      "Marianne Deborah Williamson, born July 8, 1952, is an American author, speaker, and presidential candidate. She gained fame as a spiritual leader and bestselling author. She's known for her charitable work, founding organizations like the Center for Living, Project Angel Food, and the Peace Alliance, and serving on the board of RESULTS, a nonprofit focused on poverty solutions.",
   },
 ];
 
