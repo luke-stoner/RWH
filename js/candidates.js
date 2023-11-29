@@ -37,6 +37,47 @@ class Candidate {
 
     return age;
   }
+  calculateMentions() {
+    return new Promise((resolve, reject) => {
+      d3.csv("data/labeled.csv")
+        .then((data) => {
+          const mentions = data.filter(
+            (record) => record.last_name === this.last
+          );
+          const mentionCount = mentions.length;
+
+          resolve(mentionCount);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  calculatePositivePercent() {
+    return new Promise((resolve, reject) => {
+      d3.csv("data/labeled.csv")
+        .then((data) => {
+          const mentions = data.filter(
+            (record) => record.last_name === this.last
+          );
+          const totalMentions = mentions.length;
+          const positiveMentions = mentions.filter(
+            (record) => record.label === "1"
+          ).length;
+
+          if (totalMentions === 0) {
+            resolve(0);
+          } else {
+            const positivePercent = (positiveMentions / totalMentions) * 100;
+            resolve(positivePercent);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
 }
 
 class CandidateVisualization {
@@ -96,6 +137,34 @@ class CandidateVisualization {
 
     const candidateBioModal = document.getElementById("candidate-modal-bio");
     candidateBioModal.textContent = candidate.modal_bio;
+
+    const candidateMentionsModal = document.getElementById(
+      "candidate-modal-mentions"
+    );
+
+    candidate
+      .calculateMentions()
+      .then((mentionCount) => {
+        // Format mention count with a comma
+        candidateMentionsModal.textContent = mentionCount.toLocaleString();
+      })
+      .catch((error) => {
+        console.error("Error calculating mentions:", error);
+      });
+
+    const candidatePositiveModal = document.getElementById(
+      "candidate-modal-positive-percent"
+    );
+
+    candidate
+      .calculatePositivePercent()
+      .then((positivePercent) => {
+        // Format positive percentage as a percent with two decimal places
+        candidatePositiveModal.textContent = `${positivePercent.toFixed(1)}%`;
+      })
+      .catch((error) => {
+        console.error("Error calculating positive percent:", error);
+      });
   }
 
   createCandidateCircles() {
@@ -480,7 +549,7 @@ const candidate_descriptions = [
   },
   {
     first: "Robert",
-    last: "Kennedy Jr",
+    last: "Kennedy",
     party: "Independent",
     party_short: "I",
     image: "img/candidate_portraits/kennedy.png",

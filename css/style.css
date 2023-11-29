@@ -395,3 +395,9 @@ video::-webkit-media-controls {
 #candidate-modal-bio{
   padding: 1em;
 }
+
+#candidate-modal-positive-percent, #candidate-modal-mentions{
+  font-size: xx-large;
+  font-weight: 900;
+}
+
