@@ -47,6 +47,7 @@ class CandidateVisualization {
     this.initializeSVG();
     this.createCandidateCircles();
     this.createLegend();
+    this.isModalOpen = false; // Flag to track the modal state
   }
 
   initializeSVG() {
@@ -81,11 +82,13 @@ class CandidateVisualization {
       .on("mouseover", (event, candidate) =>
         this.handleCircleMouseOver(event, candidate)
       )
-      .on("mouseout", (element) => this.handleCircleMouseOut(element))
+      .on("mouseout", (event, candidate) =>
+        this.handleCircleMouseOut(event, candidate)
+      )
       .on("click", (event, candidate) => {
+        this.isModalOpen = true;
         $("#candidate-modal").modal("show");
       });
-
 
     // Add the party color outline to the white circle
     this.circles
@@ -169,6 +172,56 @@ class CandidateVisualization {
       .attr("class", "candidate-label")
       .attr("fill", "black")
       .style("user-select", "none");
+
+    $("#candidate-modal").on("hidden.bs.modal", () => this.handleModalClose());
+  }
+
+  handleModalClose() {
+    this.isModalOpen = false;
+    this.resetCircles();
+    this.reattachMouseOutEvents();
+  }
+
+  reattachMouseOutEvents() {
+    this.circles.on("mouseout", (event, candidate) =>
+      this.handleCircleMouseOut(event, candidate)
+    );
+  }
+
+  resetCircles() {
+    this.circles.each((d, i, nodes) => {
+      const circleElement = nodes[i];
+      // Reset the circle to its normal state
+      d3.select(circleElement)
+        .select(".candidate-color-circle")
+        .transition()
+        .duration(200)
+        .attr("r", this.circleRadius + this.borderThickness);
+
+      d3.select(circleElement)
+        .select(".candidate-white-circle")
+        .transition()
+        .duration(200)
+        .attr("r", this.circleRadius)
+        .attr("fill", "white");
+
+      d3.select(circleElement)
+        .select("image")
+        .transition()
+        .duration(200)
+        .attr("width", this.circleRadius * 2)
+        .attr("height", this.circleRadius * 2)
+        .attr(
+          "clip-path",
+          "circle(" +
+            this.circleRadius +
+            "px at " +
+            this.circleRadius +
+            "px " +
+            this.circleRadius +
+            "px)"
+        );
+    });
   }
 
   createLegend() {
@@ -203,79 +256,89 @@ class CandidateVisualization {
       .attr("alignment-baseline", "middle");
   }
 
+  resetCircles() {
+    this.circles.each((d, i, nodes) => {
+      this.handleCircleMouseOut({ currentTarget: nodes[i] });
+    });
+  }
+
   handleCircleMouseOver(event, candidate) {
-    const circleElement = event.currentTarget;
-    const enlargedRadius = this.circleRadius * 1.05;
+    if (!this.isModalOpen) {
+      // Check if the modal is closed
+      const circleElement = event.currentTarget;
+      const enlargedRadius = this.circleRadius * 1.05;
 
-    // Transition the color and radius
-    d3.select(circleElement)
-      .select(".candidate-color-circle")
-      .transition()
-      .duration(200)
-      .attr("r", enlargedRadius + this.borderThickness);
+      // Transition the color and radius
+      d3.select(circleElement)
+        .select(".candidate-color-circle")
+        .transition()
+        .duration(200)
+        .attr("r", enlargedRadius + this.borderThickness);
 
-    d3.select(circleElement)
-      .select(".candidate-white-circle")
-      .transition()
-      .duration(200)
-      .attr("r", enlargedRadius)
-      .attr("fill", (d) => this.partySecondaryColors[candidate.party]);
+      d3.select(circleElement)
+        .select(".candidate-white-circle")
+        .transition()
+        .duration(200)
+        .attr("r", enlargedRadius)
+        .attr("fill", (d) => this.partySecondaryColors[candidate.party]);
 
-    // Resize the image
-    d3.select(circleElement)
-      .select("image")
-      .transition()
-      .duration(200)
-      .attr("width", enlargedRadius * 2)
-      .attr("height", enlargedRadius * 2)
-      .attr(
-        "clip-path",
-        "circle(" +
-          this.circleRadius * 1.025 +
-          "px at " +
-          this.circleRadius * 1.025 +
-          "px " +
-          this.circleRadius * 1.025 +
-          "px)"
-      );
+      // Resize the image
+      d3.select(circleElement)
+        .select("image")
+        .transition()
+        .duration(200)
+        .attr("width", enlargedRadius * 2)
+        .attr("height", enlargedRadius * 2)
+        .attr(
+          "clip-path",
+          "circle(" +
+            this.circleRadius * 1.025 +
+            "px at " +
+            this.circleRadius * 1.025 +
+            "px " +
+            this.circleRadius * 1.025 +
+            "px)"
+        );
+    }
   }
 
   handleCircleMouseOut(event) {
-    const circleElement = event.currentTarget;
+    if (!this.isModalOpen) {
+      // Check if the modal is closed
+      const circleElement = event.currentTarget;
 
-    d3.select(circleElement)
-      .select(".candidate-color-circle")
-      .transition()
-      .duration(200)
-      .attr("r", this.circleRadius + this.borderThickness);
+      d3.select(circleElement)
+        .select(".candidate-color-circle")
+        .transition()
+        .duration(200)
+        .attr("r", this.circleRadius + this.borderThickness);
 
-    d3.select(circleElement)
-      .select(".candidate-white-circle")
-      .transition()
-      .duration(200)
-      .attr("r", this.circleRadius)
-      .attr("fill", "#FFFFFF");
+      d3.select(circleElement)
+        .select(".candidate-white-circle")
+        .transition()
+        .duration(200)
+        .attr("r", this.circleRadius)
+        .attr("fill", "#FFFFFF");
 
-    // Restore the image size
-    d3.select(circleElement)
-      .select("image")
-      .transition()
-      .duration(200)
-      .attr("width", this.circleRadius * 2)
-      .attr("height", this.circleRadius * 2)
-      .attr(
-        "clip-path",
-        "circle(" +
-          this.circleRadius + 
-          "px at " +
-          this.circleRadius +
-          "px " +
-          this.circleRadius +
-          "px)"
-      );
-  
+      // Restore the image size
+      d3.select(circleElement)
+        .select("image")
+        .transition()
+        .duration(200)
+        .attr("width", this.circleRadius * 2)
+        .attr("height", this.circleRadius * 2)
+        .attr(
+          "clip-path",
+          "circle(" +
+            this.circleRadius +
+            "px at " +
+            this.circleRadius +
+            "px " +
+            this.circleRadius +
+            "px)"
+        );
+    }
   }
-  
 }
 
 const candidate_descriptions = [
