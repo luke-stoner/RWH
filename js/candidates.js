@@ -223,14 +223,17 @@ class CandidateVisualization {
       .transition()
       .duration(200)
       .attr("width", enlargedRadius * 2)
-      .attr("height", enlargedRadius * 2);
-
-    // Adjust the clip-path dynamically by updating the "circle" element's radius
-    d3.select(circleElement)
-      .select("clipPath circle")
-      .transition()
-      .duration(200)
-      .attr("r", enlargedRadius);
+      .attr("height", enlargedRadius * 2)
+      .attr(
+        "clip-path",
+        "circle(" +
+          this.circleRadius * 1.025 +
+          "px at " +
+          this.circleRadius * 1.025 +
+          "px " +
+          this.circleRadius * 1.025 +
+          "px)"
+      );
   }
 
   handleCircleMouseOut(event) {
@@ -255,15 +258,20 @@ class CandidateVisualization {
       .transition()
       .duration(200)
       .attr("width", this.circleRadius * 2)
-      .attr("height", this.circleRadius * 2);
-
-    // Restore the original clip-path dynamically by updating the "circle" element's radius
-    d3.select(circleElement)
-      .select("clipPath circle")
-      .transition()
-      .duration(200)
-      .attr("r", this.circleRadius);
+      .attr("height", this.circleRadius * 2)
+      .attr(
+        "clip-path",
+        "circle(" +
+          this.circleRadius + 
+          "px at " +
+          this.circleRadius +
+          "px " +
+          this.circleRadius +
+          "px)"
+      );
+  
   }
+  
 }
 
 const candidate_descriptions = [
