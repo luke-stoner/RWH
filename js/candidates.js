@@ -38,6 +38,12 @@ class CandidateVisualization {
       Independent: INDEPENDENT_GRAY,
     };
 
+    this.partySecondaryColors = {
+      Republican: "#cd5c5c",
+      Democrat: "#6495ED",
+      Independent: "#A9A9A9",
+    };
+
     this.initializeSVG();
     this.createCandidateCircles();
     this.createLegend();
@@ -48,6 +54,7 @@ class CandidateVisualization {
     this.height = 600;
     this.margin = 20;
     this.circleRadius = 65;
+    this.borderThickness = 8;
     this.circlePadding = 30;
     this.columns = Math.floor(
       (this.width - 2 * this.margin) /
@@ -66,13 +73,15 @@ class CandidateVisualization {
   }
 
   createCandidateCircles() {
-    const borderThickness = 7;
-
     this.circles = this.svg
       .selectAll("g")
       .data(this.candidates)
       .enter()
-      .append("g");
+      .append("g")
+      .on("mouseover", (event, candidate) =>
+        this.handleCircleMouseOver(event, candidate)
+      )
+      .on("mouseout", (element) => this.handleCircleMouseOut(element));
 
     // Add the party color outline to the white circle
     this.circles
@@ -90,7 +99,7 @@ class CandidateVisualization {
           this.margin +
           this.circleRadius
       )
-      .attr("r", this.circleRadius + borderThickness)
+      .attr("r", this.circleRadius + this.borderThickness)
       .attr("fill", (d) => this.partyColors[d.party]);
 
     // Add a white circle behind the candidate's image
@@ -149,7 +158,7 @@ class CandidateVisualization {
           Math.floor(i / this.columns) * this.rowHeight +
           this.margin +
           2 * this.circleRadius +
-          20
+          25
       )
       .attr("text-anchor", "middle")
       .attr("alignment-baseline", "middle")
@@ -188,6 +197,72 @@ class CandidateVisualization {
       .attr("x", 20)
       .attr("y", 12)
       .attr("alignment-baseline", "middle");
+  }
+
+  handleCircleMouseOver(event, candidate) {
+    const circleElement = event.currentTarget;
+    const enlargedRadius = this.circleRadius * 1.05;
+
+    // Transition the color and radius
+    d3.select(circleElement)
+      .select(".candidate-color-circle")
+      .transition()
+      .duration(200)
+      .attr("r", enlargedRadius + this.borderThickness);
+
+    d3.select(circleElement)
+      .select(".candidate-white-circle")
+      .transition()
+      .duration(200)
+      .attr("r", enlargedRadius)
+      .attr("fill", (d) => this.partySecondaryColors[candidate.party]);
+
+    // Resize the image
+    d3.select(circleElement)
+      .select("image")
+      .transition()
+      .duration(200)
+      .attr("width", enlargedRadius * 2)
+      .attr("height", enlargedRadius * 2);
+
+    // Adjust the clip-path dynamically by updating the "circle" element's radius
+    d3.select(circleElement)
+      .select("clipPath circle")
+      .transition()
+      .duration(200)
+      .attr("r", enlargedRadius);
+  }
+
+  handleCircleMouseOut(event) {
+    const circleElement = event.currentTarget;
+
+    d3.select(circleElement)
+      .select(".candidate-color-circle")
+      .transition()
+      .duration(200)
+      .attr("r", this.circleRadius + this.borderThickness);
+
+    d3.select(circleElement)
+      .select(".candidate-white-circle")
+      .transition()
+      .duration(200)
+      .attr("r", this.circleRadius)
+      .attr("fill", "#FFFFFF");
+
+    // Restore the image size
+    d3.select(circleElement)
+      .select("image")
+      .transition()
+      .duration(200)
+      .attr("width", this.circleRadius * 2)
+      .attr("height", this.circleRadius * 2);
+
+    // Restore the original clip-path dynamically by updating the "circle" element's radius
+    d3.select(circleElement)
+      .select("clipPath circle")
+      .transition()
+      .duration(200)
+      .attr("r", this.circleRadius);
   }
 }
 
