@@ -1,5 +1,15 @@
 class Candidate {
-  constructor(first, last, party, party_short, image, state, birthday) {
+  constructor(
+    first,
+    last,
+    party,
+    party_short,
+    image,
+    state,
+    birthday,
+    alternate_image,
+    modal_bio
+  ) {
     this.first = first;
     this.last = last;
     this.party = party;
@@ -7,6 +17,8 @@ class Candidate {
     this.image = image;
     this.state = state;
     this.birthday = birthday;
+    this.alternate_image = alternate_image;
+    this.modal_bio = modal_bio;
   }
 
   calculateAge() {
@@ -73,6 +85,19 @@ class CandidateVisualization {
       .attr("class", "candidate-svg");
   }
 
+  populateModal(candidate) {
+    const candidateNameModal = document.getElementById("candidate-name-modal");
+    candidateNameModal.textContent = `${candidate.first} ${candidate.last}`;
+
+    const candidateImageModal = document.getElementById(
+      "candidate-modal-image"
+    );
+    candidateImageModal.src = candidate.alternate_image;
+
+    const candidateBioModal = document.getElementById("candidate-modal-bio");
+    candidateBioModal.textContent = candidate.modal_bio;
+  }
+
   createCandidateCircles() {
     this.circles = this.svg
       .selectAll("g")
@@ -87,6 +112,7 @@ class CandidateVisualization {
       )
       .on("click", (event, candidate) => {
         this.isModalOpen = true;
+        this.populateModal(candidate);
         $("#candidate-modal").modal("show");
       });
 
@@ -350,6 +376,10 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/biden.png",
     state: "Delaware",
     birthday: "November 20, 1942",
+    alternate_image:
+      "https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F190520113023-joe-biden-philadelphia-05182019.jpg",
+    modal_bio:
+      "Joe Biden Jr., born on November 20, 1942, is an American politician currently serving as the 46th President of the United States. He is a member of the Democratic Party and has an extensive political career. Prior to his presidency, Biden served as the 47th Vice President from 2009 to 2017 under President Barack Obama. Additionally, he represented the state of Delaware in the United States Senate from 1973 to 2009.",
   },
   {
     first: "Doug",
@@ -359,6 +389,10 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/burgum.png",
     state: "North Dakota",
     birthday: "August 1, 1956",
+    alternate_image:
+      "https://media.npr.org/assets/img/2023/06/07/ap23158602259345_wide-2269bafb193844302f7aaaf56eed058319a1c011-s1400-c100.jpg",
+    modal_bio:
+      "Doug Burgum, born on August 1, 1956, is an American entrepreneur and statesman currently holding the position of the 33rd Governor of North Dakota since 2016. He stands out as one of the most affluent governors in the United States, boasting an estimated net worth of $1.1 billion. As a prominent member of the Republican Party, Burgum has thrown his hat into the ring as a candidate in the 2024 United States presidential election.",
   },
   {
     first: "Chris",
@@ -368,6 +402,10 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/christie.png",
     state: "New Jersey",
     birthday: "September 6, 1962",
+    alternate_image:
+      "https://s.abcnews.com/images/Politics/ap_christie_kb_150630_16x9_992.jpg",
+    modal_bio:
+      "Christopher James Christie, born on September 6, 1962, is an American politician and former federal prosecutor who held the office of the 55th governor of New Jersey from 2010 to 2018. As a prominent member of the Republican Party, he previously served as the United States Attorney for New Jersey from 2002 to 2008.",
   },
   {
     first: "Ron",
@@ -377,6 +415,10 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/desantis.png",
     state: "Florida",
     birthday: "September 14, 1978",
+    alternate_image:
+      "https://image.cnbcfm.com/api/v1/image/107250491-1685744108263-gettyimages-1258386230-desantisgilbertsc-1-10.jpeg?v=1689190175&w=929&h=523&vtcrop=y",
+    modal_bio:
+      "Ron DeSantis, born September 14, 1978, is an American politician serving since 2019 as the 46th governor of Florida. A member of the Republican Party, he represented Florida's 6th congressional district in the U.S. House of Representatives from 2013 to 2018.",
   },
   {
     first: "Larry",
@@ -386,6 +428,10 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/elder.png",
     state: "California",
     birthday: "April 27, 1952",
+    alternate_image:
+      "https://static01.nyt.com/images/2023/10/26/multimedia/26pol-elder-vjqc/26pol-elder-vjqc-videoSixteenByNine3000.jpg",
+    modal_bio:
+      "Larry Elder, born on April 27, 1952, is an American conservative political commentator and a prominent talk radio host. He is best known for hosting The Larry Elder Show, which is based in California. The show originally started as a local program on Los Angeles radio station KABC in 1993, running until 2008, and had a second run on KABC from 2010 to 2014. It has gained national recognition as it was nationally syndicated, first through ABC Radio Networks from 2002 to 2007 and later through Salem Media Group from 2015 to 2022.",
   },
   {
     first: "Asa",
@@ -395,6 +441,9 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/hutchinson.png",
     state: "Arkansas",
     birthday: "December 3, 1950",
+    alternate_image:
+      "https://i.abcnewsfe.com/a/80621974-a42e-472d-9d50-767adc28883f/asa-hutchinson-annoucement-02-ap-jef-230426_1682530978181_hpMain_16x9.jpg?w=992",
+    modal_bio: "",
   },
   {
     first: "Nikki",
@@ -404,6 +453,8 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/haley.png",
     state: "South Carolina",
     birthday: "January 20, 1972",
+    alternate_image:
+      "https://static01.nyt.com/images/2023/02/15/multimedia/15pol-haley-trump-vlbk/15pol-haley-trump-vlbk-videoSixteenByNine3000.jpg",
   },
   {
     first: "Will",
@@ -413,6 +464,8 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/hurd.png",
     state: "Texas",
     birthday: "August 19, 1977",
+    alternate_image:
+      "https://static01.nyt.com/images/2023/06/07/multimedia/00pol-hurd-hfo-tvmk/00pol-hurd-hfo-tvmk-videoSixteenByNine3000.jpg",
   },
   {
     first: "Perry",
@@ -422,6 +475,8 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/johnson.png",
     state: "Michigan",
     birthday: "January 23, 1948",
+    alternate_image:
+      "https://media.cnn.com/api/v1/images/stellar/prod/231020171419-perry-johnson-file-091623.jpg?c=16x9&q=h_720,w_1280,c_fill",
   },
   {
     first: "Robert",
@@ -431,6 +486,8 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/kennedy.png",
     state: "Washington, D.C",
     birthday: "January 17, 1954",
+    alternate_image:
+      "https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2023-05/230405-robert-f-kennedy-jr-se-500p-72a6a6.jpg",
   },
   {
     first: "Mike",
@@ -440,6 +497,8 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/pence.png",
     state: "Indiana",
     birthday: "June 7, 1959",
+    alternate_image:
+      "https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2023-10/231014-mike-pence-mjf-1707-bb6d2a.jpg",
   },
   {
     first: "Vivek",
@@ -449,6 +508,8 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/ramaswamy.png",
     state: "Ohio",
     birthday: "August 9, 1985",
+    alternate_image:
+      "https://media.vanityfair.com/photos/64d64685f787e518faf0090c/16:9/w_2000,h_1125,c_limit/Vivek%20Ramaswamy.jpg",
   },
   {
     first: "Tim",
@@ -458,6 +519,8 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/scott.png",
     state: "South Carolina",
     birthday: " September 19, 1965",
+    alternate_image:
+      "https://media.npr.org/assets/img/2023/05/22/ap23142570032377_wide-8ecec39ca8919f0352c0c36ad4b28ea01a4e37b3.jpg",
   },
   {
     first: "Donald",
@@ -467,6 +530,8 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/trump.png",
     state: "Florida",
     birthday: "June 14, 1946",
+    alternate_image:
+      "https://media.npr.org/assets/img/2021/06/26/ap21178075662324_custom-f59e6cb5e1ab5d3af285904eb6c415941672c26d.jpg",
   },
   {
     first: "Marianne",
@@ -476,6 +541,8 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/williamson.png",
     state: "Iowa",
     birthday: "July 8, 1952",
+    alternate_image:
+      "https://static.politico.com/7c/c0/a6a93bad4c008f4a8c11cdd0e55f/election-2024-williamson-44761.jpg",
   },
 ];
 

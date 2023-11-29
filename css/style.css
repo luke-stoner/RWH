@@ -391,3 +391,7 @@ video::-webkit-media-controls {
 #toggleLabel {
   /* Style for the label text */
 }
+
+#candidate-modal-bio{
+  padding: 1em;
+}
