@@ -54,7 +54,7 @@ class CandidateVisualization {
     this.height = 600;
     this.margin = 20;
     this.circleRadius = 65;
-    this.borderThickness = 8;
+    this.borderThickness = 7;
     this.circlePadding = 30;
     this.columns = Math.floor(
       (this.width - 2 * this.margin) /
@@ -81,7 +81,11 @@ class CandidateVisualization {
       .on("mouseover", (event, candidate) =>
         this.handleCircleMouseOver(event, candidate)
       )
-      .on("mouseout", (element) => this.handleCircleMouseOut(element));
+      .on("mouseout", (element) => this.handleCircleMouseOut(element))
+      .on("click", (event, candidate) => {
+        $("#candidate-modal").modal("show");
+      });
+
 
     // Add the party color outline to the white circle
     this.circles

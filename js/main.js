@@ -83,4 +83,30 @@ document.addEventListener("DOMContentLoaded", function () {
     navBar.style.visibility = "visible";
     newsBar.style.visibility = "visible";
   }
+
+  
+  function handleModalVisibility() {
+    const modalElement = document.getElementById("candidate-modal");
+    if (modalElement) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Modal is visible
+            fullPageInstance.setAllowScrolling(false);
+            fullPageInstance.setKeyboardScrolling(false);
+          } else {
+            // Modal is hidden
+            fullPageInstance.setAllowScrolling(true);
+            fullPageInstance.setKeyboardScrolling(true);
+          }
+        });
+      });
+
+      // Start observing the modal element
+      observer.observe(modalElement);
+    }
+  }
+
+  // Call the function to start observing the modal visibility
+  handleModalVisibility();
 });
