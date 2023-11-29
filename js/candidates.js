@@ -100,7 +100,40 @@ class CandidateVisualization {
     this.initializeSVG();
     this.createCandidateCircles();
     this.createLegend();
-    this.isModalOpen = false; // Flag to track the modal state
+    this.isModalOpen = false;
+  }
+  percentageToColor(percentage) {
+    if (percentage < 0 || percentage > 100) {
+      throw new Error("Percentage must be between 0 and 100.");
+    }
+
+    const normalizedPercentage = percentage / 100;
+
+    // Define darker colors for better contrast
+    const darkRed = [175, 0, 0];
+    const darkYellow = [175, 175, 0];
+    const darkGreen = [0, 100, 0]; 
+
+    // Interpolate between darkRed and darkYellow for values from 0 to 0.5
+    // Interpolate between darkYellow and darkGreen for values from 0.5 to 1
+    let color;
+    if (normalizedPercentage <= 0.5) {
+      const t = normalizedPercentage * 2; // Scale to 0-1
+      color = [
+        Math.round((1 - t) * darkRed[0] + t * darkYellow[0]),
+        Math.round((1 - t) * darkRed[1] + t * darkYellow[1]),
+        Math.round((1 - t) * darkRed[2] + t * darkYellow[2]),
+      ];
+    } else {
+      const t = (normalizedPercentage - 0.5) * 2; // Scale to 0-1
+      color = [
+        Math.round((1 - t) * darkYellow[0] + t * darkGreen[0]),
+        Math.round((1 - t) * darkYellow[1] + t * darkGreen[1]),
+        Math.round((1 - t) * darkYellow[2] + t * darkGreen[2]),
+      ];
+    }
+
+    return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
   }
 
   initializeSVG() {
@@ -161,6 +194,8 @@ class CandidateVisualization {
       .then((positivePercent) => {
         // Format positive percentage as a percent with two decimal places
         candidatePositiveModal.textContent = `${positivePercent.toFixed(1)}%`;
+        candidatePositiveModal.style.color =
+          this.percentageToColor(positivePercent);
       })
       .catch((error) => {
         console.error("Error calculating positive percent:", error);
