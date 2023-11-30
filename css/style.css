@@ -401,3 +401,6 @@ video::-webkit-media-controls {
   font-weight: 900;
 }
 
+.modal-header {
+  border-bottom: none !important;
+}
