@@ -483,7 +483,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F190520113023-joe-biden-philadelphia-05182019.jpg",
     modal_bio:
-      "Joe Biden Jr., born on November 20, 1942, is an American politician currently serving as the 46th President of the United States. He is a member of the Democratic Party and has an extensive political career. Prior to his presidency, Biden served as the 47th Vice President from 2009 to 2017 under President Barack Obama. Additionally, he represented the state of Delaware in the United States Senate from 1973 to 2009.",
+      "Born on November 20, 1942, Joe Biden Jr. is the 46th President of the United States, a Democrat, and a seasoned politician. He served as the 47th Vice President from 2009 to 2017 and represented Delaware in the U.S. Senate from 1973 to 2009.",
   },
   {
     first: "Doug",
@@ -496,7 +496,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://media.npr.org/assets/img/2023/06/07/ap23158602259345_wide-2269bafb193844302f7aaaf56eed058319a1c011-s1400-c100.jpg",
     modal_bio:
-      "Doug Burgum, born on August 1, 1956, is an American entrepreneur and statesman currently holding the position of the 33rd Governor of North Dakota since 2016. He stands out as one of the most affluent governors in the United States, boasting an estimated net worth of $1.1 billion. As a prominent member of the Republican Party, Burgum has thrown his hat into the ring as a candidate in the 2024 United States presidential election.",
+      "Doug Burgum, born on August 1, 1956, is an American entrepreneur and politician currently holding the position of the 33rd Governor of North Dakota since 2016. He stands out as one of the most affluent governors in the United States, boasting an estimated net worth of $1.1 billion.",
   },
   {
     first: "Chris",
@@ -535,7 +535,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://static01.nyt.com/images/2023/10/26/multimedia/26pol-elder-vjqc/26pol-elder-vjqc-videoSixteenByNine3000.jpg",
     modal_bio:
-      "Larry Elder, born on April 27, 1952, is an American conservative political commentator and a prominent talk radio host. He is best known for hosting The Larry Elder Show, which is based in California. The show originally started as a local program on Los Angeles radio station KABC in 1993, running until 2008, and had a second run on KABC from 2010 to 2014. It has gained national recognition as it was nationally syndicated, first through ABC Radio Networks from 2002 to 2007 and later through Salem Media Group from 2015 to 2022.",
+      "Larry Elder, born on April 27, 1952, is an American conservative political commentator and a prominent talk radio host. He is best known for hosting The Larry Elder Show, which is based in California. The show originally started as a local program on Los Angeles radio station KABC in 1993. It has gained national recognition as it was nationally syndicated.",
   },
   {
     first: "Asa",
@@ -574,7 +574,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://static01.nyt.com/images/2023/06/07/multimedia/00pol-hurd-hfo-tvmk/00pol-hurd-hfo-tvmk-videoSixteenByNine3000.jpg",
     modal_bio:
-      "Will Hurd, born August 19, 1977, is a former CIA officer turned American politician. He served as the U.S. representative for Texas's 23rd congressional district from 2015 to 2021. After a nine-year CIA career, he entered politics in 2014, successfully representing a vast district spanning from San Antonio to El Paso along the U.S.-Mexican border. Hurd was known for his expertise in technology, cybersecurity, and bipartisan collaboration during his congressional tenure.",
+      "Will Hurd, born August 19, 1977, is a former CIA officer turned American politician. He served as the U.S. representative for Texas's 23rd congressional district from 2015 to 2021. After a nine-year CIA career, he entered politics in 2014. Hurd was known for his expertise in technology, cybersecurity, and bipartisan collaboration during his congressional tenure.",
   },
   {
     first: "Perry",
@@ -600,7 +600,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2023-05/230405-robert-f-kennedy-jr-se-500p-72a6a6.jpg",
     modal_bio:
-      "Robert Kennedy Jr., born January 17, 1954, is an American politician, environmental lawyer, and activist  He chairs Children's Health Defense, an anti-vaccine advocacy group, and is an independent candidate in the 2024 presidential election. A member of the Kennedy family, he is the son of U.S. Attorney General and Senator Robert F. Kennedy and the nephew of U.S. President John F. Kennedy and Senator Ted Kennedy. Kennedy has pursued environmental protection, indigenous rights, and renewable energy through litigation, lobbying, teaching, and activism, with notable roles at organizations like Riverkeeper and the Natural Resources Defense Council (NRDC). He also founded the Waterkeeper Alliance in 1999 and served as its board president.",
+      "Robert Kennedy Jr., born January 17, 1954, is an American politician, environmental lawyer, and activist. A member of the Kennedy family, he is the son of U.S. Attorney General and Senator Robert F. Kennedy and the nephew of U.S. President John F. Kennedy and Senator Ted Kennedy.",
   },
   {
     first: "Mike",
@@ -613,7 +613,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2023-10/231014-mike-pence-mjf-1707-bb6d2a.jpg",
     modal_bio:
-      "Mike Pence, born June 7, 1959, is a Republican politician who served as the 48th Vice President of the United States from 2017 to 2021. Before that, he was Indiana's 50th Governor from 2013 to 2017 and a U.S. House Representative from 2001 to 2013. Despite controversy around the 2020 election, he certified Joe Biden and Kamala Harris as winners and later distanced himself from Trump, criticizing his post-election conduct.",
+      "Mike Pence, born June 7, 1959, is a Republican politician who served as the 48th Vice President of the United States from 2017 to 2021. Before that, he was Indiana's 50th Governor from 2013 to 2017 and a U.S. House Representative from 2001 to 2013. Despite controversy around the 2020 election, he distanced himself from Trump, criticizing his post-election conduct.",
   },
   {
     first: "Vivek",
@@ -626,7 +626,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://media.vanityfair.com/photos/64d64685f787e518faf0090c/16:9/w_2000,h_1125,c_limit/Vivek%20Ramaswamy.jpg",
     modal_bio:
-      "Vivek Ramaswamy, born August 9, 1985, is an American entrepreneur and presidential candidate. He founded Roivant Sciences, a pharmaceutical company, in 2014. In February 2023, Ramaswamy announced his candidacy for the Republican Party nomination in the 2024 United States presidential election. Born to Indian immigrant parents in Cincinnati, he holds a bachelor's degree in biology from Harvard College and a J.D. from Yale Law School. Ramaswamy previously worked as an investment partner at a hedge fund and co-founded Strive Asset Management, an investment firm.",
+      "Vivek Ramaswamy, born August 9, 1985, is an American entrepreneur and presidential candidate. He founded Roivant Sciences, a pharmaceutical company, in 2014. Born to Indian immigrant parents in Cincinnati, he holds a bachelor's degree in biology from Harvard College and a J.D. from Yale Law School. Ramaswamy previously worked as an investment partner at a hedge fund and co-founded Strive Asset Management, an investment firm.",
   },
   {
     first: "Tim",
@@ -639,7 +639,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://media.npr.org/assets/img/2023/05/22/ap23142570032377_wide-8ecec39ca8919f0352c0c36ad4b28ea01a4e37b3.jpg",
     modal_bio:
-      "Tim Scott, born September 19, 1965, is an American politician and businessman, serving as the junior United States Senator from South Carolina since 2013. Prior roles include service in the South Carolina House of Representatives, the U.S. House of Representatives, and as a Charleston city councilor. He also ran for the Republican presidential nomination in 2024 and made history as the first African-American senator elected from the Southern United States since the Reconstruction era.",
+      "Tim Scott, born September 19, 1965, is an American politician and businessman, serving as the junior United States Senator from South Carolina since 2013. Prior roles include service in the South Carolina House of Representatives, the U.S. House of Representatives, and as a Charleston city councilor.",
   },
   {
     first: "Donald",
@@ -652,7 +652,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://media.npr.org/assets/img/2021/06/26/ap21178075662324_custom-f59e6cb5e1ab5d3af285904eb6c415941672c26d.jpg",
     modal_bio:
-      "Donald Trump, born June 14, 1946, served as the 45th President of the United States from 2017 to 2021. He is a businessman, media personality, and politician who won the presidency as the Republican nominee in 2016. His presidency was marked by a distinctive style, sometimes described as divisive, as well as significant policy actions like funding for a border wall. His administration faced scrutiny for Trump's refusal to concede the 2020 election.",
+      "Donald Trump, born June 14, 1946, served as the 45th President of the United States. He is a businessman, media personality, and politician who won the presidency as the Republican nominee in 2016. His presidency was marked by a distinctive style, sometimes described as divisive. His administration faced scrutiny for Trump's refusal to concede the 2020 election.",
   },
   {
     first: "Marianne",
@@ -665,7 +665,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://static.politico.com/7c/c0/a6a93bad4c008f4a8c11cdd0e55f/election-2024-williamson-44761.jpg",
     modal_bio:
-      "Marianne Deborah Williamson, born July 8, 1952, is an American author, speaker, and presidential candidate. She gained fame as a spiritual leader and bestselling author. She's known for her charitable work, founding organizations like the Center for Living, Project Angel Food, and the Peace Alliance, and serving on the board of RESULTS, a nonprofit focused on poverty solutions.",
+      "Marianne Deborah Williamson, born July 8, 1952, is an American author, speaker, and presidential candidate. She gained fame as a spiritual leader and bestselling author. She's known for her charitable work, and serving on the board of RESULTS, a nonprofit focused on poverty solutions.",
   },
 ];
 
