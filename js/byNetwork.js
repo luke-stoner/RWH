@@ -10,11 +10,23 @@ class ByNetworkVisual {
       return row;
     });
 
-    this.minDate = d3.min(data, (d) => d.date).getTime();
-    this.maxDate = d3.max(data, (d) => d.date).getTime();
+    // Count records per network
+    const networkCounts = {};
+    data.forEach((d) => {
+      networkCounts[d.network] = (networkCounts[d.network] || 0) + 1;
+    });
 
-    this.setupSlider(slider, data);
-    this.updateByNetwork(data);
+    // Filter data for networks with more than 1000 records
+    const MINIMUM_THRESHOLD = 1000;
+    const filteredData = data.filter(
+      (d) => networkCounts[d.network] > MINIMUM_THRESHOLD
+    );
+
+    this.minDate = d3.min(filteredData, (d) => d.date).getTime();
+    this.maxDate = d3.max(filteredData, (d) => d.date).getTime();
+
+    this.setupSlider(slider, filteredData);
+    this.updateByNetwork(filteredData);
   }
 
   setupSlider(slider, data) {
@@ -64,13 +76,20 @@ class ByNetworkVisual {
       )
       .flat();
 
-    const democratSentiment = avgScores
-      .filter((d) => d.party === "D")
-      .map((d) => d.avgScore);
+    // Convert avgScores to a Map for easy lookup
+    const scoreMap = new Map(
+      avgScores.map((d) => [`${d.network}_${d.party}`, d.avgScore])
+    );
 
-    const republicanSentiment = avgScores
-      .filter((d) => d.party === "R")
-      .map((d) => d.avgScore);
+    // Function to get score for a network and party, defaults to 0
+    const getScore = (network, party) =>
+      scoreMap.get(`${network}_${party}`) || 0;
+
+    // Create sentiment arrays
+    const democratSentiment = networks.map((network) => getScore(network, "D"));
+    const republicanSentiment = networks.map((network) =>
+      getScore(network, "R")
+    );
 
     this.createOrUpdateChart(networks, democratSentiment, republicanSentiment);
   }
@@ -204,7 +223,7 @@ class ByNetworkVisual {
       .attr("y", this.height - this.legendAreaBuffer / 2)
       .attr("text-anchor", "middle")
       .attr("class", "axis-title")
-      .style("font-weight", "bold") 
+      .style("font-weight", "bold")
       .text("Republican");
   }
 }
