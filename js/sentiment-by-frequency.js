@@ -3,11 +3,11 @@ d3.csv("data/labeled.csv", row => {
     return row
 }).then(rawData => {
     // Define margins
-    const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+    const margin = {top: 30, right: 30, bottom: 30, left: 50};
 
     // Assuming you have predefined the overall width and height of your SVG
-    const width = 960; // Adjust as needed
-    const height = 500; // Adjust as needed
+    const width = 700; // Adjust as needed
+    const height = 400; // Adjust as needed
 
     // Effective width and height after accounting for margins
     const effectiveWidth = width - margin.left - margin.right;
