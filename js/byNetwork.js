@@ -205,8 +205,9 @@ class ByNetworkVisual {
       .attr("dy", ".20em")
       .attr("text-anchor", "middle")
       .attr("class", "name")
-      .text(String);
+      .text((d) => NETWORK_LOOKUP[d] || d);
   }
+
   addXAxisTitles() {
     this.chart
       .append("text")
