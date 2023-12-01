@@ -364,7 +364,7 @@
         <div class="section" id="section-9">
           <div class="container text-center">
             <div class="row">
-              <h1>Coverage by Network</h1>
+              <h1>Party Coverage by Network</h1>
               <p>
                 Is there an equal distribution of network coverage among all
                 parties?
@@ -378,51 +378,35 @@
           </div>
         </div>
 
-    <div class="section" id="section-scatterplot">
-      <div class="container">
-        <div class="row">
-          <div class="col-auto">
-            <div class="col-auto text-center">
-              <h1>Sentiment By Frequency</h1>
+        <div class="section" id="section-scatterplot">
+          <div class="container">
+            <div class="row">
+              <div class="col-auto">
+                <div class="col-auto text-center" id="sbfHeader">
+                  <h1>Candidate Coverage by Network</h1>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div id="sbfSlider"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 text-center">
+                <div class="row">
+                  <h3>Click on a Network to
+                    Filter the Candidates</h3>
+                </div>
+                <div class="row" id="network-bar-chart-area"></div>
+                <div class="row">
+                  <button type="button" id="sbfButton">Reset Visualization to Include All Networks</button>
+                </div>
+              </div>
+              <div class="col-auto text-center"
+                   id="sentiment-by-frequency"
+              ></div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-auto text-center">
-            <div class="form-group">
-              <!-- Select box to choose the ranking type -->
-              <select class="form-control" id="network-selection">
-                <option value="all">All Networks</option>
-                <option value="BBCNEWS">BBC News</option>
-                <option value="ALJAZ">Aljazera</option>
-                <option value="CNBC">CNBC</option>
-                <option value="CNNW">CNN</option>
-                <option value="CSPAN">CSPAN</option>
-                <option value="FOXNEWSW">Fox News</option>
-                <option value="MSNBCW">MSNBC</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-auto text-center">
-            <div id="sbf-slider-container">
-              <div id="sbf-slider-range"></div>
-            </div>
-            <div id="nbc-slider-container">
-              <div id="nbc-slider-range"></div>
-            </div>
-
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-auto text-center"
-               id="network-bar-chart-area"
-          ></div>
-          <div class="col-auto text-center"
-               id="sentiment-by-frequency"
-          ></div>
-        </div>
-      </div>
-    </div>
 
         <div class="section">Slide 10 content goes here</div>
         <div class="section">Slide 11 content goes here</div>

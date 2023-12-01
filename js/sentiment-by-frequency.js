@@ -3,68 +3,108 @@ d3.csv("data/labeled.csv", row => {
     return row
 }).then(rawData => {
     // Define margins
-    const margin = {top: 30, right: 30, bottom: 30, left: 50};
+    const sbfMargin = {top: 30, right: 30, bottom: 50, left: 50};
 
     // Assuming you have predefined the overall width and height of your SVG
-    const width = 700; // Adjust as needed
-    const height = 400; // Adjust as needed
+    const sbfWidth = 800; // Adjust as needed
+    const sbfHeight = 500; // Adjust as needed
 
     // Effective width and height after accounting for margins
-    const effectiveWidth = width - margin.left - margin.right;
-    const effectiveHeight = height - margin.top - margin.bottom;
+    const sbfEffectiveWidth = sbfWidth - sbfMargin.left - sbfMargin.right;
+    const sbfEffectiveHeight = sbfHeight - sbfMargin.top - sbfMargin.bottom;
 
     // Set up the SVG canvas
-    const svg = d3.select("#sentiment-by-frequency")
+    const sbf_svg = d3.select("#sentiment-by-frequency")
         .append("svg")
-        .attr("width", width)
-        .attr("height", height)
+        .attr("width", sbfWidth)
+        .attr("height", sbfHeight)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + sbfMargin.left + "," + sbfMargin.top + ")");
 
-    // Create date slider
-    const sliderRange = d3
-        .sliderBottom()
-        .min(d3.min(rawData, d => d.date))
-        .max(d3.max(rawData, d => d.date))
-        .width(250)
-        .tickFormat(d3.timeFormat('%Y-%m-%d'))
-        .ticks(3)
-        .default([d3.min(rawData, d => d.date), d3.max(rawData, d => d.date)])
-        .fill('#FFFFFF');
+    // Set margin, width, height
+    let networkMargin = {top: 30, right: 30, bottom: 50, left: 55};
+    let networkWidth = 400 - networkMargin.left - networkMargin.right;
+    let networkHeight = 400 - networkMargin.top - networkMargin.bottom;
 
-    // Add the slider to the DOM
-    const gRange = d3
-        .select('#sbf-slider-range')
-        .append('svg')
-        .attr('width', 400)
-        .attr('height', 100)
-        .append('g')
-        .attr('transform', 'translate(90,30)');
+    // initialize svg drawing space
+    let network_svg = d3.select("#network-bar-chart-area").append("svg")
+        .attr("width", networkWidth + networkMargin.left + networkMargin.right)
+        .attr("height", networkHeight + networkMargin.top + networkMargin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + networkMargin.left + "," + networkMargin.top + ")");
 
-    gRange.call(sliderRange);
+    // Set x,y scales
+    let x = d3.scaleLinear().domain([0, 1]).range([0, networkWidth]);
+    let y = d3.scaleBand().range([0, networkHeight]).padding(0.1);
 
-    // Update the visualization based on a change in selection in the dropdown menu
-    document.getElementById('network-selection').addEventListener('change', function () {
-        // Call the updateVisualization function when the dropdown value changes
-        updateVisualization();
-    });
+    // Initialize slider
+    const slider = document.getElementById("sbfSlider")
 
-    // set date data to full range by default
+    // Create variable to store filtered data
     let filtered_date_data = rawData;
 
-    // get selected years from slider and filter data
-    sliderRange.on('onchange', val => {
-        // Filter data based on slider values
-        filtered_date_data = rawData.filter(d => d.date >= val[0] && d.date <= val[1])
-        updateVisualization();
+    // Set min and maximum dates for slider
+    const minDate = d3.min(rawData, (d) => d.date).getTime();
+    const maxDate = d3.max(rawData, (d) => d.date).getTime();
+
+    function setupSlider(slider) {
+        noUiSlider.create(slider, {
+            start: [minDate, maxDate],
+            connect: true,
+            behaviour: "drag",
+            padding: [15, 15],
+            step: 1,
+            range: {
+                min: minDate,
+                max: maxDate,
+            },
+            tooltips: {
+                to: (value) => {
+                    const date = new Date(parseInt(value));
+                    return d3.timeFormat("%b %d, %Y")(date);
+                },
+            },
+        });
+
+        slider.noUiSlider.on("slide", (values) => {
+            const selectedMinYear = new Date(+values[0]);
+            const selectedMaxYear = new Date(+values[1]);
+
+            filtered_date_data = data.filter(
+                (d) => d.date >= selectedMinYear && d.date <= selectedMaxYear
+            );
+
+            update_sbf_visualization();
+            update_network_visualization()
+        });
+    }
+
+    // Set default value for clicked network to 'all'
+    let clickedNetwork = 'all'
+
+    // Add event listener to the button
+    const sbfButton = document.getElementById('sbfButton');
+
+    sbfButton.addEventListener('click', function() {
+        // Set clickedNetwork value to 'all'
+        clickedNetwork = 'all'
+
+        // Update the network variable to use all networks
+        update_sbf_visualization();
     });
 
-    // Initialize Visualization
-    updateVisualization();
+    // Initialize Slider
+    setupSlider(slider);
 
-    function updateVisualization() {
+    // Initialize SBF Visualization
+    update_sbf_visualization();
+
+    // Initialize Network Visualization
+    update_network_visualization();
+
+    function update_sbf_visualization() {
         // Get selected network
-        let network = document.getElementById("network-selection").value;
+        let network = clickedNetwork
 
         // Filter data by network
         let filteredData;
@@ -106,15 +146,21 @@ d3.csv("data/labeled.csv", row => {
         const xPadding = 15; // Adjust padding as needed
         const xScale = d3.scaleLinear()
             .domain([0, d3.max(finalData, d => d.frequency)])
-            .range([xPadding, effectiveWidth - xPadding]); // Include padding on both ends
+            .range([xPadding, sbfEffectiveWidth - xPadding]); // Include padding on both ends
 
         const yScale = d3.scaleLinear()
             .domain([0, 1]) // Assuming avg_sentiment is between 0 and 1
-            .range([effectiveHeight, 0]);
+            .range([sbfEffectiveHeight, 0]);
 
         // Select the axes if they already exist, and update them
-        const xAxis = svg.selectAll(".x-axis").data([0]); // The data is a dummy placeholder
-        const yAxis = svg.selectAll(".y-axis").data([0]); // The data is a dummy placeholder
+        const xAxis = sbf_svg.selectAll(".x-axis").data([0]); // The data is a dummy placeholder
+        const yAxis = sbf_svg.selectAll(".y-axis").data([0]); // The data is a dummy placeholder
+
+        // Create a tooltip
+        const tooltip = d3.select("#sentiment-by-frequency")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
         // Update the X axis if it exists, else create it
         xAxis.enter()
@@ -123,7 +169,7 @@ d3.csv("data/labeled.csv", row => {
             .merge(xAxis)
             .transition() // Add a transition
             .duration(750) // 750ms transition
-            .attr("transform", `translate(0,${effectiveHeight})`)
+            .attr("transform", `translate(0,${sbfEffectiveHeight})`)
             .call(d3.axisBottom(xScale));
 
         // Update the Y axis if it exists, else create it
@@ -136,24 +182,24 @@ d3.csv("data/labeled.csv", row => {
             .call(d3.axisLeft(yScale));
 
         // Add X Axis label
-        svg.append("text")
+        sbf_svg.append("text")
             .attr("transform",
-                "translate(" + (effectiveWidth / 2) + " ," +
-                (effectiveHeight + margin.bottom - 10) + ")")
+                "translate(" + (sbfEffectiveWidth / 2) + " ," +
+                (sbfEffectiveHeight + sbfMargin.bottom - 10) + ")")
             .style("text-anchor", "middle")
             .text("Number of Mentions");
 
         // Add Y Axis label
-        svg.append("text")
+        sbf_svg.append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", 0 - margin.left + 5)
-            .attr("x", 0 - (effectiveHeight / 2))
+            .attr("y", 0 - sbfMargin.left + 5)
+            .attr("x", 0 - (sbfEffectiveHeight / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
             .text("Average Sentiment");
 
         // Update background circles with transition
-        const circles = svg.selectAll(".backgroundCircles")
+        const circles = sbf_svg.selectAll(".backgroundCircles")
             .data(finalData, d => d.name);
 
         circles.exit()
@@ -176,7 +222,7 @@ d3.csv("data/labeled.csv", row => {
             .attr("opacity", 0.7);
 
         // Update candidate images with transition
-        const images = svg.selectAll(".candidateImages")
+        const images = sbf_svg.selectAll(".candidateImages")
             .data(finalData, d => d.name);
 
         // Remove images that are no longer present in the data
@@ -196,6 +242,19 @@ d3.csv("data/labeled.csv", row => {
             .attr("width", 0) // Start with a width of 0 for a transition effect
             .attr("height", 0) // Start with a height of 0 for a transition effect
             .merge(images) // Merge enter and update selections
+            .on("mouseover", function(event, d) {
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                tooltip.html(`${d.name}<br/>Number of Mentions: ${d.frequency}<br/>Average Sentiment: ${d.avg_sentiment.toFixed(2)}`)
+                    .style("left", (event.pageX + 15) + "px")
+                    .style("top", (event.pageY - 30) + "px");
+            })
+            .on("mouseout", function(d) {
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
             .transition()
             .duration(750)
             .attr("x", d => xScale(d.frequency) - 20)
@@ -204,5 +263,176 @@ d3.csv("data/labeled.csv", row => {
             .attr("height", 40) // Set the final height
             .attr("clip-path", "circle()");
     }
-});
 
+    function update_network_visualization() {
+        // Networks to include in the filtered dataset
+        const networksToInclude = ['FOXNEWSW', 'MSNBCW', 'CNNW', 'CSPAN', 'BBCNEWS', 'FBC'];
+
+        // Filter the dataset to include only specified networks
+        const filteredData = filtered_date_data.filter(entry => networksToInclude.includes(entry.network));
+
+        // Get sentiment data for networks
+        let data = d3
+            .rollups(
+                filteredData,
+                (v) => d3.mean(v, (d) => +d.label),
+                (d) => d.network
+            )
+            .map((d) => ({
+                network: d[0],
+                avg_sentiment: d[1],
+                photo:
+                    "img/networks/" + d[0] + ".png",
+            }))
+            .sort((a, b) => d3.descending(a.avg_sentiment, b.avg_sentiment));
+
+        // Function to map network values to colors
+        function assignColor(network) {
+            switch(network) {
+                case 'CSPAN':
+                    return '#001A72';
+                case 'FOXNEWSW':
+                    return '#003366';
+                case 'CNNW':
+                    return '#cc0000';
+                case 'BBCNEWS':
+                    return '#b90005';
+                case 'MSNBCW':
+                    return '#6460AA';
+                case 'FBC':
+                    return '#000000';
+            }
+        }
+
+        // Add 'color' variable to the JSON data
+        data.forEach(entry => {
+            entry.color = assignColor(entry.network);
+        });
+
+        // Set transition duration
+        const TRANSITION_DURATION = 750; // Transition duration in milliseconds
+
+        // Create a tooltip
+        const tooltip = d3.select("#network-bar-chart-area")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        // Clear existing chart elements
+        network_svg.selectAll("*").remove();
+
+        // Re-create X axis
+        network_svg
+            .append("g")
+            .attr("transform", `translate(0,${networkHeight})`)
+            .call(d3.axisBottom(x).ticks(5));
+
+        // Update Y axis domain based on new data
+        y.domain(data.map((d) => d.network));
+        network_svg
+            .append("g")
+            .call(d3.axisLeft(y).tickSize(0))
+            .selectAll(".tick text")
+            .attr("x", -y.bandwidth() * 1.2)
+            .style("text-anchor", "end")
+            .style("font-size", "16px");
+
+        // Add bars with transition
+        const bars = network_svg
+            .selectAll("myRect")
+            .data(data)
+            .enter()
+            .append("rect")
+            .on("mouseover", function(event, d) {
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                tooltip.html(`${d.network}<br/>Average Sentiment: ${d.avg_sentiment.toFixed(2)}`)
+                    .style("left", (event.pageX + 15) + "px")
+                    .style("top", (event.pageY - 30) + "px");
+            })
+            .on("mouseout", function(d) {
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
+            .attr("x", x(0))
+            .attr("y", (d) => y(d.network))
+            .attr("height", y.bandwidth())
+            .attr("fill", (d) => d.color);
+
+        bars
+            .transition()
+            .duration(TRANSITION_DURATION)
+            .attr("width", (d) => x(d.avg_sentiment));
+
+        // Add bar extensions with transition
+        const barExtensions = network_svg
+            .selectAll("barExtensions")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", x(0) - y.bandwidth() / 2)
+            .attr("y", (d) => y(d.network))
+            .attr("height", y.bandwidth())
+            .attr("fill", (d) => d.color);
+
+        barExtensions
+            .transition()
+            .duration(TRANSITION_DURATION)
+            .attr("width", y.bandwidth());
+
+        // Add background circles with transition
+        const backgroundCircles = network_svg
+            .selectAll("backgroundCircles")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", x(0) - y.bandwidth() / 2)
+            .attr("cy", (d) => y(d.network) + y.bandwidth() / 2)
+            .attr("r", 0)
+            .attr("fill", "white")
+            .attr("stroke", (d) => d.color)
+            .attr("stroke-width", 3);
+
+        backgroundCircles
+            .transition()
+            .duration(TRANSITION_DURATION)
+            .attr("r", y.bandwidth() / 2);
+
+        // Add images with transition
+        const images = network_svg
+            .selectAll("networkImages")
+            .data(data)
+            .enter()
+            .append("image")
+            .attr("xlink:href", (d) => d.photo)
+            .attr("x", x(0) - y.bandwidth())
+            .attr("y", (d) => y(d.network))
+            .attr("height", 0)
+            .attr("width", 0)
+            .attr("clip-path", "circle()");
+
+        images
+            .transition()
+            .duration(TRANSITION_DURATION)
+            .attr("height", y.bandwidth())
+            .attr("width", y.bandwidth());
+
+        // Add click event handling for bars and images
+        bars.on('click', function(event, d) {
+            // Get the network value associated with the clicked bar
+            clickedNetwork = d.network;
+
+            // Call the update_sbf_visualization function and pass the clickedNetwork value
+            update_sbf_visualization();
+        });
+        images.on('click', function(event, d) {
+            // Get the network value associated with the clicked bar
+            clickedNetwork = d.network;
+
+            // Call the update_sbf_visualization function and pass the clickedNetwork value
+            update_sbf_visualization();
+        });
+    }
+});

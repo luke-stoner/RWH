@@ -58,6 +58,8 @@
 
 h1 {
   font-family: "cnn-font", sans-serif;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
 h2 h3 {
@@ -77,6 +79,23 @@ h2 h3 {
   background-size: cover;
   object-fit: cover;
   z-index: 1;
+}
+
+.tooltip {
+  position: absolute;
+  text-align: left;
+  padding: 10px;
+  font: 14px sans-serif;
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.9); /* Adjust the opacity as needed */
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  box-shadow: 0 0 5px #999;
+  max-width: 250px
+}
+
+#sbfHeader {
+  padding-bottom: 30px;
 }
 
 /* Hiding video controls
