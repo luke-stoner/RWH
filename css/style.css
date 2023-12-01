@@ -58,7 +58,6 @@
 
 h1 {
   font-family: "cnn-font", sans-serif;
-  padding-bottom: 20px;
   padding-top: 20px;
 }
 
@@ -207,7 +206,7 @@ video::-webkit-media-controls {
 }
 .underline {
   height: 1.5vh;
-  margin-bottom: 4vh;
+  margin-bottom: 1em;
 }
 
 .redBlock {
