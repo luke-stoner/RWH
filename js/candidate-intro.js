@@ -33,7 +33,6 @@ class CandidateIntroduction {
 
     const normalizedPercentage = percentage / 100;
 
-    // Define darker colors for better contrast
     const darkRed = [175, 0, 0];
     const darkYellow = [175, 175, 0];
     const darkGreen = [0, 100, 0];
@@ -131,7 +130,7 @@ class CandidateIntroduction {
       .data(this.candidates)
       .enter()
       .append("g")
-      .attr("transform", "translate(-300,-300)") // Initial off-screen position for the group
+      .attr("transform", "translate(-300,-300)")
       .on("mouseover", (event, candidate) =>
         this.handleCircleMouseOver(event, candidate)
       )
@@ -199,7 +198,7 @@ class CandidateIntroduction {
     this.circles
       .transition()
       .duration(1000)
-      .delay((d, i) => i * 100) // Staggering the delay for each circle
+      .delay((d, i) => i * 100)
       .attr(
         "transform",
         (d, i) =>

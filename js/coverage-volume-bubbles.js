@@ -8,15 +8,11 @@ class BubbleChart {
     this.loadData();
   }
   async loadData() {
-    try {
-      const csvData = await d3.csv("data/labeled.csv");
-      const data = this.parseData(csvData);
+    const csvData = await d3.csv("data/labeled.csv");
+    const data = this.parseData(csvData);
+    data.sort((a, b) => a.frequency - b.frequency);
 
-      this.setupChart(data);
-      this.setupLegend(data);
-    } catch (error) {
-      console.error("Error loading the data:", error);
-    }
+    this.setupChart(data);
   }
 
   parseData(data) {
@@ -72,123 +68,39 @@ class BubbleChart {
       .append("g")
       .attr("class", "node");
 
+    // Initial placement of circles at the top center
     node
-      .append("clipPath")
-      .attr("id", function (d, i) {
-        return "clip-" + i;
+      .attr("transform", function () {
+        return "translate(" + innerWidth / 2 + ", 0)";
       })
       .append("circle")
-      .attr("r", function (d) {
-        return d.r;
-      });
+      .attr("r", 10) // Small initial radius
+      .style("fill", "lightgray"); // Initial color
 
-    const t = d3.transition().duration(750);
-
+    // Transition to positions on a line chart based on frequency
     node
-      .transition(t)
+      .transition()
+      .duration(750)
       .delay(function (d, i) {
         return i * 50;
       })
-      .attr("transform", function (d) {
-        return "translate(" + d.x + "," + d.y + ")";
-      });
-
-    const sizeScale = d3
-      .scaleSqrt()
-      .domain([
-        0,
-        d3.max(data, function (d) {
-          return d.frequency;
-        }),
-      ])
-      .range([0, 50]);
-
-    data.sort(function (a, b) {
-      return b.frequency - a.frequency;
-    });
-
-    node
-      .append("circle")
-      .attr("r", function (d) {
-        return d.r;
+      .attr("transform", function (d, i) {
+        // Calculate the x-position based on frequency (spacing the circles out)
+        const xPosition = (i * innerWidth) / data.length;
+        // Calculate the y-position (you can modify this based on your requirements)
+        const yPosition = innerHeight / 2;
+        return "translate(" + xPosition + "," + yPosition + ")";
       })
+      .select("circle")
       .style("fill", function (d) {
         return PARTY_COLOR_MAP[d.data.party];
       });
 
     node
-      .append("svg:image")
-      .attr("xlink:href", function (d) {
-        return d.data.photo;
-      })
-      .attr("clip-path", function (d, i) {
-        return "url(#clip-" + i + ")";
-      })
-      .attr("x", function (d) {
-        return -d.r;
-      })
-      .attr("y", function (d) {
-        return -d.r;
-      })
-      .attr("height", function (d) {
-        return 2 * d.r;
-      })
-      .attr("width", function (d) {
-        return 2 * d.r;
-      });
-  }
-
-  setupLegend(data) {
-    const sortedData = data.map((d) => d.frequency).sort((a, b) => a - b);
-    const minSize = this.dynamicRound(sortedData[0]);
-    const medianSize = this.dynamicRound(
-      sortedData[Math.floor(sortedData.length / 2)]
-    );
-    const maxSize = this.dynamicRound(sortedData[sortedData.length - 1]);
-    const legendSizes = [minSize, medianSize, maxSize];
-
-    const sizeScale = d3.scaleSqrt().domain([0, maxSize]).range([5, 30]);
-
-    const spacing = 80;
-    const maxLegendCircleSize = sizeScale(maxSize);
-    const legendWidth =
-      legendSizes.length * (maxLegendCircleSize * 2 + spacing);
-
-    const legendSvg = d3
-      .select("#legend-container")
-      .append("svg")
-      .attr("width", legendWidth)
-      .attr("height", maxLegendCircleSize * 2 + 30);
-
-    const legend = legendSvg
-      .selectAll(".legend")
-      .data(legendSizes)
-      .enter()
-      .append("g")
-      .attr("class", "legend")
-      .attr("transform", function (d, i) {
-        const xPosition = i * (maxLegendCircleSize * 2 + spacing) + 40;
-        return "translate(" + xPosition + ",0)";
-      });
-
-    legend
-      .append("circle")
-      .attr("cx", maxLegendCircleSize)
-      .attr("cy", maxLegendCircleSize)
-      .attr("r", function (d) {
-        return sizeScale(d);
-      })
-      .style("fill", "#ccc");
-
-    legend
       .append("text")
-      .attr("x", maxLegendCircleSize)
-      .attr("y", maxLegendCircleSize * 2 + 20)
-      .text(function (d) {
-        return `${d.toLocaleString()} mentions`;
-      })
-      .attr("font-size", "12px")
-      .attr("text-anchor", "middle");
+      .attr("text-anchor", "middle")
+      .attr("dy", "2em")
+      .text((d) => d.data.frequency.toLocaleString());
   }
 
   dynamicRound(value) {
@@ -200,5 +112,3 @@ class BubbleChart {
     return Math.round(value / roundTo) * roundTo;
   }
 }
-
-
