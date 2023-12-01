@@ -1,5 +1,9 @@
 class CandidateIntroduction {
   constructor(data) {
+    if (CandidateIntroduction.instance) {
+      return CandidateIntroduction.instance;
+    }
+
     this.candidates = data.map(
       (candidateData) => new Candidate(...Object.values(candidateData))
     );
@@ -19,6 +23,8 @@ class CandidateIntroduction {
     this.createCandidateCircles();
     this.createLegend();
     this.isModalOpen = false;
+
+    CandidateIntroduction.instance = this;
   }
   percentageToColor(percentage) {
     if (percentage < 0 || percentage > 100) {

@@ -278,6 +278,3 @@ const candidate_descriptions = [
   },
 ];
 
-const candidateVisualization = new CandidateIntroduction(
-  candidate_descriptions
-);

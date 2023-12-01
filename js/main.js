@@ -43,6 +43,12 @@ document.addEventListener("DOMContentLoaded", function () {
           ease: Power2.easeInOut,
         });
       }
+
+      if (destination.index == 4) {
+        const candidateVisualization = new CandidateIntroduction(
+          candidate_descriptions
+        );
+      }
     },
   });
 
@@ -74,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
     newsBar.style.visibility = "visible";
   }
 
-  
   function handleModalVisibility() {
     const modalElement = document.getElementById("candidate-modal");
     if (modalElement) {
