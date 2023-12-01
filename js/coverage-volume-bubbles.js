@@ -1,42 +1,69 @@
 class BubbleChart {
   constructor() {
-    if (BubbleChart.instance) {
-      return BubbleChart.instance;
+    if (!BubbleChart.instance) {
+      this.initialize();
+      BubbleChart.instance = this;
     }
-
-    BubbleChart.instance = this;
-    this.loadData();
+    return BubbleChart.instance;
   }
-  async loadData() {
-    const csvData = await d3.csv("data/labeled.csv");
-    const data = this.parseData(csvData);
-    data.sort((a, b) => a.frequency - b.frequency);
 
+  initialize() {
+    this.loadAndSetupChart();
+  }
+
+  async loadAndSetupChart() {
+    const csvData = await this.loadData();
+    const data = this.parseData(csvData);
+    this.sortDataByFrequency(data);
     this.setupChart(data);
   }
 
+  async loadData() {
+    return await d3.csv("data/labeled.csv");
+  }
+
   parseData(data) {
+    const countMap = this.countCandidates(data);
+    return this.formatDataForChart(countMap, data);
+  }
+
+  countCandidates(data) {
     const countMap = new Map();
     data.forEach((row) => {
-      const candidateKey = row.first_name + "_" + row.last_name;
-      if (countMap.has(candidateKey)) {
-        countMap.set(candidateKey, countMap.get(candidateKey) + 1);
-      } else {
-        countMap.set(candidateKey, 1);
-      }
+      const candidateKey = this.createCandidateKey(row);
+      countMap.set(candidateKey, (countMap.get(candidateKey) || 0) + 1);
     });
+    return countMap;
+  }
 
-    return Array.from(countMap, ([key, frequency]) => {
-      const [firstName, lastName] = key.split("_");
-      return {
-        name: lastName,
-        frequency: frequency,
-        photo: "img/candidate_portraits/" + lastName.toLowerCase() + ".png",
-        party: data.find(
-          (d) => d.first_name === firstName && d.last_name === lastName
-        ).party,
-      };
-    });
+  createCandidateKey(row) {
+    return `${row.first_name}_${row.last_name}`;
+  }
+
+  formatDataForChart(countMap, originalData) {
+    return Array.from(countMap, ([key, frequency]) =>
+      this.createChartData(key, frequency, originalData)
+    );
+  }
+
+  createChartData(key, frequency, originalData) {
+    const [firstName, lastName] = key.split("_");
+    return {
+      name: lastName,
+      frequency,
+      photo: `img/candidate_portraits/${lastName.toLowerCase()}.png`,
+      party: this.findParty(firstName, lastName, originalData),
+    };
+  }
+
+  findParty(firstName, lastName, data) {
+    return data.find(
+      (d) => d.first_name === firstName && d.last_name === lastName
+    ).party;
+  }
+
+  sortDataByFrequency(data) {
+    data.sort((a, b) => a.frequency - b.frequency);
   }
 
   setupChart(data) {

@@ -101,7 +101,6 @@ class CandidateIntroduction {
     candidate
       .calculateMentions()
       .then((mentionCount) => {
-        // Format mention count with a comma
         candidateMentionsModal.textContent = mentionCount.toLocaleString();
       })
       .catch((error) => {
