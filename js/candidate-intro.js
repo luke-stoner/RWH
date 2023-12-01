@@ -129,7 +129,7 @@ class CandidateIntroduction {
       .data(this.candidates)
       .enter()
       .append("g")
-      .attr("transform", "translate(-300,-300)")
+      .attr("transform", `translate(${this.width / 2},-300)`)
       .on("mouseover", (event, candidate) =>
         this.handleCircleMouseOver(event, candidate)
       )
