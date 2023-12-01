@@ -45,9 +45,13 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (destination.index == 4) {
-        const candidateVisualization = new CandidateIntroduction(
+        const candidateIntro = new CandidateIntroduction(
           candidate_descriptions
         );
+      }
+
+      if (destination.index == 5) {
+        const volumeBubbles = new BubbleChart();
       }
     },
   });
