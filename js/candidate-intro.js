@@ -129,7 +129,7 @@ class CandidateIntroduction {
       .data(this.candidates)
       .enter()
       .append("g")
-      .attr("transform", `translate(${this.width / 2},-300)`)
+      .attr("transform", `translate(${this.width / 2},${-this.height})`)
       .on("mouseover", (event, candidate) =>
         this.handleCircleMouseOver(event, candidate)
       )
@@ -206,7 +206,18 @@ class CandidateIntroduction {
           "," +
           (Math.floor(i / this.columns) * this.rowHeight + this.margin) +
           ")"
-      );
+      )
+      .on("end", () => {
+        // Delay adding the text until after all circle transitions
+        setTimeout(() => {
+          // Add the text at the top and fade it to black
+          d3.select("#candidate-instruction")
+            .text("Click on a candidate to learn more")
+            .transition()
+            .duration(300) // Adjust the duration as needed
+            .style("color", "black");
+        }, 1000); // Adjust the delay as needed
+      });
 
     $("#candidate-modal").on("hidden.bs.modal", () => this.handleModalClose());
   }

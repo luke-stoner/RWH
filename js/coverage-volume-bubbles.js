@@ -1,69 +1,46 @@
 class BubbleChart {
   constructor() {
-    if (!BubbleChart.instance) {
-      this.initialize();
-      BubbleChart.instance = this;
+    if (BubbleChart.instance) {
+      return BubbleChart.instance;
     }
-    return BubbleChart.instance;
-  }
 
-  initialize() {
-    this.loadAndSetupChart();
+    BubbleChart.instance = this;
+    this.loadData();
   }
-
-  async loadAndSetupChart() {
-    const csvData = await this.loadData();
-    const data = this.parseData(csvData);
-    this.sortDataByFrequency(data);
-    this.setupChart(data);
-  }
-
   async loadData() {
-    return await d3.csv("data/labeled.csv");
+    try {
+      const csvData = await d3.csv("data/labeled.csv");
+      const data = this.parseData(csvData);
+
+      this.setupChart(data);
+      this.setupLegend(data);
+    } catch (error) {
+      console.error("Error loading the data:", error);
+    }
   }
 
   parseData(data) {
-    const countMap = this.countCandidates(data);
-    return this.formatDataForChart(countMap, data);
-  }
-
-  countCandidates(data) {
     const countMap = new Map();
     data.forEach((row) => {
-      const candidateKey = this.createCandidateKey(row);
-      countMap.set(candidateKey, (countMap.get(candidateKey) || 0) + 1);
+      const candidateKey = row.first_name + "_" + row.last_name;
+      if (countMap.has(candidateKey)) {
+        countMap.set(candidateKey, countMap.get(candidateKey) + 1);
+      } else {
+        countMap.set(candidateKey, 1);
+      }
     });
-    return countMap;
-  }
 
-  createCandidateKey(row) {
-    return `${row.first_name}_${row.last_name}`;
-  }
-
-  formatDataForChart(countMap, originalData) {
-    return Array.from(countMap, ([key, frequency]) =>
-      this.createChartData(key, frequency, originalData)
-    );
-  }
-
-  createChartData(key, frequency, originalData) {
-    const [firstName, lastName] = key.split("_");
-    return {
-      name: lastName,
-      frequency,
-      photo: `img/candidate_portraits/${lastName.toLowerCase()}.png`,
-      party: this.findParty(firstName, lastName, originalData),
-    };
-  }
-
-  findParty(firstName, lastName, data) {
-    return data.find(
-      (d) => d.first_name === firstName && d.last_name === lastName
-    ).party;
-  }
-
-  sortDataByFrequency(data) {
-    data.sort((a, b) => a.frequency - b.frequency);
+    return Array.from(countMap, ([key, frequency]) => {
+      const [firstName, lastName] = key.split("_");
+      return {
+        name: lastName,
+        frequency: frequency,
+        photo: "img/candidate_portraits/" + lastName.toLowerCase() + ".png",
+        party: data.find(
+          (d) => d.first_name === firstName && d.last_name === lastName
+        ).party,
+      };
+    });
   }
 
   setupChart(data) {
@@ -95,39 +72,123 @@ class BubbleChart {
       .append("g")
       .attr("class", "node");
 
-    // Initial placement of circles at the top center
     node
-      .attr("transform", function () {
-        return "translate(" + innerWidth / 2 + ", 0)";
+      .append("clipPath")
+      .attr("id", function (d, i) {
+        return "clip-" + i;
       })
       .append("circle")
-      .attr("r", 10) // Small initial radius
-      .style("fill", "lightgray"); // Initial color
+      .attr("r", function (d) {
+        return d.r;
+      });
 
-    // Transition to positions on a line chart based on frequency
+    const t = d3.transition().duration(750);
+
     node
-      .transition()
-      .duration(750)
+      .transition(t)
       .delay(function (d, i) {
         return i * 50;
       })
-      .attr("transform", function (d, i) {
-        // Calculate the x-position based on frequency (spacing the circles out)
-        const xPosition = (i * innerWidth) / data.length;
-        // Calculate the y-position (you can modify this based on your requirements)
-        const yPosition = innerHeight / 2;
-        return "translate(" + xPosition + "," + yPosition + ")";
+      .attr("transform", function (d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+
+    const sizeScale = d3
+      .scaleSqrt()
+      .domain([
+        0,
+        d3.max(data, function (d) {
+          return d.frequency;
+        }),
+      ])
+      .range([0, 50]);
+
+    data.sort(function (a, b) {
+      return b.frequency - a.frequency;
+    });
+
+    node
+      .append("circle")
+      .attr("r", function (d) {
+        return d.r;
       })
-      .select("circle")
       .style("fill", function (d) {
         return PARTY_COLOR_MAP[d.data.party];
       });
 
     node
+      .append("svg:image")
+      .attr("xlink:href", function (d) {
+        return d.data.photo;
+      })
+      .attr("clip-path", function (d, i) {
+        return "url(#clip-" + i + ")";
+      })
+      .attr("x", function (d) {
+        return -d.r;
+      })
+      .attr("y", function (d) {
+        return -d.r;
+      })
+      .attr("height", function (d) {
+        return 2 * d.r;
+      })
+      .attr("width", function (d) {
+        return 2 * d.r;
+      });
+  }
+
+  setupLegend(data) {
+    const sortedData = data.map((d) => d.frequency).sort((a, b) => a - b);
+    const minSize = this.dynamicRound(sortedData[0]);
+    const medianSize = this.dynamicRound(
+      sortedData[Math.floor(sortedData.length / 2)]
+    );
+    const maxSize = this.dynamicRound(sortedData[sortedData.length - 1]);
+    const legendSizes = [minSize, medianSize, maxSize];
+
+    const sizeScale = d3.scaleSqrt().domain([0, maxSize]).range([5, 30]);
+
+    const spacing = 80;
+    const maxLegendCircleSize = sizeScale(maxSize);
+    const legendWidth =
+      legendSizes.length * (maxLegendCircleSize * 2 + spacing);
+
+    const legendSvg = d3
+      .select("#legend-container")
+      .append("svg")
+      .attr("width", legendWidth)
+      .attr("height", maxLegendCircleSize * 2 + 30);
+
+    const legend = legendSvg
+      .selectAll(".legend")
+      .data(legendSizes)
+      .enter()
+      .append("g")
+      .attr("class", "legend")
+      .attr("transform", function (d, i) {
+        const xPosition = i * (maxLegendCircleSize * 2 + spacing) + 40;
+        return "translate(" + xPosition + ",0)";
+      });
+
+    legend
+      .append("circle")
+      .attr("cx", maxLegendCircleSize)
+      .attr("cy", maxLegendCircleSize)
+      .attr("r", function (d) {
+        return sizeScale(d);
+      })
+      .style("fill", "#ccc");
+
+    legend
       .append("text")
-      .attr("text-anchor", "middle")
-      .attr("dy", "2em")
-      .text((d) => d.data.frequency.toLocaleString());
+      .attr("x", maxLegendCircleSize)
+      .attr("y", maxLegendCircleSize * 2 + 20)
+      .text(function (d) {
+        return `${d.toLocaleString()} mentions`;
+      })
+      .attr("font-size", "12px")
+      .attr("text-anchor", "middle");
   }
 
   dynamicRound(value) {
