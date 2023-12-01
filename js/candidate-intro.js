@@ -131,6 +131,7 @@ class CandidateIntroduction {
       .data(this.candidates)
       .enter()
       .append("g")
+      .attr("transform", "translate(-100,-100)") // Initial off-screen position for the group
       .on("mouseover", (event, candidate) =>
         this.handleCircleMouseOver(event, candidate)
       )
@@ -149,18 +150,8 @@ class CandidateIntroduction {
     this.circles
       .append("circle")
       .attr("class", "candidate-color-circle")
-      .attr(
-        "cx",
-        (d, i) =>
-          (i % this.columns) * this.colWidth + this.margin + this.circleRadius
-      )
-      .attr(
-        "cy",
-        (d, i) =>
-          Math.floor(i / this.columns) * this.rowHeight +
-          this.margin +
-          this.circleRadius
-      )
+      .attr("cx", this.circleRadius + this.borderThickness)
+      .attr("cy", this.circleRadius + this.borderThickness)
       .attr("r", this.circleRadius + this.borderThickness)
       .attr("fill", (d) => this.partyColors[d.party]);
 
@@ -168,18 +159,8 @@ class CandidateIntroduction {
     this.circles
       .append("circle")
       .attr("class", "candidate-white-circle")
-      .attr(
-        "cx",
-        (d, i) =>
-          (i % this.columns) * this.colWidth + this.margin + this.circleRadius
-      )
-      .attr(
-        "cy",
-        (d, i) =>
-          Math.floor(i / this.columns) * this.rowHeight +
-          this.margin +
-          this.circleRadius
-      )
+      .attr("cx", this.circleRadius + this.borderThickness)
+      .attr("cy", this.circleRadius + this.borderThickness)
       .attr("r", this.circleRadius)
       .attr("fill", "white");
 
@@ -187,11 +168,8 @@ class CandidateIntroduction {
     this.circles
       .append("image")
       .attr("xlink:href", (d) => d.image)
-      .attr("x", (d, i) => (i % this.columns) * this.colWidth + this.margin)
-      .attr(
-        "y",
-        (d, i) => Math.floor(i / this.columns) * this.rowHeight + this.margin
-      )
+      .attr("x", this.borderThickness)
+      .attr("y", this.borderThickness)
       .attr("width", 2 * this.circleRadius)
       .attr("height", 2 * this.circleRadius)
       .attr(
@@ -209,24 +187,27 @@ class CandidateIntroduction {
     this.circles
       .append("text")
       .text((d) => `${d.first} ${d.last}`)
-      .attr(
-        "x",
-        (d, i) =>
-          (i % this.columns) * this.colWidth + this.margin + this.circleRadius
-      )
-      .attr(
-        "y",
-        (d, i) =>
-          Math.floor(i / this.columns) * this.rowHeight +
-          this.margin +
-          2 * this.circleRadius +
-          25
-      )
+      .attr("x", this.circleRadius + this.borderThickness)
+      .attr("y", 2 * this.circleRadius + this.borderThickness + 25)
       .attr("text-anchor", "middle")
       .attr("alignment-baseline", "middle")
       .attr("class", "candidate-label")
       .attr("fill", "black")
       .style("user-select", "none");
+
+    // Transition the entire group to the final position
+    this.circles
+      .transition()
+      .duration(1000)
+      .attr(
+        "transform",
+        (d, i) =>
+          "translate(" +
+          ((i % this.columns) * this.colWidth + this.margin) +
+          "," +
+          (Math.floor(i / this.columns) * this.rowHeight + this.margin) +
+          ")"
+      );
 
     $("#candidate-modal").on("hidden.bs.modal", () => this.handleModalClose());
   }
