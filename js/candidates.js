@@ -219,6 +219,8 @@ class CandidateVisualization {
         this.populateModal(candidate);
         $("#candidate-modal").modal("show");
       });
+    
+    this.circles.style("cursor", "pointer");
 
     // Add the party color outline to the white circle
     this.circles
