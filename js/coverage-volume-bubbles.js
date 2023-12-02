@@ -191,29 +191,29 @@ class BubbleChart {
       .attr("class", "node")
       .attr("transform", `translate(${width / 2},${height / 2})`); // Start at center
 
-    // Create clipPaths for images
+    // Create clipPaths for images with initial small radius
     node
       .append("clipPath")
       .attr("id", (d, i) => "clip-" + i)
       .append("circle")
-      .attr("r", (d) => radiusScale(d.data.frequency));
+      .attr("r", 10); // Start with small radius
 
-    // Append circles to nodes with initial opacity set to 0
+    // Append circles to nodes with initial small radius
     const circles = node
       .append("circle")
-      .attr("r", (d) => radiusScale(d.data.frequency))
+      .attr("r", 10) // Start with small radius
       .style("fill", (d) => PARTY_COLOR_MAP[d.data.party])
       .style("opacity", 0); // Start with opacity 0
 
-    // Append images to nodes with initial opacity set to 0
+    // Append images to nodes with initial small size
     const images = node
       .append("svg:image")
       .attr("xlink:href", (d) => d.data.photo)
       .attr("clip-path", (d, i) => "url(#clip-" + i + ")")
-      .attr("x", (d) => -radiusScale(d.data.frequency))
-      .attr("y", (d) => -radiusScale(d.data.frequency))
-      .attr("height", (d) => 2 * radiusScale(d.data.frequency))
-      .attr("width", (d) => 2 * radiusScale(d.data.frequency))
+      .attr("x", -5) // Half of the initial radius
+      .attr("y", -5) // Half of the initial radius
+      .attr("height", 10) // Double of the initial radius
+      .attr("width", 10) // Double of the initial radius
       .style("opacity", 0); // Start with opacity 0
 
     // Transition nodes to their final positions with staggered delay
@@ -223,17 +223,30 @@ class BubbleChart {
       .delay((d, i) => i * 100) // Stagger the start of each transition
       .attr("transform", (d) => `translate(${d.x},${d.y})`);
 
-    // Transition for circles and images to fade in
+    // Transition for circles and clipPaths to scale up
     circles
       .transition()
       .duration(1000)
       .delay((d, i) => i * 100)
+      .attr("r", (d) => radiusScale(d.data.frequency)) // Scale up to final radius
       .style("opacity", 1); // Fade in to opacity 1
 
+    node
+      .selectAll("clipPath circle")
+      .transition()
+      .duration(1000)
+      .delay((d, i) => i * 100)
+      .attr("r", (d) => radiusScale(d.data.frequency)); // Scale up to final radius
+
+    // Transition for images to scale up and fade in
     images
       .transition()
       .duration(1000)
       .delay((d, i) => i * 100)
-      .style("opacity", 1); // Fade in to opacity 1
+      .attr("x", (d) => -radiusScale(d.data.frequency))
+      .attr("y", (d) => -radiusScale(d.data.frequency))
+      .attr("height", (d) => 2 * radiusScale(d.data.frequency))
+      .attr("width", (d) => 2 * radiusScale(d.data.frequency))
+      .style("opacity", 1); 
   }
 }
