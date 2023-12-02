@@ -3,49 +3,26 @@ class BubbleChart {
     if (BubbleChart.instance) {
       return BubbleChart.instance;
     }
-
     BubbleChart.instance = this;
+
     this.loadData();
   }
 
-  static getInstance() {
-    return BubbleChart.instance || new BubbleChart();
-  }
-
   async loadData() {
-    try {
-      const csvData = await d3.csv("data/labeled.csv");
-      const data = this.parseData(csvData);
+    const csvData = await d3.csv("data/labeled.csv");
+    const data = d3.rollup(
+      csvData,
+      (v) => ({
+        name: v[0].last_name,
+        frequency: v.length,
+        photo: `img/candidate_portraits/${v[0].last_name.toLowerCase()}.png`,
+        party: v[0].party,
+      }),
+      (d) => `${d.first_name}_${d.last_name}`
+    );
 
-      this.setupChart(data);
-      this.setupLegend(data);
-    } catch (error) {
-      console.error("Error loading the data:", error);
-    }
-  }
-
-  parseData(data) {
-    const countMap = new Map();
-    data.forEach((row) => {
-      const candidateKey = row.first_name + "_" + row.last_name;
-      if (countMap.has(candidateKey)) {
-        countMap.set(candidateKey, countMap.get(candidateKey) + 1);
-      } else {
-        countMap.set(candidateKey, 1);
-      }
-    });
-
-    return Array.from(countMap, ([key, frequency]) => {
-      const [firstName, lastName] = key.split("_");
-      return {
-        name: lastName,
-        frequency: frequency,
-        photo: "img/candidate_portraits/" + lastName.toLowerCase() + ".png",
-        party: data.find(
-          (d) => d.first_name === firstName && d.last_name === lastName
-        ).party,
-      };
-    });
+    this.setupChart(Array.from(data.values()));
+    this.setupLegend(Array.from(data.values()));
   }
 
   setupChart(data) {
