@@ -220,14 +220,14 @@ class BubbleChart {
     node
       .transition()
       .duration(1000) // Duration of the transition in milliseconds
-      .delay((d, i) => i * 100) // Stagger the start of each transition
+      .delay((d, i) => i * 200) // Increase delay for more punctuated effect
       .attr("transform", (d) => `translate(${d.x},${d.y})`);
 
     // Transition for circles and clipPaths to scale up
     circles
       .transition()
       .duration(1000)
-      .delay((d, i) => i * 100)
+      .delay((d, i) => i * 200) // Increase delay for more punctuated effect
       .attr("r", (d) => radiusScale(d.data.frequency)) // Scale up to final radius
       .style("opacity", 1); // Fade in to opacity 1
 
@@ -235,18 +235,18 @@ class BubbleChart {
       .selectAll("clipPath circle")
       .transition()
       .duration(1000)
-      .delay((d, i) => i * 100)
+      .delay((d, i) => i * 200) // Increase delay for more punctuated effect
       .attr("r", (d) => radiusScale(d.data.frequency)); // Scale up to final radius
 
     // Transition for images to scale up and fade in
     images
       .transition()
       .duration(1000)
-      .delay((d, i) => i * 100)
+      .delay((d, i) => i * 200) // Increase delay for more punctuated effect
       .attr("x", (d) => -radiusScale(d.data.frequency))
       .attr("y", (d) => -radiusScale(d.data.frequency))
       .attr("height", (d) => 2 * radiusScale(d.data.frequency))
       .attr("width", (d) => 2 * radiusScale(d.data.frequency))
-      .style("opacity", 1); 
+      .style("opacity", 1); // Fade in to opacity 1
   }
 }
