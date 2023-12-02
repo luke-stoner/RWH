@@ -21,91 +21,55 @@ class BubbleChart {
       (d) => `${d.first_name}_${d.last_name}`
     );
 
-    this.setupChart(Array.from(data.values()));
+    this.createVisualization(Array.from(data.values()));
     this.setupLegend(Array.from(data.values()));
   }
 
-  setupChart(data) {
-    const width = 400;
-    const height = 400;
-    const margin = { top: 0, right: 20, bottom: 20, left: 20 };
-
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
+  createVisualization(data) {
+    const width = 900;
+    const height = 600;
+    const margin = 20;
 
     const svg = d3
       .select("#volume-bubbles")
       .append("svg")
       .attr("width", width)
-      .attr("height", height)
-      .append("g");
+      .attr("height", height);
 
-    const pack = d3.pack().size([innerWidth, innerHeight]).padding(2);
+    // Calculate the total width available for the circles & determine spacing
+    const numCircles = data.length;
+    const totalWidthForCircles = width - 2 * margin;
+    const circleSpacing = totalWidthForCircles / (numCircles - 1);
 
-    const root = d3.hierarchy({ children: data }).sum(function (d) {
-      return d.frequency;
-    });
+    // Calculate the initial and final positions for the circles
+    const initialX = width / 2;
+    const initialY = 0;
+    const finalY = height / 2;
 
-    const node = svg
-      .selectAll(".node")
-      .data(pack(root).leaves())
+    // Create a group for the circles
+    const circleGroup = svg.append("g");
+
+    // Create circles with initial positions at the top center and zero opacity
+    // Sort first so circles appear from least to greatest
+    data.sort((a, b) => a.frequency - b.frequency);
+    const circles = circleGroup
+      .selectAll("circle")
+      .data(data)
       .enter()
-      .append("g")
-      .attr("class", "node");
-
-    node
-      .append("clipPath")
-      .attr("id", function (d, i) {
-        return "clip-" + i;
-      })
       .append("circle")
-      .attr("r", function (d) {
-        return d.r;
-      });
+      .attr("cx", initialX)
+      .attr("cy", initialY)
+      .attr("r", 10)
+      .style("fill", (d) => PARTY_COLOR_MAP[d.party]) // Change the fill color as needed
+      .style("opacity", 0);
 
-    const t = d3.transition().duration(750);
-
-    node
-      .transition(t)
-      .delay(function (d, i) {
-        return i * 50;
-      })
-      .attr("transform", function (d) {
-        return `translate(${d.x},${d.y})`;
-      });
-
-    data.sort(function (a, b) {
-      return b.frequency - a.frequency;
-    });
-
-    node
-      .append("circle")
-      .attr("r", function (d) {
-        return d.r;
-      })
-      .style("fill", function (d) {
-        return PARTY_COLOR_MAP[d.data.party];
-      });
-
-    node
-      .append("svg:image")
-      .attr("xlink:href", function (d) {
-        return d.data.photo;
-      })
-      .attr("clip-path", function (d, i) {
-        return "url(#clip-" + i + ")";
-      })
-      .attr("x", function (d) {
-        return -d.r;
-      })
-      .attr("y", function (d) {
-        return -d.r;
-      })
-      .attr("height", function (d) {
-        return 2 * d.r;
-      })
-      .attr("width", function (d) {
-        return 2 * d.r;
-      });
+    // Make the circles fade in 1 by 1
+    circles
+      .transition()
+      .duration(1000)
+      .delay((d, i) => i * 500)
+      .attr("cx", (d, i) => margin + i * circleSpacing)
+      .attr("cy", finalY)
+      .style("opacity", 1);
   }
 }
