@@ -135,7 +135,19 @@ class BubbleChart {
           .end() // Wait for this transition to finish
           .then(() => {
             // After second message fades out, fade out the labels
-            labels.transition().duration(1000).style("opacity", 0);
+            labels
+              .transition()
+              .duration(1000)
+              .style("opacity", 0)
+              .end() // Wait for the labels' transition to finish
+              .then(() => {
+                // After labels fade out, move the circles to the center of the SVG
+                circles
+                  .transition()
+                  .duration(1000)
+                  .attr("cx", width / 2)
+                  .attr("cy", height / 2);
+              });
           });
       });
   }
