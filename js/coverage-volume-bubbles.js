@@ -118,7 +118,7 @@ class BubbleChart {
       .end() // This ensures the next transition waits for this to finish
       .then(() => {
         // Second message
-        svg
+        const secondMessage = svg
           .append("text")
           .attr("x", width / 2)
           .attr("y", height / 3)
@@ -127,7 +127,16 @@ class BubbleChart {
           .style("opacity", 0)
           .transition()
           .duration(1000)
-          .style("opacity", 1);
+          .style("opacity", 1)
+          .transition() // Start a new transition to fade out the second message
+          .delay(3000) // Time the message will remain visible before fading out
+          .duration(1000)
+          .style("opacity", 0)
+          .end() // Wait for this transition to finish
+          .then(() => {
+            // After second message fades out, fade out the labels
+            labels.transition().duration(1000).style("opacity", 0);
+          });
       });
   }
 }
