@@ -28,7 +28,8 @@ class BubbleChart {
   createVisualization(data) {
     const width = 900;
     const height = 600;
-    const margin = 20;
+    const margin = 30;
+    const circleRadius = 10;
 
     const svg = d3
       .select("#volume-bubbles")
@@ -46,30 +47,52 @@ class BubbleChart {
     const initialY = 0;
     const finalY = height / 2;
 
-    // Create a group for the circles
-    const circleGroup = svg.append("g");
+    // Create a group for the circles and labels
+    const group = svg.append("g");
 
-    // Create circles with initial positions at the top center and zero opacity
-    // Sort first so circles appear from least to greatest
+    // Sort data
     data.sort((a, b) => a.frequency - b.frequency);
-    const circles = circleGroup
+
+    // Create circles
+    const circles = group
       .selectAll("circle")
       .data(data)
       .enter()
       .append("circle")
       .attr("cx", initialX)
       .attr("cy", initialY)
-      .attr("r", 10)
-      .style("fill", (d) => PARTY_COLOR_MAP[d.party]) // Change the fill color as needed
+      .attr("r", circleRadius)
+      .style("fill", (d) => PARTY_COLOR_MAP[d.party])
       .style("opacity", 0);
 
-    // Make the circles fade in 1 by 1
+    // Create text labels for the circles
+    const labels = group
+      .selectAll("text")
+      .data(data)
+      .enter()
+      .append("text")
+      .attr("x", initialX)
+      .attr("y", initialY + circleRadius + 15)
+      .text((d) => d.frequency.toLocaleString())
+      .attr("text-anchor", "middle")
+      .style("opacity", 0);
+
+    // Circle transition to fade in one by one
     circles
       .transition()
       .duration(1000)
       .delay((d, i) => i * 500)
       .attr("cx", (d, i) => margin + i * circleSpacing)
       .attr("cy", finalY)
+      .style("opacity", 1);
+
+    // Label transition to match circle appearance
+    labels
+      .transition()
+      .duration(1000)
+      .delay((d, i) => i * 500)
+      .attr("x", (d, i) => margin + i * circleSpacing)
+      .attr("y", finalY + circleRadius + 15)
       .style("opacity", 1);
   }
 }
