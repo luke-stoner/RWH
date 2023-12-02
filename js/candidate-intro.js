@@ -129,7 +129,13 @@ class CandidateIntroduction {
       .data(this.candidates)
       .enter()
       .append("g")
-      .attr("transform", `translate(${this.width / 2},${-this.height})`)
+      .attr(
+        "transform",
+        (d, i) =>
+          `translate(${(i % this.columns) * this.colWidth + this.margin}, ${
+            Math.floor(i / this.columns) * this.rowHeight + this.margin
+          })`
+      )
       .on("mouseover", (event, candidate) =>
         this.handleCircleMouseOver(event, candidate)
       )
@@ -192,32 +198,6 @@ class CandidateIntroduction {
       .attr("class", "candidate-label")
       .attr("fill", "black")
       .style("user-select", "none");
-
-    // Transition the entire group to the final position
-    this.circles
-      .transition()
-      .duration(1000)
-      .delay((d, i) => i * 100)
-      .attr(
-        "transform",
-        (d, i) =>
-          "translate(" +
-          ((i % this.columns) * this.colWidth + this.margin) +
-          "," +
-          (Math.floor(i / this.columns) * this.rowHeight + this.margin) +
-          ")"
-      )
-      .on("end", () => {
-        // Delay adding the text until after all circle transitions
-        setTimeout(() => {
-          // Add the text at the top and fade it to black
-          d3.select("#candidate-instruction")
-            .text("Click on a candidate to learn more")
-            .transition()
-            .duration(300) // Adjust the duration as needed
-            .style("color", "black");
-        }, 1000); // Adjust the delay as needed
-      });
 
     $("#candidate-modal").on("hidden.bs.modal", () => this.handleModalClose());
   }
