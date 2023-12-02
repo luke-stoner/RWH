@@ -63,7 +63,7 @@ class CandidateIntroduction {
     this.width = 900;
     this.height = 600;
     this.margin = 20;
-    this.circleRadius = 65;
+    this.circleRadius = 60;
     this.borderThickness = 7;
     this.circlePadding = 30;
     this.columns = Math.floor(
@@ -129,6 +129,7 @@ class CandidateIntroduction {
       .data(this.candidates)
       .enter()
       .append("g")
+      .style("opacity", 0) // Initially set opacity to 0
       .attr(
         "transform",
         (d, i) =>
@@ -198,6 +199,22 @@ class CandidateIntroduction {
       .attr("class", "candidate-label")
       .attr("fill", "black")
       .style("user-select", "none");
+
+    // Apply a fade-in transition
+    this.circles
+      .transition()
+      .duration(1000)
+      .delay((d, i) => i * 100)
+      .style("opacity", 1)
+      .on("end", () => {
+        setTimeout(() => {
+          d3.select("#candidate-instruction")
+            .text("Click on a candidate to learn more")
+            .transition()
+            .duration(300)
+            .style("color", "black");
+        }, 1000);
+      });
 
     $("#candidate-modal").on("hidden.bs.modal", () => this.handleModalClose());
   }
