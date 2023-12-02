@@ -169,81 +169,53 @@ class BubbleChart {
 
     const pack = d3.pack().size([width, height]).padding(2);
 
-    const root = d3.hierarchy({ children: data }).sum(function (d) {
-      return d.frequency;
-    });
+    // Define a scale for the circle sizes
+    const maxFrequency = d3.max(data, (d) => d.frequency);
+    const radiusScale = d3
+      .scaleSqrt()
+      .domain([0, maxFrequency])
+      .range([10, 100]); // Adjust range as needed
 
+    const root = d3
+      .hierarchy({ children: data })
+      .sum((d) => radiusScale(d.frequency));
+
+    // Create node groups, initially positioned at the center
     const node = svg
       .selectAll(".node")
       .data(pack(root).leaves())
       .enter()
       .append("g")
       .attr("class", "node")
-      // Set the initial transform to center the nodes
-      .attr("transform", `translate(${width / 2},${height / 2})`);
+      .attr("transform", `translate(${width / 2},${height / 2})`); // Start at center
 
+    // Create clipPaths for images
     node
       .append("clipPath")
-      .attr("id", function (d, i) {
-        return "clip-" + i;
-      })
+      .attr("id", (d, i) => "clip-" + i)
       .append("circle")
-      .attr("r", 10); // Start with a radius of 10
+      .attr("r", (d) => radiusScale(d.data.frequency));
 
-    const t = d3.transition().duration(750);
-
-    // Transition the circle's radius to its final value
-    node
-      .selectAll("circle")
-      .transition(t)
-      .delay(function (d, i) {
-        return i * 50;
-      })
-      .attr("r", function (d) {
-        return d.r;
-      });
-
-    node
-      .transition(t)
-      .delay(function (d, i) {
-        return i * 50;
-      })
-      .attr("transform", function (d) {
-        return `translate(${d.x},${d.y})`;
-      });
-
-    data.sort(function (a, b) {
-      return b.frequency - a.frequency;
-    });
-
+    // Append circles to nodes
     node
       .append("circle")
-      .attr("r", function (d) {
-        return d.r;
-      })
-      .style("fill", function (d) {
-        return PARTY_COLOR_MAP[d.data.party];
-      });
+      .attr("r", (d) => radiusScale(d.data.frequency))
+      .style("fill", (d) => PARTY_COLOR_MAP[d.data.party]);
 
+    // Append images to nodes
     node
       .append("svg:image")
-      .attr("xlink:href", function (d) {
-        return d.data.photo;
-      })
-      .attr("clip-path", function (d, i) {
-        return "url(#clip-" + i + ")";
-      })
-      .attr("x", function (d) {
-        return -d.r;
-      })
-      .attr("y", function (d) {
-        return -d.r;
-      })
-      .attr("height", function (d) {
-        return 2 * d.r;
-      })
-      .attr("width", function (d) {
-        return 2 * d.r;
-      });
+      .attr("xlink:href", (d) => d.data.photo)
+      .attr("clip-path", (d, i) => "url(#clip-" + i + ")")
+      .attr("x", (d) => -radiusScale(d.data.frequency))
+      .attr("y", (d) => -radiusScale(d.data.frequency))
+      .attr("height", (d) => 2 * radiusScale(d.data.frequency))
+      .attr("width", (d) => 2 * radiusScale(d.data.frequency));
+
+    // Transition nodes to their final positions
+    node
+      .transition()
+      .duration(1000) // Duration of the transition in milliseconds
+      .attr("transform", (d) => `translate(${d.x},${d.y})`);
   }
 }
