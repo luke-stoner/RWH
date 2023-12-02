@@ -78,10 +78,12 @@ class BubbleChart {
 
     // Circle transition to fade & fan each circle
     // in 1 by 1 into a straight line
+    const fanOutDuration = 1000;
+    const fanOutDelay = fanOutDuration / 2;
     circles
       .transition()
-      .duration(1000)
-      .delay((d, i) => i * 500)
+      .duration(fanOutDuration)
+      .delay((d, i) => i * fanOutDelay)
       .attr("cx", (d, i) => margin + i * circleSpacing)
       .attr("cy", finalY)
       .style("opacity", 1);
@@ -89,14 +91,14 @@ class BubbleChart {
     // Label transition to match circle appearance
     labels
       .transition()
-      .duration(1000)
-      .delay((d, i) => i * 500)
+      .duration(fanOutDuration)
+      .delay((d, i) => i * fanOutDelay)
       .attr("x", (d, i) => margin + i * circleSpacing)
       .attr("y", finalY + circleRadius + 15)
       .style("opacity", 1);
 
     // Additional text to show after all transitions are complete
-    const totalDelay = numCircles * 500; // Total time until the last circle and label have appeared
+    const totalDelay = numCircles * fanOutDelay; // Total time until the last circle and label have appeared
     const firstMessage = svg
       .append("text")
       .attr("x", width / 2)
@@ -196,26 +198,42 @@ class BubbleChart {
       .append("circle")
       .attr("r", (d) => radiusScale(d.data.frequency));
 
-    // Append circles to nodes
-    node
+    // Append circles to nodes with initial opacity set to 0
+    const circles = node
       .append("circle")
       .attr("r", (d) => radiusScale(d.data.frequency))
-      .style("fill", (d) => PARTY_COLOR_MAP[d.data.party]);
+      .style("fill", (d) => PARTY_COLOR_MAP[d.data.party])
+      .style("opacity", 0); // Start with opacity 0
 
-    // Append images to nodes
-    node
+    // Append images to nodes with initial opacity set to 0
+    const images = node
       .append("svg:image")
       .attr("xlink:href", (d) => d.data.photo)
       .attr("clip-path", (d, i) => "url(#clip-" + i + ")")
       .attr("x", (d) => -radiusScale(d.data.frequency))
       .attr("y", (d) => -radiusScale(d.data.frequency))
       .attr("height", (d) => 2 * radiusScale(d.data.frequency))
-      .attr("width", (d) => 2 * radiusScale(d.data.frequency));
+      .attr("width", (d) => 2 * radiusScale(d.data.frequency))
+      .style("opacity", 0); // Start with opacity 0
 
-    // Transition nodes to their final positions
+    // Transition nodes to their final positions with staggered delay
     node
       .transition()
       .duration(1000) // Duration of the transition in milliseconds
+      .delay((d, i) => i * 100) // Stagger the start of each transition
       .attr("transform", (d) => `translate(${d.x},${d.y})`);
+
+    // Transition for circles and images to fade in
+    circles
+      .transition()
+      .duration(1000)
+      .delay((d, i) => i * 100)
+      .style("opacity", 1); // Fade in to opacity 1
+
+    images
+      .transition()
+      .duration(1000)
+      .delay((d, i) => i * 100)
+      .style("opacity", 1); // Fade in to opacity 1
   }
 }
