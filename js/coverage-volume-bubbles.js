@@ -28,31 +28,43 @@ class BubbleChart {
     const width = 900;
     const height = 600;
     const margin = 30;
-    const circleRadius = 10;
+    const initialX = width / 2; // Initial X position for the circles
+    const initialY = 0; // Initial Y position for the circles
+    const numCircles = data.length;
 
+    // Create SVG container
     const svg = d3
       .select("#volume-bubbles")
       .append("svg")
       .attr("width", width)
       .attr("height", height);
 
-    // Calculate the total width available for the circles & determine spacing
-    const numCircles = data.length;
-    const totalWidthForCircles = width - 2 * margin;
-    const circleSpacing = totalWidthForCircles / (numCircles - 1);
+    // Sort data
+    data.sort((a, b) => a.frequency - b.frequency);
 
-    // Calculate the initial and final positions for the circles
-    const initialX = width / 2;
-    const initialY = 0;
-    const finalY = height / 2;
+    // Define a scale for the circle radius based on frequency
+    const maxFrequency = d3.max(data, (d) => d.frequency);
+    const radiusScale = d3.scaleSqrt().domain([0, maxFrequency]).range([6, 50]);
+    const fontSizeScale = d3
+      .scaleLinear()
+      .domain([4, 50]) // Same range as radiusScale domain
+      .range([8, 24]); // Adjust this range for suitable font sizes
+
+    // Calculate cumulative widths for circles
+    let cumulativeWidths = [margin];
+    data.forEach((d, i) => {
+      if (i > 0) {
+        const previousCircle = data[i - 1];
+        const spacing =
+          radiusScale(d.frequency) + radiusScale(previousCircle.frequency) + 10;
+        cumulativeWidths.push(cumulativeWidths[i - 1] + spacing);
+      }
+    });
 
     // Create a group for the circles and labels
     const group = svg.append("g");
 
-    // Sort data
-    data.sort((a, b) => a.frequency - b.frequency);
-
-    // Create circles
+    // Create circles with radius based on frequency
     const circles = group
       .selectAll("circle")
       .data(data)
@@ -60,41 +72,43 @@ class BubbleChart {
       .append("circle")
       .attr("cx", initialX)
       .attr("cy", initialY)
-      .attr("r", circleRadius)
+      .attr("r", (d) => radiusScale(d.frequency))
       .style("fill", (d) => PARTY_COLOR_MAP[d.party])
       .style("opacity", 0);
 
-    // Add frequency label below each circle
+    // Add frequency label at the center of each circle
     const labels = group
       .selectAll("text")
       .data(data)
       .enter()
       .append("text")
-      .attr("x", initialX)
-      .attr("y", initialY + circleRadius + 15)
+      .attr("x", (d, i) => cumulativeWidths[i])
+      .attr("y", (d) => height / 2) // y position at the vertical center of the circle
       .text((d) => d.frequency.toLocaleString())
       .attr("text-anchor", "middle")
+      .style("fill", "#FFFFFF")
+      .style("font-size", (d) => `${fontSizeScale(radiusScale(d.frequency))}px`)
+      .attr("dy", (d) => `${fontSizeScale(radiusScale(d.frequency)) / 2 - 2}px`) // Adjust dy for vertical centering
       .style("opacity", 0);
 
-    // Circle transition to fade & fan each circle
-    // in 1 by 1 into a straight line
+    // Transition for circles to fan out into a straight line
     const fanOutDuration = 1000;
     const fanOutDelay = fanOutDuration / 2;
     circles
       .transition()
       .duration(fanOutDuration)
       .delay((d, i) => i * fanOutDelay)
-      .attr("cx", (d, i) => margin + i * circleSpacing)
-      .attr("cy", finalY)
+      .attr("cx", (d, i) => cumulativeWidths[i])
+      .attr("cy", height / 2) // Final Y position for the circles
       .style("opacity", 1);
 
-    // Label transition to match circle appearance
+    // Transition for labels to match circle appearance
     labels
       .transition()
       .duration(fanOutDuration)
-      .delay((d, i) => i * fanOutDelay)
-      .attr("x", (d, i) => margin + i * circleSpacing)
-      .attr("y", finalY + circleRadius + 15)
+      .delay((d, i) => i * fanOutDelay + 700)
+      .attr("x", (d, i) => cumulativeWidths[i])
+      .attr("y", (d) => height / 2)
       .style("opacity", 1);
 
     // Additional text to show after all transitions are complete
