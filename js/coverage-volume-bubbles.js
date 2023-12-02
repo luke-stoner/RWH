@@ -22,7 +22,6 @@ class BubbleChart {
     );
 
     this.createVisualization(Array.from(data.values()));
-    this.setupLegend(Array.from(data.values()));
   }
 
   createVisualization(data) {
@@ -111,13 +110,13 @@ class BubbleChart {
       .delay(totalDelay)
       .duration(1000)
       .style("opacity", 1)
-      .transition() // Start a new transition to fade out the first message
-      .delay(3000) // Time before fading out, adjust as needed
+      .transition()
+      .delay(3000)
       .duration(1000)
       .style("opacity", 0)
-      .end() // This ensures the next transition waits for this to finish
+      .end() // End first message
       .then(() => {
-        // Second message
+        // Begin second message
         const secondMessage = svg
           .append("text")
           .attr("x", width / 2)
@@ -128,28 +127,115 @@ class BubbleChart {
           .transition()
           .duration(1000)
           .style("opacity", 1)
-          .transition() // Start a new transition to fade out the second message
-          .delay(3000) // Time the message will remain visible before fading out
+          .transition()
+          .delay(3000)
           .duration(1000)
           .style("opacity", 0)
-          .end() // Wait for this transition to finish
+          .end() // End of second message
           .then(() => {
-            // After second message fades out, fade out the labels
             labels
               .transition()
               .duration(1000)
               .style("opacity", 0)
-              .end() // Wait for the labels' transition to finish
+              .end()
               .then(() => {
-                // Move the circles to the center and fade them out
                 circles
                   .transition()
                   .duration(1000)
                   .attr("cx", width / 2)
                   .attr("cy", height / 2)
-                  .style("opacity", 0); // Fading out the circles
+                  .style("opacity", 0)
+                  .end()
+                  .then(() => {
+                    // End of the first set of animations
+                    svg.selectAll("*").remove();
+                    this.secondVisualization(data);
+                  });
               });
           });
+      });
+  }
+
+  secondVisualization(data) {
+    console.log("Got to the second one!");
+    // Select the existing SVG element by its ID
+    const svg = d3.select("#volume-bubbles svg");
+
+    // Get the width and height from the existing SVG
+    const width = +svg.attr("width");
+    const height = +svg.attr("height");
+
+    const margin = { top: 0, right: 20, bottom: 20, left: 20 };
+
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+
+    const pack = d3.pack().size([innerWidth, innerHeight]).padding(2);
+
+    const root = d3.hierarchy({ children: data }).sum(function (d) {
+      return d.frequency;
+    });
+
+    const node = svg
+      .selectAll(".node")
+      .data(pack(root).leaves())
+      .enter()
+      .append("g")
+      .attr("class", "node");
+
+    node
+      .append("clipPath")
+      .attr("id", function (d, i) {
+        return "clip-" + i;
+      })
+      .append("circle")
+      .attr("r", function (d) {
+        return d.r;
+      });
+
+    const t = d3.transition().duration(750);
+
+    node
+      .transition(t)
+      .delay(function (d, i) {
+        return i * 50;
+      })
+      .attr("transform", function (d) {
+        return `translate(${d.x},${d.y})`;
+      });
+
+    data.sort(function (a, b) {
+      return b.frequency - a.frequency;
+    });
+
+    node
+      .append("circle")
+      .attr("r", function (d) {
+        return d.r;
+      })
+      .style("fill", function (d) {
+        return PARTY_COLOR_MAP[d.data.party];
+      });
+
+    node
+      .append("svg:image")
+      .attr("xlink:href", function (d) {
+        return d.data.photo;
+      })
+      .attr("clip-path", function (d, i) {
+        return "url(#clip-" + i + ")";
+      })
+      .attr("x", function (d) {
+        return -d.r;
+      })
+      .attr("y", function (d) {
+        return -d.r;
+      })
+      .attr("height", function (d) {
+        return 2 * d.r;
+      })
+      .attr("width", function (d) {
+        return 2 * d.r;
       });
   }
 }
