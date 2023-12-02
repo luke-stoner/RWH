@@ -50,7 +50,7 @@ class BubbleChart {
 
   setupChart(data) {
     const width = 400;
-    const height = 600;
+    const height = 400;
     const margin = { top: 0, right: 20, bottom: 20, left: 20 };
 
     const innerWidth = width - margin.left - margin.right;

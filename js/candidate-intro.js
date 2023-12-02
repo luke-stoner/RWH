@@ -14,7 +14,7 @@ class CandidateIntroduction {
     };
 
     this.partySecondaryColors = {
-      Republican: "#cd5c5c",
+      Republican: "#CD5C5C",
       Democrat: "#6495ED",
       Independent: "#A9A9A9",
     };
