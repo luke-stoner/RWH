@@ -45,10 +45,7 @@ class BubbleChart {
     // Define a scale for the circle radius based on frequency
     const maxFrequency = d3.max(data, (d) => d.frequency);
     const radiusScale = d3.scaleSqrt().domain([0, maxFrequency]).range([6, 50]);
-    const fontSizeScale = d3
-      .scaleLinear()
-      .domain([4, 50]) // Same range as radiusScale domain
-      .range([8, 24]); // Adjust this range for suitable font sizes
+    const fontSizeScale = d3.scaleLinear().domain([4, 50]).range([8, 24]);
 
     // Calculate cumulative widths for circles
     let cumulativeWidths = [margin];
@@ -117,7 +114,7 @@ class BubbleChart {
       .append("text")
       .attr("x", width / 2)
       .attr("y", height / 3)
-      .text("There is a lot of variance here")
+      .text("There is a lot of variance here...")
       .attr("text-anchor", "middle")
       .style("opacity", 0);
 
@@ -137,7 +134,7 @@ class BubbleChart {
           .append("text")
           .attr("x", width / 2)
           .attr("y", height / 3)
-          .text("Some candidates are mentioned more than others")
+          .text("Some candidates are mentioned more than others...")
           .attr("text-anchor", "middle")
           .style("opacity", 0)
           .transition()
@@ -149,25 +146,27 @@ class BubbleChart {
           .style("opacity", 0)
           .end() // End of second message
           .then(() => {
-            labels
-              .transition()
-              .duration(1000)
-              .style("opacity", 0)
-              .end()
-              .then(() => {
-                circles
-                  .transition()
-                  .duration(1000)
-                  .attr("cx", width / 2)
-                  .attr("cy", height / 2)
-                  .style("opacity", 0)
-                  .end()
-                  .then(() => {
-                    // End of the first set of animations
-                    svg.selectAll("*").remove();
-                    this.secondVisualization(data);
-                  });
-              });
+            function focusOnCircle(index) {
+              const xPosition = cumulativeWidths[index];
+              const scale = 6; // Example zoom level, adjust as needed
+              const translateX = width / 2 - xPosition * scale;
+              const translateY = height / 2 - (height / 2) * scale;
+
+              group
+                .transition()
+                .duration(1000) // Duration of zoom/pan effect
+                .attr(
+                  "transform",
+                  `translate(${translateX}, ${translateY}) scale(${scale})`
+                );
+            }
+
+            // Sequentially apply the zoom and pan effect to each circle
+            data.forEach((d, i) => {
+              setTimeout(() => {
+                focusOnCircle(i);
+              }, i * 2000); // 2000ms delay between each focus, adjust as needed
+            });
           });
       });
   }
