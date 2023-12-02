@@ -65,7 +65,7 @@ class BubbleChart {
       .style("fill", (d) => PARTY_COLOR_MAP[d.party])
       .style("opacity", 0);
 
-    // Create text labels for the circles
+    // Add frequency label below each circle
     const labels = group
       .selectAll("text")
       .data(data)
@@ -77,7 +77,8 @@ class BubbleChart {
       .attr("text-anchor", "middle")
       .style("opacity", 0);
 
-    // Circle transition to fade in one by one
+    // Circle transition to fade & fan each circle
+    // in 1 by 1 into a straight line
     circles
       .transition()
       .duration(1000)
@@ -94,5 +95,39 @@ class BubbleChart {
       .attr("x", (d, i) => margin + i * circleSpacing)
       .attr("y", finalY + circleRadius + 15)
       .style("opacity", 1);
+
+    // Additional text to show after all transitions are complete
+    const totalDelay = numCircles * 500; // Total time until the last circle and label have appeared
+    const firstMessage = svg
+      .append("text")
+      .attr("x", width / 2)
+      .attr("y", height / 3)
+      .text("There is a lot of variance here")
+      .attr("text-anchor", "middle")
+      .style("opacity", 0);
+
+    firstMessage
+      .transition()
+      .delay(totalDelay)
+      .duration(1000)
+      .style("opacity", 1)
+      .transition() // Start a new transition to fade out the first message
+      .delay(3000) // Time before fading out, adjust as needed
+      .duration(1000)
+      .style("opacity", 0)
+      .end() // This ensures the next transition waits for this to finish
+      .then(() => {
+        // Second message
+        svg
+          .append("text")
+          .attr("x", width / 2)
+          .attr("y", height / 3)
+          .text("Some candidates are mentioned more than others")
+          .attr("text-anchor", "middle")
+          .style("opacity", 0)
+          .transition()
+          .duration(1000)
+          .style("opacity", 1);
+      });
   }
 }
