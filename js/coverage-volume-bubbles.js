@@ -141,12 +141,13 @@ class BubbleChart {
               .style("opacity", 0)
               .end() // Wait for the labels' transition to finish
               .then(() => {
-                // After labels fade out, move the circles to the center of the SVG
+                // Move the circles to the center and fade them out
                 circles
                   .transition()
                   .duration(1000)
                   .attr("cx", width / 2)
-                  .attr("cy", height / 2);
+                  .attr("cy", height / 2)
+                  .style("opacity", 0); // Fading out the circles
               });
           });
       });
