@@ -157,7 +157,9 @@ class BubbleChart {
   }
 
   secondVisualization(data) {
-    console.log("Got to the second one!");
+    // Sort data
+    data.sort((a, b) => b.frequency - a.frequency);
+
     // Select the existing SVG element by its ID
     const svg = d3.select("#volume-bubbles svg");
 
@@ -165,12 +167,7 @@ class BubbleChart {
     const width = +svg.attr("width");
     const height = +svg.attr("height");
 
-    const margin = { top: 0, right: 20, bottom: 20, left: 20 };
-
-    const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margin.top - margin.bottom;
-
-    const pack = d3.pack().size([innerWidth, innerHeight]).padding(2);
+    const pack = d3.pack().size([width, height]).padding(2);
 
     const root = d3.hierarchy({ children: data }).sum(function (d) {
       return d.frequency;
@@ -181,7 +178,9 @@ class BubbleChart {
       .data(pack(root).leaves())
       .enter()
       .append("g")
-      .attr("class", "node");
+      .attr("class", "node")
+      // Set the initial transform to center the nodes
+      .attr("transform", `translate(${width / 2},${height / 2})`);
 
     node
       .append("clipPath")
@@ -189,11 +188,20 @@ class BubbleChart {
         return "clip-" + i;
       })
       .append("circle")
+      .attr("r", 10); // Start with a radius of 10
+
+    const t = d3.transition().duration(750);
+
+    // Transition the circle's radius to its final value
+    node
+      .selectAll("circle")
+      .transition(t)
+      .delay(function (d, i) {
+        return i * 50;
+      })
       .attr("r", function (d) {
         return d.r;
       });
-
-    const t = d3.transition().duration(750);
 
     node
       .transition(t)
