@@ -247,6 +247,23 @@ class BubbleChart {
       .attr("y", (d) => -radiusScale(d.data.frequency))
       .attr("height", (d) => 2 * radiusScale(d.data.frequency))
       .attr("width", (d) => 2 * radiusScale(d.data.frequency))
-      .style("opacity", 1); // Fade in to opacity 1
+      .style("opacity", 1)
+      .end()
+      .then(() => {
+        // Append text after all transitions are complete
+        svg
+          .append("text")
+          .attr("x", width / 2)
+          .attr("y", height - 15)
+          .attr("text-anchor", "middle")
+          .style("font-size", "16px")
+          .style("opacity", 0)
+          .text(
+            "Joe Biden and Donald Trump are the most frequently mentioned candidates"
+          )
+          .transition()
+          .duration(1000)
+          .style("opacity", 1);
+      });
   }
 }
