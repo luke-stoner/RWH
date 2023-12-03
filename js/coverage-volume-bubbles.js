@@ -1,4 +1,14 @@
+/**
+ * Represents a Bubble Chart visualization.
+ * This is the class we use for our volume visualization.
+ * The inspiration comes from Youtube videos that compare the size of
+ * objects in our solar system.
+ */
 class BubbleChart {
+  /**
+   * Creates an instance of BubbleChart.
+   * If an instance already exists, it returns that instance. (Singleton)
+   */
   constructor() {
     if (BubbleChart.instance) {
       return BubbleChart.instance;
@@ -7,7 +17,10 @@ class BubbleChart {
 
     this.loadData();
   }
-
+  /**
+   * Loads data from a CSV file and initializes the visualization.
+   * @async
+   */
   async loadData() {
     const csvData = await d3.csv("data/labeled.csv");
     const data = d3.rollup(
@@ -24,6 +37,10 @@ class BubbleChart {
     this.createVisualization(Array.from(data.values()));
   }
 
+  /**
+   * Creates the Bubble Chart visualization.
+   * @param {Array} data - The data for the visualization.
+   */
   createVisualization(data) {
     const width = 900;
     const height = 600;
@@ -40,7 +57,7 @@ class BubbleChart {
       .attr("width", width)
       .attr("height", height);
 
-    // Sort data
+    // Sort data so that smallest circles are on left
     data.sort((a, b) => a.frequency - b.frequency);
 
     // Define a scale for the circle radius based on frequency
@@ -49,6 +66,7 @@ class BubbleChart {
     const fontSizeScale = d3.scaleLinear().domain([4, 50]).range([5, 24]);
 
     // Calculate cumulative widths for circles
+    // This helps space circles evenly accounting for variation in size
     let cumulativeWidths = [margin];
     data.forEach((d, i) => {
       if (i > 0) {
@@ -59,10 +77,9 @@ class BubbleChart {
       }
     });
 
-    // Create a group for the circles and labels
+    // Create circles with radius based on frequency
     const group = svg.append("g");
 
-    // Create circles with radius based on frequency
     const circles = group
       .selectAll("circle")
       .data(data)
@@ -102,7 +119,7 @@ class BubbleChart {
       .attr("cy", height / 2)
       .style("opacity", 1);
 
-    // Transition for labels to match circle appearance
+    // Transition for labels to match circle position
     labels
       .transition()
       .duration(fanOutDuration)
@@ -112,6 +129,7 @@ class BubbleChart {
       .style("opacity", 1);
 
     // Append image elements for each data point
+    // We hide for now, but will reveal later
     const images = group
       .selectAll("image")
       .data(data)
@@ -126,6 +144,7 @@ class BubbleChart {
       .style("clip-path", "circle(50%)");
 
     // Transition for images to fan out with circles
+    // Remain hidden but make sure they are in correct position
     images
       .transition()
       .duration(fanOutDuration)
@@ -176,7 +195,7 @@ class BubbleChart {
           .style("opacity", 0)
           .end() // End of second message
           .then(() => {
-            // Function to focus on each circle, fade out label, and fade in image
+            // Function to focus on each circle
             function focusOnCircle(index) {
               if (index >= data.length) {
                 // If it's the last circle, reset the view after a delay
@@ -243,116 +262,7 @@ class BubbleChart {
 
             // Start the sequential transition with the first circle
             focusOnCircle(0);
-          }); //HERE
-      });
-  }
-
-  secondVisualization(data) {
-    // Sort data
-    data.sort((a, b) => b.frequency - a.frequency);
-
-    // Select the existing SVG element by its ID
-    const svg = d3.select("#volume-bubbles svg");
-
-    // Get the width and height from the existing SVG
-    const width = +svg.attr("width");
-    const height = +svg.attr("height");
-
-    const pack = d3.pack().size([width, height]).padding(2);
-
-    // Define a scale for the circle sizes
-    const maxFrequency = d3.max(data, (d) => d.frequency);
-    const radiusScale = d3
-      .scaleSqrt()
-      .domain([0, maxFrequency])
-      .range([10, 100]); // Adjust range as needed
-
-    const root = d3
-      .hierarchy({ children: data })
-      .sum((d) => radiusScale(d.frequency));
-
-    // Create node groups, initially positioned at the center
-    const node = svg
-      .selectAll(".node")
-      .data(pack(root).leaves())
-      .enter()
-      .append("g")
-      .attr("class", "node")
-      .attr("transform", `translate(${width / 2},${height / 2})`); // Start at center
-
-    // Create clipPaths for images with initial small radius
-    node
-      .append("clipPath")
-      .attr("id", (d, i) => "clip-" + i)
-      .append("circle")
-      .attr("r", 10); // Start with small radius
-
-    // Append circles to nodes with initial small radius
-    const circles = node
-      .append("circle")
-      .attr("r", 10) // Start with small radius
-      .style("fill", (d) => PARTY_COLOR_MAP[d.data.party])
-      .style("opacity", 0); // Start with opacity 0
-
-    // Append images to nodes with initial small size
-    const images = node
-      .append("svg:image")
-      .attr("xlink:href", (d) => d.data.photo)
-      .attr("clip-path", (d, i) => "url(#clip-" + i + ")")
-      .attr("x", -5) // Half of the initial radius
-      .attr("y", -5) // Half of the initial radius
-      .attr("height", 10) // Double of the initial radius
-      .attr("width", 10) // Double of the initial radius
-      .style("opacity", 0); // Start with opacity 0
-
-    // Transition nodes to their final positions with staggered delay
-    node
-      .transition()
-      .duration(1000) // Duration of the transition in milliseconds
-      .delay((d, i) => i * 200) // Increase delay for more punctuated effect
-      .attr("transform", (d) => `translate(${d.x},${d.y})`);
-
-    // Transition for circles and clipPaths to scale up
-    circles
-      .transition()
-      .duration(1000)
-      .delay((d, i) => i * 200) // Increase delay for more punctuated effect
-      .attr("r", (d) => radiusScale(d.data.frequency)) // Scale up to final radius
-      .style("opacity", 1); // Fade in to opacity 1
-
-    node
-      .selectAll("clipPath circle")
-      .transition()
-      .duration(1000)
-      .delay((d, i) => i * 200) // Increase delay for more punctuated effect
-      .attr("r", (d) => radiusScale(d.data.frequency)); // Scale up to final radius
-
-    // Transition for images to scale up and fade in
-    images
-      .transition()
-      .duration(1000)
-      .delay((d, i) => i * 200) // Increase delay for more punctuated effect
-      .attr("x", (d) => -radiusScale(d.data.frequency))
-      .attr("y", (d) => -radiusScale(d.data.frequency))
-      .attr("height", (d) => 2 * radiusScale(d.data.frequency))
-      .attr("width", (d) => 2 * radiusScale(d.data.frequency))
-      .style("opacity", 1)
-      .end()
-      .then(() => {
-        // Append text after all transitions are complete
-        svg
-          .append("text")
-          .attr("x", width / 2)
-          .attr("y", height - 15)
-          .attr("text-anchor", "middle")
-          .style("font-size", "16px")
-          .style("opacity", 0)
-          .text(
-            "Joe Biden and Donald Trump are the most frequently mentioned candidates"
-          )
-          .transition()
-          .duration(1000)
-          .style("opacity", 1);
+          });
       });
   }
 }
