@@ -46,7 +46,7 @@ class BubbleChart {
     // Define a scale for the circle radius based on frequency
     const maxFrequency = d3.max(data, (d) => d.frequency);
     const radiusScale = d3.scaleSqrt().domain([0, maxFrequency]).range([6, 50]);
-    const fontSizeScale = d3.scaleLinear().domain([4, 50]).range([8, 24]);
+    const fontSizeScale = d3.scaleLinear().domain([4, 50]).range([5, 24]);
 
     // Calculate cumulative widths for circles
     let cumulativeWidths = [margin];
@@ -194,7 +194,7 @@ class BubbleChart {
               }
 
               const xPosition = cumulativeWidths[index];
-              const scale = 6; 
+              const scale = 5; 
               const translateX = width / 2 - xPosition * scale;
               const translateY = height / 2 - (height / 2) * scale;
 
