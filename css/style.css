@@ -150,6 +150,10 @@ video::-webkit-media-controls {
   height: 30%;
 }
 
+#candidate-image-modal{
+  padding: 0.5em;
+}
+
 /* For down arrow on scrolling*/
 
 .scroll-text {

@@ -92,7 +92,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F190520113023-joe-biden-philadelphia-05182019.jpg",
     modal_bio:
-      "Born on November 20, 1942, Joe Biden Jr. is the 46th President of the United States, a Democrat, and a seasoned politician. He served as the 47th Vice President from 2009 to 2017 and represented Delaware in the U.S. Senate from 1973 to 2009.",
+      "Born on November 20, 1942, Joe Biden is the 46th President of the United States, a Democrat, and a seasoned politician. He served as the 47th Vice President from 2009 to 2017 and represented Delaware in the U.S. Senate from 1973 to 2009.",
   },
   {
     first: "Doug",
@@ -118,7 +118,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://s.abcnews.com/images/Politics/ap_christie_kb_150630_16x9_992.jpg",
     modal_bio:
-      "Christopher James Christie, born on September 6, 1962, is an American politician and former federal prosecutor who held the office of the 55th governor of New Jersey from 2010 to 2018. As a prominent member of the Republican Party, he previously served as the United States Attorney for New Jersey from 2002 to 2008.",
+      "Chris Christie, born on September 6, 1962, is an American politician and former federal prosecutor who held the office of the 55th governor of New Jersey from 2010 to 2018. As a prominent member of the Republican Party, he previously served as the United States Attorney for New Jersey from 2002 to 2008.",
   },
   {
     first: "Ron",
@@ -157,7 +157,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://i.abcnewsfe.com/a/80621974-a42e-472d-9d50-767adc28883f/asa-hutchinson-annoucement-02-ap-jef-230426_1682530978181_hpMain_16x9.jpg?w=992",
     modal_bio:
-      "Asa Hutchinson II, born December 3, 1950, is an American attorney, businessman, and politician who served as the 46th governor of Arkansas from 2015 to 2023. A member of the Republican Party, he previously served as a U.S. attorney, U.S. representative, and in two roles in the George W. Bush administration.",
+      "Asa Hutchinson, born December 3, 1950, is an American attorney, businessman, and politician who served as the 46th governor of Arkansas from 2015 to 2023. A member of the Republican Party, he previously served as a U.S. attorney, U.S. representative, and in two roles in the George W. Bush administration.",
   },
   {
     first: "Nikki",
@@ -183,7 +183,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://static01.nyt.com/images/2023/06/07/multimedia/00pol-hurd-hfo-tvmk/00pol-hurd-hfo-tvmk-videoSixteenByNine3000.jpg",
     modal_bio:
-      "Will Hurd, born August 19, 1977, is a former CIA officer turned American politician. He served as the U.S. representative for Texas's 23rd congressional district from 2015 to 2021. After a nine-year CIA career, he entered politics in 2014. Hurd was known for his expertise in technology, cybersecurity, and bipartisan collaboration during his congressional tenure.",
+      "Will Hurd, born August 19, 1977, is a former CIA officer turned American politician. He served as the U.S. representative for Texas's 23rd congressional district from 2015 to 2021. Hurd was known for his expertise in technology, cybersecurity, and bipartisan collaboration during his congressional tenure.",
   },
   {
     first: "Perry",
@@ -235,7 +235,7 @@ const candidate_descriptions = [
     alternate_image:
       "https://media.vanityfair.com/photos/64d64685f787e518faf0090c/16:9/w_2000,h_1125,c_limit/Vivek%20Ramaswamy.jpg",
     modal_bio:
-      "Vivek Ramaswamy, born August 9, 1985, is an American entrepreneur and presidential candidate. He founded Roivant Sciences, a pharmaceutical company, in 2014. Born to Indian immigrant parents in Cincinnati, he holds a bachelor's degree in biology from Harvard College and a J.D. from Yale Law School. Ramaswamy previously worked as an investment partner at a hedge fund and co-founded Strive Asset Management, an investment firm.",
+      "Vivek Ramaswamy, born August 9, 1985, is an American entrepreneur and presidential candidate. He founded Roivant Sciences, a pharmaceutical company, in 2014. He holds a bachelor's degree in biology from Harvard College and a J.D. from Yale Law School. Ramaswamy previously worked as an investment partner at a hedge fund and co-founded Strive Asset Management, an investment firm.",
   },
   {
     first: "Tim",
@@ -259,7 +259,7 @@ const candidate_descriptions = [
     state: "Florida",
     birthday: "June 14, 1946",
     alternate_image:
-      "https://media.npr.org/assets/img/2021/06/26/ap21178075662324_custom-f59e6cb5e1ab5d3af285904eb6c415941672c26d.jpg",
+      "https://s7d2.scene7.com/is/image/TWCNews/ap223108119476261_11072022",
     modal_bio:
       "Donald Trump, born June 14, 1946, served as the 45th President of the United States. He is a businessman, media personality, and politician who won the presidency as the Republican nominee in 2016. His presidency was marked by a distinctive style, sometimes described as divisive. His administration faced scrutiny for Trump's refusal to concede the 2020 election.",
   },
@@ -277,4 +277,3 @@ const candidate_descriptions = [
       "Marianne Deborah Williamson, born July 8, 1952, is an American author, speaker, and presidential candidate. She gained fame as a spiritual leader and bestselling author. She's known for her charitable work, and serving on the board of RESULTS, a nonprofit focused on poverty solutions.",
   },
 ];
-
