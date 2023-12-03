@@ -74,6 +74,7 @@ class SentimentChart {
     this.createImages(data);
     this.createDashedLine();
     this.createAverageSentimentLine();
+    this.createLegend();
   }
 
   clearChart() {
@@ -205,6 +206,49 @@ class SentimentChart {
       .style("stroke", "green")
       .style("stroke-width", 2)
       .style("stroke-dasharray", "3, 3");
+  }
+
+  createLegend() {
+    const legend = this.svg
+      .append("g")
+      .attr("class", "legend")
+      .attr("transform", `translate(${this.width - 150}, ${this.height - 50})`);
+
+    // 50% Line
+    legend
+      .append("line")
+      .attr("x1", 0)
+      .attr("x2", 40)
+      .attr("y1", 10)
+      .attr("y2", 10)
+      .style("stroke", "#000000")
+      .style("stroke-width", 2)
+      .style("stroke-dasharray", "5,5");
+
+    legend
+      .append("text")
+      .attr("x", 50)
+      .attr("y", 15)
+      .text("50% Line")
+      .style("font-size", "12px");
+
+    // Average Candidate Line
+    legend
+      .append("line")
+      .attr("x1", 0)
+      .attr("x2", 40)
+      .attr("y1", 30)
+      .attr("y2", 30)
+      .style("stroke", "green") 
+      .style("stroke-width", 2)
+      .style("stroke-dasharray", "3,3");
+
+    legend
+      .append("text")
+      .attr("x", 50)
+      .attr("y", 35)
+      .text("Average Candidate")
+      .style("font-size", "12px");
   }
 
   loadData(dataUrl, filterFunction) {
