@@ -174,7 +174,17 @@ class BubbleChart {
             // Function to focus on each circle, fade out label, and fade in image
             function focusOnCircle(index) {
               if (index >= data.length) {
-                return; // Stop if there are no more circles
+                // If it's the last circle, reset the view after a delay
+                setTimeout(() => {
+                  group
+                    .transition()
+                    .duration(1000)
+                    .attr("transform", "translate(0,0) scale(1)")
+                    .on("end", () => {
+                      // Any additional actions after resetting the view can be placed here
+                    });
+                }, 1000); // Adjust delay as needed
+                return;
               }
 
               const xPosition = cumulativeWidths[index];
@@ -205,10 +215,9 @@ class BubbleChart {
                         .duration(500)
                         .style("opacity", 1)
                         .on("end", () => {
-                          // Move to the next circle after a short delay
                           setTimeout(() => {
                             focusOnCircle(index + 1);
-                          }, 500);
+                          }, 500); // Delay before moving to the next circle
                         });
                     });
                 });
