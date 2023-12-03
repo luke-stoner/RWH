@@ -15,7 +15,7 @@ class SentimentChart {
     d3.csv(this.dataUrl).then((rawData) => {
       this.overallAverageSentiment =
         this.calculateOverallAverageSentiment(rawData);
-
+      this.updateDescription("option1");
       let processedData = SentimentChart.filterData(rawData, false);
       this.updateChart(processedData);
     });
@@ -46,11 +46,42 @@ class SentimentChart {
   bindEvents() {
     const self = this;
     d3.selectAll('input[name="inlineRadioOptions"]').on("change", function () {
+      const selectedValue = d3.select(this).property("value");
+      self.updateDescription(selectedValue);
+
       const showAll = d3.select("#show-all-sentiment").property("checked");
       self.loadData(self.dataUrl, (rawData) =>
         SentimentChart.filterData(rawData, showAll)
       );
     });
+  }
+
+  updateDescription(selectedValue) {
+    let descriptionHTML = "";
+
+    switch (selectedValue) {
+      case "option1":
+        descriptionHTML = `
+        Displayed are the top 5 candidates currently leading in the polls. With the exception of Donald Trump, 
+        approximately <strong>50%</strong> of the media mentions for these candidates are positive. 
+        It's important to note that, despite their lead in the polls, these candidates fall below the 
+        average percentage of positive mentions, which is currently <strong><span style="color: green;">${(
+          100 * this.overallAverageSentiment
+        ).toFixed(0)}%</span></strong>.`;
+        break;
+      case "option2":
+        descriptionHTML = `
+        This view presents a comprehensive analysis of all the candidates, not just the front-runners. 
+        Interestingly, it reveals that some of the lesser-known or lesser-mentioned candidates 
+        actually have a higher percentage of positive media mentions compared to their overall media presence. 
+        This could indicate a more favorable perception among those who discuss these candidates, 
+        despite their lower overall media visibility.`;
+        break;
+      default:
+        descriptionHTML = "!";
+    }
+
+    d3.select("#candidate-sentiment-description").html(descriptionHTML);
   }
 
   calculateOverallAverageSentiment(rawData) {
@@ -239,7 +270,7 @@ class SentimentChart {
       .attr("x2", 40)
       .attr("y1", 30)
       .attr("y2", 30)
-      .style("stroke", "green") 
+      .style("stroke", "green")
       .style("stroke-width", 2)
       .style("stroke-dasharray", "3,3");
 
