@@ -237,19 +237,33 @@
                     class="shadow p-3 mb-5 bg-white rounded col-md-12"
                     id="avg-sentiment-info"
                   >
-                    <div class="switch-container">
-                      <label class="switch">
-                        <input type="checkbox" id="candidateToggle" />
-                        <span class="slider round"></span>
-                      </label>
-                      <label for="candidateToggle" id="toggleLabel"
-                        >Show Top 5 Candidates</label
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="poll-leaders-sentiment"
+                        value="option1"
+                        checked
+                      />
+                      <label class="form-check-label" for="inlineRadio1"
+                        >Poll Leaders</label
                       >
                     </div>
-                    <h5 style="margin-top: 50%">
-                      Placeholder <br />
-                      Explination of sentiment stuff goes here
-                    </h5>
+                    <div class="form-check form-check-inline">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="show-all-sentiment"
+                        value="option2"
+                      />
+                      <label class="form-check-label" for="inlineRadio2"
+                        >All Candidates</label
+                      >
+                    </div>
+
+                    <h5 style="margin-top: 50%"></h5>
                   </div>
                 </div>
               </div>

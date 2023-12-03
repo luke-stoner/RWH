@@ -15,12 +15,10 @@ class SentimentChart {
       SentimentChart.filterData(rawData, false)
     );
 
-    d3.select("#candidateToggle").on("change", () => {
-      const showAll = d3.select("#candidateToggle").property("checked");
-      d3.select("#toggleLabel").text(
-        showAll ? "Display All Candidates" : "Show Top 5 Candidates"
-      );
-      this.loadData("data/labeled.csv", (rawData) =>
+    const self = this;
+    d3.selectAll('input[name="inlineRadioOptions"]').on("change", function () {
+      const showAll = d3.select("#show-all-sentiment").property("checked");
+      self.loadData("data/labeled.csv", (rawData) =>
         SentimentChart.filterData(rawData, showAll)
       );
     });
