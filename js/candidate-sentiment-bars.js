@@ -1,10 +1,31 @@
 class SentimentChart {
-  constructor(selector, width, height) {
+  constructor() {
+
+     if (SentimentChart.instance) {
+       return SentimentChart.instance;
+     }
+    SentimentChart.instance = this;
+    
     this.margin = { top: 30, right: 30, bottom: 30, left: 230 };
-    this.width = width - this.margin.left - this.margin.right;
-    this.height = height - this.margin.top - this.margin.bottom;
-    this.selector = selector;
+    this.width = 800 - this.margin.left - this.margin.right;
+    this.height = 500 - this.margin.top - this.margin.bottom;
+    this.selector = "#candidate-sentiment-bars";
+
     this.initChart();
+    this.initAxes();
+    this.loadData("data/labeled.csv", (rawData) =>
+      SentimentChart.filterData(rawData, false)
+    );
+
+    d3.select("#candidateToggle").on("change", () => {
+      const showAll = d3.select("#candidateToggle").property("checked");
+      d3.select("#toggleLabel").text(
+        showAll ? "Display All Candidates" : "Show Top 5 Candidates"
+      );
+      this.loadData("data/labeled.csv", (rawData) =>
+        SentimentChart.filterData(rawData, showAll)
+      );
+    });
   }
 
   initChart() {
@@ -18,6 +39,23 @@ class SentimentChart {
       .attr("height", this.height + this.margin.top + this.margin.bottom)
       .append("g")
       .attr("transform", `translate(${this.margin.left},${this.margin.top})`);
+  }
+
+  initAxes() {
+    // Create X axis
+    this.svg
+      .append("g")
+      .attr("transform", `translate(0,${this.height})`)
+      .call(d3.axisBottom(this.x).ticks(5));
+
+    // Create Y axis
+    this.svg
+      .append("g")
+      .call(d3.axisLeft(this.y).tickSize(0))
+      .selectAll(".tick text")
+      .attr("x", -this.y.bandwidth() * 1.2)
+      .style("text-anchor", "end")
+      .style("font-size", "16px");
   }
 
   updateChart(data) {
@@ -118,61 +156,40 @@ class SentimentChart {
       this.updateChart(processedData);
     });
   }
-}
 
-// Function to filter data
-function filterData(rawData, showAll) {
-  const sentimentData = d3
-    .rollups(
-      rawData,
-      (v) => d3.mean(v, (d) => +d.label),
-      (d) => d.first_name + " " + d.last_name
-    )
-    .map((d) => ({
-      name: d[0],
-      avg_sentiment: d[1],
-      photo:
-        "img/candidate_portraits/" + d[0].split(" ")[1].toLowerCase() + ".png",
-      party: rawData.find((r) => r.first_name + " " + r.last_name === d[0])
-        .party,
-    }))
-    .sort((a, b) => d3.descending(a.avg_sentiment, b.avg_sentiment));
+  static filterData(rawData, showAll) {
+    const sentimentData = d3
+      .rollups(
+        rawData,
+        (v) => d3.mean(v, (d) => +d.label),
+        (d) => d.first_name + " " + d.last_name
+      )
+      .map((d) => ({
+        name: d[0],
+        avg_sentiment: d[1],
+        photo:
+          "img/candidate_portraits/" +
+          d[0].split(" ")[1].toLowerCase() +
+          ".png",
+        party: rawData.find((r) => r.first_name + " " + r.last_name === d[0])
+          .party,
+      }))
+      .sort((a, b) => d3.descending(a.avg_sentiment, b.avg_sentiment));
 
-  const candidateOccurrences = d3
-    .rollups(
-      rawData,
-      (v) => v.length,
-      (d) => d.first_name + " " + d.last_name
-    )
-    .sort((a, b) => d3.descending(a[1], b[1]));
+    const candidateOccurrences = d3
+      .rollups(
+        rawData,
+        (v) => v.length,
+        (d) => d.first_name + " " + d.last_name
+      )
+      .sort((a, b) => d3.descending(a[1], b[1]));
 
-  if (showAll) {
-    return sentimentData;
-  } else {
-    const topCandidates = candidateOccurrences.slice(0, 5).map((d) => d[0]);
-    return sentimentData.filter((d) => topCandidates.includes(d.name));
+    if (showAll) {
+      return sentimentData;
+    } else {
+      const topCandidates = candidateOccurrences.slice(0, 5).map((d) => d[0]);
+      return sentimentData.filter((d) => topCandidates.includes(d.name));
+    }
   }
 }
 
-// Instantiate the chart
-const sentimentChart = new SentimentChart(
-  "#candidate-sentiment-bars",
-  800,
-  500
-);
-
-// Load initial data
-sentimentChart.loadData("data/labeled.csv", (rawData) =>
-  filterData(rawData, false)
-);
-
-// Event listener for the toggle switch
-d3.select("#candidateToggle").on("change", function () {
-  const showAll = d3.select(this).property("checked");
-  d3.select("#toggleLabel").text(
-    showAll ? "Display All Candidates" : "Show Top 5 Candidates"
-  );
-  sentimentChart.loadData("data/labeled.csv", (rawData) =>
-    filterData(rawData, showAll)
-  );
-});

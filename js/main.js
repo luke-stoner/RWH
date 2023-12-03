@@ -54,6 +54,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const volumeBubbles = new BubbleChart();
       }
 
+      if (destination.index == 6) {
+        const sentimentChart = new SentimentChart();
+      }
+
       if (destination.index == 9) {
         const byNetwork = new ByNetworkVisual();
       }
