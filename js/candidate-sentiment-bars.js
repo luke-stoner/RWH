@@ -5,23 +5,24 @@ class SentimentChart {
     }
     SentimentChart.instance = this;
 
+    this.setupProperties();
+    this.initChart();
+    this.bindEvents();
+    this.initialLoad();
+  }
+  initialLoad() {
+    this.loadData(this.dataUrl, (rawData) =>
+      SentimentChart.filterData(rawData, false)
+    );
+  }
+
+  setupProperties() {
     this.margin = { top: 30, right: 30, bottom: 30, left: 230 };
     this.width = 800 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
     this.selector = "#candidate-sentiment-bars";
-
-    this.initChart();
-    this.loadData("data/labeled.csv", (rawData) =>
-      SentimentChart.filterData(rawData, false)
-    );
-
-    const self = this;
-    d3.selectAll('input[name="inlineRadioOptions"]').on("change", function () {
-      const showAll = d3.select("#show-all-sentiment").property("checked");
-      self.loadData("data/labeled.csv", (rawData) =>
-        SentimentChart.filterData(rawData, showAll)
-      );
-    });
+    this.dataUrl = "data/labeled.csv";
+    this.transitionDuration = 750; // Transition duration in milliseconds
   }
 
   initChart() {
@@ -37,13 +38,31 @@ class SentimentChart {
       .attr("transform", `translate(${this.margin.left},${this.margin.top})`);
   }
 
+  bindEvents() {
+    const self = this;
+    d3.selectAll('input[name="inlineRadioOptions"]').on("change", function () {
+      const showAll = d3.select("#show-all-sentiment").property("checked");
+      self.loadData(self.dataUrl, (rawData) =>
+        SentimentChart.filterData(rawData, showAll)
+      );
+    });
+  }
+
   updateChart(data) {
-    const TRANSITION_DURATION = 750; // Transition duration in milliseconds
+    this.clearChart();
+    this.createAxis(data);
+    this.createBars(data);
+    this.createBarExtensions(data);
+    this.createBackgroundCircles(data);
+    this.createImages(data);
+    this.createDashedLine();
+  }
 
-    // Clear existing chart elements
+  clearChart() {
     this.svg.selectAll("*").remove();
+  }
 
-    // X axis
+  createAxis(data) {
     this.svg
       .append("g")
       .attr("transform", `translate(0,${this.height})`)
@@ -54,7 +73,6 @@ class SentimentChart {
           .tickFormat(d3.format(".0%"))
       );
 
-    // Create X axis title
     this.svg
       .append("text")
       .attr("class", "x-axis-title")
@@ -64,7 +82,6 @@ class SentimentChart {
       .style("font-size", "12px")
       .text("Positive Mentions");
 
-    //Y axis
     this.y.domain(data.map((d) => d.name));
     this.svg
       .append("g")
@@ -73,10 +90,11 @@ class SentimentChart {
       .attr("x", -this.y.bandwidth() * 1.2)
       .style("text-anchor", "end")
       .style("font-size", "16px");
+  }
 
-    // Add bars with transition
+  createBars(data) {
     const bars = this.svg
-      .selectAll("myRect")
+      .selectAll("rect")
       .data(data)
       .enter()
       .append("rect")
@@ -87,10 +105,11 @@ class SentimentChart {
 
     bars
       .transition()
-      .duration(TRANSITION_DURATION)
+      .duration(this.transitionDuration)
       .attr("width", (d) => this.x(d.avg_sentiment));
+  }
 
-    // Add bar extensions with transition
+  createBarExtensions(data) {
     const barExtensions = this.svg
       .selectAll("barExtensions")
       .data(data)
@@ -103,12 +122,13 @@ class SentimentChart {
 
     barExtensions
       .transition()
-      .duration(TRANSITION_DURATION)
+      .duration(this.transitionDuration)
       .attr("width", this.y.bandwidth());
+  }
 
-    // Add background circles with transition
+  createBackgroundCircles(data) {
     const backgroundCircles = this.svg
-      .selectAll("backgroundCircles")
+      .selectAll("circle")
       .data(data)
       .enter()
       .append("circle")
@@ -121,12 +141,13 @@ class SentimentChart {
 
     backgroundCircles
       .transition()
-      .duration(TRANSITION_DURATION)
+      .duration(this.transitionDuration)
       .attr("r", this.y.bandwidth() / 2);
+  }
 
-    // Add images with transition
+  createImages(data) {
     const images = this.svg
-      .selectAll("candidateImages")
+      .selectAll("image")
       .data(data)
       .enter()
       .append("image")
@@ -139,11 +160,12 @@ class SentimentChart {
 
     images
       .transition()
-      .duration(TRANSITION_DURATION)
+      .duration(this.transitionDuration)
       .attr("height", this.y.bandwidth())
       .attr("width", this.y.bandwidth());
+  }
 
-    // Add the dashed horizontal line for the 50% mark
+  createDashedLine() {
     this.svg
       .append("line")
       .attr("x1", this.x(0.5))
