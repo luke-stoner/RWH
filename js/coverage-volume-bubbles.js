@@ -139,7 +139,7 @@ class BubbleChart {
       .style("opacity", 0);
 
     // Additional text to show after all transitions are complete
-    const totalDelay = numCircles * fanOutDelay; 
+    const totalDelay = numCircles * fanOutDelay;
     const firstMessage = svg
       .append("text")
       .attr("x", width / 2)
@@ -176,7 +176,6 @@ class BubbleChart {
           .style("opacity", 0)
           .end() // End of second message
           .then(() => {
-
             // Function to focus on each circle, fade out label, and fade in image
             function focusOnCircle(index) {
               if (index >= data.length) {
@@ -187,14 +186,27 @@ class BubbleChart {
                     .duration(1000)
                     .attr("transform", "translate(0,0) scale(1)")
                     .on("end", () => {
-                      // Any additional actions after resetting the view can be placed here
+                      labels // Show frequency labels after the zoom and pan animation
+                        .transition()
+                        .duration(1000)
+                        .delay((d, i) => i * 200)
+                        .attr("x", (d, i) => cumulativeWidths[i])
+                        .attr(
+                          "y",
+                          (d) =>
+                            height / 2 -
+                            radiusScale(d.frequency) -
+                            strokeWidth -
+                            10
+                        )
+                        .style("opacity", 1);
                     });
-                }, 1000); 
+                }, 1000);
                 return;
               }
 
               const xPosition = cumulativeWidths[index];
-              const scale = 5; 
+              const scale = 5;
               const translateX = width / 2 - xPosition * scale;
               const translateY = height / 2 - (height / 2) * scale;
 
@@ -231,7 +243,6 @@ class BubbleChart {
 
             // Start the sequential transition with the first circle
             focusOnCircle(0);
-
           }); //HERE
       });
   }
