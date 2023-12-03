@@ -171,6 +171,7 @@ class BubbleChart {
           .then(() => {
             // ... [rest of your existing code] ...
 
+            // Function to focus on each circle, fade out label, and fade in image
             function focusOnCircle(index) {
               if (index >= data.length) {
                 return; // Stop if there are no more circles
@@ -184,7 +185,7 @@ class BubbleChart {
               // Zoom to the circle first
               group
                 .transition()
-                .duration(1000) // Duration of zoom/pan effect
+                .duration(1000)
                 .attr(
                   "transform",
                   `translate(${translateX}, ${translateY}) scale(${scale})`
@@ -194,13 +195,21 @@ class BubbleChart {
                   labels
                     .filter((d, i) => i === index)
                     .transition()
-                    .duration(500) // Duration for fading out the label
+                    .duration(500)
                     .style("opacity", 0)
                     .on("end", () => {
-                      // Call focusOnCircle for the next circle after a delay
-                      setTimeout(() => {
-                        focusOnCircle(index + 1);
-                      }, 500); // Adjust this delay as needed
+                      // After label fades out, fade in the image
+                      images
+                        .filter((d, i) => i === index)
+                        .transition()
+                        .duration(500)
+                        .style("opacity", 1)
+                        .on("end", () => {
+                          // Move to the next circle after a short delay
+                          setTimeout(() => {
+                            focusOnCircle(index + 1);
+                          }, 500);
+                        });
                     });
                 });
             }
