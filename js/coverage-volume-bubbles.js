@@ -28,8 +28,9 @@ class BubbleChart {
     const width = 900;
     const height = 600;
     const margin = 30;
-    const initialX = width / 2; // Initial X position for the circles
-    const initialY = 0; // Initial Y position for the circles
+    const strokeWidth = 6;
+    const initialX = width / 2;
+    const initialY = 0;
     const numCircles = data.length;
 
     // Create SVG container
@@ -70,8 +71,9 @@ class BubbleChart {
       .attr("cx", initialX)
       .attr("cy", initialY)
       .attr("r", (d) => radiusScale(d.frequency))
-      // .style("fill", (d) => PARTY_COLOR_MAP[d.party])
-      .style("fill", "#FFFFFF")
+      .style("fill", "white")
+      .style("stroke", (d) => PARTY_COLOR_MAP[d.party])
+      .style("stroke-width", `${strokeWidth}px`)
       .style("opacity", 0);
 
     // Add frequency label at the center of each circle
@@ -81,12 +83,12 @@ class BubbleChart {
       .enter()
       .append("text")
       .attr("x", (d, i) => cumulativeWidths[i])
-      .attr("y", (d) => height / 2) // y position at the vertical center of the circle
+      .attr("y", (d) => height / 2)
       .text((d) => d.frequency.toLocaleString())
       .attr("text-anchor", "middle")
       .style("fill", (d) => PARTY_COLOR_MAP[d.party])
       .style("font-size", (d) => `${fontSizeScale(radiusScale(d.frequency))}px`)
-      .attr("dy", (d) => `${fontSizeScale(radiusScale(d.frequency)) / 2 - 2}px`) // Adjust dy for vertical centering
+      .attr("dy", (d) => `${fontSizeScale(radiusScale(d.frequency)) / 2 - 2}px`)
       .style("opacity", 0);
 
     // Transition for circles to fan out into a straight line
@@ -97,7 +99,7 @@ class BubbleChart {
       .duration(fanOutDuration)
       .delay((d, i) => i * fanOutDelay)
       .attr("cx", (d, i) => cumulativeWidths[i])
-      .attr("cy", height / 2) // Final Y position for the circles
+      .attr("cy", height / 2)
       .style("opacity", 1);
 
     // Transition for labels to match circle appearance
@@ -116,24 +118,28 @@ class BubbleChart {
       .enter()
       .append("image")
       .attr("xlink:href", (d) => d.photo)
-      .attr("x", (d) => initialX - radiusScale(d.frequency)) // Center the image on the circle's initial X
-      .attr("y", (d) => initialY - radiusScale(d.frequency)) // Center the image on the circle's initial Y
-      .attr("width", (d) => 2 * radiusScale(d.frequency)) // Image width = 2 * radius
-      .attr("height", (d) => 2 * radiusScale(d.frequency)) // Image height = 2 * radius
+      .attr("x", (d) => initialX - radiusScale(d.frequency))
+      .attr("y", (d) => initialY - radiusScale(d.frequency))
+      .attr("width", (d) => 2 * radiusScale(d.frequency) - strokeWidth)
+      .attr("height", (d) => 2 * radiusScale(d.frequency) - strokeWidth)
       .style("opacity", 0)
-      .style("clip-path", "circle(50%)"); // Apply circular clipping to make the image circular
+      .style("clip-path", "circle(50%)");
 
     // Transition for images to fan out with circles
     images
       .transition()
       .duration(fanOutDuration)
       .delay((d, i) => i * fanOutDelay)
-      .attr("x", (d, i) => cumulativeWidths[i] - radiusScale(d.frequency)) // Adjust position to center on circle
-      .attr("y", (d) => height / 2 - radiusScale(d.frequency))
-      .style("opacity", 0); // Adjust position to center on circle
+      .attr(
+        "x",
+        (d, i) =>
+          cumulativeWidths[i] - radiusScale(d.frequency) + strokeWidth / 2
+      )
+      .attr("y", (d) => height / 2 - radiusScale(d.frequency) + strokeWidth / 2)
+      .style("opacity", 0);
 
     // Additional text to show after all transitions are complete
-    const totalDelay = numCircles * fanOutDelay; // Total time until the last circle and label have appeared
+    const totalDelay = numCircles * fanOutDelay; 
     const firstMessage = svg
       .append("text")
       .attr("x", width / 2)
@@ -170,7 +176,6 @@ class BubbleChart {
           .style("opacity", 0)
           .end() // End of second message
           .then(() => {
-            // ... [rest of your existing code] ...
 
             // Function to focus on each circle, fade out label, and fade in image
             function focusOnCircle(index) {
@@ -184,12 +189,12 @@ class BubbleChart {
                     .on("end", () => {
                       // Any additional actions after resetting the view can be placed here
                     });
-                }, 1000); // Adjust delay as needed
+                }, 1000); 
                 return;
               }
 
               const xPosition = cumulativeWidths[index];
-              const scale = 6; // Example zoom level
+              const scale = 6; 
               const translateX = width / 2 - xPosition * scale;
               const translateY = height / 2 - (height / 2) * scale;
 
@@ -227,7 +232,6 @@ class BubbleChart {
             // Start the sequential transition with the first circle
             focusOnCircle(0);
 
-            // ... [rest of your code, or end the function] ...
           }); //HERE
       });
   }
