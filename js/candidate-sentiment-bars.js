@@ -78,7 +78,7 @@ class SentimentChart {
       .attr("x", this.x(0))
       .attr("y", (d) => this.y(d.name))
       .attr("height", this.y.bandwidth())
-      .attr("fill", (d) => (d.party === "R" ? REPUBLICAN_RED : DEMOCRAT_BLUE));
+      .attr("fill", (d) => PARTY_COLOR_MAP[d.party]);
 
     bars
       .transition()
@@ -94,7 +94,7 @@ class SentimentChart {
       .attr("x", this.x(0) - this.y.bandwidth() / 2)
       .attr("y", (d) => this.y(d.name))
       .attr("height", this.y.bandwidth())
-      .attr("fill", (d) => (d.party === "R" ? REPUBLICAN_RED : DEMOCRAT_BLUE));
+      .attr("fill", (d) => PARTY_COLOR_MAP[d.party]);
 
     barExtensions
       .transition()
@@ -111,7 +111,7 @@ class SentimentChart {
       .attr("cy", (d) => this.y(d.name) + this.y.bandwidth() / 2)
       .attr("r", 0)
       .attr("fill", "white")
-      .attr("stroke", (d) => (d.party === "R" ? REPUBLICAN_RED : DEMOCRAT_BLUE))
+      .attr("stroke", (d) => PARTY_COLOR_MAP[d.party])
       .attr("stroke-width", 3);
 
     backgroundCircles
