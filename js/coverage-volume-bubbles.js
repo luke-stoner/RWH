@@ -90,7 +90,7 @@ class BubbleChart {
 
     // Transition for circles to fan out into a straight line
     const fanOutDuration = 1000;
-    const fanOutDelay = fanOutDuration / 2;
+    const fanOutDelay = fanOutDuration / 2 + 700;
     circles
       .transition()
       .duration(fanOutDuration)
@@ -103,7 +103,7 @@ class BubbleChart {
     labels
       .transition()
       .duration(fanOutDuration)
-      .delay((d, i) => i * fanOutDelay + 700)
+      .delay((d, i) => i * fanOutDelay)
       .attr("x", (d, i) => cumulativeWidths[i])
       .attr("y", (d) => height / 2)
       .style("opacity", 1);
@@ -146,28 +146,47 @@ class BubbleChart {
           .style("opacity", 0)
           .end() // End of second message
           .then(() => {
+            // ... [rest of your existing code] ...
+
             function focusOnCircle(index) {
+              if (index >= data.length) {
+                return; // Stop if there are no more circles
+              }
+
               const xPosition = cumulativeWidths[index];
-              const scale = 6; // Example zoom level, adjust as needed
+              const scale = 6; // Example zoom level
               const translateX = width / 2 - xPosition * scale;
               const translateY = height / 2 - (height / 2) * scale;
 
+              // Zoom to the circle first
               group
                 .transition()
                 .duration(1000) // Duration of zoom/pan effect
                 .attr(
                   "transform",
                   `translate(${translateX}, ${translateY}) scale(${scale})`
-                );
+                )
+                .on("end", () => {
+                  // After zooming, fade out the label
+                  labels
+                    .filter((d, i) => i === index)
+                    .transition()
+                    .duration(500) // Duration for fading out the label
+                    .style("opacity", 0)
+                    .on("end", () => {
+                      // Call focusOnCircle for the next circle after a delay
+                      setTimeout(() => {
+                        focusOnCircle(index + 1);
+                      }, 500); // Adjust this delay as needed
+                    });
+                });
             }
 
-            // Sequentially apply the zoom and pan effect to each circle
-            data.forEach((d, i) => {
-              setTimeout(() => {
-                focusOnCircle(i);
-              }, i * 2000); // 2000ms delay between each focus, adjust as needed
-            });
-          });
+            // Start the sequential transition with the first circle
+            focusOnCircle(0);
+
+            // ... [rest of your code, or end the function] ...
+          }); //HERE
       });
   }
 
