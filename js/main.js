@@ -53,6 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
       if (destination.index == 5) {
         const volumeBubbles = new BubbleChart();
       }
+
+      if (destination.index == 9) {
+        const byNetwork = new ByNetworkVisual();
+      }
     },
   });
 

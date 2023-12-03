@@ -1,5 +1,9 @@
 class ByNetworkVisual {
   constructor() {
+    if (ByNetworkVisual.instance) {
+      return ByNetworkVisual.instance;
+    }
+    ByNetworkVisual.instance = this;
     this.loadData();
   }
 
@@ -229,4 +233,4 @@ class ByNetworkVisual {
   }
 }
 
-new ByNetworkVisual();
+
