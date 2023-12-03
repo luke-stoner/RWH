@@ -108,6 +108,28 @@ class BubbleChart {
       .attr("y", (d) => height / 2)
       .style("opacity", 1);
 
+    // Append image elements for each data point
+    const images = group
+      .selectAll("image")
+      .data(data)
+      .enter()
+      .append("image")
+      .attr("xlink:href", (d) => d.photo)
+      .attr("x", (d) => initialX - radiusScale(d.frequency)) // Center the image on the circle's initial X
+      .attr("y", (d) => initialY - radiusScale(d.frequency)) // Center the image on the circle's initial Y
+      .attr("width", (d) => 2 * radiusScale(d.frequency)) // Image width = 2 * radius
+      .attr("height", (d) => 2 * radiusScale(d.frequency)) // Image height = 2 * radius
+      .style("opacity", 0)
+      .style("clip-path", "circle(50%)"); // Apply circular clipping to make the image circular
+
+    // Transition for images to fan out with circles
+    images
+      .transition()
+      .duration(fanOutDuration)
+      .delay((d, i) => i * fanOutDelay)
+      .attr("x", (d, i) => cumulativeWidths[i] - radiusScale(d.frequency)) // Adjust position to center on circle
+      .attr("y", (d) => height / 2 - radiusScale(d.frequency)); // Adjust position to center on circle
+
     // Additional text to show after all transitions are complete
     const totalDelay = numCircles * fanOutDelay; // Total time until the last circle and label have appeared
     const firstMessage = svg
@@ -117,77 +139,6 @@ class BubbleChart {
       .text("There is a lot of variance here...")
       .attr("text-anchor", "middle")
       .style("opacity", 0);
-
-    firstMessage
-      .transition()
-      .delay(totalDelay)
-      .duration(1000)
-      .style("opacity", 1)
-      .transition()
-      .delay(3000)
-      .duration(1000)
-      .style("opacity", 0)
-      .end() // End first message
-      .then(() => {
-        // Begin second message
-        const secondMessage = svg
-          .append("text")
-          .attr("x", width / 2)
-          .attr("y", height / 3)
-          .text("Some candidates are mentioned more than others...")
-          .attr("text-anchor", "middle")
-          .style("opacity", 0)
-          .transition()
-          .duration(1000)
-          .style("opacity", 1)
-          .transition()
-          .delay(3000)
-          .duration(1000)
-          .style("opacity", 0)
-          .end() // End of second message
-          .then(() => {
-            // ... [rest of your existing code] ...
-
-            function focusOnCircle(index) {
-              if (index >= data.length) {
-                return; // Stop if there are no more circles
-              }
-
-              const xPosition = cumulativeWidths[index];
-              const scale = 6; // Example zoom level
-              const translateX = width / 2 - xPosition * scale;
-              const translateY = height / 2 - (height / 2) * scale;
-
-              // Zoom to the circle first
-              group
-                .transition()
-                .duration(1000) // Duration of zoom/pan effect
-                .attr(
-                  "transform",
-                  `translate(${translateX}, ${translateY}) scale(${scale})`
-                )
-                .on("end", () => {
-                  // After zooming, fade out the label
-                  labels
-                    .filter((d, i) => i === index)
-                    .transition()
-                    .duration(500) // Duration for fading out the label
-                    .style("opacity", 0)
-                    .on("end", () => {
-                      // Call focusOnCircle for the next circle after a delay
-                      setTimeout(() => {
-                        focusOnCircle(index + 1);
-                      }, 500); // Adjust this delay as needed
-                    });
-                });
-            }
-
-            // Start the sequential transition with the first circle
-            focusOnCircle(0);
-
-            // ... [rest of your code, or end the function] ...
-          }); //HERE
-      });
   }
 
   secondVisualization(data) {
