@@ -70,7 +70,8 @@ class BubbleChart {
       .attr("cx", initialX)
       .attr("cy", initialY)
       .attr("r", (d) => radiusScale(d.frequency))
-      .style("fill", (d) => PARTY_COLOR_MAP[d.party])
+      // .style("fill", (d) => PARTY_COLOR_MAP[d.party])
+      .style("fill", "#FFFFFF")
       .style("opacity", 0);
 
     // Add frequency label at the center of each circle
@@ -83,14 +84,14 @@ class BubbleChart {
       .attr("y", (d) => height / 2) // y position at the vertical center of the circle
       .text((d) => d.frequency.toLocaleString())
       .attr("text-anchor", "middle")
-      .style("fill", "#FFFFFF")
+      .style("fill", (d) => PARTY_COLOR_MAP[d.party])
       .style("font-size", (d) => `${fontSizeScale(radiusScale(d.frequency))}px`)
       .attr("dy", (d) => `${fontSizeScale(radiusScale(d.frequency)) / 2 - 2}px`) // Adjust dy for vertical centering
       .style("opacity", 0);
 
     // Transition for circles to fan out into a straight line
     const fanOutDuration = 1000;
-    const fanOutDelay = fanOutDuration / 2 + 700;
+    const fanOutDelay = fanOutDuration / 2;
     circles
       .transition()
       .duration(fanOutDuration)
@@ -103,7 +104,7 @@ class BubbleChart {
     labels
       .transition()
       .duration(fanOutDuration)
-      .delay((d, i) => i * fanOutDelay)
+      .delay((d, i) => i * fanOutDelay + 700)
       .attr("x", (d, i) => cumulativeWidths[i])
       .attr("y", (d) => height / 2)
       .style("opacity", 1);
