@@ -8,12 +8,17 @@ class SentimentChart {
     this.setupProperties();
     this.initChart();
     this.bindEvents();
+    this.overallAverageSentiment = null;
     this.initialLoad();
   }
   initialLoad() {
-    this.loadData(this.dataUrl, (rawData) =>
-      SentimentChart.filterData(rawData, false)
-    );
+    d3.csv(this.dataUrl).then((rawData) => {
+      this.overallAverageSentiment =
+        this.calculateOverallAverageSentiment(rawData);
+
+      let processedData = SentimentChart.filterData(rawData, false);
+      this.updateChart(processedData);
+    });
   }
 
   setupProperties() {
@@ -22,7 +27,7 @@ class SentimentChart {
     this.height = 500 - this.margin.top - this.margin.bottom;
     this.selector = "#candidate-sentiment-bars";
     this.dataUrl = "data/labeled.csv";
-    this.transitionDuration = 750; // Transition duration in milliseconds
+    this.transitionDuration = 750;
   }
 
   initChart() {
@@ -48,6 +53,18 @@ class SentimentChart {
     });
   }
 
+  calculateOverallAverageSentiment(rawData) {
+    const sentimentPerCandidate = d3
+      .rollups(
+        rawData,
+        (v) => d3.mean(v, (d) => +d.label),
+        (d) => d.first_name + " " + d.last_name
+      )
+      .map((d) => d[1]);
+
+    return d3.mean(sentimentPerCandidate);
+  }
+
   updateChart(data) {
     this.clearChart();
     this.createAxis(data);
@@ -56,6 +73,7 @@ class SentimentChart {
     this.createBackgroundCircles(data);
     this.createImages(data);
     this.createDashedLine();
+    this.createAverageSentimentLine();
   }
 
   clearChart() {
@@ -175,6 +193,18 @@ class SentimentChart {
       .style("stroke-dasharray", "5,5")
       .style("stroke", "#000000")
       .style("stroke-width", 2);
+  }
+
+  createAverageSentimentLine() {
+    this.svg
+      .append("line")
+      .attr("x1", this.x(this.overallAverageSentiment))
+      .attr("x2", this.x(this.overallAverageSentiment))
+      .attr("y1", 0)
+      .attr("y2", this.height)
+      .style("stroke", "green")
+      .style("stroke-width", 2)
+      .style("stroke-dasharray", "3, 3");
   }
 
   loadData(dataUrl, filterFunction) {
