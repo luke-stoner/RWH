@@ -1,18 +1,16 @@
 class SentimentChart {
   constructor() {
-
-     if (SentimentChart.instance) {
-       return SentimentChart.instance;
-     }
+    if (SentimentChart.instance) {
+      return SentimentChart.instance;
+    }
     SentimentChart.instance = this;
-    
+
     this.margin = { top: 30, right: 30, bottom: 30, left: 230 };
     this.width = 800 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
     this.selector = "#candidate-sentiment-bars";
 
     this.initChart();
-    this.initAxes();
     this.loadData("data/labeled.csv", (rawData) =>
       SentimentChart.filterData(rawData, false)
     );
@@ -41,36 +39,29 @@ class SentimentChart {
       .attr("transform", `translate(${this.margin.left},${this.margin.top})`);
   }
 
-  initAxes() {
-    // Create X axis
-    this.svg
-      .append("g")
-      .attr("transform", `translate(0,${this.height})`)
-      .call(d3.axisBottom(this.x).ticks(5));
-
-    // Create Y axis
-    this.svg
-      .append("g")
-      .call(d3.axisLeft(this.y).tickSize(0))
-      .selectAll(".tick text")
-      .attr("x", -this.y.bandwidth() * 1.2)
-      .style("text-anchor", "end")
-      .style("font-size", "16px");
-  }
-
   updateChart(data) {
     const TRANSITION_DURATION = 750; // Transition duration in milliseconds
 
     // Clear existing chart elements
     this.svg.selectAll("*").remove();
 
-    // Re-create X axis
+    // X axis
     this.svg
       .append("g")
       .attr("transform", `translate(0,${this.height})`)
-      .call(d3.axisBottom(this.x).ticks(5));
+      .call(d3.axisBottom(this.x).ticks(5).tickFormat(d3.format(".0%")));
 
-    // Update Y axis domain based on new data
+    // Create X axis title
+    this.svg
+      .append("text")
+      .attr("class", "x-axis-title")
+      .attr("x", this.width / 2)
+      .attr("y", this.height + 30)
+      .style("text-anchor", "middle")
+      .style("font-size", "12px")
+      .text("Positive Mentions");
+
+    //Y axis
     this.y.domain(data.map((d) => d.name));
     this.svg
       .append("g")
@@ -192,4 +183,3 @@ class SentimentChart {
     }
   }
 }
-
