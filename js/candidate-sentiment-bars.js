@@ -47,7 +47,12 @@ class SentimentChart {
     this.svg
       .append("g")
       .attr("transform", `translate(0,${this.height})`)
-      .call(d3.axisBottom(this.x).ticks(5).tickFormat(d3.format(".0%")));
+      .call(
+        d3
+          .axisBottom(this.x)
+          .tickValues([0, 0.25, 0.5, 0.75, 1])
+          .tickFormat(d3.format(".0%"))
+      );
 
     // Create X axis title
     this.svg
@@ -137,6 +142,17 @@ class SentimentChart {
       .duration(TRANSITION_DURATION)
       .attr("height", this.y.bandwidth())
       .attr("width", this.y.bandwidth());
+
+    // Add the dashed horizontal line for the 50% mark
+    this.svg
+      .append("line")
+      .attr("x1", this.x(0.5))
+      .attr("x2", this.x(0.5))
+      .attr("y1", 0)
+      .attr("y2", this.height)
+      .style("stroke-dasharray", "5,5")
+      .style("stroke", "#000000")
+      .style("stroke-width", 2);
   }
 
   loadData(dataUrl, filterFunction) {
