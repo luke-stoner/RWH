@@ -21,9 +21,9 @@ class ByNetworkVisual {
     });
 
     // Filter data for networks with more than 1000 records
-    const MINIMUM_THRESHOLD = 1000;
+    this.MINIMUM_THRESHOLD = 1000;
     const filteredData = data.filter(
-      (d) => networkCounts[d.network] > MINIMUM_THRESHOLD
+      (d) => networkCounts[d.network] > this.MINIMUM_THRESHOLD,
     );
 
     this.minDate = d3.min(filteredData, (d) => d.date).getTime();
@@ -136,7 +136,18 @@ class ByNetworkVisual {
       .domain([0, d3.max(rightData)])
       .range([0, this.width]);
 
-    this.transition = d3.transition().duration(750);
+    const footnote = this.chart.append("g").attr("class", "legend");
+
+    footnote
+      .append("text")
+      .attr("x", this.width - this.legendAreaBuffer * 1.5)
+      .attr("y", 0.98 * this.height)
+      .text(
+        `* includes networks with over ${this.MINIMUM_THRESHOLD.toLocaleString()} mentions`,
+      )
+      .style("font-size", "14px");
+
+    this.transition = d3.transition().duration(500);
 
     this.updateDemocrat(leftData, names);
     this.updateAxisLabels(names);
