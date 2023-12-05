@@ -319,7 +319,7 @@ class SentimentChart {
     if (showAll) {
       return sentimentData;
     } else {
-      const topCandidates = candidateOccurrences.slice(0, 5).map((d) => d[0]);
+      const topCandidates = ['Joe Biden', 'Donald Trump', 'Ron DeSantis', 'Nikki Haley', 'Vivek Ramaswamy'];
       return sentimentData.filter((d) => topCandidates.includes(d.name));
     }
   }
