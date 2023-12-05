@@ -109,7 +109,7 @@ class BubbleChart {
       .style("opacity", 0);
 
     // Transition for circles to fan out into a straight line
-    const fanOutDuration = 1000;
+    const fanOutDuration = 500;
     const fanOutDelay = fanOutDuration / 2;
     circles
       .transition()
@@ -190,7 +190,7 @@ class BubbleChart {
           .duration(1000)
           .style("opacity", 1)
           .transition()
-          .delay(3000)
+          .delay(2000)
           .duration(1000)
           .style("opacity", 0)
           .end() // End of second message
@@ -202,13 +202,13 @@ class BubbleChart {
                 setTimeout(() => {
                   group
                     .transition()
-                    .duration(1000)
+                    .duration(500)
                     .attr("transform", "translate(0,0) scale(1)")
                     .on("end", () => {
                       labels // Show frequency labels after the zoom and pan animation
                         .transition()
-                        .duration(1000)
-                        .delay((d, i) => i * 200)
+                        .duration(500)
+                        .delay((d, i) => i * 100)
                         .attr("x", (d, i) => cumulativeWidths[i])
                         .attr(
                           "y",
@@ -220,7 +220,7 @@ class BubbleChart {
                         )
                         .style("opacity", 1);
                     });
-                }, 1000);
+                }, 100);
                 return;
               }
 
@@ -232,7 +232,7 @@ class BubbleChart {
               // Zoom to the circle first
               group
                 .transition()
-                .duration(1000)
+                .duration(500)
                 .attr(
                   "transform",
                   `translate(${translateX}, ${translateY}) scale(${scale})`
@@ -242,19 +242,19 @@ class BubbleChart {
                   labels
                     .filter((d, i) => i === index)
                     .transition()
-                    .duration(500)
+                    .duration(300)
                     .style("opacity", 0)
                     .on("end", () => {
                       // After label fades out, fade in the image
                       images
                         .filter((d, i) => i === index)
                         .transition()
-                        .duration(500)
+                        .duration(300)
                         .style("opacity", 1)
                         .on("end", () => {
                           setTimeout(() => {
                             focusOnCircle(index + 1);
-                          }, 500); // Delay before moving to the next circle
+                          }, 100); // Delay before moving to the next circle
                         });
                     });
                 });
