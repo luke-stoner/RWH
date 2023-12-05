@@ -1,4 +1,4 @@
-.body{
+.body {
   font-family: Roboto-Regular;
 }
 .social-icon {
@@ -90,7 +90,7 @@ h2 h3 {
   border: 1px solid #aaa;
   border-radius: 4px;
   box-shadow: 0 0 5px #999;
-  max-width: 250px
+  max-width: 250px;
 }
 
 #sbfHeader {
@@ -150,7 +150,7 @@ video::-webkit-media-controls {
   height: 30%;
 }
 
-#candidate-image-modal{
+#candidate-image-modal {
   padding: 0.5em;
 }
 
@@ -402,7 +402,6 @@ video::-webkit-media-controls {
   background: darkgray !important;
 }
 
-
 .switch-container {
   display: flex;
   align-items: center;
@@ -417,11 +416,12 @@ video::-webkit-media-controls {
   /* Style for the label text */
 }
 
-#candidate-modal-bio{
+#candidate-modal-bio {
   padding: 1em;
 }
 
-#candidate-modal-positive-percent, #candidate-modal-mentions{
+#candidate-modal-positive-percent,
+#candidate-modal-mentions {
   font-size: xx-large;
   font-weight: 900;
 }
@@ -429,7 +429,6 @@ video::-webkit-media-controls {
 .modal-header {
   border-bottom: none !important;
 }
-
 
 /* INTRO PROJECT CSS */
 
@@ -604,13 +603,27 @@ body .testimonial .row .carousel .carousel-indicators li.active {
 body .testimonial .row .carousel .carousel-inner .carousel-item .quote-wrapper {
   margin-top: 42px;
 }
-body .testimonial .row .carousel .carousel-inner .carousel-item .quote-wrapper p {
+body
+  .testimonial
+  .row
+  .carousel
+  .carousel-inner
+  .carousel-item
+  .quote-wrapper
+  p {
   font-size: 18px;
   line-height: 1.72222;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.7);
 }
-body .testimonial .row .carousel .carousel-inner .carousel-item .quote-wrapper h3 {
+body
+  .testimonial
+  .row
+  .carousel
+  .carousel-inner
+  .carousel-item
+  .quote-wrapper
+  h3 {
   color: #000;
   font-weight: 700;
   margin-top: 37px;
@@ -624,7 +637,6 @@ body .testimonial .row .carousel .carousel-inner .carousel-item .quote-wrapper h
     margin-right: 25px;
   }
 }
-
 
 body .testimonial .row .tabs li figure img {
   position: relative;
@@ -654,3 +666,8 @@ body .testimonial .row .tabs li.active figure::before {
 }
 
 /* INTRO PROJECT CSS END */
+
+.custom-tooltip {
+  --bs-tooltip-bg: #000000;
+  --bs-tooltip-color: #ffffff;
+}
