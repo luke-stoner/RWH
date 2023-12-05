@@ -432,7 +432,7 @@ video::-webkit-media-controls {
 
 /* INTRO PROJECT CSS */
 
-@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700");
+/* @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700");
 * {
   margin: 0;
   padding: 0;
@@ -453,7 +453,7 @@ ul {
 a,
 a:hover {
   text-decoration: none;
-}
+} */
 
 /*body {*/
 /*  font-family: "Montserrat", sans-serif;*/
