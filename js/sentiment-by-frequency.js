@@ -312,12 +312,6 @@ d3.csv("data/labeled.csv", row => {
         // Set transition duration
         const TRANSITION_DURATION = 750; // Transition duration in milliseconds
 
-        // Create a tooltip
-        const tooltip = d3.select("#network-bar-chart-area")
-            .append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
         // Clear existing chart elements
         network_svg.selectAll("*").remove();
 
@@ -343,19 +337,6 @@ d3.csv("data/labeled.csv", row => {
             .data(data)
             .enter()
             .append("rect")
-            .on("mouseover", function(event, d) {
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", .9);
-                tooltip.html(`${d.network}<br/>Average Sentiment: ${d.avg_sentiment.toFixed(2)}`)
-                    .style("left", (event.pageX + 15) + "px")
-                    .style("top", (event.pageY - 30) + "px");
-            })
-            .on("mouseout", function(d) {
-                tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            })
             .attr("x", x(0))
             .attr("y", (d) => y(d.network))
             .attr("height", y.bandwidth())
