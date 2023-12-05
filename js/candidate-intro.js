@@ -5,7 +5,7 @@ class CandidateIntroduction {
     }
 
     this.candidates = data.map(
-      (candidateData) => new Candidate(...Object.values(candidateData)),
+      (candidateData) => new Candidate(...Object.values(candidateData))
     );
     this.partyColors = {
       Republican: REPUBLICAN_RED,
@@ -31,14 +31,15 @@ class CandidateIntroduction {
       throw new Error("Percentage must be between 0 and 100.");
     }
 
-    const normalizedPercentage = percentage / 100;
+    // Transform the percentage to the appropriate range
+    let normalizedPercentage = (percentage / 100 - 0.35) / (0.9 - 0.35);
+    normalizedPercentage = Math.max(0, Math.min(normalizedPercentage, 1)); //
 
-    const darkRed = [175, 0, 0];
-    const darkYellow = [175, 175, 0];
+    const darkRed = [255, 0, 0];
+    const darkYellow = [200, 200, 0];
     const darkGreen = [0, 100, 0];
 
-    // Interpolate between darkRed and darkYellow for values from 0 to 0.5
-    // Interpolate between darkYellow and darkGreen for values from 0.5 to 1
+    console.log(normalizedPercentage);
     let color;
     if (normalizedPercentage <= 0.5) {
       const t = normalizedPercentage * 2; // Scale to 0-1
@@ -68,7 +69,7 @@ class CandidateIntroduction {
     this.circlePadding = 30;
     this.columns = Math.floor(
       (this.width - 2 * this.margin) /
-        (2 * this.circleRadius + this.circlePadding),
+        (2 * this.circleRadius + this.circlePadding)
     );
     this.rows = Math.ceil(this.candidates.length / this.columns);
     this.colWidth = (this.width - 2 * this.margin) / this.columns;
@@ -87,7 +88,7 @@ class CandidateIntroduction {
     candidateNameModal.textContent = `${candidate.first} ${candidate.last}`;
 
     const candidateImageModal = document.getElementById(
-      "candidate-modal-image",
+      "candidate-modal-image"
     );
     candidateImageModal.src = candidate.alternate_image;
 
@@ -95,7 +96,7 @@ class CandidateIntroduction {
     candidateBioModal.textContent = candidate.modal_bio;
 
     const candidateMentionsModal = document.getElementById(
-      "candidate-modal-mentions",
+      "candidate-modal-mentions"
     );
 
     candidate
@@ -108,7 +109,7 @@ class CandidateIntroduction {
       });
 
     const candidatePositiveModal = document.getElementById(
-      "candidate-modal-positive-percent",
+      "candidate-modal-positive-percent"
     );
 
     candidate
@@ -135,13 +136,13 @@ class CandidateIntroduction {
         (d, i) =>
           `translate(${(i % this.columns) * this.colWidth + this.margin}, ${
             Math.floor(i / this.columns) * this.rowHeight + this.margin
-          })`,
+          })`
       )
       .on("mouseover", (event, candidate) =>
-        this.handleCircleMouseOver(event, candidate),
+        this.handleCircleMouseOver(event, candidate)
       )
       .on("mouseout", (event, candidate) =>
-        this.handleCircleMouseOut(event, candidate),
+        this.handleCircleMouseOut(event, candidate)
       )
       .on("click", (event, candidate) => {
         this.isModalOpen = true;
@@ -185,7 +186,7 @@ class CandidateIntroduction {
           this.circleRadius +
           "px " +
           this.circleRadius +
-          "px)",
+          "px)"
       );
 
     // Display full name below the circle
@@ -227,7 +228,7 @@ class CandidateIntroduction {
 
   reattachMouseOutEvents() {
     this.circles.on("mouseout", (event, candidate) =>
-      this.handleCircleMouseOut(event, candidate),
+      this.handleCircleMouseOut(event, candidate)
     );
   }
 
@@ -262,7 +263,7 @@ class CandidateIntroduction {
             this.circleRadius +
             "px " +
             this.circleRadius +
-            "px)",
+            "px)"
         );
     });
   }
@@ -340,7 +341,7 @@ class CandidateIntroduction {
             this.circleRadius * 1.025 +
             "px " +
             this.circleRadius * 1.025 +
-            "px)",
+            "px)"
         );
     }
   }
@@ -378,7 +379,7 @@ class CandidateIntroduction {
             this.circleRadius +
             "px " +
             this.circleRadius +
-            "px)",
+            "px)"
         );
     }
   }
