@@ -5,7 +5,7 @@ class CandidateIntroduction {
     }
 
     this.candidates = data.map(
-      (candidateData) => new Candidate(...Object.values(candidateData))
+      (candidateData) => new Candidate(...Object.values(candidateData)),
     );
     this.partyColors = {
       Republican: REPUBLICAN_RED,
@@ -68,7 +68,7 @@ class CandidateIntroduction {
     this.circlePadding = 30;
     this.columns = Math.floor(
       (this.width - 2 * this.margin) /
-        (2 * this.circleRadius + this.circlePadding)
+        (2 * this.circleRadius + this.circlePadding),
     );
     this.rows = Math.ceil(this.candidates.length / this.columns);
     this.colWidth = (this.width - 2 * this.margin) / this.columns;
@@ -87,7 +87,7 @@ class CandidateIntroduction {
     candidateNameModal.textContent = `${candidate.first} ${candidate.last}`;
 
     const candidateImageModal = document.getElementById(
-      "candidate-modal-image"
+      "candidate-modal-image",
     );
     candidateImageModal.src = candidate.alternate_image;
 
@@ -95,7 +95,7 @@ class CandidateIntroduction {
     candidateBioModal.textContent = candidate.modal_bio;
 
     const candidateMentionsModal = document.getElementById(
-      "candidate-modal-mentions"
+      "candidate-modal-mentions",
     );
 
     candidate
@@ -108,7 +108,7 @@ class CandidateIntroduction {
       });
 
     const candidatePositiveModal = document.getElementById(
-      "candidate-modal-positive-percent"
+      "candidate-modal-positive-percent",
     );
 
     candidate
@@ -135,13 +135,13 @@ class CandidateIntroduction {
         (d, i) =>
           `translate(${(i % this.columns) * this.colWidth + this.margin}, ${
             Math.floor(i / this.columns) * this.rowHeight + this.margin
-          })`
+          })`,
       )
       .on("mouseover", (event, candidate) =>
-        this.handleCircleMouseOver(event, candidate)
+        this.handleCircleMouseOver(event, candidate),
       )
       .on("mouseout", (event, candidate) =>
-        this.handleCircleMouseOut(event, candidate)
+        this.handleCircleMouseOut(event, candidate),
       )
       .on("click", (event, candidate) => {
         this.isModalOpen = true;
@@ -160,14 +160,14 @@ class CandidateIntroduction {
       .attr("r", this.circleRadius + this.borderThickness)
       .attr("fill", (d) => this.partyColors[d.party]);
 
-    // Add a white circle behind the candidate's image
+    // Add a light shaded circle behind the candidate's image
     this.circles
       .append("circle")
-      .attr("class", "candidate-white-circle")
+      .attr("class", "candidate-light-fill-circle")
       .attr("cx", this.circleRadius + this.borderThickness)
       .attr("cy", this.circleRadius + this.borderThickness)
       .attr("r", this.circleRadius)
-      .attr("fill", "white");
+      .attr("fill", (d) => this.partySecondaryColors[d.party]);
 
     // Add the image inside the white circle
     this.circles
@@ -185,7 +185,7 @@ class CandidateIntroduction {
           this.circleRadius +
           "px " +
           this.circleRadius +
-          "px)"
+          "px)",
       );
 
     // Display full name below the circle
@@ -227,7 +227,7 @@ class CandidateIntroduction {
 
   reattachMouseOutEvents() {
     this.circles.on("mouseout", (event, candidate) =>
-      this.handleCircleMouseOut(event, candidate)
+      this.handleCircleMouseOut(event, candidate),
     );
   }
 
@@ -242,11 +242,11 @@ class CandidateIntroduction {
         .attr("r", this.circleRadius + this.borderThickness);
 
       d3.select(circleElement)
-        .select(".candidate-white-circle")
+        .select(".candidate-light-fill-circle")
         .transition()
         .duration(200)
         .attr("r", this.circleRadius)
-        .attr("fill", "white");
+        .attr("fill", (d) => this.partySecondaryColors[d.party]);
 
       d3.select(circleElement)
         .select("image")
@@ -262,7 +262,7 @@ class CandidateIntroduction {
             this.circleRadius +
             "px " +
             this.circleRadius +
-            "px)"
+            "px)",
         );
     });
   }
@@ -319,11 +319,11 @@ class CandidateIntroduction {
         .attr("r", enlargedRadius + this.borderThickness);
 
       d3.select(circleElement)
-        .select(".candidate-white-circle")
+        .select(".candidate-light-fill-circle")
         .transition()
         .duration(200)
         .attr("r", enlargedRadius)
-        .attr("fill", (d) => this.partySecondaryColors[candidate.party]);
+        .attr("fill", (d) => this.partyColors[candidate.party]);
 
       // Resize the image
       d3.select(circleElement)
@@ -340,7 +340,7 @@ class CandidateIntroduction {
             this.circleRadius * 1.025 +
             "px " +
             this.circleRadius * 1.025 +
-            "px)"
+            "px)",
         );
     }
   }
@@ -357,11 +357,11 @@ class CandidateIntroduction {
         .attr("r", this.circleRadius + this.borderThickness);
 
       d3.select(circleElement)
-        .select(".candidate-white-circle")
+        .select(".candidate-light-fill-circle")
         .transition()
         .duration(200)
         .attr("r", this.circleRadius)
-        .attr("fill", "#FFFFFF");
+        .attr("fill", (d) => this.partySecondaryColors[d.party]);
 
       // Restore the image size
       d3.select(circleElement)
@@ -378,7 +378,7 @@ class CandidateIntroduction {
             this.circleRadius +
             "px " +
             this.circleRadius +
-            "px)"
+            "px)",
         );
     }
   }
