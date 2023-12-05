@@ -264,7 +264,7 @@ video::-webkit-media-controls {
   display: flex;
   list-style: none;
   margin: 0;
-  animation: scroll 25s infinite linear;
+  animation: scroll 65s infinite linear;
 }
 
 .news-container ul li {
@@ -294,7 +294,7 @@ video::-webkit-media-controls {
   }
 
   to {
-    transform: translateX(-1083px);
+    transform: translateX(-10000px);
   }
 }
 
