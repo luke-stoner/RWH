@@ -126,27 +126,88 @@
               </div>
             </div>
             <div class="row">
-              <div class="shadow p-3 mb-5 bg-white rounded col-4">
-                <p>
-                  In the age of information, the volume of news available can be
-                  overwhelming, making it challenging for individuals to stay
-                  informed without feeling inundated. TV news, in particular, is
-                  a dynamic but fleeting medium, with crucial data and
-                  perspectives that can disappear into the ether if not captured
-                  and analyzed in a timely manner. Leveraging the vast dataset
-                  of nearly 3 million hours of U.S. local and national TV news
-                  from The Internet Archive, our website summarizes key events
-                  and narratives from the previous week using machine learning
-                  models for the purposes of comparing sentiment across news
-                  networks and sources.
-                </p>
-              </div>
-              <div class="col-md-8">
-                <img
-                  src="img/white-house.png"
-                  id="white-house"
-                  class="img-fluid"
-                />
+              <div class="shadow p-3 mb-5 bg-white rounded col-12">
+                <section class="testimonial">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-6 d-none d-lg-block">
+                        <ol class="carousel-indicators tabs">
+                          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+                            <figure>
+                              <img src="img/intro_page/theproblem.png" width="179"
+                                   height="179" class="img-fluid" alt="">
+                            </figure>
+                          </li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="1">
+                            <figure>
+                              <img src="img/intro_page/thesolution.png" width="306"
+                                   height="306" class="img-fluid" alt="">
+                            </figure>
+                          </li>
+                          <li data-target="#carouselExampleIndicators" data-slide-to="2">
+                            <figure>
+                              <img src="img/intro_page/learnmore.png" width="179"
+                                   height="179" class="img-fluid" alt="">
+                            </figure>
+                          </li>
+                        </ol>
+                      </div>
+                      <div class="col-lg-6 d-flex justify-content-center align-items-center">
+                        <div id="carouselExampleIndicators" data-interval="false" class="carousel slide" data-ride="carousel">
+                          <h3>PROJECT OVERVIEW</h3>
+                          <div class="carousel-inner">
+                            <div class="carousel-item active">
+                              <h1>THE PROBLEM</h1>
+                              <div class="quote-wrapper">
+                                <p>In the age of information, the volume of news available can be overwhelming, making it challenging for individuals to stay informed without feeling inundated. TV news, in particular, is a dynamic but fleeting medium, with crucial data and perspectives that can disappear into the ether if not captured and analyzed in a timely manner.</p>
+                                <button class="btn btn-primary next-slide">Next Slide</button>
+                              </div>
+                            </div>
+                            <div class="carousel-item">
+                              <h1>THE SOLUTION</h1>
+                              <div class="quote-wrapper">
+                                <p>Leveraging the vast dataset of nearly 3 million hours of U.S. local and national TV news from The Internet Archive, our website summarizes key events and narratives from the previous week using machine learning models for the purposes of comparing sentiment across news networks and sources.</p>
+                                <button class="btn btn-primary next-slide">Next Slide</button>
+                              </div>
+                            </div>
+                            <div class="carousel-item">
+                              <h1>LEARN MORE</h1>
+                              <div class="quote-wrapper">
+                                <p>If you're interested in learning more about how we collect our data, watch the informational video linked below! It walks through our data collection process from start to finish, and is explained by some voices that you may find familiar!</p>
+                                <button class="btn btn-primary play-vid">Play Video</button>
+                              </div>
+                            </div>
+                          </div>
+                          <ol class="carousel-indicators indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <!--                    <h5 class="modal-title" id="videoModalLabel">Video Title</h5>-->
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <!-- Embed your video here -->
+                          <video width="100%" controls>
+                            <source src="img/intro_page/informational_vid.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
           </div>
@@ -654,5 +715,6 @@
     <script src="js/sentiment-by-frequency.js"></script>
     <script src="js/line-chart.js"></script>
     <script src="js/impactful-events.js"></script>
+    <script src="js/project-intro.js"></script>
   </body>
 </html>
