@@ -8,7 +8,6 @@ newsBar.style.visibility = "hidden";
 const video = document.getElementById("myVideo");
 const acceptButton = document.getElementById("accept-button");
 
-
 document.addEventListener("DOMContentLoaded", function () {
   var fullPageInstance = new fullpage("#fullpage", {
     navigation: true,
@@ -17,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     autoScrolling: true,
 
     onLeave: (origin, destination, direction) => {
-
       // Show/Hide breaking news bar
       if (destination.index === 0) {
         newsBar.style.visibility = "hidden";
@@ -26,8 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         newsBar.style.visibility = "visible";
       }
-
-
 
       if (destination.index == 4) {
         const candidateIntro = new CandidateIntroduction(
@@ -102,3 +98,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Call the function to start observing the modal visibility
   handleModalVisibility();
 });
+
+const tooltipTriggerList = document.querySelectorAll(
+  '[data-bs-toggle="tooltip"]'
+);
+const tooltipList = [...tooltipTriggerList].map(
+  (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+);
