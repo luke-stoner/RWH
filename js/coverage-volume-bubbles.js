@@ -173,7 +173,7 @@ class BubbleChart {
       .duration(1000)
       .style("opacity", 1)
       .transition()
-      .delay(3000)
+      .delay(1000)
       .duration(1000)
       .style("opacity", 0)
       .end() // End first message
@@ -190,7 +190,7 @@ class BubbleChart {
           .duration(1000)
           .style("opacity", 1)
           .transition()
-          .delay(2000)
+          .delay(1000)
           .duration(1000)
           .style("opacity", 0)
           .end() // End of second message
@@ -202,13 +202,13 @@ class BubbleChart {
                 setTimeout(() => {
                   group
                     .transition()
-                    .duration(500)
+                    .duration(300)
                     .attr("transform", "translate(0,0) scale(1)")
                     .on("end", () => {
                       labels // Show frequency labels after the zoom and pan animation
                         .transition()
-                        .duration(500)
-                        .delay((d, i) => i * 100)
+                        .duration(200)
+                        .delay((d, i) => i * 50)
                         .attr("x", (d, i) => cumulativeWidths[i])
                         .style("fill", (d) => PARTY_COLOR_MAP[d.party])
                         .attr(
@@ -243,19 +243,19 @@ class BubbleChart {
                   labels
                     .filter((d, i) => i === index)
                     .transition()
-                    .duration(300)
+                    .duration(200)
                     .style("opacity", 0)
                     .on("end", () => {
                       // After label fades out, fade in the image
                       images
                         .filter((d, i) => i === index)
                         .transition()
-                        .duration(300)
+                        .duration(200)
                         .style("opacity", 1)
                         .on("end", () => {
                           setTimeout(() => {
                             focusOnCircle(index + 1);
-                          }, 100); // Delay before moving to the next circle
+                          }, 50); // Delay before moving to the next circle
                         });
                     });
                 });
