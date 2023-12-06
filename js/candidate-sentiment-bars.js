@@ -16,7 +16,7 @@ class SentimentChart {
       this.overallAverageSentiment =
         this.calculateOverallAverageSentiment(rawData);
       this.updateDescription("option1");
-      let processedData = SentimentChart.filterData(rawData, false);
+      let processedData = SentimentChart.filterData(rawData, true);
       this.updateChart(processedData);
     });
   }
@@ -60,22 +60,24 @@ class SentimentChart {
     let descriptionHTML = "";
 
     switch (selectedValue) {
-      case "option1":
-        descriptionHTML = `
-        Displayed are the top 5 candidates currently leading in the polls. With the exception of Donald Trump, 
-        approximately <strong>50%</strong> of the media mentions for these candidates are positive. 
-        It's important to note that, despite their lead in the polls, these candidates fall below the 
-        average percentage of positive mentions, which is currently <strong><span style="color: green;">${(
-          100 * this.overallAverageSentiment
-        ).toFixed(0)}%</span></strong>.`;
-        break;
       case "option2":
         descriptionHTML = `
-        This view presents a comprehensive analysis of all the candidates, not just the front-runners. 
+        <p>Here are the candidates currently leading in the <a href="https://www.realclearpolitics.com/epolls/latest_polls/2024/" target="_blank">election polls</a>.
+         It's important to note that while they are in the lead, many of these candidates receive less positive mentions on average compared to all candidates,
+          which currently stands at  <strong><span style="color: green;">${(
+            100 * this.overallAverageSentiment
+          ).toFixed(0)}%</span></strong>. </p>
+        <p>This could indicate that a positive perception is not necessary to gain votes,
+        and that the number of mentions is perhaps more important for candidates seeking to win the presidency.</p>`;
+        break;
+      case "option1":
+        descriptionHTML = `
+        <p>This visualization shows the percentage of positive reports for each of the candidates. 
         Interestingly, it reveals that some of the lesser-known or lesser-mentioned candidates 
-        actually have a higher percentage of positive media mentions compared to their overall media presence. 
+        actually have a higher percentage of positive media mentions compared to their overall media presence.
+        <p>
         This could indicate a more favorable perception among those who discuss these candidates, 
-        despite their lower overall media visibility.`;
+        despite their lower overall media visibility.</p>`;
         break;
       default:
         descriptionHTML = "!";
@@ -130,7 +132,7 @@ class SentimentChart {
       .attr("y", this.height + 30)
       .style("text-anchor", "middle")
       .style("font-size", "12px")
-      .text("Positive Mentions");
+      .text("% Positive Mentions");
 
     this.y.domain(data.map((d) => d.name));
     this.svg
@@ -249,7 +251,7 @@ class SentimentChart {
     legend
       .append("line")
       .attr("x1", 0)
-      .attr("x2", 40)
+      .attr("x2", 30)
       .attr("y1", 10)
       .attr("y2", 10)
       .style("stroke", "#000000")
@@ -258,7 +260,7 @@ class SentimentChart {
 
     legend
       .append("text")
-      .attr("x", 50)
+      .attr("x", 35)
       .attr("y", 15)
       .text("50% Line")
       .style("font-size", "12px");
@@ -267,7 +269,7 @@ class SentimentChart {
     legend
       .append("line")
       .attr("x1", 0)
-      .attr("x2", 40)
+      .attr("x2", 30)
       .attr("y1", 30)
       .attr("y2", 30)
       .style("stroke", "green")
@@ -276,9 +278,9 @@ class SentimentChart {
 
     legend
       .append("text")
-      .attr("x", 50)
+      .attr("x", 35)
       .attr("y", 35)
-      .text("Average Candidate")
+      .text("Average of All Candidates")
       .style("font-size", "12px");
   }
 
@@ -319,7 +321,13 @@ class SentimentChart {
     if (showAll) {
       return sentimentData;
     } else {
-      const topCandidates = ['Joe Biden', 'Donald Trump', 'Ron DeSantis', 'Nikki Haley', 'Vivek Ramaswamy'];
+      const topCandidates = [
+        "Joe Biden",
+        "Donald Trump",
+        "Ron DeSantis",
+        "Nikki Haley",
+        "Vivek Ramaswamy",
+      ];
       return sentimentData.filter((d) => topCandidates.includes(d.name));
     }
   }

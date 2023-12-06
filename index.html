@@ -388,12 +388,12 @@
                         class="form-check-input"
                         type="radio"
                         name="inlineRadioOptions"
-                        id="poll-leaders-sentiment"
+                        id="show-all-sentiment"
                         value="option1"
                         checked
                       />
                       <label class="form-check-label" for="inlineRadio1"
-                        >Poll Leaders</label
+                        >All Candidates</label
                       >
                     </div>
                     <div class="form-check form-check-inline">
@@ -401,11 +401,11 @@
                         class="form-check-input"
                         type="radio"
                         name="inlineRadioOptions"
-                        id="show-all-sentiment"
+                        id="poll-leaders-sentiment"
                         value="option2"
                       />
                       <label class="form-check-label" for="inlineRadio2"
-                        >All Candidates</label
+                        >Poll Leaders</label
                       >
                     </div>
                     <div>
@@ -782,7 +782,7 @@
                     data-bs-toggle="tooltip"
                     data-bs-placement="bottom"
                     data-bs-custom-class="custom-tooltip"
-                    data-bs-title="A mention is characterized as a reference to a candidate by a major news network. We conduct weekly web scraping of internet archives to detect instances where a candidate is referenced and record the findings."
+                    data-bs-title="A mention is defined as a reference to a candidate by a major news network. Every week, we search the internet archives to detect instances where a candidate is mentioned and make a record."
                     ><i class="fa-solid fa-circle-info fa-xs"></i
                   ></span>
                 </h6>
@@ -795,7 +795,7 @@
                     data-bs-toggle="tooltip"
                     data-bs-placement="bottom"
                     data-bs-custom-class="custom-tooltip"
-                    data-bs-title="The displayed number represents the percentage of mentions classified as positive by a machine learning model. Specifically, we utilize a fine-tuned RoBERTa model that has been trained for text sentiment classification."
+                    data-bs-title="This figure represents the percentage of total mentions identified as positive. A machine learning model, trained in text sentiment classification, determines whether each mention is positive or negative."
                   >
                     <i class="fa-solid fa-circle-info fa-xs"></i>
                   </span>
