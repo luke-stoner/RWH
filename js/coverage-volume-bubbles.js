@@ -88,7 +88,7 @@ class BubbleChart {
       .attr("cx", initialX)
       .attr("cy", initialY)
       .attr("r", (d) => radiusScale(d.frequency))
-      .style("fill", "white")
+      .style("fill", (d) => LIGHT_PARTY_COLOR_MAP[d.party])
       .style("stroke", (d) => PARTY_COLOR_MAP[d.party])
       .style("stroke-width", `${strokeWidth}px`)
       .style("opacity", 0);
@@ -103,13 +103,13 @@ class BubbleChart {
       .attr("y", (d) => height / 2)
       .text((d) => d.frequency.toLocaleString())
       .attr("text-anchor", "middle")
-      .style("fill", (d) => PARTY_COLOR_MAP[d.party])
+      .style("fill", (d) => "#FFFFFF")
       .style("font-size", (d) => `${fontSizeScale(radiusScale(d.frequency))}px`)
       .attr("dy", (d) => `${fontSizeScale(radiusScale(d.frequency)) / 2 - 2}px`)
       .style("opacity", 0);
 
     // Transition for circles to fan out into a straight line
-    const fanOutDuration = 500;
+    const fanOutDuration = 300;
     const fanOutDelay = fanOutDuration / 2;
     circles
       .transition()
@@ -123,7 +123,7 @@ class BubbleChart {
     labels
       .transition()
       .duration(fanOutDuration)
-      .delay((d, i) => i * fanOutDelay + 700)
+      .delay((d, i) => i * fanOutDelay + 200)
       .attr("x", (d, i) => cumulativeWidths[i])
       .attr("y", (d) => height / 2)
       .style("opacity", 1);
@@ -210,6 +210,7 @@ class BubbleChart {
                         .duration(500)
                         .delay((d, i) => i * 100)
                         .attr("x", (d, i) => cumulativeWidths[i])
+                        .style("fill", (d) => PARTY_COLOR_MAP[d.party])
                         .attr(
                           "y",
                           (d) =>

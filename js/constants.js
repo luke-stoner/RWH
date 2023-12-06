@@ -8,6 +8,12 @@ const PARTY_COLOR_MAP = {
   I: INDEPENDENT_GRAY,
 };
 
+const LIGHT_PARTY_COLOR_MAP = {
+  R: "#CD5C5C",
+  D: "#6495ED",
+  I: "#A9A9A9",
+};
+
 const NETWORK_LOOKUP = {
   ALJAZ: "Al Jazeera",
   BBCNEWS: "BBC News",
