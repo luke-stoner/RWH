@@ -61,8 +61,16 @@ h1 {
   padding-top: 20px;
 }
 
-h2 h3 {
-  font-family: "Roboto", sans-serif;
+h2 {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #444444;
+  font-size: 28px;
+}
+
+h3 {
+  font-family: "Roboto Thin", sans-serif;
+  color: #444444;
+  font-size: 20px;
 }
 
 #myVideo {
@@ -86,11 +94,42 @@ h2 h3 {
   padding: 10px;
   font: 14px sans-serif;
   pointer-events: none;
-  background-color: rgba(255, 255, 255, 0.9); /* Adjust the opacity as needed */
+  background-color: rgba(255, 255, 255, 0.95); /* Adjust the opacity as needed */
   border: 1px solid #aaa;
   border-radius: 4px;
   box-shadow: 0 0 5px #999;
   max-width: 250px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font-size: 12px;
+}
+
+.line {
+  fill: none;
+  stroke-width: 3px;
+}
+
+#bump-chart-selection {
+  width: auto;
+  text-align: center;
+}
+
+.dropdown-textfield {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.dropdown-textfield select {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 #sbfHeader {

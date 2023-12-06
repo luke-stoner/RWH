@@ -345,8 +345,8 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12">
-                <div class="col-md-4 mx-auto text-center">
-                  <h1>Total Mentions</h1>
+                <div class="col-md-6 mx-auto text-center">
+                  <h1>Candidate Coverage Volume</h1>
                   <div class="redBlock underline"></div>
                 </div>
               </div>
@@ -366,8 +366,8 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12">
-                <div class="col-md-4 mx-auto text-center">
-                  <h1>Positive Mentions</h1>
+                <div class="col-md-6 mx-auto text-center">
+                  <h1>Candidate Coverage Sentiment</h1>
                   <div class="redBlock underline"></div>
                 </div>
               </div>
@@ -421,73 +421,31 @@
           </div>
         </div>
 
-        <!--Line Graph (change over time)-->
+        <!--Bump Chart (change over time)-->
         <div class="section" id="section-7">
-          <div class="container text-center" id="line-chart">
-            <h1>Changing Winds</h1>
-            <h2>How has candidate coverage changed over time?</h2>
+          <div class="container">
+            <div class="col-md-4 mx-auto text-center">
+              <h1>Changing Winds</h1>
+            </div>
 
             <div class="row">
-              <div class="col-auto">
-                <div class="form-group">
-                  <!-- Select box to choose the ranking type -->
-                  <select class="form-control" id="line-stat-selection">
-                    <option value="volume">Number of Mentions</option>
-                    <option value="sentiment">Average Sentiment Score</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div id="slider-container">
-                  <div id="slider-range"></div>
-                </div>
+              <div class="col-md-6 mx-auto">
+                <h3 class="dropdown-textfield">
+                  How has the
+                  <span class="form-group">
+            <select class="form-control" id="bump-chart-selection">
+                <option value="volume">volume</option>
+                <option value="sentiment">sentiment</option>
+            </select>
+            </span>
+                  of candidate coverage changed over time?
+                </h3>
               </div>
             </div>
 
             <div class="row">
               <div class="col-auto">
-                <div id="line-chart-area"></div>
-              </div>
-              <div class="col-auto" style="text-align: left">
-                <h3>Candidates</h3>
-                <div id="checkboxes">
-                  <label
-                    ><input type="checkbox" id="Biden" checked /> Joe
-                    Biden</label
-                  ><br />
-                  <label
-                    ><input type="checkbox" id="Christie" /> Chris
-                    Christie</label
-                  ><br />
-                  <label
-                    ><input type="checkbox" id="DeSantis" checked /> Ron
-                    DeSantis</label
-                  ><br />
-                  <label
-                    ><input type="checkbox" id="Haley" checked /> Nikki
-                    Haley</label
-                  ><br />
-                  <label
-                    ><input type="checkbox" id="Kennedy" /> Robert
-                    Kennedy</label
-                  ><br />
-                  <label><input type="checkbox" id="Pence" /> Mike Pence</label
-                  ><br />
-                  <label
-                    ><input type="checkbox" id="Ramaswamy" checked /> Vivek
-                    Ramaswamy</label
-                  ><br />
-                  <label><input type="checkbox" id="Scott" /> Tim Scott</label
-                  ><br />
-                  <label
-                    ><input type="checkbox" id="Trump" checked /> Donald
-                    Trump</label
-                  ><br />
-                  <label
-                    ><input type="checkbox" id="Williamson" /> Marianne
-                    Williamson</label
-                  ><br />
-                </div>
+                <div id="bump-chart-area"></div>
               </div>
             </div>
           </div>
@@ -851,7 +809,7 @@
     <script src="js/coverage-volume-bubbles.js"></script>
     <script src="js/candidate-sentiment-bars.js"></script>
     <script src="js/sentiment-by-frequency.js"></script>
-    <script src="js/line-chart.js"></script>
+    <script src="js/bump-chart.js"></script>
     <script src="js/impactful-events.js"></script>
     <script src="js/project-intro.js"></script>
   </body>
