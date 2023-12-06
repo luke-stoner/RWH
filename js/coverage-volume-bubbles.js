@@ -45,7 +45,7 @@ class BubbleChart {
     const width = 900;
     const height = 600;
     const margin = 30;
-    const strokeWidth = 6;
+    const strokeWidth = 7 / 60;
     const initialX = width / 2;
     const initialY = 0;
     const numCircles = data.length;
@@ -90,7 +90,7 @@ class BubbleChart {
       .attr("r", (d) => radiusScale(d.frequency))
       .style("fill", (d) => LIGHT_PARTY_COLOR_MAP[d.party])
       .style("stroke", (d) => PARTY_COLOR_MAP[d.party])
-      .style("stroke-width", `${strokeWidth}px`)
+      .style("stroke-width", (d) => `${(radiusScale(d.frequency) * strokeWidth)}px`)
       .style("opacity", 0);
 
     // Add frequency label at the center of each circle
@@ -138,8 +138,8 @@ class BubbleChart {
       .attr("xlink:href", (d) => d.photo)
       .attr("x", (d) => initialX - radiusScale(d.frequency))
       .attr("y", (d) => initialY - radiusScale(d.frequency))
-      .attr("width", (d) => 2 * radiusScale(d.frequency) - strokeWidth)
-      .attr("height", (d) => 2 * radiusScale(d.frequency) - strokeWidth)
+      .attr("width", (d) => 2 * radiusScale(d.frequency) - (radiusScale(d.frequency) * strokeWidth))
+      .attr("height", (d) => 2 * radiusScale(d.frequency) - (radiusScale(d.frequency) * strokeWidth))
       .style("opacity", 0)
       .style("clip-path", "circle(50%)");
 
@@ -152,9 +152,9 @@ class BubbleChart {
       .attr(
         "x",
         (d, i) =>
-          cumulativeWidths[i] - radiusScale(d.frequency) + strokeWidth / 2
+          cumulativeWidths[i] - radiusScale(d.frequency) + (radiusScale(d.frequency) * strokeWidth) / 2
       )
-      .attr("y", (d) => height / 2 - radiusScale(d.frequency) + strokeWidth / 2)
+      .attr("y", (d) => height / 2 - radiusScale(d.frequency) + (radiusScale(d.frequency) * strokeWidth) / 2)
       .style("opacity", 0);
 
     // Additional text to show after all transitions are complete
@@ -216,7 +216,7 @@ class BubbleChart {
                           (d) =>
                             height / 2 -
                             radiusScale(d.frequency) -
-                            strokeWidth -
+                            (radiusScale(d.frequency) * strokeWidth) -
                             10
                         )
                         .style("opacity", 1);
