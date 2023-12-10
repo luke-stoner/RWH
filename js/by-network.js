@@ -139,6 +139,15 @@ class ByNetworkVisual {
       .domain([0, d3.max(rightData)])
       .range([0, this.width]);
 
+    // Select the existing footnote if it exists
+    const existingFootnote = this.chart.select(".legend");
+
+    // If an existing footnote is found, remove it
+    if (existingFootnote) {
+      existingFootnote.remove();
+    }
+
+    // Define new footnote
     const footnote = this.chart.append("g").attr("class", "legend");
 
     footnote

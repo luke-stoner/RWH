@@ -83,10 +83,19 @@ d3.csv("data/labeled.csv", row => {
     }
 
     // Set default value for clicked network to 'all'
-    let clickedNetwork = 'all'
+    let clickedNetwork = null
 
     // Add event listener to the button
     const sbfButton = document.getElementById('sbfButton');
+
+    sbfButton.addEventListener('click', function() {
+        // Set clickedNetwork value to 'all'
+        clickedNetwork = null
+
+        // Update the visualizations
+        update_sbf_visualization();
+        update_network_visualization();
+    });
 
     // Initialize Slider
     setupSlider(slider);
@@ -104,7 +113,7 @@ d3.csv("data/labeled.csv", row => {
         // Filter data by network
         let filteredData;
 
-        if (network === 'all') {
+        if (network === null) {
             // If 'all' is selected, do not filter the dataset
             filteredData = filtered_date_data;
         } else {
@@ -353,7 +362,14 @@ d3.csv("data/labeled.csv", row => {
             .attr("x", x(0) - y.bandwidth() / 2)
             .attr("y", (d) => y(d.network))
             .attr("height", y.bandwidth())
-            .attr("fill", (d) => d.color);
+            .attr("fill", (d) => d.color)
+            .attr('opacity', (d) => {
+                if (!clickedNetwork || clickedNetwork === d.network) {
+                    return 1;
+                } else {
+                    return 0.5;
+                }
+            });
 
         bars
             .transition()
@@ -371,7 +387,14 @@ d3.csv("data/labeled.csv", row => {
             .attr("r", 0)
             .attr("fill", "white")
             .attr("stroke", (d) => d.color)
-            .attr("stroke-width", 3);
+            .attr("stroke-width", 3)
+            .attr('stroke-opacity', (d) => {
+                if (!clickedNetwork || clickedNetwork === d.network) {
+                    return 1;
+                } else {
+                    return 0.5;
+                }
+            });
 
         backgroundCircles
             .transition()
@@ -410,37 +433,19 @@ d3.csv("data/labeled.csv", row => {
 
         // Add click event handling for bars and images
         bars.on('click', function(event, d) {
-            clickedNetwork = d.network;
+            clickedNetwork = (clickedNetwork === d.network) ? null : d.network;
 
-            // Adjust opacity based on the selected network
-            bars.attr('opacity', (d) => (networksToInclude.includes(d.network) && d.network !== clickedNetwork) ? 0.5 : 1);
-            backgroundCircles.attr('stroke-opacity', (d) => (networksToInclude.includes(d.network) && d.network !== clickedNetwork) ? 0.5 : 1);
-
-            // Call the update_sbf_visualization function and pass the clickedNetwork value
+            // Update the visualizations
             update_sbf_visualization();
+            update_network_visualization();
         });
 
         images.on('click', function(event, d) {
-            clickedNetwork = d.network;
+            clickedNetwork = (clickedNetwork === d.network) ? null : d.network;
 
-            // Adjust opacity based on the selected network
-            bars.attr('opacity', (d) => (networksToInclude.includes(d.network) && d.network !== clickedNetwork) ? 0.5 : 1);
-            backgroundCircles.attr('stroke-opacity', (d) => (networksToInclude.includes(d.network) && d.network !== clickedNetwork) ? 0.5 : 1);
-
-            // Call the update_sbf_visualization function and pass the clickedNetwork value
+            // Update the visualizations
             update_sbf_visualization();
-        });
-
-        sbfButton.addEventListener('click', function() {
-            // Set clickedNetwork value to 'all'
-            clickedNetwork = 'all'
-
-            // Reset opacity of all background circles/rectangles to full opacity
-            backgroundCircles.attr('stroke-opacity', 1);
-            bars.attr('opacity', 1);
-
-            // Update the network variable to use all networks
-            update_sbf_visualization();
+            update_network_visualization();
         });
     }
 });

@@ -132,12 +132,13 @@ h3 {
   margin-right: 5px;
 }
 
-#sbfHeader {
-  padding-bottom: 40px;
+#sbn-slider {
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
 
-.non-selected {
-  opacity: 0.5;
+#sbfHeader {
+  padding-bottom: 40px;
 }
 
 /* Hiding video controls
