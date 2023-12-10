@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const byNetwork = new ByNetworkVisual();
       }
 
+      // Show the Bootstrap modal when destination index is 11
       if (destination.index == 11) {
         setTimeout(function() {
           $('#network-modal').modal('show');
