@@ -90,7 +90,10 @@ class BubbleChart {
       .attr("r", (d) => radiusScale(d.frequency))
       .style("fill", (d) => LIGHT_PARTY_COLOR_MAP[d.party])
       .style("stroke", (d) => PARTY_COLOR_MAP[d.party])
-      .style("stroke-width", (d) => `${(radiusScale(d.frequency) * strokeWidth)}px`)
+      .style(
+        "stroke-width",
+        (d) => `${radiusScale(d.frequency) * strokeWidth}px`
+      )
       .style("opacity", 0);
 
     // Add frequency label at the center of each circle
@@ -138,8 +141,16 @@ class BubbleChart {
       .attr("xlink:href", (d) => d.photo)
       .attr("x", (d) => initialX - radiusScale(d.frequency))
       .attr("y", (d) => initialY - radiusScale(d.frequency))
-      .attr("width", (d) => 2 * radiusScale(d.frequency) - (radiusScale(d.frequency) * strokeWidth))
-      .attr("height", (d) => 2 * radiusScale(d.frequency) - (radiusScale(d.frequency) * strokeWidth))
+      .attr(
+        "width",
+        (d) =>
+          2 * radiusScale(d.frequency) - radiusScale(d.frequency) * strokeWidth
+      )
+      .attr(
+        "height",
+        (d) =>
+          2 * radiusScale(d.frequency) - radiusScale(d.frequency) * strokeWidth
+      )
       .style("opacity", 0)
       .style("clip-path", "circle(50%)");
 
@@ -152,9 +163,17 @@ class BubbleChart {
       .attr(
         "x",
         (d, i) =>
-          cumulativeWidths[i] - radiusScale(d.frequency) + (radiusScale(d.frequency) * strokeWidth) / 2
+          cumulativeWidths[i] -
+          radiusScale(d.frequency) +
+          (radiusScale(d.frequency) * strokeWidth) / 2
       )
-      .attr("y", (d) => height / 2 - radiusScale(d.frequency) + (radiusScale(d.frequency) * strokeWidth) / 2)
+      .attr(
+        "y",
+        (d) =>
+          height / 2 -
+          radiusScale(d.frequency) +
+          (radiusScale(d.frequency) * strokeWidth) / 2
+      )
       .style("opacity", 0);
 
     // Additional text to show after all transitions are complete
@@ -207,7 +226,7 @@ class BubbleChart {
                     .on("end", () => {
                       labels // Show frequency labels after the zoom and pan animation
                         .transition()
-                        .duration(200)
+                        .duration(2000)
                         .delay((d, i) => i * 50)
                         .attr("x", (d, i) => cumulativeWidths[i])
                         .style("fill", (d) => PARTY_COLOR_MAP[d.party])
@@ -216,10 +235,50 @@ class BubbleChart {
                           (d) =>
                             height / 2 -
                             radiusScale(d.frequency) -
-                            (radiusScale(d.frequency) * strokeWidth) -
+                            radiusScale(d.frequency) * strokeWidth -
                             10
                         )
-                        .style("opacity", 1);
+                        .style("opacity", 1)
+                        .end() // End of the current transition
+                        .then(() => {
+                          // Pause for a specified time before starting the next transition
+                          const pauseDuration = 1000; // Pause for 1000 milliseconds (1 second)
+
+                          setTimeout(() => {
+                            // Begin fading and translating all elements after the pause
+                            const transitionDuration = 2000;
+
+                            // Transition for labels
+                            labels
+                              .transition()
+                              .duration(transitionDuration)
+                              .style("opacity", 0) // Fade out labels
+                              .attr("x", width / 2) // Move to the middle of the screen horizontally
+                              .attr("y", height / 2); // Move to the middle of the screen vertically
+
+                            // Transition for images
+                            images
+                              .transition()
+                              .duration(transitionDuration)
+                              .style("opacity", 0) // Fade out images
+                              .attr(
+                                "x",
+                                (d) => width / 2 - radiusScale(d.frequency)
+                              ) // Center horizontally
+                              .attr(
+                                "y",
+                                (d) => height / 2 - radiusScale(d.frequency)
+                              ); // Center vertically
+
+                            // Transition for circles
+                            circles
+                              .transition()
+                              .duration(transitionDuration)
+                              .style("opacity", 0) // Fade out circles
+                              .attr("cx", width / 2) // Move to the middle of the screen horizontally
+                              .attr("cy", height / 2); // Move to the middle of the screen vertically
+                          }, pauseDuration);
+                        });
                     });
                 }, 100);
                 return;
