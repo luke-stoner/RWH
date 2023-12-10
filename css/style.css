@@ -136,6 +136,10 @@ h3 {
   padding-bottom: 40px;
 }
 
+.non-selected {
+  opacity: 0.5;
+}
+
 /* Hiding video controls
 	* See: https://css-tricks.com/custom-controls-in-html5-video-full-screen/
   * See: https://github.com/alvarotrigo/fullPage.js/blob/master/examples/background-video.html

@@ -73,7 +73,7 @@ d3.csv("data/labeled.csv", row => {
             const selectedMinYear = new Date(+values[0]);
             const selectedMaxYear = new Date(+values[1]);
 
-            filtered_date_data = data.filter(
+            filtered_date_data = rawData.filter(
                 (d) => d.date >= selectedMinYear && d.date <= selectedMaxYear
             );
 
@@ -87,14 +87,6 @@ d3.csv("data/labeled.csv", row => {
 
     // Add event listener to the button
     const sbfButton = document.getElementById('sbfButton');
-
-    sbfButton.addEventListener('click', function() {
-        // Set clickedNetwork value to 'all'
-        clickedNetwork = 'all'
-
-        // Update the network variable to use all networks
-        update_sbf_visualization();
-    });
 
     // Initialize Slider
     setupSlider(slider);
@@ -354,23 +346,7 @@ d3.csv("data/labeled.csv", row => {
 
         // Add bars with transition
         const bars = network_svg
-            .selectAll("myRect")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("x", x(0))
-            .attr("y", (d) => y(d.network))
-            .attr("height", y.bandwidth())
-            .attr("fill", (d) => d.color);
-
-        bars
-            .transition()
-            .duration(TRANSITION_DURATION)
-            .attr("width", (d) => x(d.avg_sentiment));
-
-        // Add bar extensions with transition
-        const barExtensions = network_svg
-            .selectAll("barExtensions")
+            .selectAll("bars")
             .data(data)
             .enter()
             .append("rect")
@@ -379,10 +355,10 @@ d3.csv("data/labeled.csv", row => {
             .attr("height", y.bandwidth())
             .attr("fill", (d) => d.color);
 
-        barExtensions
+        bars
             .transition()
             .duration(TRANSITION_DURATION)
-            .attr("width", y.bandwidth());
+            .attr("width", (d) => x(d.avg_sentiment) + y.bandwidth() / 2);
 
         // Add background circles with transition
         const backgroundCircles = network_svg
@@ -425,25 +401,45 @@ d3.csv("data/labeled.csv", row => {
         bars.on('mouseover', function() {
             // Change pointer to cursor on hover
             d3.select(this).classed('cursor-mouseover', true);
-
         });
+
         images.on('mouseover', function() {
             // Change pointer to cursor on hover
             d3.select(this).classed('cursor-mouseover', true);
-
         });
+
+        // Add click event handling for bars and images
         bars.on('click', function(event, d) {
-            // Get the network value associated with the clicked bar
             clickedNetwork = d.network;
+
+            // Adjust opacity based on the selected network
+            bars.attr('opacity', (d) => (networksToInclude.includes(d.network) && d.network !== clickedNetwork) ? 0.5 : 1);
+            backgroundCircles.attr('stroke-opacity', (d) => (networksToInclude.includes(d.network) && d.network !== clickedNetwork) ? 0.5 : 1);
 
             // Call the update_sbf_visualization function and pass the clickedNetwork value
             update_sbf_visualization();
         });
+
         images.on('click', function(event, d) {
-            // Get the network value associated with the clicked bar
             clickedNetwork = d.network;
 
+            // Adjust opacity based on the selected network
+            bars.attr('opacity', (d) => (networksToInclude.includes(d.network) && d.network !== clickedNetwork) ? 0.5 : 1);
+            backgroundCircles.attr('stroke-opacity', (d) => (networksToInclude.includes(d.network) && d.network !== clickedNetwork) ? 0.5 : 1);
+
             // Call the update_sbf_visualization function and pass the clickedNetwork value
+            update_sbf_visualization();
+        });
+
+        sbfButton.addEventListener('click', function() {
+            // Set clickedNetwork value to 'all'
+            clickedNetwork = 'all'
+
+            // Reset opacity of all background circles/rectangles to full opacity
+            backgroundCircles.attr('stroke-opacity', 1);
+            bars.attr('opacity', 1);
+
+            // Update the network variable to use all networks
             update_sbf_visualization();
         });
     }

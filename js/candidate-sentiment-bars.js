@@ -106,7 +106,6 @@ class SentimentChart {
     this.createBackgroundCircles(data);
     this.createImages(data);
     this.createDashedLine();
-    this.createAverageSentimentLine();
     this.createLegend();
   }
 
@@ -229,18 +228,6 @@ class SentimentChart {
       .style("stroke-width", 2);
   }
 
-  createAverageSentimentLine() {
-    this.svg
-      .append("line")
-      .attr("x1", this.x(this.overallAverageSentiment))
-      .attr("x2", this.x(this.overallAverageSentiment))
-      .attr("y1", 0)
-      .attr("y2", this.height)
-      .style("stroke", "green")
-      .style("stroke-width", 2)
-      .style("stroke-dasharray", "3, 3");
-  }
-
   createLegend() {
     const legend = this.svg
       .append("g")
@@ -252,35 +239,17 @@ class SentimentChart {
       .append("line")
       .attr("x1", 0)
       .attr("x2", 30)
-      .attr("y1", 10)
-      .attr("y2", 10)
+      .attr("y1", 21)
+      .attr("y2", 21)
       .style("stroke", "#000000")
       .style("stroke-width", 2)
       .style("stroke-dasharray", "5,5");
 
     legend
       .append("text")
-      .attr("x", 35)
-      .attr("y", 15)
+      .attr("x", 33)
+      .attr("y", 25)
       .text("50% Line")
-      .style("font-size", "12px");
-
-    // Average Candidate Line
-    legend
-      .append("line")
-      .attr("x1", 0)
-      .attr("x2", 30)
-      .attr("y1", 30)
-      .attr("y2", 30)
-      .style("stroke", "green")
-      .style("stroke-width", 2)
-      .style("stroke-dasharray", "3,3");
-
-    legend
-      .append("text")
-      .attr("x", 35)
-      .attr("y", 35)
-      .text("Average of All Candidates")
       .style("font-size", "12px");
   }
 
