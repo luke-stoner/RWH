@@ -1,4 +1,11 @@
-// Using a named function
+function showLoadingIcon() {
+    document.getElementById('loadingIcon').style.display = 'block';
+}
+
+function hideLoadingIcon() {
+    document.getElementById('loadingIcon').style.display = 'none';
+}
+
 function initializeDashboard() {
     ///DYNAMIC SIZING///
     pxls_leftcol = parseFloat(d3.select('#timelinerow').style('width'));
@@ -57,6 +64,7 @@ function initializeDashboard() {
 
     //update vis function
     function updateVisualization() {
+        showLoadingIcon();
         svg.selectAll('.line-group').remove();
         svg.selectAll('.line-extension').remove();
         svg.selectAll('.line-extension-label').remove();
@@ -257,11 +265,17 @@ function initializeDashboard() {
             // Highlight the corresponding line and datapoints in the chart
             highlightLine(candidateName);
             bringToFront(candidateName);
-        })
+            })
+            .on('click', function() {
+                src = d3.select(this).attr('src')
+                clicked_candidate(src);
+                console.log("onclickmethod", src)
+            })
             .on('mouseout', function() {
                 // Restore the chart to its original state
                 restoreLines();
             });
+
 
 
 
@@ -320,8 +334,9 @@ function initializeDashboard() {
 
         updateDynamicTitle();//updateFullTimelineChart(groupedData, column)
         updateTimelineVisualization(startDate, endDate, column);
+        hideLoadingIcon();
     }
-// Load CSV file and process data
+    // Load CSV file and process data
     d3.csv("data/labeled.csv", row => {
         // CSV processing logic
         row.date = parseDate(row.date);
@@ -362,12 +377,27 @@ function initializeDashboard() {
 
 
 
-// Function to handle candidate image clicks
+    // Function to handle candidate image clicks
+    // for (var candidate in selected_candidates) {
+    //     (function(candidate) {
+    //         var button = document.getElementById(candidate + '_button');
+    //         if (button) {
+    //             button.addEventListener('click', function() {
+    //                 clicked_candidate(this.src);
+    //                 console.log("clicked_candidate", this.src)
+    //             });
+    //         }
+    //     })(candidate);
+    // }
+
+
     function clicked_candidate(src) {
+        showLoadingIcon();
         let candidate = src.split('/').pop().replace('.png', '');
         candidateStatus[candidate] = !candidateStatus[candidate];
         change_color(candidate, candidateStatus[candidate]);
         updateVisualization();
+        hideLoadingIcon();
     }
 
 
@@ -547,7 +577,7 @@ function initializeDashboard() {
                 });
                 return { candidate: key, values: weeklyData_timeline };
             });
-            console.log(aggregatedData_timeline)
+            //console.log(aggregatedData_timeline)
         }
         else {
             // Aggregate by week for each candidate
@@ -569,7 +599,7 @@ function initializeDashboard() {
             .x(d => timelineXScale(d.date))
             .y(d => timelineYScale(d.label));
 
-        console.log(aggregatedData_timeline)
+        //console.log(aggregatedData_timeline)
 
         // Draw lines
         timelineSvg.selectAll('.line')
