@@ -7,7 +7,7 @@
     /*padding-top: 2rem;*/
 }
 
-.row {
+.legend-section.row {
     display: flex;
     justify-content: space-between; /* This will space out the items evenly */
     align-items: center;
@@ -30,9 +30,6 @@
     transition: transform 0.9s ease; /* Smooth transition for enlarging the image */
 }
 
-/*.active {*/
-/*    stroke-width: 3px; // Increase the stroke width for the active line;*/
-/*}*/
 
 .highlighted {
     opacity: 1 !important;
@@ -43,23 +40,6 @@
     opacity: 0.2;
 }
 
-
-/*.candidate_containers img{*/
-/*    width: 80px; !* You can set the dimensions to whatever you want *!*/
-/*    height: 80px;*/
-/*    margin: auto;*/
-/*    border-radius: 50%;*/
-/*    background-color: #a8a8a8;*/
-/*    display:inline-block;*/
-/*}*/
-/*#tooltip {*/
-/*    background-color: black;*/
-/*    color: white;*/
-/*    padding: 5px;*/
-/*    border-radius: 5px;*/
-/*    opacity: 0.9;*/
-/*    font-size: 14px;*/
-/*}*/
 
 #candidate-selections-box{
     background-color: #dec9c9;
@@ -116,16 +96,6 @@
     box-shadow: inset white 0 0 3px;
 }
 
-/*.candidate_containers.hovered img {*/
-/*    box-shadow: inset 0 0 5px white, 0 0 0px black;*/
-/*    transition: transform 0.9s ease;*/
-/*}*/
-
-/*.candidate_containers.hovered .candidate-name {*/
-/*    transform: translate(-50%, -50%) scale(1.5); !* Scale up the text *!*/
-/*    visibility: visible;*/
-/*}*/
-
 
 .candidate_containers img:hover + .candidate-name {
     transform: translate(-50%, -50%) scale(1.5); /* Scale up the text on hover */
@@ -137,7 +107,7 @@
     cursor: pointer;
 }
 
-.tooltip {
+.tooltip-lastslide {
     background-color: #fff;
     border: 1px solid #d4d4d4;
     padding: 5px;
@@ -147,23 +117,3 @@
     opacity: 0; /* Start hidden */
     transition: opacity 0.3s; /* Smooth transition for fading in/out */
 }
-
-/*#timeline-window-area{*/
-/*    !*border-radius: 5px;*!*/
-/*    !*border: black 1px solid;*!*/
-/*}*/
-
-/*.overlay-box {*/
-/*    !*backdrop-filter: blur(5px);*!*/
-/*    border: black 10px solid;*/
-/*}*/
-
-/*.candidate_containers:hover .candidate-image {*/
-/*    transform: scale(1.1); !* Enlarge image on hover *!*/
-/*}*/
-
-/*#candidate-legend-container{*/
-/*    text-align:center;*/
-/*}*/
-
-/*candidate-selections-box*/
