@@ -42,8 +42,8 @@ class BubbleChart {
    * @param {Array} data - The data for the visualization.
    */
   createVisualization(data) {
-    const width = 900;
-    const height = 600;
+    const width = 950;
+    const height = 650;
     const margin = 30;
     const strokeWidth = 7 / 60;
     const initialX = width / 2;
