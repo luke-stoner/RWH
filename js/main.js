@@ -108,17 +108,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function playProjectExplanationVideo() {
-    var playButton = document.querySelector(".play-vid");
     var modal = document.querySelector("#introModal");
     var video = modal.querySelector("video");
-
-    playButton.addEventListener("click", function () {
-      video.play();
-    });
 
     modal.addEventListener("hidden.bs.modal", function (e) {
       video.pause();
     });
+
   }
 
   // Call the function to start observing the modal visibility

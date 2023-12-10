@@ -689,7 +689,6 @@ body .testimonial .row .tabs li figure::before {
   background: rgba(255, 255, 255, 0.5); /* White overlay with opacity */
   border-radius: 50%; /* Adjust if needed to match the image border-radius */
   z-index: 1;
-  /*filter: blur(2px); !* Adding blur *!*/
 }
 
 body .testimonial .row .tabs li.active figure::before {

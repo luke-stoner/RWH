@@ -5,6 +5,11 @@ $(document).ready(function(){
         targetElement.not(targetElement[currentSlideIndex]).removeClass('active');
     }
 
+    // Initialize carousel with a very long interval
+    $('#carouselExampleIndicators').carousel({
+        interval: 999999999
+    });
+
     // Handle clicking on indicators
     $(".testimonial .indicators li").click(function(){
         var i = $(this).index();
