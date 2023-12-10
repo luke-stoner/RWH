@@ -42,6 +42,12 @@ document.addEventListener("DOMContentLoaded", function () {
       if (destination.index == 9) {
         const byNetwork = new ByNetworkVisual();
       }
+
+      if (destination.index == 11) {
+        setTimeout(function() {
+          $('#network-modal').modal('show');
+        }, 500);
+      }
     },
   });
 

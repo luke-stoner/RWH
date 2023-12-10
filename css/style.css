@@ -133,7 +133,7 @@ h3 {
 }
 
 #sbfHeader {
-  padding-bottom: 30px;
+  padding-bottom: 40px;
 }
 
 /* Hiding video controls
@@ -741,6 +741,9 @@ body .testimonial .row .tabs li.active figure::before {
   transition: transform 0.9s ease; /* Smooth transition for enlarging the image */
 }
 
+.cursor-mouseover {
+  cursor: pointer;
+}
 
 .highlighted {
   opacity: 1 !important;

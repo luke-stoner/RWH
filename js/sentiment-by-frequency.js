@@ -6,7 +6,7 @@ d3.csv("data/labeled.csv", row => {
     return row
 }).then(rawData => {
     // Define margins
-    const sbfMargin = {top: 30, right: 30, bottom: 50, left: 50};
+    const sbfMargin = {top: 30, right: 30, bottom: 50, left: 60};
 
     // Assuming you have predefined the overall width and height of your SVG
     const sbfWidth = 800; // Adjust as needed
@@ -25,9 +25,9 @@ d3.csv("data/labeled.csv", row => {
         .attr("transform", "translate(" + sbfMargin.left + "," + sbfMargin.top + ")");
 
     // Set margin, width, height
-    let networkMargin = {top: 30, right: 30, bottom: 50, left: 55};
+    let networkMargin = {top: 30, right: 30, bottom: 50, left: 70};
     let networkWidth = 400 - networkMargin.left - networkMargin.right;
-    let networkHeight = 400 - networkMargin.top - networkMargin.bottom;
+    let networkHeight = 500 - networkMargin.top - networkMargin.bottom;
 
     // initialize svg drawing space
     let network_svg = d3.select("#network-bar-chart-area").append("svg")
@@ -165,6 +165,12 @@ d3.csv("data/labeled.csv", row => {
             .attr("class", "tooltip")
             .style("opacity", 0);
 
+        // Remove existing X-axis title before creating a new one
+        sbf_svg.selectAll(".x-axis-title").remove();
+
+        // Remove existing Y-axis title before creating a new one
+        sbf_svg.selectAll(".y-axis-title").remove();
+
         // Update the X axis if it exists, else create it
         xAxis.enter()
             .append("g")
@@ -182,24 +188,27 @@ d3.csv("data/labeled.csv", row => {
             .merge(yAxis)
             .transition() // Add a transition
             .duration(750) // 750ms transition
-            .call(d3.axisLeft(yScale));
-
-        // Add X Axis label
-        sbf_svg.append("text")
-            .attr("transform",
-                "translate(" + (sbfEffectiveWidth / 2) + " ," +
-                (sbfEffectiveHeight + sbfMargin.bottom - 10) + ")")
-            .style("text-anchor", "middle")
-            .text("Number of Mentions");
+            .call(d3.axisLeft(yScale)
+                .tickFormat(d3.format(".0%")));
 
         // Add Y Axis label
         sbf_svg.append("text")
+            .attr("class", "y-axis-title") // Add class to remove existing Y-axis title later
             .attr("transform", "rotate(-90)")
             .attr("y", 0 - sbfMargin.left + 5)
             .attr("x", 0 - (sbfEffectiveHeight / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
-            .text("Average Sentiment");
+            .text("Positive Mentions"); // Empty text, or you can add a new Y-axis title here
+
+        // Add X Axis label
+        sbf_svg.append("text")
+            .attr("class", "x-axis-title") // Add class to remove existing X-axis title later
+            .attr("transform",
+                "translate(" + (sbfEffectiveWidth / 2) + " ," +
+                (sbfEffectiveHeight + sbfMargin.bottom - 10) + ")")
+            .style("text-anchor", "middle")
+            .text("Number of Mentions");
 
         // Update background circles with transition
         const circles = sbf_svg.selectAll(".backgroundCircles")
@@ -322,7 +331,16 @@ d3.csv("data/labeled.csv", row => {
         network_svg
             .append("g")
             .attr("transform", `translate(0,${networkHeight})`)
-            .call(d3.axisBottom(x).ticks(5));
+            .call(d3.axisBottom(x).tickFormat(d3.format(".0%")));
+
+        // Add X axis title
+        network_svg.append("text")
+            .attr("class", "x-axis-title") // Add class to remove existing X-axis title later
+            .attr("transform",
+                "translate(" + (networkWidth / 2) + " ," +
+                (networkHeight+ networkMargin.bottom - 10) + ")")
+            .style("text-anchor", "middle")
+            .text("Positive Mentions");
 
         // Update Y axis domain based on new data
         y.domain(data.map((d) => d.network));
@@ -404,6 +422,16 @@ d3.csv("data/labeled.csv", row => {
             .attr("width", y.bandwidth());
 
         // Add click event handling for bars and images
+        bars.on('mouseover', function() {
+            // Change pointer to cursor on hover
+            d3.select(this).classed('cursor-mouseover', true);
+
+        });
+        images.on('mouseover', function() {
+            // Change pointer to cursor on hover
+            d3.select(this).classed('cursor-mouseover', true);
+
+        });
         bars.on('click', function(event, d) {
             // Get the network value associated with the clicked bar
             clickedNetwork = d.network;

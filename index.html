@@ -493,10 +493,8 @@
         <div class="section" id="section-scatterplot">
           <div class="container">
             <div class="row">
-              <div class="col-auto">
-                <div class="col-auto text-center" id="sbfHeader">
-                  <h1>Candidate Coverage by Network</h1>
-                </div>
+              <div class="col-md-6 mx-auto text-center" id="sbfHeader">
+                <h1>Candidate Coverage by Network</h1>
               </div>
             </div>
             <div class="row">
@@ -504,9 +502,6 @@
             </div>
             <div class="row">
               <div class="col-md-4 text-center">
-                <div class="row">
-                  <h3>Click on a Network to Filter the Candidates</h3>
-                </div>
                 <div class="row" id="network-bar-chart-area"></div>
                 <div class="row">
                   <button type="button" id="sbfButton">
@@ -870,6 +865,24 @@
       </div>
     </div>
     <!-- END VIDEO MODAL -->
+
+    <!-- Network Intro Commit -->
+    <div class="modal fade" tabindex="-1" id="network-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h5 class="modal-title">Click on a Network to Filter The Candidates</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>We recommend exploring how both the volume and sentiment of candidate coverage
+              varies by network. Which candidates are discussed most on Fox compared to CNN
+              and MSNBC? Is there a clear difference in positive mentions by network?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <!-- External Scripts -->
     <script
