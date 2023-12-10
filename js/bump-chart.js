@@ -41,7 +41,7 @@ let svg_bump = d3
 let formatDate = d3.timeFormat("%Y%m%d")
 
 // parse date
-let parseDate = d3.timeParse("%Y%m%d")
+//let parseDate = d3.timeParse("%Y%m%d")
 
 // format percentage
 function formatAsPercentage(num) {
@@ -61,8 +61,31 @@ d3.csv("data/labeled.csv", row => {
     return row
 }).then(csv => {
 
+    // Set margins, width, height
+    let margin = { top: 40, right: 40, bottom: 70, left: 60 };
+    let width = 900 - margin.left - margin.right;
+    let height = 600 - margin.top - margin.bottom;
+
+    // Initialize SVG drawing space
+    let svg = d3
+        .select("#bump-chart-area")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // format percentage
+    function formatAsPercentage(num) {
+        return new Intl.NumberFormat('default', {
+            style: 'percent',
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+        }).format(num);
+    }
+
     // Store csv data in global variable
-    data = csv;
+    let data = csv;
 
     // Define x and y scales and axes outside the updateVisualization function
     const xScale = d3.scaleTime().range([30, width_bump]);

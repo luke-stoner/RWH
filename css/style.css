@@ -140,7 +140,7 @@ h3 {
 	* See: https://css-tricks.com/custom-controls-in-html5-video-full-screen/
   * See: https://github.com/alvarotrigo/fullPage.js/blob/master/examples/background-video.html
 	* --------------------------------------- */
-video::-webkit-media-controls {
+#myVideo::-webkit-media-controls {
   display: none !important;
 }
 
@@ -489,17 +489,10 @@ ul {
   list-style-type: none;
 }
 
-a,
-a:hover {
-  text-decoration: none;
-}
 
-/*body {*/
-/*  font-family: "Montserrat", sans-serif;*/
-/*}*/
-body .testimonial {
-  padding: 100px 0;
-}
+
+
+
 body .testimonial .row .tabs {
   all: unset;
   margin-right: 50px;
@@ -637,8 +630,12 @@ body .testimonial .row .carousel .carousel-indicators li {
 }
 
 body .testimonial .row .carousel .carousel-indicators li.active {
-  background: #000; /* Darker color for the active indicator */
+  background: #000000; /* Darker color for the active indicator */
+  background-clip: padding-box;
+  height: 2px;
 }
+
+
 body .testimonial .row .carousel .carousel-inner .carousel-item .quote-wrapper {
   margin-top: 42px;
 }

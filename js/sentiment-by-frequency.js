@@ -1,3 +1,6 @@
+// parse date
+let parseDate = d3.timeParse("%Y%m%d")
+
 d3.csv("data/labeled.csv", row => {
     row.date = parseDate(row.date);
     return row
