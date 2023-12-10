@@ -862,4 +862,16 @@ body .testimonial .row .tabs li.active figure::before {
   100% { transform: rotate(360deg); }
 }
 
+#bumpchartcolumn{
+  /*background-color: #ffffff;*/
+  /*border-radius: 5px;*/
+  text-align: center;
+  /*margin: 5%;*/
+}
+
+.datapoint-image {
+  border-radius: 50%;
+  /*//transform: scale(1.5);*/
+}
+
 /* .end of andrews last viz css */
