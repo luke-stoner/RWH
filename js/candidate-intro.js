@@ -39,7 +39,6 @@ class CandidateIntroduction {
     const darkYellow = [200, 200, 0];
     const darkGreen = [0, 100, 0];
 
-    console.log(normalizedPercentage);
     let color;
     if (normalizedPercentage <= 0.5) {
       const t = normalizedPercentage * 2; // Scale to 0-1

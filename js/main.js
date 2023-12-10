@@ -62,40 +62,60 @@ document.addEventListener("DOMContentLoaded", function () {
     fullPageInstance.moveSectionDown();
   }
 
+  function disableScrolling() {
+    fullPageInstance.setAllowScrolling(false);
+    fullPageInstance.setKeyboardScrolling(false);
+  }
+
+  function enableScrolling() {
+    fullPageInstance.setAllowScrolling(true);
+    fullPageInstance.setKeyboardScrolling(true);
+  }
+
   function videoEnded() {
     this.removeAttribute("controls");
     this.removeAttribute("data-autoplay");
     this.classList.add("video-fade-out");
-
-    fullPageInstance.setAllowScrolling(true);
-    fullPageInstance.setKeyboardScrolling(true);
     navBar.style.visibility = "visible";
     newsBar.style.visibility = "visible";
   }
 
   function handleModalVisibility() {
-    const modalElement = document.getElementById("candidate-modal");
-    if (modalElement) {
+    const modalElements = document.querySelectorAll(".modal");
+    if (modalElements.length > 0) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // Modal is visible
-            fullPageInstance.setAllowScrolling(false);
-            fullPageInstance.setKeyboardScrolling(false);
+            disableScrolling();
           } else {
             // Modal is hidden
-            fullPageInstance.setAllowScrolling(true);
-            fullPageInstance.setKeyboardScrolling(true);
+            enableScrolling();
           }
         });
       });
 
-      // Start observing the modal element
-      observer.observe(modalElement);
+      modalElements.forEach((modalElement) => {
+        observer.observe(modalElement);
+      });
     }
+  }
+
+  function playProjectExplanationVideo() {
+    var playButton = document.querySelector(".play-vid");
+    var modal = document.querySelector("#introModal");
+    var video = modal.querySelector("video");
+
+    playButton.addEventListener("click", function () {
+      video.play();
+    });
+
+    modal.addEventListener("hidden.bs.modal", function (e) {
+      video.pause();
+    });
   }
 
   // Call the function to start observing the modal visibility
   handleModalVisibility();
+  playProjectExplanationVideo();
 });
-

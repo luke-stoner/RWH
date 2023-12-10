@@ -43,13 +43,13 @@ $(document).ready(function(){
 // play video
 $(document).ready(function() {
     $('.play-vid').click(function() {
-        $('#videoModal').modal('show');
+        $('#introModal').modal('show');
     });
 
     // Optional: Stop video when modal is closed
-    $('#videoModal').on('hidden.bs.modal', function (e) {
+    $('#introModal').on('hidden.bs.modal', function (e) {
         var $video = $(this).find("video")[0];
         $video.pause();
-        $video.currentTime = 0;
+        // $video.currentTime = 0;
     });
 });
