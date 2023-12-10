@@ -39,17 +39,3 @@ $(document).ready(function(){
         $(this).text(i+1).prepend("0");
     });
 });
-
-// play video
-$(document).ready(function() {
-    $('.play-vid').click(function() {
-        $('#introModal').modal('show');
-    });
-
-    // Optional: Stop video when modal is closed
-    $('#introModal').on('hidden.bs.modal', function (e) {
-        var $video = $(this).find("video")[0];
-        $video.pause();
-        // $video.currentTime = 0;
-    });
-});
