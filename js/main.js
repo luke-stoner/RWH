@@ -9,6 +9,8 @@ const video = document.getElementById("myVideo");
 const acceptButton = document.getElementById("accept-button");
 
 document.addEventListener("DOMContentLoaded", function () {
+  var visitedCoverageByNetwork = false;
+
   var fullPageInstance = new fullpage("#fullpage", {
     navigation: true,
     navigationPosition: "right",
@@ -45,9 +47,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Show the Bootstrap modal when destination index is 11
       if (destination.index == 11) {
-        setTimeout(function() {
-          $('#network-modal').modal('show');
-        }, 500);
+        if (!visitedCoverageByNetwork) {
+          setTimeout(function () {
+            $("#network-modal").modal("show");
+          }, 500);
+        }
+        visitedCoverageByNetwork = true;
       }
     },
   });
@@ -115,7 +120,6 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.addEventListener("hidden.bs.modal", function (e) {
       video.pause();
     });
-
   }
 
   // Call the function to start observing the modal visibility
