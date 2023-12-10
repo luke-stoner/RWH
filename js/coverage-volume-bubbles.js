@@ -379,16 +379,16 @@ class BubbleChart {
       .style("fill", (d) => LIGHT_PARTY_COLOR_MAP[d.data.party])
       .style("opacity", 0);
 
-    // Append images to nodes with initial small size
+    // Append images to nodes
     const images = node
       .append("svg:image")
       .attr("xlink:href", (d) => d.data.photo)
       .attr("clip-path", (d, i) => "url(#clip-" + i + ")")
-      .attr("x", -5) // Half of the initial radius
-      .attr("y", -5) // Half of the initial radius
-      .attr("height", 10) // Double of the initial radius
-      .attr("width", 10) // Double of the initial radius
-      .style("opacity", 0); // Start with opacity 0
+      .attr("x", (d) => -radiusScale(d.data.frequency))
+      .attr("y", (d) => -radiusScale(d.data.frequency))
+      .attr("height", (d) => 2 * radiusScale(d.data.frequency))
+      .attr("width", (d) => 2 * radiusScale(d.data.frequency))
+      .style("opacity", 0);
 
     // Transition nodes to their final positions with staggered delay
     node
@@ -415,7 +415,12 @@ class BubbleChart {
       .transition()
       .duration(1000)
       .delay((d, i) => i * 100)
-      .attr("r", (d) => radiusScale(d.data.frequency)); // Scale up to final radius
+      .attr(
+        "r",
+        (d) =>
+          radiusScale(d.data.frequency) -
+          (radiusScale(d.data.frequency) * strokeWidth) / 2
+      );
 
     // Transition for images to scale up and fade in
     images
@@ -426,6 +431,6 @@ class BubbleChart {
       .attr("y", (d) => -radiusScale(d.data.frequency))
       .attr("height", (d) => 2 * radiusScale(d.data.frequency))
       .attr("width", (d) => 2 * radiusScale(d.data.frequency))
-      .style("opacity", 1)
+      .style("opacity", 1);
   }
 }
