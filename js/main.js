@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Start with navbar hidden
   const navBar = document.getElementById("fp-nav");
-  navBar.style.visibility = "hidden";
+  // navBar.style.visibility = "hidden";
 
   // UNCOMMENT WHEN WE ARE OUT OF DEVELOPMENT
   // Disable scrolling initially
