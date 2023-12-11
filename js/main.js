@@ -27,26 +27,45 @@ document.addEventListener("DOMContentLoaded", function () {
         newsBar.style.visibility = "visible";
       }
 
-      if (destination.index == 4) {
+      const tl = new TimelineMax({ delay: 0.1 });
+
+      if (destination.index === 2) {
+        const whiteHouse = document.getElementById("white-house");
+        tl.fromTo(
+            whiteHouse,
+            0.7,
+            { x: "100%", opacity: 0, scale: 0.5 },
+            { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut }
+        );
+
+        tl.to(whiteHouse, 1.5, {
+          scale: 0.95,
+          yoyo: true,
+          repeat: -1,
+          ease: Power2.easeInOut,
+        });
+      }
+
+      if (destination.index == 5) {
         const candidateIntro = new CandidateIntroduction(
           candidate_descriptions
         );
       }
 
-      if (destination.index == 5) {
+      if (destination.index == 6) {
         const volumeBubbles = new BubbleChart();
       }
 
-      if (destination.index == 6) {
+      if (destination.index == 7) {
         const sentimentChart = new SentimentChart();
       }
 
-      if (destination.index == 9) {
+      if (destination.index == 10) {
         const byNetwork = new ByNetworkVisual();
       }
 
       // Show the Bootstrap modal when destination index is 11
-      if (destination.index == 11) {
+      if (destination.index == 12) {
         if (!visitedCoverageByNetwork) {
           setTimeout(function () {
             $("#network-modal").modal("show");

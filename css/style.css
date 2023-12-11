@@ -88,6 +88,10 @@ h3 {
   z-index: 1;
 }
 
+#election-intro p {
+  font-size: 18px;
+}
+
 .tooltip {
   position: absolute;
   text-align: left;
