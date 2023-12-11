@@ -1,6 +1,6 @@
 # Race for the White House
 
-##Project Summary
+## Project Summary
 
 Welcome to the Race for the White House! This repository contains html, javascript, css, and other supporting files to 
 create a comprehensive exploration of the media's coverage of the 2024 United States Presidential Election. The data for 
