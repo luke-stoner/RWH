@@ -51,8 +51,8 @@ const CANDIDATE_COLORS = {
   hutchinson:
     "<span style='color: #FFA500; font-weight: bold;'>Hutchinson</span>",
 
-  donald: "<span style='color: #808080; font-weight: bold;'>Donald</span>",
-  trump: "<span style='color: #808080; font-weight: bold;'>Trump</span>",
+  donald: "<span style='color: #454B1B; font-weight: bold;'>Donald</span>",
+  trump: "<span style='color: #454B1B; font-weight: bold;'>Trump</span>",
 };
 
 let width = 624;
