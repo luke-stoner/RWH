@@ -15,7 +15,7 @@ let margin_bump = {
 
 // Recalculate width_bump based on new margins
 let width_bump = bump_leftcol_pxls - margin_bump.left - margin_bump.right;
-let height_bump = 600 - margin_bump.top - margin_bump.bottom;
+let height_bump = 580 - margin_bump.top - margin_bump.bottom;
 
 // Initialize SVG drawing space with updated width
 let svg_bump = d3
@@ -206,9 +206,17 @@ d3.csv("data/labeled.csv", row => {
 
         // Transition for x-axis and y-axis
         xAxis.transition().duration(500).call(d3.axisBottom(xScale).ticks(d3.timeWeek.every(num_weeks)));
-        yAxis.transition().duration(500).call(d3.axisLeft(yRankScale).ticks(8));
-        // Define time format for month names
-        let formatMonth = d3.timeFormat("%B");
+        yAxis.transition().duration(500)
+            .call(d3.axisLeft(yRankScale)
+                .ticks(8)
+                .tickSize(8) // Adjust tick size as needed
+                .tickPadding(2) // Increase padding between ticks and text
+            )
+            .selectAll('path') // Select the axis line
+            .style('stroke-opacity', '0') // Make the y-axis line transparent
+
+        yAxis.selectAll('text') // Select all text elements
+            .style('font-size', '14px'); // Increase tick font size to 14
 
         // Remove existing axis titles
         svg_bump.selectAll(".axis-title").remove();
@@ -217,7 +225,7 @@ d3.csv("data/labeled.csv", row => {
         svg_bump.append("text")
             .attr("class", "axis-title")
             .attr("transform", "rotate(-90)")
-            .attr("y",  -40) // Adjust position as needed
+            .attr("y",  -45) // Adjust position as needed
             .attr("x", -height_bump / 2)
             .attr("dy", "1em")
             .style("text-anchor", "middle")
@@ -226,7 +234,7 @@ d3.csv("data/labeled.csv", row => {
         // Append x-axis title
         svg_bump.append("text")
             .attr("class", "axis-title")
-            .attr("x", width_bump / 2)
+            .attr("x", width_bump / 2 + 20)
             .attr("y", height_bump + 50) // Adjust position as needed
             .attr("dy", "1em")
             .style("text-anchor", "middle")

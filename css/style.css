@@ -124,7 +124,7 @@ h3 {
 .dropdown-textfield {
   display: flex;
   align-items: center;
-  margin: 0;
+  padding-left: 20px
 }
 
 .dropdown-textfield select {
@@ -872,6 +872,7 @@ body .testimonial .row .tabs li.active figure::before {
   /*border-radius: 5px;*/
   text-align: center;
   /*margin: 5%;*/
+  padding-left: 80px;
 }
 
 .datapoint-image {
