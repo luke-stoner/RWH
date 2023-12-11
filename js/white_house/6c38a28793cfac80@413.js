@@ -71,8 +71,15 @@ function _2(DOM, width, height, script, invalidation, data, n) {
       }
 
       if (!isOverPoint) {
-        tooltip.style("opacity", 0)
+        tooltip.style("opacity", 0);
       }
+
+      // Attach mouseout event listener to the canvas
+      d3.select(canvas).on("mouseout", function () {
+        if (tooltip) {
+          tooltip.style("opacity", 0);
+        }
+      });
     });
   }
 
