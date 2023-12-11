@@ -259,7 +259,7 @@ d3.csv("data/labeled.csv", row => {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
-                tooltip.html(`${d.name}<br/>Number of Mentions: ${d.frequency}<br/>Average Sentiment: ${d.avg_sentiment.toFixed(2)}`)
+                tooltip.html(`${d.name}<br/>Number of Mentions: ${d.frequency.toLocaleString()}<br/>Average Sentiment: ${d.avg_sentiment.toFixed(2)}`)
                     .style("left", (event.pageX + 15) + "px")
                     .style("top", (event.pageY - 30) + "px");
             })
@@ -412,7 +412,14 @@ d3.csv("data/labeled.csv", row => {
             .attr("y", (d) => y(d.network))
             .attr("height", 0)
             .attr("width", 0)
-            .attr("clip-path", "circle()");
+            .attr("clip-path", "circle()")
+            .attr('opacity', (d) => {
+                if (!clickedNetwork || clickedNetwork === d.network) {
+                    return 1;
+                } else {
+                    return 0.5;
+                }
+            });
 
         images
             .transition()

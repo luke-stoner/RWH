@@ -26,7 +26,7 @@ class BubbleChart {
     const data = d3.rollup(
       csvData,
       (v) => ({
-        name: v[0].last_name,
+        name: v[0].first_name + " " + v[0].last_name,
         frequency: v.length,
         photo: `img/candidate_portraits/${v[0].last_name.toLowerCase()}.png`,
         party: v[0].party,
@@ -388,7 +388,34 @@ class BubbleChart {
       .attr("y", (d) => -radiusScale(d.data.frequency))
       .attr("height", (d) => 2 * radiusScale(d.data.frequency))
       .attr("width", (d) => 2 * radiusScale(d.data.frequency))
-      .style("opacity", 0);
+      .style("opacity", 0)
+      .on("mouseover", function (event, d) {
+        // Tooltip
+        const tooltip = d3.select("#volume-bubbles")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        tooltip
+            .style("opacity", 1)
+            .html(`Name: ${d.data.name}<br>Number of Mentions: ${d.data.frequency.toLocaleString()}`)
+            .style("left", `${event.pageX}px`)
+            .style("top", `${event.pageY - 28}px`);
+
+        this.__tooltip = tooltip;
+      })
+      .on("mouseout", function (event, d) {
+        if (this.__tooltip) {
+          this.__tooltip
+              .transition()
+              .duration(200) // Set duration for the transition
+              .style("opacity", 0)
+              .remove()
+              .on("end", () => {
+                this.__tooltip = null;
+              });
+        }
+      });
 
     // Transition nodes to their final positions with staggered delay
     node

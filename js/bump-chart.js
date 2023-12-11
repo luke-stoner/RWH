@@ -339,7 +339,7 @@ d3.csv("data/labeled.csv", row => {
                     .style("opacity", .9);
 
                 if (column === 'volume') {
-                    tooltip.html(`${d.candidate}<br/>Number of Mentions: ${d.label}`)
+                    tooltip.html(`${d.candidate}<br/>Number of Mentions: ${d.label.toLocaleString()}`)
                         .style("left", (event.pageX + 12) + "px")
                         .style("top", (event.pageY - 25) + "px");
                 } else {

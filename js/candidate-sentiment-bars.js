@@ -62,12 +62,12 @@ class SentimentChart {
     switch (selectedValue) {
       case "option2":
         descriptionHTML = `
-        <p>Here are the candidates currently leading in the <a href="https://www.realclearpolitics.com/epolls/latest_polls/2024/" target="_blank">election polls</a>.
+        <p>Here are the candidates currently leading in recent <a href="https://www.realclearpolitics.com/epolls/latest_polls/2024/" target="_blank">election polls</a>.
          It's important to note that while they are in the lead, many of these candidates receive less positive mentions on average compared to all candidates,
           which currently stands at  <strong><span style="color: green;">${(
             100 * this.overallAverageSentiment
           ).toFixed(0)}%</span></strong>. </p>
-        <p>This could indicate that a positive perception is not necessary to gain votes,
+        <p>This could indicate that positive coverage in the media is not necessary to gain votes,
         and that the number of mentions is perhaps more important for candidates seeking to win the presidency.</p>`;
         break;
       case "option1":
@@ -76,8 +76,8 @@ class SentimentChart {
         Interestingly, it reveals that some of the lesser-known or lesser-mentioned candidates 
         actually have a higher percentage of positive media mentions compared to their overall media presence.
         <p>
-        This could indicate a more favorable perception among those who discuss these candidates, 
-        despite their lower overall media visibility.</p>`;
+        This may indicate that networks prefer to focus negative coverage on candidates with higher
+        name recognition.</p>`;
         break;
       default:
         descriptionHTML = "!";
@@ -152,12 +152,39 @@ class SentimentChart {
       .attr("x", this.x(0))
       .attr("y", (d) => this.y(d.name))
       .attr("height", this.y.bandwidth())
-      .attr("fill", (d) => PARTY_COLOR_MAP[d.party]);
+      .attr("fill", (d) => PARTY_COLOR_MAP[d.party])
+      .on("mouseover", function (event, d) {
+        // Tooltip
+        const tooltip = d3.select("#candidate-sentiment-bars")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        tooltip
+            .style("opacity", 1)
+            .html(`Name: ${d.name}<br>Positive Mentions: ${d3.format(".1%")(d.avg_sentiment)}`)
+            .style("left", `${event.pageX}px`)
+            .style("top", `${event.pageY - 28}px`);
+
+        this.__tooltip = tooltip;
+      })
+      .on("mouseout", function (event, d) {
+        if (this.__tooltip) {
+          this.__tooltip
+              .transition()
+              .duration(200) // Set duration for the transition
+              .style("opacity", 0)
+              .remove()
+              .on("end", () => {
+                this.__tooltip = null;
+              });
+        }
+      });
 
     bars
       .transition()
       .duration(this.transitionDuration)
-      .attr("width", (d) => this.x(d.avg_sentiment));
+      .attr("width", (d) => this.x(d.avg_sentiment))
   }
 
   createBarExtensions(data) {
