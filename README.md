@@ -8,10 +8,10 @@ This repository contains the following file structure:
             ├── style.css
             └── inspector.css
       ├── data                       
-            └── labeled.csv         #Data file that stores candidate/network info, text, and label for each mention
+            └── labeled.csv       #Data file that stores candidate/network info, text, and label for each mention
       ├── favicon                
-      ├── fonts                  #Stores all custom fonts, including CNN font for headers
-      ├── img                    #Stores all image and video files used across the website
+      ├── fonts                   #Stores all custom fonts, including CNN font for headers
+      ├── img                     #Stores all image and video files used across the website
             ├── candidate_portraits
             ├── candidate_portraits_small
             ├── intro_page
