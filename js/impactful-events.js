@@ -1,117 +1,33 @@
-////pre viz setup
-//P1: default_setup, toggleCheckboxDropdown, updateSelect, and getVisualizationParameters
-let default_setup = {
-    pre_candidates: ["biden", "desantis", "ramaswamy", "trump"],
-    pre_event: '20230824',
-    pre_metric: 'volume'
-};
-
-let globalVisualizationParams = { ...default_setup };
-// function toggleCheckboxDropdown() {
-//     document.getElementById("checkboxList").classList.toggle("show");
-// }
-function toggleCheckboxDropdown() {
-    var checkboxList = document.getElementById("checkboxList");
-    if (checkboxList.style.display === "block") {
-        checkboxList.style.display = "none";
-    } else {
-        checkboxList.style.display = "block";
-    }
+function showLoadingIcon() {
+    document.getElementById('loadingIcon').style.display = 'block';
 }
 
-
-function updateSelect(value) {
-    var select = document.getElementById("hiddenSelect");
-    var option = select.querySelector(`option[value="${value}"]`);
-    option.selected = !option.selected;
+function hideLoadingIcon() {
+    document.getElementById('loadingIcon').style.display = 'none';
 }
 
-function getVisualizationParameters() {
-    let userSetup = {
-        pre_event: document.getElementById('eventDropdownMenu').value,
-        pre_metric: document.getElementById('metricDropdownMenu').value,
-        pre_candidates: Array.from(document.querySelectorAll('#hiddenSelect option:checked')).map(option => option.value)
-    };
-
-    return userSetup;
-}
-//P2: Global variable to store the parameters, finalize button Event listener
-// let globalVisualizationParams = {};
-// Event listener for finalize button
-document.getElementById('finalizeSelectionsButton').addEventListener('click', function() {
-    let userSelections = getVisualizationParameters();
-
-    // Update globalVisualizationParams with user selections or retain default values
-    globalVisualizationParams.pre_event = userSelections.pre_event || globalVisualizationParams.pre_event;
-    globalVisualizationParams.pre_metric = userSelections.pre_metric || globalVisualizationParams.pre_metric;
-    globalVisualizationParams.pre_candidates = userSelections.pre_candidates.length > 0
-        ? userSelections.pre_candidates
-        : globalVisualizationParams.pre_candidates;
-
-    console.log("Visualization Parameters:", globalVisualizationParams);
-    setDropdownValuesForVisualization();
-});
-
-//P3:
-
-function setDropdownValuesForVisualization() {
-    if (globalVisualizationParams.pre_event) {
-        document.getElementById("event-selection").value = globalVisualizationParams.pre_event;
-    }
-
-    if (globalVisualizationParams.pre_metric) {
-        document.getElementById("line-stat-selection-impact").value = globalVisualizationParams.pre_metric;
-    }
-
-    // Set checkboxes or other inputs for candidates
-    if (globalVisualizationParams.pre_candidates) {
-        globalVisualizationParams.pre_candidates.forEach(candidate => {
-            let candidateCheckbox = document.querySelector(`input[type="checkbox"][value="${candidate}"]`);
-            if (candidateCheckbox) {
-                candidateCheckbox.checked = true;
-            }
-        });
-    }
-
-    // Trigger any updates needed for the visualization
-    initializeDashboard(); // Call your function to update the visualization
-}
-console.log('globalVisualizationParams before initialize',globalVisualizationParams)
-
-
-///
-
-///PRE VIZ DONE
 function initializeDashboard() {
-    //timelineSvg.selectAll
-    // Remove any existing SVG elements before plotting
-    d3.select("#impact-event-chart-area").selectAll("svg").remove();
-    d3.select("#timeline-window-area").selectAll("svg").remove();
-    console.log('globalVisualizationParams within initialize',globalVisualizationParams)
-
-    //setDropdownValuesForVisualization();
     ///DYNAMIC SIZING///
-
-    ///DYNAMIC SIZING///
-    // Update: Removed Kennedy and Williamson from the list
-    let selected_candidates = ["biden", "christie", "desantis", "haley", "pence", "ramaswamy", "scott", "trump"];
-    // let candidateStatus = {
-    //     "biden": false, "christie": true, "desantis": true, "haley": true,
-    //     "pence": true, "ramaswamy": true, "scott": true, "trump": true
-    // };
-
-    // Reset candidateStatus to false for all candidates
-    let candidateStatus = {
-        "biden": false, "christie": false, "desantis": false, "haley": false,
-        "pence": false, "ramaswamy": false, "scott": false, "trump": false
-    };
-
-    // Update candidateStatus based on user selections
-    globalVisualizationParams.pre_candidates.forEach(candidate => {
-        if (candidateStatus.hasOwnProperty(candidate)) {
-            candidateStatus[candidate] = true;
-        }
+    pxls_leftcol = parseFloat(d3.select('#timelinerow').style('width'));
+    d3.select(window).on('resize', function(){
+        pxls_leftcol = parseFloat(d3.select('#timelinerow').style('width'));
+        //timeline
+        width_timeline = pxls_leftcol - margin_timeline.left - margin_timeline.right;
+        timelineSvg.attr("width", width_timeline + margin_timeline.left + margin_timeline.right);
+        timelineXScale = d3.scaleTime().range([0, width_timeline - 50]);
+        //major chart
+        width = pxls_leftcol - margin.left - margin.right;
+        svg.attr("width", width + margin.left + margin.right);
+        xScale = d3.scaleTime().range([0, width - 50]);
+        updateVisualization();
     });
+    ///DYNAMIC SIZING///
+    let selected_candidates = ["biden", "christie", "desantis", "haley", "kennedy", "pence", "ramaswamy", "scott", "trump", "williamson"];
+    let candidateStatus = {
+        "biden": true, "christie": true, "desantis": true, "haley": true,
+        "kennedy": true, "pence": true, "ramaswamy": true, "scott": true,
+        "trump": true, "williamson": true
+    };
 
     //INSTEAD OF COLOR SCALE WHICH CAN CHANGE BASED ON ORDER OF INFO
     // Create a mapping of candidates to colors with lower case keys
@@ -121,8 +37,7 @@ function initializeDashboard() {
     });
 
 
-    pxls_leftcol = parseFloat(d3.select('#timelinerow').style('width'));
-
+    //let is_grey = false;
     let data = [];
     let xScale, yScale, xAxis, yAxis, filtered_date_data;
 
@@ -143,29 +58,13 @@ function initializeDashboard() {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // Initialize legend container at the top right corner of the chart
-    // let legend = svg.append("g")
-    //     .attr("class", "legend")
-    //     .attr("transform", `translate(${width - 80}, 0)`);
-    d3.select(window).on('resize', function(){
-        pxls_leftcol = parseFloat(d3.select('#timelinerow').style('width'));
-        //timeline
-        width_timeline = pxls_leftcol - margin_timeline.left - margin_timeline.right;
-        timelineSvg.attr("width", width_timeline + margin_timeline.left + margin_timeline.right);
-        timelineXScale = d3.scaleTime().range([0, width_timeline]); //  - 50
-        //major chart
-        width = pxls_leftcol - margin.left - margin.right;
-        svg.attr("width", width + margin.left + margin.right);
-        xScale = d3.scaleTime().range([0, width ]);//- 50
-        //updateVisualization();
-    });
-
-
-    //let is_grey = false;
-
+    let legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("transform", `translate(${width - 80}, 0)`);
 
     //update vis function
     function updateVisualization() {
-        // showLoadingIcon();
+        showLoadingIcon();
         svg.selectAll('.line-group').remove();
         svg.selectAll('.line-extension').remove();
         svg.selectAll('.line-extension-label').remove();
@@ -197,7 +96,7 @@ function initializeDashboard() {
         let aggregatedData = Array.from(groupedData, ([key, values]) => {
             const dailyData = d3.timeDay.range(
                 startDate,
-                d3.timeDay.offset(endDate, 0)
+                d3.timeDay.offset(endDate, 1)
             ).map(day => {
                 const filtered = values.filter(d => d.date.getTime() === day.getTime());
                 let metric;
@@ -435,7 +334,7 @@ function initializeDashboard() {
 
         updateDynamicTitle();//updateFullTimelineChart(groupedData, column)
         updateTimelineVisualization(startDate, endDate, column);
-        // hideLoadingIcon();
+        hideLoadingIcon();
     }
     // Load CSV file and process data
     d3.csv("data/labeled.csv", row => {
@@ -476,14 +375,31 @@ function initializeDashboard() {
         // updateLegend();
     });
 
+
+
+    // Function to handle candidate image clicks
+    // for (var candidate in selected_candidates) {
+    //     (function(candidate) {
+    //         var button = document.getElementById(candidate + '_button');
+    //         if (button) {
+    //             button.addEventListener('click', function() {
+    //                 clicked_candidate(this.src);
+    //                 console.log("clicked_candidate", this.src)
+    //             });
+    //         }
+    //     })(candidate);
+    // }
+
+
     function clicked_candidate(src) {
-        // showLoadingIcon();
+        showLoadingIcon();
         let candidate = src.split('/').pop().replace('.png', '');
         candidateStatus[candidate] = !candidateStatus[candidate];
         change_color(candidate, candidateStatus[candidate]);
         updateVisualization();
-        // hideLoadingIcon();
+        hideLoadingIcon();
     }
+
 
     function change_color(candidate, isSelected) {
         let candidateButton = d3.select("#" + candidate + "_button");
@@ -597,8 +513,8 @@ function initializeDashboard() {
             .map(capitalizeFirstLetter)
             .join(", ");
 
-        // let title = `<center>Analyzing <strong>${eventSelectionText}</strong> impact the <strong>${lineStatSelectionText}</strong> for presidential candidates* of interest?<br><i>*${candidates}</i></center>`;
-        // document.getElementById("dynamic-chart-title").innerHTML = title;
+        let title = `<center>How did <strong>${eventSelectionText}</strong> impact the <strong>${lineStatSelectionText}</strong> for presidential candidates* of interest?<br><i>*${candidates}</i></center>`;
+        document.getElementById("dynamic-chart-title").innerHTML = title;
     }
 
     function capitalizeFirstLetter(string) {

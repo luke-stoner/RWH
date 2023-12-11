@@ -45,6 +45,7 @@
     ></script>
 
     <!-- CUSTOM CSS -->
+    <link rel="stylesheet" type="text/css" href="css/inspector.css" />
     <link href="css/style.css" rel="stylesheet" />
 
     <!--NO SLIDE-->
@@ -100,7 +101,7 @@
           <div>
             <div class="row">
               <div class="col-md-12 d-flex justify-content-center">
-                <div class="col-3 text-center">
+                <div class="col-5 text-center">
                   <h1 id="website-title">Race for the White House</h1>
                   <div class="redBlock underline"></div>
                   <div class="scroll-arrow bounce">
@@ -115,12 +116,59 @@
           </div>
         </div>
 
+        <!--Introduce the Election-->
+        <div class="section" id="election-intro">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-6 text-center">
+                  <h1>2024 Presidential Election</h1>
+                </div>
+                <div class="col-6 redBlock underline"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div
+                class="shadow p-3 mb-5 bg-white rounded col-6"
+                id="election-intro-content"
+              >
+                <p>
+                  As we approach 2024, the United States gears up for another
+                  crucial Presidential Election. At this point, the focus lies
+                  on the candidates from the Republican and Democratic parties,
+                  who are competing to secure their party's nomination.
+                </p>
+                <p>
+                  The electoral process involves a series of primaries and
+                  caucuses across each state and territory, starting with the
+                  Iowa Caucus on January 15th, where voters will express their
+                  preferences for the presidential nominees within their
+                  respective parties.
+                </p>
+                <p>
+                  This initial contest marks the beginning of a rigorous
+                  campaign season where candidates will vie for support and
+                  delegates to ultimately claim their spot on the ballot for the
+                  presidency on November 5th.
+                </p>
+              </div>
+              <div class="col-md-6">
+                <img
+                  src="img/white-house.png"
+                  id="white-house"
+                  class="img-fluid"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!--BEGIN PROJECT INTRODUCTION-->
         <div class="section" id="project-intro">
           <div class="container">
             <div class="row">
               <div class="col-md-12">
-                <div class="col-md-3 mx-auto text-center">
+                <div class="col-md-6 mx-auto text-center">
                   <h1>Politics and Media</h1>
                   <div class="redBlock underline"></div>
                 </div>
@@ -194,12 +242,14 @@
                                 <p>
                                   In the age of information, the volume of news
                                   available can be overwhelming, making it
-                                  challenging for individuals to stay informed
-                                  without feeling inundated. TV news, in
-                                  particular, is a dynamic but fleeting medium,
-                                  with crucial data and perspectives that can
-                                  disappear into the ether if not captured and
-                                  analyzed in a timely manner.
+                                  challenging for citizens to stay informed
+                                  without feeling inundated. TV news in
+                                  particular often focuses on sensationalism and
+                                  driving viewership over nuanced coverage. The
+                                  true substance of candidates can become
+                                  obscured, leaving potential voters grappling
+                                  with biased narratives and a lack of depth in
+                                  coverage.
                                 </p>
                                 <button class="btn btn-primary next-slide">
                                   Next Slide
@@ -272,6 +322,42 @@
         </div>
         <!--END PROJECT INTRODUCTION-->
 
+        <!--BEGIN WHITE HOUSE VISUAL-->
+        <div class="section" id="section-2">
+          <div class="container text-center" id="white-house-visual">
+            <div class="row">
+              <div class="col-md-6 mx-auto text-center">
+                <h1>The White House</h1>
+                <div class="redBlock underline"></div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="tv">
+                <div class="antenna-left"></div>
+                <div class="antenna-right"></div>
+                <div class="tv-content">
+                  <div id="special-viz" style="height: 100%; width: 100%"></div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-md-6 mx-auto text-center" style="width: 70%">
+                <div class="shadow bg-white rounded">
+                  <p>
+                    The White House serves as the official residence and
+                    workplace for the President of the United States. As every
+                    aspiring candidate strives to secure this prestigious
+                    residence, they inevitably attract considerable media
+                    scrutiny. To view media coverage of potential candidates,
+                    simply hover over the dots that compose the image.
+                  </p>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <!--END WHITE HOUSE VISUAL-->
+
         <!--Introduce the Candidates-->
         <div class="section" id="section-3">
           <div class="container text-center" id="candidate-introduction">
@@ -303,7 +389,10 @@
                 <div class="col-md-3 mx-auto text-center">
                   <h1>2024 Candidates</h1>
                   <div class="redBlock underline"></div>
-                  <p id="candidate-instruction" style="color: transparent; font-size: large;">
+                  <p
+                    id="candidate-instruction"
+                    style="color: transparent; font-size: large"
+                  >
                     Click on a Candidate to Learn More
                   </p>
                 </div>
@@ -351,7 +440,7 @@
                 class="col-md-8 text-center"
                 id="candidate-sentiment-bars"
               ></div>
-              <div class="col-md-4 text-center">
+              <div class="col-md-4 text-center" id="avg-sentiment-container">
                 <div class="row">
                   <div
                     class="shadow p-3 mb-5 bg-white rounded col-md-12"
@@ -400,10 +489,11 @@
           <div class="container">
             <div class="col-md-4 mx-auto text-center">
               <h1>Changing Winds</h1>
+              <div class="redBlock underline"></div>
             </div>
 
             <div class="row">
-              <div class="col-md-6 mx-auto">
+              <div class="col-md-6 mx-auto text-center">
                 <h3 class="dropdown-textfield">
                   How has the
                   <span class="form-group">
@@ -454,9 +544,7 @@
                     >
                   </h1>
                   <div class="redBlock underline"></div>
-                  <h3>
-                    What percentage of reports are positive?
-                  </h3>
+                  <h3>What percentage of reports are positive?</h3>
                 </div>
               </div>
             </div>
@@ -475,23 +563,6 @@
           </div>
         </div>
 
-<!--        <div class="section" id="section-9">-->
-<!--          <div class="container text-center">-->
-<!--            <div class="row">-->
-<!--              <h1>Party Coverage by Network</h1>-->
-<!--              <p>-->
-<!--                Is there an equal distribution of network coverage among all-->
-<!--                parties?-->
-<!--              </p>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--              <div class="col-md-12 mx-auto">-->
-<!--                <div id="network-coverage"></div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-
         <div class="section" id="section-scatterplot">
           <div class="container">
             <div class="row">
@@ -499,7 +570,6 @@
                 <h1>Candidate Coverage by Network</h1>
                 <div class="redBlock underline"></div>
               </div>
-
             </div>
             <div class="row">
               <div class="col-md-8 mx-auto text-center">
@@ -524,117 +594,18 @@
         </div>
 
         <div class="section">Slide 10 content goes here</div>
-        <div class="section" id = "section-impact-intro">
-          <div class="container"></div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-md-8 mx-auto text-center">
-                <h1>Uncover the Impact: Your Interactive Analysis</h1>
-                <div class="redBlock underline"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 eventpreselectionpanel">
-            <div class="container">
-              <div class='col-8 mx-auto text-center'>
-                <p>Delve into the dynamics of political influence with our interactive visualization. As you've journeyed through the ebb and flow of the election campaign, you might have pondered the 'whys' behind the sudden rises and falls of candidates. Here, we empower you to uncover these mysteries. Select from key political events, choose the candidates of interest, and decide whether to track sentiment or frequency.</p>
-                <p>This tool is designed to bring your observations full circle, offering you the reins to explore the intricate web of political events and their tangible effects on public perception and media coverage. Discover how specific events have shaped the election narrative in real-time. Your insights await.</p>
-              </div>
-            </div>
-            <div class="container-fluid unique-container">
-              <div class="row unique-row align-items-center">
-                <div class="col-md-auto">
-                  <text>I want to analyze how the</text>
-                </div>
-                <div class="col-md-auto">
-                  <select class="custom-dropdown-menu" id="eventDropdownMenu">
-                    <option value="20230824">
-                      Trump Georgia Arrest (August 24th, 2023)
-                    </option>
-                    <option value="20231007">
-                      Hamas Attack on Israel (October 8th, 2023)
-                    </option>
-                    <option value="20230823">
-                      GOP Debate Milwaukee (August 23rd, 2023)
-                    </option>
-                    <option value="20230927">
-                      GOP Debate Simi Valley (September 27th, 2023)
-                    </option>
-                    <option value="20231108">
-                      GOP Debate Miami (November 8th, 2023)
-                    </option>
-                  </select>
-                </div>
-                <div class="col-md-auto">
-                  <text>impacted the</text>
-                </div>
-                <div class="col-md-auto">
-                  <select class="custom-dropdown-menu" id="metricDropdownMenu">
-                    <option value="volume">Number of Mentions</option>
-                    <option value="sentiment">sentiment of coverage</option>
-                  </select>
-                </div>
-                <div class="col-md-auto">
-                  <text>for</text>
-                </div>
-                <div class="col-md-auto">
-                  <div class="custom-dropdown-menu" id="dropdown-checkbox">
-                    <select multiple id="hiddenSelect" style="display: none;">
-                      <option value="biden">biden</option>
-                      <option value="christie">christie</option>
-                      <option value="desantis">desantis</option>
-                      <option value="haley">haley</option>
-                      <option value="pence">pence</option>
-                      <option value="ramaswamy">ramaswamy</option>
-                      <option value="scott">scott</option>
-                      <option value="trump">trump</option>
-                    </select>
 
-                    <!-- Custom checkbox list -->
-                    <div class="col-md-auto">
-                    <div class="checkbox-dropdown custom-dropdown-menu">
-                      <button class="dropdown-button btn btn-secondary" onclick="toggleCheckboxDropdown()">Select Candidate's</button>
-                      <div id="checkboxList" class="checkbox-list" style="display: none;">
-                        <label class="checkbox-label"><input type="checkbox" onclick="updateSelect('biden')">biden</label>
-                        <label class="checkbox-label"><input type="checkbox" onclick="updateSelect('christie')">christie</label>
-                        <label class="checkbox-label"><input type="checkbox" onclick="updateSelect('desantis')">desantis</label>
-                        <label class="checkbox-label"><input type="checkbox" onclick="updateSelect('haley')">haley</label>
-                        <label class="checkbox-label"><input type="checkbox" onclick="updateSelect('pence')">pence</label>
-                        <label class="checkbox-label"><input type="checkbox" onclick="updateSelect('ramaswamy')">ramaswamy</label>
-                        <label class="checkbox-label"><input type="checkbox" onclick="updateSelect('scott')">scott</label>
-                        <label class="checkbox-label"><input type="checkbox" onclick="updateSelect('trump')">trump</label>
-                        <!-- Additional options -->
-                      </div>
-                    </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12" style="text-align: center; margin-top: 6em;">
-                <button id="finalizeSelectionsButton">Finalize Selections</button>
-              </div>
-            </div>
-            </div>
-<!--          </div>-->
-          <!--          <div style="height: 80px;"></div> &lt;!&ndash; Adjust the height as needed &ndash;&gt;-->
-        </div>
+        <!--impactful events-->
         <div class="section" id="section-impact-event">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-md-6 mx-auto text-center">
-                <h1>Impactful Events</h1>
-                <div class="redBlock underline"></div>
-              </div>
-            </div>
-          </div>
+          <h1>Impactful Events</h1>
           <div
-                  class="tooltip-lastslide"
-                  style="opacity: 0; position: absolute"
+            class="tooltip-lastslide"
+            style="opacity: 0; position: absolute"
           ></div>
-          <!--          <div id="loadingIcon" class="loading-spinner" style="display: none">-->
-          <!--            <img src="img/loadingicon.gif" alt="Loading..." />-->
-          <!--          </div>-->
-          <!--          <div id="dynamic-chart-title">LOADING..</div>-->
+          <div id="loadingIcon" class="loading-spinner" style="display: none">
+            <img src="img/loadingicon.gif" alt="Loading..." />
+          </div>
+          <div id="dynamic-chart-title">LOADING..</div>
           <div class="row">
             <div class="col-8">
               <div id="impact-event-chart-area"></div>
@@ -643,25 +614,116 @@
               </div>
             </div>
             <div id="candidate-selections-box" class="col-4">
-              <div class="row title-area" id="settingstitle">
-                <div class = 'col-2'>
-                  <img src="img/gear.png" alt="Settings" id="settings-icon" style="max-height: 3em"/>
+              <h3>Adjustments Panel</h3>
+              <div
+                id="candidate-legend-container"
+                class="container-fluid legend-section"
+              >
+                <h5>Select Candidates:</h5>
+                <!--                <div class="col">-->
+                <div id="legend-panel-row1" class="row mb-3">
+                  <div class="col-2 candidate_containers">
+                    <img
+                      src="img/candidate_portraits/biden.png"
+                      alt=""
+                      id="biden_button"
+                    /><!--onclick="clicked_candidate(src)"> onmouseover="showTooltip(this)" onmouseout="hideTooltip()">-->
+                    <span class="candidate-name">Biden</span>
+                  </div>
+                  <div class="col-2 candidate_containers">
+                    <img
+                      src="img/candidate_portraits/christie.png"
+                      alt=""
+                      id="christie_button"
+                    />
+                    <!--onclick="clicked_candidate(src)"> onmouseover="showTooltip(this)" onmouseout="hideTooltip()">-->
+                    <span class="candidate-name">Christie</span>
+                  </div>
+                  <div class="col-2 candidate_containers">
+                    <img
+                      src="img/candidate_portraits/desantis.png"
+                      alt=""
+                      id="desantis_button"
+                    /><!--onclick="clicked_candidate(src)"> onmouseover="showTooltip(this)" onmouseout="hideTooltip()">-->
+                    <span class="candidate-name">Desantis</span>
+                  </div>
+                  <div class="col-2 candidate_containers">
+                    <img
+                      src="img/candidate_portraits/haley.png"
+                      alt=""
+                      id="haley_button"
+                    /><!--onclick="clicked_candidate(src)"> onmouseover="showTooltip(this)" onmouseout="hideTooltip()">-->
+                    <span class="candidate-name">Haley</span>
+                  </div>
+                  <div class="col-2 candidate_containers">
+                    <img
+                      src="img/candidate_portraits/kennedy.png"
+                      alt=""
+                      id="kennedy_button"
+                    /><!--onclick="clicked_candidate(src)"> onmouseover="showTooltip(this)" onmouseout="hideTooltip()">-->
+                    <span class="candidate-name">Kennedy</span>
+                  </div>
                 </div>
-                <div class = 'col-10' style="text-align: justify-all">
-                  <span class="adjustments-title">Make Your Own Adjustments!</span>
+                <div id="legend-panel-row2" class="row mb-3">
+                  <div class="col-2 candidate_containers">
+                    <img
+                      src="img/candidate_portraits/pence.png"
+                      alt=""
+                      id="pence_button"
+                    /><!--onclick="clicked_candidate(src)"> nmouseover="showTooltip(this)" onmouseout="hideTooltip()">-->
+                    <span class="candidate-name">Pence</span>
+                  </div>
+                  <div class="col-2 candidate_containers">
+                    <img
+                      src="img/candidate_portraits/ramaswamy.png"
+                      alt=""
+                      id="ramaswamy_button"
+                    /><!--onclick="clicked_candidate(src)">nmouseover="showTooltip(this)" onmouseout="hideTooltip()">-->
+                    <span class="candidate-name">Ramaswamy</span>
+                  </div>
+                  <div class="col-2 candidate_containers">
+                    <img
+                      src="img/candidate_portraits/scott.png"
+                      alt=""
+                      id="scott_button"
+                    /><!--onclick="clicked_candidate(src)">onmouseover="showTooltip(this)" onmouseout="hideTooltip()">-->
+                    <span class="candidate-name">Scott</span>
+                  </div>
+                  <div class="col-2 candidate_containers">
+                    <img
+                      src="img/candidate_portraits/trump.png"
+                      alt=""
+                      id="trump_button"
+                    /><!-- onclick="clicked_candidate(src)"> onmouseover="showTooltip(this)" onmouseout="hideTooltip()">-->
+                    <span class="candidate-name">Trump</span>
+                  </div>
+                  <div class="col-2 candidate_containers">
+                    <img
+                      src="img/candidate_portraits/williamson.png"
+                      alt=""
+                      id="williamson_button"
+                    /><!-- onclick="clicked_candidate(src)"> onmouseover="showTooltip(this)" onmouseout="hideTooltip()">-->
+                    <span class="candidate-name">Williamson</span>
+                  </div>
                 </div>
-                <!--                    <h1 id="candidate-selection-title">Candidate Selection</h1>-->
+                <!--                </div>-->
               </div>
               <div
-                      id="event-legend-container"
-                      class="container-fluid legend-section"
+                id="event-legend-container"
+                class="container-fluid legend-section"
               >
-                <h5 class = 'settingsQ'>How did the...</h5>
+                <h5>Select The Event to Analyze:</h5>
                 <div class="row">
                   <div class="col-auto">
                     <div class="form-group">
                       <!-- Select box for choosing the event -->
                       <select class="form-control" id="event-selection">
+                        <option value="20230608">
+                          Trump Indictment (June 8th, 2023)
+                        </option>
+                        <option value="20230618">
+                          OceanGate Implosion (June 18th, 2023)
+                        </option>
                         <option value="20230824">
                           Trump Georgia Arrest (August 24th, 2023)
                         </option>
@@ -683,99 +745,86 @@
                 </div>
               </div>
               <div
-                      id="metric-legend-container"
-                      class="container-fluid legend-section">
-                <h5 class = 'settingsQ'>Impact the...</h5>
+                id="metric-legend-container"
+                class="container-fluid legend-section"
+              >
+                <h5>Select A Metric:</h5>
                 <div class="row">
                   <div class="col-auto">
                     <div class="form-group">
                       <!-- Select box for choosing the Y-axis measure -->
                       <select
-                              class="form-control"
-                              id="line-stat-selection-impact"
+                        class="form-control"
+                        id="line-stat-selection-impact"
                       >
                         <option value="volume">Number of Mentions</option>
                         <option value="sentiment">
-                          sentiment of coverage
+                          Average Sentiment Score
                         </option>
                       </select>
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                      id="candidate-legend-container"
-                      class="container-fluid legend-section"
-              >
-                <h5 class = 'settingsQ'>For...</h5>
-                <div id="legend-panel-row1" class="row mb-3">
-                  <div class="col-2 candidate_containers">
-                    <img
-                            src="img/candidate_portraits/biden.png"
-                            alt=""
-                            id="biden_button"
-                    />
-                    <span class="candidate-name">Biden</span>
-                  </div>
-                  <div class="col-2 candidate_containers">
-                    <img
-                            src="img/candidate_portraits/christie.png"
-                            alt=""
-                            id="christie_button"
-                    />
-                    <span class="candidate-name">Christie</span>
-                  </div>
-                  <div class="col-2 candidate_containers">
-                    <img
-                            src="img/candidate_portraits/desantis.png"
-                            alt=""
-                            id="desantis_button"
-                    />
-                    <span class="candidate-name">Desantis</span>
-                  </div>
-                  <div class="col-2 candidate_containers">
-                    <img
-                            src="img/candidate_portraits/haley.png"
-                            alt=""
-                            id="haley_button"
-                    />
-                    <span class="candidate-name">Haley</span>
-                  </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Conclusion-->
+        <div class="section" id="conclusion">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-6 text-center">
+                  <h1>What Did We Learn?</h1>
                 </div>
-                <div id="legend-panel-row2" class="row mb-3">
-                  <div class="col-2 candidate_containers">
-                    <img
-                            src="img/candidate_portraits/pence.png"
-                            alt=""
-                            id="pence_button"
-                    />
-                    <span class="candidate-name">Pence</span>
-                  </div>
-                  <div class="col-2 candidate_containers">
-                    <img
-                            src="img/candidate_portraits/ramaswamy.png"
-                            alt=""
-                            id="ramaswamy_button"
-                    />
-                    <span class="candidate-name">Ramaswamy</span>
-                  </div>
-                  <div class="col-2 candidate_containers">
-                    <img
-                            src="img/candidate_portraits/scott.png"
-                            alt=""
-                            id="scott_button"
-                    />
-                    <span class="candidate-name">Scott</span>
-                  </div>
-                  <div class="col-2 candidate_containers">
-                    <img
-                            src="img/candidate_portraits/trump.png"
-                            alt=""
-                            id="trump_button"
-                    />
-                    <span class="candidate-name">Trump</span>
-                  </div>
-                </div>
+                <div class="col-6 redBlock underline"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="shadow p-3 mb-5 bg-white rounded col-6">
+                Many of our beliefs regarding the shortcomings of television
+                media were confirmed:
+
+                <ul class="conclusion-list">
+                  <li>
+                    Candidates with lower name recognition were not only less
+                    likely to be covered, but in some cases received 10 to 100
+                    times less coverage
+                  </li>
+                  <li>
+                    More traditionally partisan networks such as Fox News, CNN,
+                    and MSBNC tended to focus on negative coverage of
+                    adversarial candidates
+                  </li>
+                  <li>
+                    Networks can be very reactionary, adjusting coverage to what
+                    they think their audience wants to hear
+                  </li>
+                </ul>
+
+                So, what can we do to avoid falling victim to the media frenzy?
+
+                <ul class="conclusion-list">
+                  <li>
+                    Conduct independent research on the candidates: visit their
+                    campaign sites, read policy proposals, and watch or listen
+                    to interviews and debates
+                  </li>
+                  <li>
+                    Seek out alternative, less sensational sources of
+                    information, to include print media and long-form content
+                    such as podcasts
+                  </li>
+                  <li>
+                    If you find a candidate you are passionate about, spread the
+                    word! Talk to friends and family, donate time or money to
+                    their campaign, and of course, VOTE come Election Day!
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <img src="img/vote.png" id="ballot-box" class="img-fluid" />
               </div>
             </div>
           </div>
@@ -786,8 +835,12 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12">
-                <div class="col-3 text-center"><h1>Team Members</h1></div>
-                <div class="col-3 redBlock underline"></div>
+                <div class="col-md-6 mx-auto text-center">
+                  <h1>Team Members</h1>
+                </div>
+                <div
+                  class="col-md-4 mx-auto text-center redBlock underline"
+                ></div>
               </div>
             </div>
             <div class="row" style="padding-block: 50px">
@@ -795,9 +848,54 @@
             </div>
           </div>
         </div>
-        <div class="section">Slide 10 content goes here</div>
+
+        <div class="section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-6 mx-auto text-center">
+                  <h1>Acknowledgments</h1>
+                </div>
+                <div
+                  class="col-md-4 mx-auto text-center redBlock underline"
+                ></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8 mx-auto text-center">
+                <div
+                  class="shadow p-3 mb-5 bg-white rounded col-md-8 mx-auto text-center"
+                  id="ack-content"
+                >
+                  <p>
+                    We do not own the rights to any of the video, audio, or
+                    images used in this project. This project is for educational
+                    use only and may not be used for commercial purposes.
+                  </p>
+
+                  <p>
+                    Thank you to the Internet Archive and its supporters for
+                    creating and continuously updating its television news
+                    archive. We encourage everyone to check out the
+                    <a href="https://archive.org/details/tv" target="_blank"
+                      >archive</a
+                    >
+                    and play around with different search terms and date ranges.
+                  </p>
+
+                  <p>
+                    Finally, we'd like to thank our professors, Hanspeter
+                    Pfister and Johanna Beyer, our teaching fellow Johannes
+                    Knittel, and the rest of the teaching staff for equiping
+                    with the tools to create this project.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-<!--    </div>-->
+    </div>
     <!--'Breaking News' bar at the bottom-->
     <div class="row">
       <div class="news-container" id="breaking-news" style="visibility: hidden">
@@ -956,18 +1054,27 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header text-center">
-            <h5 class="modal-title">Click on a Network to Filter The Candidates</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h5 class="modal-title">
+              Click on a Network to Filter The Candidates
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
-            <p>We recommend exploring how both the volume and sentiment of candidate coverage
-              varies by network. Which candidates are discussed most on Fox compared to CNN
-              and MSNBC? Is there a clear difference in positive mentions by network?</p>
+            <p>
+              We recommend exploring how both the volume and sentiment of
+              candidate coverage varies by network. Which candidates are
+              discussed most on Fox compared to CNN and MSNBC? Is there a clear
+              difference in positive mentions by network?
+            </p>
           </div>
         </div>
       </div>
     </div>
-
 
     <!-- External Scripts -->
     <script
@@ -997,6 +1104,7 @@
     <script src="https://unpkg.com/d3-simple-slider"></script>
     <!--Internal Scripts-->
     <script src="js/constants.js"></script>
+    <script type="module" src="js/white_house/white-house.js"></script>
     <script src="js/main.js"></script>
     <script src="js/team.js"></script>
     <script src="js/tooltips.js"></script>
@@ -1004,7 +1112,6 @@
     <script src="js/coloredNetwork.js"></script>
     <script src="js/candidate-intro.js"></script>
     <script src="js/candidates.js"></script>
-
     <script src="js/coverage-volume-bubbles.js"></script>
     <script src="js/candidate-sentiment-bars.js"></script>
     <script src="js/sentiment-by-frequency.js"></script>
@@ -1013,487 +1120,3 @@
     <script src="js/project-intro.js"></script>
   </body>
 </html>
-
-<!--<div class="section-impact-intro">-->
-<!--  <div class="container"></div>-->
-<!--  <div class="row">-->
-<!--    <div class="col-md-12">-->
-<!--      <div class="col-md-6 mx-auto text-center">-->
-<!--        <h1>What is the impact of major events?</h1>-->
-<!--        <div class="redBlock underline"></div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="col-12 eventpreselectionpanel">-->
-<!--    <div class="container">-->
-<!--      <div class='col-6 mx-auto text-center'>-->
-<!--        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>-->
-<!--        <p>Well, how about you see for yourself. You tell us what you want to see, and we'll prepare the data for you.</p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="container-fluid unique-container">-->
-<!--      <div class="row unique-row">-->
-<!--        <div class="col-md-12">-->
-<!--          <text>I want to analyze how the</text>-->
-<!--          <select class="custom-dropdown-menu" id="eventDropdownMenu">-->
-<!--            <option value="20230824">-->
-<!--              Trump Georgia Arrest (August 24th, 2023)-->
-<!--            </option>-->
-<!--            <option value="20231007">-->
-<!--              Hamas Attack on Israel (October 8th, 2023)-->
-<!--            </option>-->
-<!--            <option value="20230823">-->
-<!--              GOP Debate Milwaukee (August 23rd, 2023)-->
-<!--            </option>-->
-<!--            <option value="20230927">-->
-<!--              GOP Debate Simi Valley (September 27th, 2023)-->
-<!--            </option>-->
-<!--            <option value="20231108">-->
-<!--              GOP Debate Miami (November 8th, 2023)-->
-<!--            </option>-->
-<!--          </select>-->
-<!--          <text>impact</text>-->
-<!--          <select class="custom-dropdown-menu" id="metricDropdownMenu">-->
-<!--            <option value="volume">Number of Mentions</option>-->
-<!--            <option value="sentiment">-->
-<!--              sentiment of coverage-->
-<!--            </option>-->
-<!--          </select>-->
-<!--          <text>for</text>-->
-<!--          <div class="custom-dropdown-menu">-->
-<!--            &lt;!&ndash; Hidden select element &ndash;&gt;-->
-<!--            <select multiple id="hiddenSelect" style="display: none;">-->
-<!--              <option value="biden">biden</option>-->
-<!--              <option value="christie">christie</option>-->
-<!--              <option value="desantis">desantis</option>-->
-<!--              <option value="haley">haley</option>-->
-<!--              <option value="pence">pence</option>-->
-<!--              <option value="ramaswamy">ramaswamy</option>-->
-<!--              <option value="scott">scott</option>-->
-<!--              <option value="trump">trump</option>-->
-<!--            </select>-->
-
-<!--            &lt;!&ndash; Custom checkbox list &ndash;&gt;-->
-<!--            <div class="checkbox-dropdown">-->
-<!--              <button onclick="toggleCheckboxDropdown()">Select Options</button>-->
-<!--              <div id="checkboxList" class="checkbox-list">-->
-<!--                <label><input type="checkbox" onclick="updateSelect('biden')">biden</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('christie')">christie</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('desantis')">desantis</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('haley')">haley</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('pence')">pence</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('ramaswamy')">ramaswamy</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('scott')">scott</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('trump')">trump</label>-->
-<!--                &lt;!&ndash; Additional options &ndash;&gt;-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <button id="finalizeSelectionsButton">Finalize Selections</button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div style="height: 80px;"></div> &lt;!&ndash; Adjust the height as needed &ndash;&gt;-->
-<!--</div>-->
-
-<!--&lt;!&ndash;impactful events&ndash;&gt;-->
-<!--<div class="section" id="section-impact-event">-->
-<!--  <div class="row">-->
-<!--    <div class="col-md-12">-->
-<!--      <div class="col-md-6 mx-auto text-center">-->
-<!--        <h1>Impactful Events</h1>-->
-<!--        <div class="redBlock underline"></div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div-->
-<!--          class="tooltip-lastslide"-->
-<!--          style="opacity: 0; position: absolute"-->
-<!--  ></div>-->
-<!--  &lt;!&ndash;          <div id="loadingIcon" class="loading-spinner" style="display: none">&ndash;&gt;-->
-<!--  &lt;!&ndash;            <img src="img/loadingicon.gif" alt="Loading..." />&ndash;&gt;-->
-<!--  &lt;!&ndash;          </div>&ndash;&gt;-->
-<!--  &lt;!&ndash;          <div id="dynamic-chart-title">LOADING..</div>&ndash;&gt;-->
-<!--  <div class="row">-->
-<!--    <div class="col-8">-->
-<!--      <div id="impact-event-chart-area"></div>-->
-<!--      <div class="row auto" id="timelinerow">-->
-<!--        <div id="timeline-window-area"></div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div id="candidate-selections-box" class="col-4">-->
-<!--      <div class="row" id =>-->
-<!--        <img src="img/gear.png" alt="Settings" id="settings-icon"/>-->
-<!--        <h5>Make Your Own Adjustments!</h5>-->
-<!--      </div>-->
-<!--      <div-->
-<!--              id="event-legend-container"-->
-<!--              class="container-fluid legend-section"-->
-<!--      >-->
-<!--        <h5 class = 'settingsQ'>How did the...</h5>-->
-<!--        <div class="row">-->
-<!--          <div class="col-auto">-->
-<!--            <div class="form-group">-->
-<!--              &lt;!&ndash; Select box for choosing the event &ndash;&gt;-->
-<!--              <select class="form-control" id="event-selection">-->
-<!--                <option value="20230824">-->
-<!--                  Trump Georgia Arrest (August 24th, 2023)-->
-<!--                </option>-->
-<!--                <option value="20231007">-->
-<!--                  Hamas Attack on Israel (October 8th, 2023)-->
-<!--                </option>-->
-<!--                <option value="20230823">-->
-<!--                  GOP Debate Milwaukee (August 23rd, 2023)-->
-<!--                </option>-->
-<!--                <option value="20230927">-->
-<!--                  GOP Debate Simi Valley (September 27th, 2023)-->
-<!--                </option>-->
-<!--                <option value="20231108">-->
-<!--                  GOP Debate Miami (November 8th, 2023)-->
-<!--                </option>-->
-<!--              </select>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div-->
-<!--              id="metric-legend-container"-->
-<!--              class="container-fluid legend-section">-->
-<!--        <h5 class = 'settingsQ'>Impact the...</h5>-->
-<!--        <div class="row">-->
-<!--          <div class="col-auto">-->
-<!--            <div class="form-group">-->
-<!--              &lt;!&ndash; Select box for choosing the Y-axis measure &ndash;&gt;-->
-<!--              <select-->
-<!--                      class="form-control"-->
-<!--                      id="line-stat-selection-impact"-->
-<!--              >-->
-<!--                <option value="volume">Number of Mentions</option>-->
-<!--                <option value="sentiment">-->
-<!--                  sentiment of coverage-->
-<!--                </option>-->
-<!--              </select>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div-->
-<!--              id="candidate-legend-container"-->
-<!--              class="container-fluid legend-section"-->
-<!--      >-->
-<!--        <h5 class = 'settingsQ'>For...</h5>-->
-<!--        <div id="legend-panel-row1" class="row mb-3">-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/biden.png"-->
-<!--                    alt=""-->
-<!--                    id="biden_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Biden</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/christie.png"-->
-<!--                    alt=""-->
-<!--                    id="christie_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Christie</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/desantis.png"-->
-<!--                    alt=""-->
-<!--                    id="desantis_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Desantis</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/haley.png"-->
-<!--                    alt=""-->
-<!--                    id="haley_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Haley</span>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div id="legend-panel-row2" class="row mb-3">-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/pence.png"-->
-<!--                    alt=""-->
-<!--                    id="pence_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Pence</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/ramaswamy.png"-->
-<!--                    alt=""-->
-<!--                    id="ramaswamy_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Ramaswamy</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/scott.png"-->
-<!--                    alt=""-->
-<!--                    id="scott_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Scott</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/trump.png"-->
-<!--                    alt=""-->
-<!--                    id="trump_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Trump</span>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<div class="section">Slide 11 content goes here</div>-->
-<!--<div class="section-impact-intro">-->
-<!--  <div class="container"></div>-->
-<!--  <div class="row">-->
-<!--    <div class="col-md-12">-->
-<!--      <div class="col-md-6 mx-auto text-center">-->
-<!--        <h1>What is the impact of major events?</h1>-->
-<!--        <div class="redBlock underline"></div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="col-12 eventpreselectionpanel">-->
-<!--    <div class="container">-->
-<!--      <div class='col-6 mx-auto text-center'>-->
-<!--        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>-->
-<!--        <p>Well, how about you see for yourself. You tell us what you want to see, and we'll prepare the data for you.</p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="container-fluid unique-container">-->
-<!--      <div class="row unique-row">-->
-<!--        <div class="col-md-12">-->
-<!--          <text>I want to analyze how the</text>-->
-<!--          <select class="custom-dropdown-menu" id="eventDropdownMenu">-->
-<!--            <option value="20230824">-->
-<!--              Trump Georgia Arrest (August 24th, 2023)-->
-<!--            </option>-->
-<!--            <option value="20231007">-->
-<!--              Hamas Attack on Israel (October 8th, 2023)-->
-<!--            </option>-->
-<!--            <option value="20230823">-->
-<!--              GOP Debate Milwaukee (August 23rd, 2023)-->
-<!--            </option>-->
-<!--            <option value="20230927">-->
-<!--              GOP Debate Simi Valley (September 27th, 2023)-->
-<!--            </option>-->
-<!--            <option value="20231108">-->
-<!--              GOP Debate Miami (November 8th, 2023)-->
-<!--            </option>-->
-<!--          </select>-->
-<!--          <text>impact</text>-->
-<!--          <select class="custom-dropdown-menu" id="metricDropdownMenu">-->
-<!--            <option value="volume">Number of Mentions</option>-->
-<!--            <option value="sentiment">-->
-<!--              sentiment of coverage-->
-<!--            </option>-->
-<!--          </select>-->
-<!--          <text>for</text>-->
-<!--          <div class="custom-dropdown-menu">-->
-<!--            &lt;!&ndash; Hidden select element &ndash;&gt;-->
-<!--            <select multiple id="hiddenSelect" style="display: none;">-->
-<!--              <option value="biden">biden</option>-->
-<!--              <option value="christie">christie</option>-->
-<!--              <option value="desantis">desantis</option>-->
-<!--              <option value="haley">haley</option>-->
-<!--              <option value="pence">pence</option>-->
-<!--              <option value="ramaswamy">ramaswamy</option>-->
-<!--              <option value="scott">scott</option>-->
-<!--              <option value="trump">trump</option>-->
-<!--            </select>-->
-
-<!--            &lt;!&ndash; Custom checkbox list &ndash;&gt;-->
-<!--            <div class="checkbox-dropdown">-->
-<!--              <button onclick="toggleCheckboxDropdown()">Select Options</button>-->
-<!--              <div id="checkboxList" class="checkbox-list">-->
-<!--                <label><input type="checkbox" onclick="updateSelect('biden')">biden</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('christie')">christie</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('desantis')">desantis</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('haley')">haley</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('pence')">pence</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('ramaswamy')">ramaswamy</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('scott')">scott</label>-->
-<!--                <label><input type="checkbox" onclick="updateSelect('trump')">trump</label>-->
-<!--                &lt;!&ndash; Additional options &ndash;&gt;-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <button id="finalizeSelectionsButton">Finalize Selections</button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div style="height: 80px;"></div> &lt;!&ndash; Adjust the height as needed &ndash;&gt;-->
-<!--</div>-->
-
-<!--&lt;!&ndash;impactful events&ndash;&gt;-->
-<!--<div class="section" id="section-impact-event">-->
-<!--  <div class="row">-->
-<!--    <div class="col-md-12">-->
-<!--      <div class="col-md-6 mx-auto text-center">-->
-<!--        <h1>Impactful Events</h1>-->
-<!--        <div class="redBlock underline"></div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div-->
-<!--          class="tooltip-lastslide"-->
-<!--          style="opacity: 0; position: absolute"-->
-<!--  ></div>-->
-  <!--          <div id="loadingIcon" class="loading-spinner" style="display: none">-->
-  <!--            <img src="img/loadingicon.gif" alt="Loading..." />-->
-  <!--          </div>-->
-  <!--          <div id="dynamic-chart-title">LOADING..</div>-->
-<!--  <div class="row">-->
-<!--    <div class="col-8">-->
-<!--      <div id="impact-event-chart-area"></div>-->
-<!--      <div class="row auto" id="timelinerow">-->
-<!--        <div id="timeline-window-area"></div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div id="candidate-selections-box" class="col-4">-->
-<!--      <div class="row" id =>-->
-<!--        <img src="img/gear.png" alt="Settings" id="settings-icon"/>-->
-<!--        <h5>Make Your Own Adjustments!</h5>-->
-<!--      </div>-->
-<!--      <div-->
-<!--              id="event-legend-container"-->
-<!--              class="container-fluid legend-section"-->
-<!--      >-->
-<!--        <h5 class = 'settingsQ'>How did the...</h5>-->
-<!--        <div class="row">-->
-<!--          <div class="col-auto">-->
-<!--            <div class="form-group">-->
-<!--              &lt;!&ndash; Select box for choosing the event &ndash;&gt;-->
-<!--              <select class="form-control" id="event-selection">-->
-<!--                <option value="20230824">-->
-<!--                  Trump Georgia Arrest (August 24th, 2023)-->
-<!--                </option>-->
-<!--                <option value="20231007">-->
-<!--                  Hamas Attack on Israel (October 8th, 2023)-->
-<!--                </option>-->
-<!--                <option value="20230823">-->
-<!--                  GOP Debate Milwaukee (August 23rd, 2023)-->
-<!--                </option>-->
-<!--                <option value="20230927">-->
-<!--                  GOP Debate Simi Valley (September 27th, 2023)-->
-<!--                </option>-->
-<!--                <option value="20231108">-->
-<!--                  GOP Debate Miami (November 8th, 2023)-->
-<!--                </option>-->
-<!--              </select>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div-->
-<!--              id="metric-legend-container"-->
-<!--              class="container-fluid legend-section">-->
-<!--        <h5 class = 'settingsQ'>Impact the...</h5>-->
-<!--        <div class="row">-->
-<!--          <div class="col-auto">-->
-<!--            <div class="form-group">-->
-<!--              &lt;!&ndash; Select box for choosing the Y-axis measure &ndash;&gt;-->
-<!--              <select-->
-<!--                      class="form-control"-->
-<!--                      id="line-stat-selection-impact"-->
-<!--              >-->
-<!--                <option value="volume">Number of Mentions</option>-->
-<!--                <option value="sentiment">-->
-<!--                  sentiment of coverage-->
-<!--                </option>-->
-<!--              </select>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div-->
-<!--              id="candidate-legend-container"-->
-<!--              class="container-fluid legend-section"-->
-<!--      >-->
-<!--        <h5 class = 'settingsQ'>For...</h5>-->
-<!--        <div id="legend-panel-row1" class="row mb-3">-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/biden.png"-->
-<!--                    alt=""-->
-<!--                    id="biden_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Biden</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/christie.png"-->
-<!--                    alt=""-->
-<!--                    id="christie_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Christie</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/desantis.png"-->
-<!--                    alt=""-->
-<!--                    id="desantis_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Desantis</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/haley.png"-->
-<!--                    alt=""-->
-<!--                    id="haley_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Haley</span>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div id="legend-panel-row2" class="row mb-3">-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/pence.png"-->
-<!--                    alt=""-->
-<!--                    id="pence_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Pence</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/ramaswamy.png"-->
-<!--                    alt=""-->
-<!--                    id="ramaswamy_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Ramaswamy</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/scott.png"-->
-<!--                    alt=""-->
-<!--                    id="scott_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Scott</span>-->
-<!--          </div>-->
-<!--          <div class="col-2 candidate_containers">-->
-<!--            <img-->
-<!--                    src="img/candidate_portraits/trump.png"-->
-<!--                    alt=""-->
-<!--                    id="trump_button"-->
-<!--            />-->
-<!--            <span class="candidate-name">Trump</span>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
