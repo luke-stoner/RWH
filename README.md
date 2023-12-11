@@ -12,7 +12,7 @@ negative. The Race for the White House leverages this data to create unique, int
 both coverage sentiment and volume differ across candidates and networks.
 
 
-This repository contains the following file structure:
+## File Structure
 
       ├── LICENSE
       ├── README.md
