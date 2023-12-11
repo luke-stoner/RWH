@@ -932,7 +932,7 @@ canvas {
 
 /*TELEVISION*/
 .tv {
-  width: 70%; /* Adjust as needed */
+  width: 50%; /* Adjust as needed */
   height: auto; /* Adjust as needed */
   background-color: black; /* TV's outer color */
   border-radius: 20px; /* Rounded corners for TV */
@@ -942,7 +942,34 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 4%;
+  margin: 3%;
+  z-index: 1;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+.tv-screen {
+  background: honeydew;
+}
+
+.tv-tooltip {
+  position: absolute;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  padding: 10px;
+  width: 400px;
+  max-width: fit-content;
+  max-height: 250px; /* Set the maximum height you desire */
+  overflow-y: auto; /* Add vertical scrollbar if content overflows */
+  pointer-events: none;
+  opacity: 1; /* Set the initial opacity to fully opaque */
 }
 
 .tv-content {
@@ -950,7 +977,6 @@ canvas {
   height: 100%;
   background-color: white; /* Background for the content */
   border-radius: 10px; /* Slightly rounded corners inside the TV */
-  /* Additional styling for your content */
 }
 /* Antennas on the top of the TV */
 .tv .antenna-left,
@@ -986,6 +1012,7 @@ canvas {
   width: 50px;
   height: 20px;
   background: black;
+  z-index: -1;
 }
 
 .tv:before {
@@ -1113,4 +1140,3 @@ canvas {
   font-weight: bolder;
   margin-bottom: 1rem;
 }
-

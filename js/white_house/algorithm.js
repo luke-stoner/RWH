@@ -51,8 +51,8 @@ const CANDIDATE_COLORS = {
   hutchinson:
     "<span style='color: #FFA500; font-weight: bold;'>Hutchinson</span>",
 
-  donald: "<span style='color: #454B1B; font-weight: bold;'>Donald</span>",
-  trump: "<span style='color: #454B1B; font-weight: bold;'>Trump</span>",
+  donald: "<span style='color: #f00808; font-weight: bold;'>Donald</span>",
+  trump: "<span style='color: #f00808; font-weight: bold;'>Trump</span>",
 };
 
 let width = 624;
@@ -114,10 +114,11 @@ function _2(DOM, width, height, script, invalidation, data, n) {
 
     // Create tooltip element (only once)
     let tooltip = d3
-      .select("#special-viz")
+      .select(".observablehq")
       .append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 0);
+      .attr("class", "tv-tooltip")
+      .style("opacity", 0)
+      .attr("z-index", 1000);
 
     for (let i = 0, n = points.length / 2; i < n; i++) {
       const x = points[i * 2],
