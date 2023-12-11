@@ -40,6 +40,24 @@ document.addEventListener("DOMContentLoaded", function () {
       const tl = new TimelineMax({ delay: 0.1 });
 
       if (destination.index === 2) {
+        const paragraphs = document.querySelectorAll(
+          "#white-house-introduction p"
+        );
+        const fadeInDelay = 2000;
+
+        function fadeInParagraphs(index) {
+          if (index < paragraphs.length) {
+            paragraphs[index].style.opacity = "1";
+            setTimeout(() => {
+              fadeInParagraphs(index + 1);
+            }, fadeInDelay);
+          }
+        }
+
+        fadeInParagraphs(0);
+      }
+
+      if (destination.index === 4) {
         const whiteHouse = document.getElementById("white-house");
         tl.fromTo(
           whiteHouse,
@@ -56,26 +74,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
 
-      if (destination.index == 6) {
+      if (destination.index == 7) {
         const candidateIntro = new CandidateIntroduction(
           candidate_descriptions
         );
       }
 
-      if (destination.index == 7) {
+      if (destination.index == 8) {
         const volumeBubbles = new BubbleChart();
       }
 
-      if (destination.index == 8) {
+      if (destination.index == 9) {
         const sentimentChart = new SentimentChart();
       }
 
-      if (destination.index == 11) {
+      if (destination.index == 12) {
         const byNetwork = new ByNetworkVisual();
       }
 
       // Show the Bootstrap modal when destination index is 11
-      if (destination.index == 12) {
+      if (destination.index == 13) {
         if (!visitedCoverageByNetwork) {
           setTimeout(function () {
             $("#network-modal").modal("show");
@@ -84,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
         visitedCoverageByNetwork = true;
       }
 
-      if (destination.index === 15) {
+      if (destination.index === 16) {
         const ballotBox = document.getElementById("ballot-box");
         tl.fromTo(
           ballotBox,
