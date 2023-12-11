@@ -264,10 +264,7 @@ d3.csv("data/labeled.csv", row => {
                                 </div>
                                 Number of Mentions: ${d.frequency.toLocaleString()}
                                 <br/>
-                                Positive Mentions: ${d3.format(".0%")(d.avg_sentiment)}
-                                
-                            `
-                    )
+                                Positive Mentions: ${d3.format(".0%")(d.avg_sentiment)}`)
                     .style("left", (event.pageX + 15) + "px")
                     .style("top", (event.pageY - 30) + "px");
             })

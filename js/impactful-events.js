@@ -3,25 +3,6 @@ let previousSelectedSettings = [
 ];
 
 function initializeDashboard() {
-  ///DYNAMIC SIZING///
-  pxls_leftcol = parseFloat(d3.select("#timelinerow").style("width"));
-  d3.select(window).on("resize", function () {
-    pxls_leftcol = parseFloat(d3.select("#timelinerow").style("width"));
-    //timeline
-    width_timeline =
-      pxls_leftcol - margin_timeline.left - margin_timeline.right;
-    timelineSvg.attr(
-      "width",
-      width_timeline + margin_timeline.left + margin_timeline.right
-    );
-    timelineXScale = d3.scaleTime().range([0, width_timeline]); //  - 50
-    //major chart
-    width = pxls_leftcol - margin.left - margin.right;
-    svg.attr("width", width + margin.left + margin.right);
-    xScale = d3.scaleTime().range([0, width]); //- 50
-    updateVisualization();
-  });
-  ///DYNAMIC SIZING///
   // Update: Removed Kennedy and Williamson from the list
   let selected_candidates = [
     "biden",
@@ -34,13 +15,13 @@ function initializeDashboard() {
     "trump",
   ];
   let candidateStatus = {
-    biden: false,
-    christie: true,
+    biden: true,
+    christie: false,
     desantis: true,
     haley: true,
-    pence: true,
-    ramaswamy: true,
-    scott: true,
+    pence: false,
+    ramaswamy: false,
+    scott: false,
     trump: true,
   };
 
@@ -49,9 +30,8 @@ function initializeDashboard() {
   let xScale, yScale, xAxis, yAxis, filtered_date_data;
 
   // set margins, width, height
-  let margin = { top: 40, right: 60, bottom: 40, left: 60 };
-
-  let width = pxls_leftcol - margin.left - margin.right;
+  let margin = { top: 40, right: 40, bottom: 40, left: 53 };
+  let width = 950 - margin.left - margin.right;
   let height = 400 - margin.top - margin.bottom;
 
   let parseDate = d3.timeParse("%Y%m%d");
@@ -148,8 +128,37 @@ function initializeDashboard() {
           })
       );
 
-    yAxis.transition().duration(500).call(d3.axisLeft(yScale));
-    // Define line generator
+    if (column === 'volume') {
+      // Define your y-axis transition and call
+      yAxis.transition().duration(500).call(d3.axisLeft(yScale))
+          .attr("class", "y-axis");
+
+      // Remove existing y-axis text
+      svg.select(".y-axis-title").remove();
+
+      // Append axis text
+      svg.append("text")
+          .attr("class", "y-axis-title")
+          .attr("transform", `translate(${margin.left / 2 - 63},${height / 2}) rotate(-90)`)
+          .style("text-anchor", "middle")
+          .text("Number of Mentions");
+    }
+
+    else {
+      // Define y axis
+      yAxis.transition().duration(500).call(d3.axisLeft(yScale).tickFormat(d3.format(".0%")))
+          .attr("class", "y-axis");
+
+      // Remove existing y-axis text
+      svg.select(".y-axis-title").remove();
+
+      // Append axis text
+      svg.append("text")
+          .attr("class", "y-axis-title")
+          .attr("transform", `translate(${margin.left / 2 - 63},${height / 2}) rotate(-90)`) // Adjust the position as needed
+          .style("text-anchor", "middle")
+          .text("Positive Mentions");
+    }
 
     // Custom Line Generator
     function customLine(data) {
@@ -218,8 +227,6 @@ function initializeDashboard() {
     let tooltip = d3.select(".tooltip-lastslide");
 
     // Event Handlers for mouseover and mouseout
-    // Event Handlers for mouseover and mouseout
-    // Event Handlers for mouseover and mouseout
     lineGroups
       .selectAll(".datapoint")
       .on("mouseover", function (event, d) {
@@ -237,15 +244,28 @@ function initializeDashboard() {
           dataValue % 1 !== 0 ? parseFloat(dataValue).toFixed(2) : dataValue;
 
         // Update tooltip content with candidate name in bold and colored
-        tooltip
-          .html(
-            `<strong style='color: ${
-              candidateColorMap[candidateName.toLowerCase()]
-            };'>${candidateName}</strong><br/>${selectedMetric}: ${formattedDataValue}<br/>Date: ${formattedDate}`
-          )
-          .style("opacity", 1)
-          .style("left", event.pageX + 10 + "px")
-          .style("top", event.pageY - 10 + "px");
+        if (column==='volume') {
+          tooltip
+              .html(
+                  `<strong style='color: ${
+                      candidateColorMap[candidateName.toLowerCase()]
+                  };'>${candidateName}</strong><br/>Number of Mentions: ${formattedDataValue}<br/>Date: ${formattedDate}`
+              )
+              .style("opacity", 1)
+              .style("left", event.pageX + 10 + "px")
+              .style("top", event.pageY - 10 + "px");
+        }
+        else {
+          tooltip
+              .html(
+                  `<strong style='color: ${
+                      candidateColorMap[candidateName.toLowerCase()]
+                  };'>${candidateName}</strong><br/>Positive Mentions: ${d3.format(".0%")(formattedDataValue)}<br/>Date: ${formattedDate}`
+              )
+              .style("opacity", 1)
+              .style("left", event.pageX + 10 + "px")
+              .style("top", event.pageY - 10 + "px");
+        }
 
         highlightLine(candidateName);
         bringToFront(candidateName);
@@ -408,8 +428,6 @@ function initializeDashboard() {
       .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m/%d"))); // This line sets the format to month/day
     yAxis = svg.append("g");
 
-    // Define a color scale
-    //const colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(["biden", "christie", "desantis", "haley", "kennedy", "pence", "ramaswamy", "scott", "trump", "williamson"])
 
     // Update the visualization based on a change in selection in the dropdown menu
     document
@@ -569,11 +587,9 @@ function initializeDashboard() {
   ///TIMELINE SECTION
   let data_timeline = [];
   // set margins, width, height
-  let margin_timeline = { top: 0, right: 20, bottom: 40, left: 60 };
-  pxls_leftcol = parseFloat(d3.select("#timelinerow").style("width"));
+  let margin_timeline = { top: 0, right: 63, bottom: 50, left: 50 };
 
-  let width_timeline =
-    pxls_leftcol - margin_timeline.left - margin_timeline.right;
+  let width_timeline = 950 - margin_timeline.left - margin_timeline.right;
   let height_timeline = 150 - margin_timeline.top - margin_timeline.bottom;
   // Initialize SVG for the new chart
   let timelineSvg = d3
@@ -601,6 +617,15 @@ function initializeDashboard() {
     .call(d3.axisBottom(timelineXScale).tickFormat(d3.timeFormat("%m/%d"))); // This line sets the format to month/day
   let timelineYAxis = timelineSvg.append("g");
 
+  // remove existing x axis
+  timelineSvg.select(".x-axis").remove();
+
+  // append new x axis
+  timelineSvg.append("text")
+      .attr("transform", `translate(${width_timeline / 2},${height_timeline + margin_timeline.bottom - 10})`) // Adjust the position as needed
+      .style("text-anchor", "middle")
+      .text("Date");
+
   function updateTimelineVisualization(startDate, endDate, column) {
     timelineYAxis.remove();
     // Filter data for candidates that are included in the other chart
@@ -609,6 +634,7 @@ function initializeDashboard() {
     );
     timelineYScale = d3.scaleLinear().range([height_timeline, 0]);
     timelineYAxis = timelineSvg.append("g");
+
     // Then group this filtered data
     let groupedData_timeline = d3.group(
       filteredCandidatesData,

@@ -15,7 +15,7 @@ let margin_bump = {
 
 // Recalculate width_bump based on new margins
 let width_bump = bump_leftcol_pxls - margin_bump.left - margin_bump.right;
-let height_bump = 580 - margin_bump.top - margin_bump.bottom;
+let height_bump = 550 - margin_bump.top - margin_bump.bottom;
 
 // Initialize SVG drawing space with updated width
 let svg_bump = d3

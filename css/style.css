@@ -377,7 +377,8 @@ h3 {
 }
 
 #impact-event-intro {
-  font-size: 18px;
+  font-size: 20px;
+  margin-top: 20px;
 }
 
 #white-house {
@@ -394,6 +395,15 @@ h3 {
   position: relative;
   top: 45%;
   left: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(20px 5px 4px #a8a8a8);
+}
+
+#breaking-news-image {
+  height: 60%;
+  position: relative;
+  top: 50%;
+  left: 45%;
   transform: translate(-50%, -50%);
   filter: drop-shadow(20px 5px 4px #a8a8a8);
 }
@@ -815,11 +825,14 @@ body .testimonial .row .tabs li.active figure::before {
   opacity: 0.2;
 }
 
+#impact-event-chart-container {
+
+}
+
 #candidate-selections-box {
   background-color: #dec9c9;
   border-radius: 5px;
   text-align: center;
-  /*margin: 5%;*/
 }
 
 .legend-section {
@@ -867,6 +880,11 @@ body .testimonial .row .tabs li.active figure::before {
   /*filter: blur(.3px);*/
   /*filter: blur(1px);*/
   box-shadow: inset white 0 0 3px;
+}
+
+#impact-event-chart-container {
+  padding-top: 20px;
+  padding-left: 140px;
 }
 
 .candidate_containers img:hover + .candidate-name {
@@ -976,13 +994,18 @@ canvas {
   position: absolute;
   background-color: #ffffff;
   border: 1px solid #000000;
-  padding: 10px;
   width: 400px;
-  max-width: fit-content;
-  max-height: 250px; /* Set the maximum height you desire */
+  max-height: 350px; /* Set the maximum height you desire */
   overflow-y: auto; /* Add vertical scrollbar if content overflows */
   pointer-events: none;
   opacity: 1; /* Set the initial opacity to fully opaque */
+  padding: 10px;
+  padding-bottom: 20px;
+}
+
+#tv-desc {
+  padding: 5px;
+  padding-top: 10px;
 }
 
 .tv-content {
@@ -1084,17 +1107,20 @@ span.adjustments-title {
   /*padding-top: 0.5rem;*/
 }
 
-/*#settingstitle{*/
-/*  font-size: 1.2em; !* Adjust the font size as needed *!*/
-/*  !*padding-top: 0.5em;*!*/
-/*  !*padding-bottom: 1em;*!*/
-/*  font-weight: bolder;*/
-/*}*/
-
 
 .adjustments-title {
-  font-size: 1.2em; /* Adjust the font size as needed */
-  /* Add additional styling as needed */
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#settingstitle {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#metric-legend-container {
+  padding-left: 32px;
+  padding-top: 22px;
 }
 
 
@@ -1104,6 +1130,9 @@ span.adjustments-title {
   border-radius: 5px;
   text-align:center;
   /*margin: 5%;*/
+  margin-top: 30px;
+  padding-top: 5px;
+  margin-bottom: 55px;
 }
 
 .legend-section {

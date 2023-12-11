@@ -12,7 +12,7 @@ const candidateColorMap = {};
 ["biden", "christie", "desantis", "haley", "kennedy", "pence", "ramaswamy", "scott", "trump", "williamson"]
     .forEach((candidate, index) => {
   if (candidate.toLowerCase() === "scott") {
-    candidateColorMap[candidate.toLowerCase()] = "#00FFFF"; // Assigning aqua to scott
+    candidateColorMap[candidate.toLowerCase()] = "#72bcd4"; // Assigning light blue to scott
   } else {
     candidateColorMap[candidate.toLowerCase()] = d3.schemeCategory10[index];
   }
@@ -100,6 +100,23 @@ document.addEventListener("DOMContentLoaded", function () {
           }, 500);
         }
         visitedCoverageByNetwork = true;
+      }
+
+      if (destination.index === 14) {
+        const breakingNews = document.getElementById("breaking-news-image");
+        tl.fromTo(
+            breakingNews,
+            0.7,
+            { x: "100%", opacity: 0, scale: 0.5 },
+            { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut }
+        );
+
+        tl.to(breakingNews, 1.5, {
+          scale: 0.95,
+          yoyo: true,
+          repeat: -1,
+          ease: Power2.easeInOut,
+        });
       }
 
       if (destination.index === 16) {

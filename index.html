@@ -160,7 +160,7 @@
             </div>
             <div class="row">
               <div class="col-md-6 mx-auto text-center" style="width: 50%">
-                <div class="shadow bg-white rounded">
+                <div class="shadow bg-white rounded" id="tv-desc">
                   <p>
                     The White House serves as the official residence and
                     workplace for the President of the United States. As every
@@ -627,19 +627,17 @@
         </div>
 
         <div class="section" id="section-impact-intro">
-          <div class="container"></div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-md-8 mx-auto text-center">
-                <h1>Uncover the Impact: Your Interactive Analysis</h1>
-                <div class="redBlock underline"></div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-8 mx-auto text-center">
+                  <h1>Uncover the Impact: Your Interactive Analysis</h1>
+                </div>
+                <div class="col-8 mx-auto text-center redBlock underline"></div>
               </div>
             </div>
-          </div>
-          <div class="col-12 eventpreselectionpanel">
-            <div class="container">
-              <div class="shadow p-3 mb-5 bg-white rounded col-md-8 mx-auto text-center"
-                   id="impact-event-intro">
+            <div class="row">
+              <div class="shadow p-3 mb-5 bg-white rounded col-6" id="impact-event-intro">
                 <p>
                   Delve into the dynamics of political influence with our
                   interactive visualization. As you've journeyed through the ebb
@@ -660,6 +658,9 @@
                   await.
                 </p>
               </div>
+              <div class="col-md-6">
+                <img src="img/breakingnews.png" id="breaking-news-image" class="img-fluid" />
+              </div>
             </div>
           </div>
         </div>
@@ -678,17 +679,17 @@
             style="opacity: 0; position: absolute"
           ></div>
           <div class="row">
-            <div class="col-8">
+            <div class="col-8" id="impact-event-chart-container">
               <div id="impact-event-chart-area"></div>
               <div class="row auto" id="timelinerow">
                 <div id="timeline-window-area"></div>
               </div>
             </div>
-            <div id="candidate-selections-box" class="col-4">
+            <div class="col-3" id="candidate-selections-box">
               <div class="row title-area" id="settingstitle">
-                <div class="col-12" style="text-align: justify-all">
+                <div class="col-md-12 mx-auto text-center">
                   <span class="adjustments-title"
-                    >Make Your Own Adjustments!</span
+                  >Make Your Own Adjustments</span
                   >
                 </div>
               </div>
@@ -706,42 +707,40 @@
                           Trump Georgia Arrest (August 24th, 2023)
                         </option>
                         <option value="20231007">
-                          Hamas Attack on Israel (October 8th, 2023)
+                          Hamas Invaision of Israel (October 8th, 2023)
                         </option>
                         <option value="20230823">
-                          GOP Debate Milwaukee (August 23rd, 2023)
+                          First GOP Debate (August 23rd, 2023)
                         </option>
                         <option value="20230927">
-                          GOP Debate Simi Valley (September 27th, 2023)
+                          Second GOP Debate (September 27th, 2023)
                         </option>
                         <option value="20231108">
-                          GOP Debate Miami (November 8th, 2023)
+                          Third GOP Debate (November 8th, 2023)
                         </option>
                       </select>
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                id="metric-legend-container"
-                class="container-fluid legend-section"
-              >
-                <h5 class="settingsQ">Impact the...</h5>
-                <div class="row justify-content-center">
-                  <div class="col-auto">
-                    <div class="form-group">
-                      <!-- Select box for choosing the Y-axis measure -->
-                      <select
-                        class="form-control"
-                        id="line-stat-selection-impact"
-                      >
-                        <option value="volume">Number of Mentions</option>
-                        <option value="sentiment">Sentiment of Coverage</option>
-                      </select>
-                    </div>
-                  </div>
+              <div id="metric-legend-container" class="container-fluid legend-section">
+                <div class="col-md-12 mx-auto text-center">
+                  <h5 class="dropdown-textfield">
+                    Impact the
+                    <span class="form-group">
+                    <select class="form-control" id="line-stat-selection-impact">
+                      <option value="volume">Number of Mentions</option>
+                      <option value="sentiment">Sentiment of Coverage</option>
+                    </select>
+                  </span>
+                  </h5>
                 </div>
               </div>
+
+
+
+
+
               <div
                 id="candidate-legend-container"
                 class="container-fluid legend-section"
