@@ -73,6 +73,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         visitedCoverageByNetwork = true;
       }
+
+      if (destination.index === 15) {
+        const ballotBox = document.getElementById("ballot-box");
+        tl.fromTo(
+            ballotBox,
+            0.7,
+            { x: "100%", opacity: 0, scale: 0.5 },
+            { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut }
+        );
+
+        tl.to(ballotBox, 1.5, {
+          scale: 0.95,
+          yoyo: true,
+          repeat: -1,
+          ease: Power2.easeInOut,
+        });
+      }
     },
   });
 
