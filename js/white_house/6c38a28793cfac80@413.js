@@ -22,6 +22,14 @@ function _2(DOM, width, height, script, invalidation, data, n) {
   function messaged({ data: points }) {
     const pointData = [];
     const canvas = context.canvas;
+
+    // Create tooltip element (only once)
+    let tooltip = d3
+      .select("#special-viz")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
     for (let i = 0, n = points.length / 2; i < n; i++) {
       const x = points[i * 2],
         y = points[i * 2 + 1];
@@ -35,6 +43,37 @@ function _2(DOM, width, height, script, invalidation, data, n) {
     }
     context.fillStyle = "#000000";
     context.fill();
+
+    // Attach mousemove event listener to the canvas
+    d3.select(canvas).on("mousemove", function (event) {
+      // Get mouse coordinates
+      const [mouseX, mouseY] = d3.pointer(event);
+
+      // Check if mouse is over any point
+      let isOverPoint = false;
+      for (const point of pointData) {
+        const dx = mouseX - point.x;
+        const dy = mouseY - point.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 50) {
+          // All of these console.logs do show up but the tooltip doesn't
+          console.log("im close!");
+          console.log(mouseY, mouseX);
+          console.log(point);
+          isOverPoint = true;
+          tooltip
+            .html(`<div>${point.text}</div>`)
+            .style("opacity", 1)
+            .style("top", mouseY + 20 + "px")
+            .style("left", mouseX + 20 + "px")
+            .style("z-index", 9999); // Set a high z-index value
+        }
+      }
+
+      if (!isOverPoint) {
+        tooltip.style("opacity", 0)
+      }
+    });
   }
 
   invalidation.then(() => worker.terminate());
@@ -173,4 +212,3 @@ export default function define(runtime, observer) {
 const n = _n(width, height);
 const csvData = await loadCSV();
 const mappedData = csvData.slice(-n);
-

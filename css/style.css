@@ -144,7 +144,7 @@ h3 {
 .dropdown-textfield {
   display: flex;
   align-items: center;
-  padding-left: 20px
+  padding-left: 20px;
 }
 
 .dropdown-textfield select {
@@ -924,5 +924,3 @@ canvas {
   width: -webkit-fill-available !important;
   max-width: -webkit-fill-available !important;
 }
-
-/* .end of andrews last viz css */

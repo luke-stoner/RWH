@@ -32,10 +32,10 @@ document.addEventListener("DOMContentLoaded", function () {
       if (destination.index === 2) {
         const whiteHouse = document.getElementById("white-house");
         tl.fromTo(
-            whiteHouse,
-            0.7,
-            { x: "100%", opacity: 0, scale: 0.5 },
-            { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut }
+          whiteHouse,
+          0.7,
+          { x: "100%", opacity: 0, scale: 0.5 },
+          { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut }
         );
 
         tl.to(whiteHouse, 1.5, {
