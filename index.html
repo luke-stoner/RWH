@@ -45,6 +45,7 @@
     ></script>
 
     <!-- CUSTOM CSS -->
+    <link rel="stylesheet" type="text/css" href="css/inspector.css" />
     <link href="css/style.css" rel="stylesheet" />
 
     <!--NO SLIDE-->
@@ -313,6 +314,19 @@
         </div>
         <!--END PROJECT INTRODUCTION-->
 
+        <!--BEGIN WHITE HOUSE VISUAL-->
+        <div class="section" id="section-2">
+          <div class="container text-center" id="white-house-visual">
+            <div class="row">
+              <h1>The White House</h1>
+            </div>
+            <div class="row justify-content-center">
+              <div id="special-viz" style="height: 75vh; width: 70%"></div>
+            </div>
+          </div>
+        </div>
+        <!--END WHITE HOUSE VISUAL-->
+
         <!--Introduce the Candidates-->
         <div class="section" id="section-3">
           <div class="container text-center" id="candidate-introduction">
@@ -344,7 +358,10 @@
                 <div class="col-md-3 mx-auto text-center">
                   <h1>2024 Candidates</h1>
                   <div class="redBlock underline"></div>
-                  <p id="candidate-instruction" style="color: transparent; font-size: large;">
+                  <p
+                    id="candidate-instruction"
+                    style="color: transparent; font-size: large"
+                  >
                     Click on a Candidate to Learn More
                   </p>
                 </div>
@@ -496,9 +513,7 @@
                     >
                   </h1>
                   <div class="redBlock underline"></div>
-                  <h3>
-                    What percentage of reports are positive?
-                  </h3>
+                  <h3>What percentage of reports are positive?</h3>
                 </div>
               </div>
             </div>
@@ -541,7 +556,6 @@
                 <h1>Candidate Coverage by Network</h1>
                 <div class="redBlock underline"></div>
               </div>
-
             </div>
             <div class="row">
               <div class="col-md-8 mx-auto text-center">
@@ -919,18 +933,27 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header text-center">
-            <h5 class="modal-title">Click on a Network to Filter The Candidates</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h5 class="modal-title">
+              Click on a Network to Filter The Candidates
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body">
-            <p>We recommend exploring how both the volume and sentiment of candidate coverage
-              varies by network. Which candidates are discussed most on Fox compared to CNN
-              and MSNBC? Is there a clear difference in positive mentions by network?</p>
+            <p>
+              We recommend exploring how both the volume and sentiment of
+              candidate coverage varies by network. Which candidates are
+              discussed most on Fox compared to CNN and MSNBC? Is there a clear
+              difference in positive mentions by network?
+            </p>
           </div>
         </div>
       </div>
     </div>
-
 
     <!-- External Scripts -->
     <script
@@ -967,12 +990,12 @@
     <script src="js/coloredNetwork.js"></script>
     <script src="js/candidate-intro.js"></script>
     <script src="js/candidates.js"></script>
-
     <script src="js/coverage-volume-bubbles.js"></script>
     <script src="js/candidate-sentiment-bars.js"></script>
     <script src="js/sentiment-by-frequency.js"></script>
     <script src="js/bump-chart.js"></script>
     <script src="js/impactful-events.js"></script>
     <script src="js/project-intro.js"></script>
+    <script type="module" src="js/white_house/white-house.js"></script>
   </body>
 </html>

@@ -98,7 +98,12 @@ h3 {
   padding: 10px;
   font: 14px sans-serif;
   pointer-events: none;
-  background-color: rgba(255, 255, 255, 0.95); /* Adjust the opacity as needed */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.95
+  ); /* Adjust the opacity as needed */
   border: 1px solid #aaa;
   border-radius: 4px;
   box-shadow: 0 0 5px #999;
@@ -263,7 +268,7 @@ h3 {
 
 .redBlock {
   /* background-color: #c90a3d; */
-  background-color: #E8D3A1;
+  background-color: #e8d3a1;
 }
 
 .blueBlock {
@@ -499,10 +504,6 @@ ul {
   list-style-type: none;
 }
 
-
-
-
-
 body .testimonial .row .tabs {
   all: unset;
   margin-right: 50px;
@@ -645,7 +646,6 @@ body .testimonial .row .carousel .carousel-indicators li.active {
   height: 2px;
 }
 
-
 body .testimonial .row .carousel .carousel-inner .carousel-item .quote-wrapper {
   margin-top: 42px;
 }
@@ -763,11 +763,10 @@ body .testimonial .row .tabs li.active figure::before {
   opacity: 0.2;
 }
 
-
-#candidate-selections-box{
+#candidate-selections-box {
   background-color: #dec9c9;
   border-radius: 5px;
-  text-align:center;
+  text-align: center;
   /*margin: 5%;*/
 }
 
@@ -776,7 +775,7 @@ body .testimonial .row .tabs li.active figure::before {
   border-radius: 5px;
   margin-bottom: calc(1.5rem + 1px);
   padding: 1rem;
-  padding-top: .5rem;
+  padding-top: 0.5rem;
 }
 
 .blurred-image {
@@ -799,7 +798,6 @@ body .testimonial .row .tabs li.active figure::before {
   /*filter: blur(1px);*/
 }
 
-
 .candidate-name {
   position: absolute;
   top: 50%;
@@ -818,7 +816,6 @@ body .testimonial .row .tabs li.active figure::before {
   /*filter: blur(1px);*/
   box-shadow: inset white 0 0 3px;
 }
-
 
 .candidate_containers img:hover + .candidate-name {
   transform: translate(-50%, -50%) scale(1.5); /* Scale up the text on hover */
@@ -841,11 +838,11 @@ body .testimonial .row .tabs li.active figure::before {
   transition: opacity 0.3s; /* Smooth transition for fading in/out */
 }
 
-#dynamic-chart-title{
-    text-align: center;
-    font-size: 20px;
-    font-weight: bolder;
-    margin-bottom: 1rem;
+#dynamic-chart-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bolder;
+  margin-bottom: 1rem;
 }
 
 .loading-spinner {
@@ -867,11 +864,15 @@ body .testimonial .row .tabs li.active figure::before {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-#bumpchartcolumn{
+#bumpchartcolumn {
   /*background-color: #ffffff;*/
   /*border-radius: 5px;*/
   text-align: center;
@@ -882,6 +883,11 @@ body .testimonial .row .tabs li.active figure::before {
 .datapoint-image {
   border-radius: 50%;
   /*//transform: scale(1.5);*/
+}
+
+canvas {
+  width: -webkit-fill-available !important;
+  max-width: -webkit-fill-available !important;
 }
 
 /* .end of andrews last viz css */
