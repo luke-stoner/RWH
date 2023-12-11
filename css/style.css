@@ -261,6 +261,10 @@ h3 {
   background-position: center;
 }
 
+.ack-content {
+  font-size: 20px;
+}
+
 #section-3 {
   background-image: url(https://static01.nyt.com/images/2019/04/26/us/politics/25bidenrunsHFO1/25bidenrunsHFO1-videoSixteenByNine3000.jpg);
   background-repeat: no-repeat;
