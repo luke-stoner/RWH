@@ -14,8 +14,8 @@ let margin_bump = {
 };
 
 // Recalculate width_bump based on new margins
-let width_bump = bump_leftcol_pxls - margin_bump.left - margin_bump.right;
-let height_bump = 550 - margin_bump.top - margin_bump.bottom;
+let width_bump = bump_leftcol_pxls - margin_bump.left - margin_bump.right - 30;
+let height_bump = 500 - margin_bump.top - margin_bump.bottom;
 
 // Initialize SVG drawing space with updated width
 let svg_bump = d3
@@ -247,7 +247,7 @@ d3.csv("data/labeled.csv", row => {
         const allPoints = newPoints.merge(points);
 
         // Define the size for candidate images
-        const imageSize = 40; // Adjust the size as needed
+        const imageSize = 35; // Adjust the size as needed
 
         const circles = allPoints
             .selectAll(".circles")

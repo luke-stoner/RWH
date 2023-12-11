@@ -61,9 +61,9 @@ class CandidateIntroduction {
 
   initializeSVG() {
     this.width = 900;
-    this.height = 600;
-    this.margin = 20;
-    this.circleRadius = 60;
+    this.height = 550;
+    this.margin = 40;
+    this.circleRadius = 50;
     this.borderThickness = 7;
     this.circlePadding = 25;
     this.columns = 5;

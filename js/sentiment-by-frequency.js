@@ -10,7 +10,7 @@ d3.csv("data/labeled.csv", row => {
 
     // Assuming you have predefined the overall width and height of your SVG
     const sbfWidth = 800; // Adjust as needed
-    const sbfHeight = 500; // Adjust as needed
+    const sbfHeight = 450; // Adjust as needed
 
     // Effective width and height after accounting for margins
     const sbfEffectiveWidth = sbfWidth - sbfMargin.left - sbfMargin.right;
@@ -25,9 +25,9 @@ d3.csv("data/labeled.csv", row => {
         .attr("transform", "translate(" + sbfMargin.left + "," + sbfMargin.top + ")");
 
     // Set margin, width, height
-    let networkMargin = {top: 30, right: 30, bottom: 50, left: 70};
+    let networkMargin = {top: 30, right: 30, bottom: 50, left: 60};
     let networkWidth = 400 - networkMargin.left - networkMargin.right;
-    let networkHeight = 500 - networkMargin.top - networkMargin.bottom;
+    let networkHeight = 450 - networkMargin.top - networkMargin.bottom;
 
     // initialize svg drawing space
     let network_svg = d3.select("#network-bar-chart-area").append("svg")

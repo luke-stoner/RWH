@@ -31,7 +31,7 @@ function initializeDashboard() {
 
   // set margins, width, height
   let margin = { top: 40, right: 40, bottom: 40, left: 53 };
-  let width = 950 - margin.left - margin.right;
+  let width = 900 - margin.left - margin.right;
   let height = 400 - margin.top - margin.bottom;
 
   let parseDate = d3.timeParse("%Y%m%d");
@@ -589,7 +589,7 @@ function initializeDashboard() {
   // set margins, width, height
   let margin_timeline = { top: 0, right: 63, bottom: 50, left: 50 };
 
-  let width_timeline = 950 - margin_timeline.left - margin_timeline.right;
+  let width_timeline = 900 - margin_timeline.left - margin_timeline.right;
   let height_timeline = 150 - margin_timeline.top - margin_timeline.bottom;
   // Initialize SVG for the new chart
   let timelineSvg = d3
