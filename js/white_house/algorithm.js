@@ -1,37 +1,56 @@
 const CANDIDATE_COLORS = {
-  perry: "<span style='color: blue; font-weight: bold;'>Perry</span>",
-  johnson: "<span style='color: blue; font-weight: bold;'>Johnson</span>",
-  doug: "<span style='color: orange; font-weight: bold;'>Doug</span>",
-  burgum: "<span style='color: orange; font-weight: bold;'>Burgum</span>",
-  larry: "<span style='color: brown; font-weight: bold;'>Larry</span>",
-  elder: "<span style='color: brown; font-weight: bold;'>Elder</span>",
-  vivek: "<span style='color: teal; font-weight: bold;'>Vivek</span>",
-  ramaswamy: "<span style='color: teal; font-weight: bold;'>Ramaswamy</span>",
+  "perry johnson":
+    "<span style='color: blue; font-weight: bold;'>Perry Johnson</span>",
+
+  "doug burgum":
+    "<span style='color: #964B00; font-weight: bold;'>Doug Burgum</span>",
+  burgum: "<span style='color: #964B00; font-weight: bold;'>Burgum</span>",
+
+  "larry elder":
+    "<span style='color: #FFA500; font-weight: bold;'> Elder</span>",
+  elder: "<span style='color: #FFA500; font-weight: bold;'>Elder</span>",
+
+  vivek: "<span style='color: #008080; font-weight: bold;'>Vivek</span>",
+  ramaswamy:
+    "<span style='color: #008080; font-weight: bold;'>Ramaswamy</span>",
+
   nikki: "<span style='color: #FFA500; font-weight: bold;'>Nikki</span>",
   haley: "<span style='color: #FFA500; font-weight: bold;'>Haley</span>",
+
   marianne: "<span style='color: #800080; font-weight: bold;'>Marianne</span>",
-  williamson:
-    "<span style='color: #800080; font-weight: bold;'>Williamson</span>",
+  "marianne williamson":
+    "<span style='color: #800080; font-weight: bold;'>Marianne Williamson</span>",
+
   "tim scott":
     "<span style='color: #008000; font-weight: bold;'>Tim Scott</span>",
-  scott: "<span style='color: #000080; font-weight: bold;'>Scott</span>",
+  scott: "<span style='color: #008000; font-weight: bold;'>Scott</span>",
+
   "ron desantis":
     "<span style='color: #2ca02c; font-weight: bold;'>Ron DeSantis</span>",
   desantis: "<span style='color: #2ca02c; font-weight: bold;'>Desantis</span>",
-  mike: "<span style='color: #0000FF; font-weight: bold;'>Mike</span>",
+
+  "mike pence": "<span style='color: #00FF00; font-weight: bold;'>Mike</span>",
   pence: "<span style='color: #00FF00; font-weight: bold;'>Pence</span>",
+
   robert: "<span style='color: #A52A2A; font-weight: bold;'>Robert</span>",
   kennedy: "<span style='color: #A52A2A; font-weight: bold;'>Kennedy</span>",
+
   joe: "<span style='color: #1f77b4; font-weight: bold;'>Joe</span>",
   biden: "<span style='color: #1f77b4; font-weight: bold;'>Biden</span>",
+
   "will hurd":
     "<span style='color: #A52A2A; font-weight: bold;'>Will Hurd</span>",
   hurd: "<span style='color: #A52A2A; font-weight: bold;'>Hurd</span>",
-  chris: "<span style='color: #808000; font-weight: bold;'>Chris</span>",
+
+  "chris christie":
+    "<span style='color: #800080; font-weight: bold;'>Chris Christie</span>",
   christie: "<span style='color: #800080; font-weight: bold;'>Christie</span>",
-  asa: "<span style='color: #FFA500; font-weight: bold;'>Asa</span>",
+
+  "asa hutchinson":
+    "<span style='color: #FFA500; font-weight: bold;'>Asa Hutchinson</span>",
   hutchinson:
     "<span style='color: #FFA500; font-weight: bold;'>Hutchinson</span>",
+
   donald: "<span style='color: #808080; font-weight: bold;'>Donald</span>",
   trump: "<span style='color: #808080; font-weight: bold;'>Trump</span>",
 };
@@ -52,9 +71,11 @@ function _height(data) {
   return data.height;
 }
 
-// Function to replace candidate names with colored spans
 function replaceCandidateNamesWithSpans(text) {
-  const regex = new RegExp(Object.keys(CANDIDATE_COLORS).join("|"), "gi");
+  const regex = new RegExp(
+    "\\b(" + Object.keys(CANDIDATE_COLORS).join("|") + ")\\b",
+    "gi"
+  );
   return text.replace(regex, (match) => {
     return CANDIDATE_COLORS[match.toLowerCase()] || match;
   });
