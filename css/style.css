@@ -996,7 +996,7 @@ canvas {
   right: 50px;
 }
 
-legend-section.row {
+.legend-section.row {
   display: flex;
   justify-content: space-between; /* This will space out the items evenly */
   align-items: center;
@@ -1113,3 +1113,4 @@ legend-section.row {
   font-weight: bolder;
   margin-bottom: 1rem;
 }
+
