@@ -8,6 +8,16 @@ newsBar.style.visibility = "hidden";
 const video = document.getElementById("myVideo");
 const acceptButton = document.getElementById("accept-button");
 
+const candidateColorMap = {};
+["biden", "christie", "desantis", "haley", "kennedy", "pence", "ramaswamy", "scott", "trump", "williamson"]
+    .forEach((candidate, index) => {
+  if (candidate.toLowerCase() === "scott") {
+    candidateColorMap[candidate.toLowerCase()] = "#00FFFF"; // Assigning aqua to scott
+  } else {
+    candidateColorMap[candidate.toLowerCase()] = d3.schemeCategory10[index];
+  }
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   var visitedCoverageByNetwork = false;
 

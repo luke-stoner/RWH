@@ -518,8 +518,8 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-10" id="bumpchartcolumn">
+            <div class="row" id="bump-chart-row">
+              <div class="col-12" id="bumpchartcolumn">
                 <div id="bump-chart-area"></div>
               </div>
             </div>
@@ -617,15 +617,18 @@
           </div>
           <div class="col-12 eventpreselectionpanel">
             <div class="container">
-              <div class="col-8 mx-auto text-center">
+              <div class="shadow p-3 mb-5 bg-white rounded col-md-8 mx-auto text-center"
+                   id="impact-event-intro">
                 <p>
                   Delve into the dynamics of political influence with our
                   interactive visualization. As you've journeyed through the ebb
                   and flow of the election campaign, you might have pondered the
                   'whys' behind the sudden rises and falls of candidates. Here,
-                  we empower you to uncover these mysteries. Select from key
-                  political events, choose the candidates of interest, and
-                  decide whether to track sentiment or frequency.
+                  we empower you to uncover these mysteries.
+                </p>
+                <p>
+                  Select from key political events, choose the candidates of interest, and
+                  decide whether to track coverage sentiment or volume.
                 </p>
                 <p>
                   This tool is designed to bring your observations full circle,
@@ -712,7 +715,7 @@
                         id="line-stat-selection-impact"
                       >
                         <option value="volume">Number of Mentions</option>
-                        <option value="sentiment">sentiment of coverage</option>
+                        <option value="sentiment">Sentiment of Coverage</option>
                       </select>
                     </div>
                   </div>
@@ -722,7 +725,7 @@
                 id="candidate-legend-container"
                 class="container-fluid legend-section"
               >
-                <h5>Select Candidates:</h5>
+                <h5>For (select candidates):</h5>
                 <div id="legend-panel-row1" class="row mb-3">
                   <div class="col-2 candidate_containers">
                     <img
@@ -824,8 +827,9 @@
                     adversarial candidates
                   </li>
                   <li>
-                    Networks can be very reactionary, adjusting coverage to what
-                    they think their audience wants to hear
+                    There is a clear incumbency advantage in the media. The coverage
+                    of both President Biden and former President Trump dwarf that of
+                    the candidates.
                   </li>
                 </ul>
 

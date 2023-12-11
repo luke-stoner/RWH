@@ -368,6 +368,10 @@ h3 {
   }
 }
 
+#impact-event-intro {
+  font-size: 18px;
+}
+
 #white-house {
   height: 100%;
   position: relative;
@@ -912,12 +916,13 @@ body .testimonial .row .tabs li.active figure::before {
   }
 }
 
+#bump-chart-row {
+  padding-right: 20px;
+}
+
+
 #bumpchartcolumn {
-  /*background-color: #ffffff;*/
-  /*border-radius: 5px;*/
   text-align: center;
-  /*margin: 5%;*/
-  padding-left: 80px;
 }
 
 .datapoint-image {
@@ -1059,19 +1064,52 @@ canvas {
   opacity: 0.2;
 }
 
-#candidate-selections-box {
-  background-color: #dec9c9;
+#settings-icon{
+  max-width: -webkit-fill-available;
+}
+
+/*.title-area.col-10{*/
+/*  max-width: justify-content: ;*/
+/*}*/
+span.adjustments-title {
+  vertical-align: -webkit-baseline-middle;
+  /*padding-top: 0.5rem;*/
+}
+
+/*#settingstitle{*/
+/*  font-size: 1.2em; !* Adjust the font size as needed *!*/
+/*  !*padding-top: 0.5em;*!*/
+/*  !*padding-bottom: 1em;*!*/
+/*  font-weight: bolder;*/
+/*}*/
+
+
+.adjustments-title {
+  font-size: 1.2em; /* Adjust the font size as needed */
+  /* Add additional styling as needed */
+}
+
+
+#candidate-selections-box{
+  background-color: #E8D3A1FF;
+  /*background-color: #dec9c9;*/
   border-radius: 5px;
-  text-align: center;
+  text-align:center;
   /*margin: 5%;*/
 }
 
 .legend-section {
-  background-color: whitesmoke;
+  background-color: rgba(255, 255, 255, .7);
   border-radius: 5px;
   margin-bottom: calc(1.5rem + 1px);
   padding: 1rem;
-  padding-top: 0.5rem;
+  padding-top: .5rem;
+}
+#legend-panel-row1 {
+  justify-content: center;
+}
+#legend-panel-row2 {
+  justify-content: center;
 }
 
 .blurred-image {
@@ -1094,6 +1132,7 @@ canvas {
   /*filter: blur(1px);*/
 }
 
+
 .candidate-name {
   position: absolute;
   top: 50%;
@@ -1112,6 +1151,7 @@ canvas {
   /*filter: blur(1px);*/
   box-shadow: inset white 0 0 3px;
 }
+
 
 .candidate_containers img:hover + .candidate-name {
   transform: translate(-50%, -50%) scale(1.5); /* Scale up the text on hover */
@@ -1134,7 +1174,7 @@ canvas {
   transition: opacity 0.3s; /* Smooth transition for fading in/out */
 }
 
-#dynamic-chart-title {
+#dynamic-chart-title{
   text-align: center;
   font-size: 20px;
   font-weight: bolder;

@@ -8,7 +8,7 @@ let totalWidth = bump_leftcol_pxls + requiredSpaceForText;
 // Adjust left margin to center the plot within the total width
 let margin_bump = {
     top: 40,
-    right: (totalWidth - bump_leftcol_pxls) / 2,
+    right: (totalWidth - bump_leftcol_pxls) / 2 + 40,
     bottom: 70,
     left: (totalWidth - bump_leftcol_pxls) / 2 // Adjusted left margin
 };
@@ -63,6 +63,11 @@ d3.csv("data/labeled.csv", row => {
     const xAxis = svg_bump.append('g').attr('transform', `translate(0,${height_bump+30})`);
     const yAxis = svg_bump.append('g');
 
+    // Filter data to only include specified candidates consistently in the top ten of mentions
+    let selected_candidates = ['Biden', 'Trump', 'DeSantis', 'Haley', 'Ramaswamy', 'Scott', 'Pence', 'Christie']
+
+    // Set a color scale by candidate name
+    const colorScale = candidateColorMap;
 
     // call update visualization function
     updateVisualization()
@@ -78,14 +83,6 @@ d3.csv("data/labeled.csv", row => {
 
         // Get the selected attribute from the dropdown
         let column = document.getElementById("bump-chart-selection").value;
-
-        // Filter data to only include specified candidates consistently in the top ten of mentions
-        let selected_candidates = ['Biden', 'Trump', 'DeSantis', 'Haley', 'Ramaswamy', 'Scott', 'Pence', 'Christie']
-
-        // Set a color scale by candidate name
-        const colorScale = d3.scaleOrdinal()
-            .domain(selected_candidates) // Use selected_candidates list to maintain consistency
-            .range(d3.schemeCategory10); // Using a categorical color scheme
 
         let filtered_data = data.filter((d) => selected_candidates.includes(d.last_name));
 
@@ -199,7 +196,7 @@ d3.csv("data/labeled.csv", row => {
             .join('path')
             .attr("class", "line")
             .attr("d", (d) => line(d.values)) // Adjust to use 'values' directly
-            .style("stroke", (d) => colorScale(d.candidate)); // Use color scale for lines
+            .style("stroke", (d) => candidateColorMap[d.candidate.toLowerCase()]); // Use color scale for lines
 
         console.log(nestedRankedData);
         let formatDateToMonthDay = d3.timeFormat("%m/%d");
@@ -267,11 +264,11 @@ d3.csv("data/labeled.csv", row => {
             .attr("cy", (d) => yRankScale(d.rank)) // Positioning aligned with image
             .attr("r", imageSize / 1.5) // Adjust the radius to accommodate the image size and padding
             .style("fill", (d) => {
-                const originalColor = colorScale(d.candidate);
+                const originalColor = candidateColorMap[d.candidate.toLowerCase()];
                 const lighterColor = d3.interpolate(originalColor, "#f0f0f0")(0.6); // Adjust the second color value for the desired lightness
                 return lighterColor;
               })
-            .style("stroke", (d) => colorScale(d.candidate)) // Use color scale for stroke
+            .style("stroke", (d) => candidateColorMap[d.candidate.toLowerCase()]) // Use color scale for stroke
             .style("stroke-width", 5) // Use color scale for stroke
 
         // Update circles for data points to use candidate images
@@ -396,7 +393,7 @@ d3.csv("data/labeled.csv", row => {
             .transition()
             .duration(500)
             .attr("d", (d) => line(d.values)) // Adjust to use 'values' directly
-            .style("stroke", (d) => colorScale(d.candidate)) // Use color scale for lines
+            .style("stroke", (d) => candidateColorMap[d.candidate.toLowerCase()]) // Use color scale for lines
             .style("stroke-width", 5)
             .style("opacity", 1); // Adjust opacity as needed
 
@@ -409,7 +406,7 @@ d3.csv("data/labeled.csv", row => {
                 .attr("y", yRankScale(lastDataPoint.rank))
                 .attr("class", "cand_labels")
                 .text(candidateData.candidate)
-                .style("fill", colorScale(candidateData.candidate))
+                .style("fill", candidateColorMap[candidateData.candidate.toLowerCase()])
                 .style("font-weight", "bold")
                 .style("font-size", "18px")
                 .style("text-anchor", "start")

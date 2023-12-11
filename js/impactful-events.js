@@ -44,13 +44,6 @@ function initializeDashboard() {
     trump: true,
   };
 
-  //INSTEAD OF COLOR SCALE WHICH CAN CHANGE BASED ON ORDER OF INFO
-  // Create a mapping of candidates to colors with lower case keys
-  let candidateColorMap = {};
-  selected_candidates.forEach((candidate, index) => {
-    candidateColorMap[candidate.toLowerCase()] = d3.schemeCategory10[index];
-  });
-
   //let is_grey = false;
   let data = [];
   let xScale, yScale, xAxis, yAxis, filtered_date_data;
