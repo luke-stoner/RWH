@@ -292,7 +292,7 @@ export default function define(runtime, observer) {
     [
       "image1 (1).jpg",
       {
-        url: new URL("/img/white-house.png", import.meta.url),
+        url: new URL("img/white-house.png", import.meta.url),
         mimeType: "image/jpeg",
         toString,
       },

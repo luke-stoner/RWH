@@ -50,8 +50,8 @@
 
 @font-face {
   font-family: "cnn-font";
-  src: url("/fonts/cnn-webfont.woff2") format("woff2"),
-    url("/fonts/cnn-webfont.woff") format("woff");
+  src: url("fonts/cnn-webfont.woff2") format("woff2"),
+    url("fonts/cnn-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
