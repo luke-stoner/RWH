@@ -77,10 +77,10 @@ document.addEventListener("DOMContentLoaded", function () {
       if (destination.index === 15) {
         const ballotBox = document.getElementById("ballot-box");
         tl.fromTo(
-            ballotBox,
-            0.7,
-            { x: "100%", opacity: 0, scale: 0.5 },
-            { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut }
+          ballotBox,
+          0.7,
+          { x: "100%", opacity: 0, scale: 0.5 },
+          { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut }
         );
 
         tl.to(ballotBox, 1.5, {
@@ -93,21 +93,29 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   });
 
-  // Start with navbar hidden
   const navBar = document.getElementById("fp-nav");
-  // navBar.style.visibility = "hidden";
-
-  // UNCOMMENT WHEN WE ARE OUT OF DEVELOPMENT
-  // Disable scrolling initially
-  // fullPageInstance.setAllowScrolling(false);
-  // fullPageInstance.setKeyboardScrolling(false);
 
   // Event listeners to guide user through video playing process
   acceptButton.addEventListener("click", userAccepted);
   video.addEventListener("ended", videoEnded, false);
 
+  // Disable scrolling initially & hide nav bar
+  disableScrolling();
+  hideNavBar();
+
   function userAccepted() {
     fullPageInstance.moveSectionDown();
+    enableScrolling();
+    handleModalVisibility();
+    playProjectExplanationVideo();
+    showNavBar();
+  }
+
+  function hideNavBar() {
+    navBar.style.visibility = "hidden";
+  }
+  function showNavBar() {
+    navBar.style.visibility = "visible";
   }
 
   function disableScrolling() {
@@ -124,7 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
     this.removeAttribute("controls");
     this.removeAttribute("data-autoplay");
     this.classList.add("video-fade-out");
-    navBar.style.visibility = "visible";
     newsBar.style.visibility = "visible";
   }
 
@@ -157,8 +164,4 @@ document.addEventListener("DOMContentLoaded", function () {
       video.pause();
     });
   }
-
-  // Call the function to start observing the modal visibility
-  handleModalVisibility();
-  playProjectExplanationVideo();
 });
