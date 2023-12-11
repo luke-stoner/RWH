@@ -97,7 +97,8 @@ h3 {
 }
 
 .form-check {
-  padding-bottom: 10px }
+  padding-bottom: 10px;
+}
 
 #avg-sentiment-container {
   padding-top: 90px;
@@ -927,4 +928,70 @@ body .testimonial .row .tabs li.active figure::before {
 canvas {
   width: -webkit-fill-available !important;
   max-width: -webkit-fill-available !important;
+}
+
+/*TELEVISION*/
+.tv {
+  width: 70%; /* Adjust as needed */
+  height: auto; /* Adjust as needed */
+  background-color: black; /* TV's outer color */
+  border-radius: 20px; /* Rounded corners for TV */
+  padding: 20px; /* Space for TV frame */
+  box-shadow: 0px 0px 10px 5px grey; /* Shadow for 3D effect */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4%;
+}
+
+.tv-content {
+  width: 100%;
+  height: 100%;
+  background-color: white; /* Background for the content */
+  border-radius: 10px; /* Slightly rounded corners inside the TV */
+  /* Additional styling for your content */
+}
+/* Antennas on the top of the TV */
+.tv .antenna-left,
+.tv .antenna-right {
+  content: "";
+  position: absolute;
+  bottom: 97%; /* Position at the top of the TV */
+  background: black;
+}
+
+/* Left antenna */
+.tv .antenna-left {
+  right: 55%; /* Start from the middle and extend leftwards */
+  height: 65px; /* Adjust the height as needed */
+  width: 6px; /* Antenna thickness */
+  transform: rotate(-30deg); /* Angle to the left */
+}
+
+/* Right antenna */
+.tv .antenna-right {
+  left: 55%; /* Start from the middle and extend rightwards */
+  height: 65px; /* Adjust the height as needed */
+  width: 6px; /* Antenna thickness */
+  transform: rotate(30deg); /* Angle to the right */
+}
+
+/* Optional: Adding "legs" to the TV for a more realistic effect */
+.tv:before,
+.tv:after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  width: 50px;
+  height: 20px;
+  background: black;
+}
+
+.tv:before {
+  left: 50px;
+}
+
+.tv:after {
+  right: 50px;
 }

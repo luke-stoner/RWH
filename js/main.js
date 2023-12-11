@@ -46,21 +46,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
 
-      if (destination.index == 5) {
+      if (destination.index == 6) {
         const candidateIntro = new CandidateIntroduction(
           candidate_descriptions
         );
       }
 
-      if (destination.index == 6) {
+      if (destination.index == 7) {
         const volumeBubbles = new BubbleChart();
       }
 
-      if (destination.index == 7) {
+      if (destination.index == 8) {
         const sentimentChart = new SentimentChart();
       }
 
-      if (destination.index == 10) {
+      if (destination.index == 11) {
         const byNetwork = new ByNetworkVisual();
       }
 
