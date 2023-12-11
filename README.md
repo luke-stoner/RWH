@@ -2,16 +2,25 @@
 
 This repository contains the following file structure for a web project:
 
-- `js`: Contains JavaScript files used in the project.
-- `css`: Holds Cascading Style Sheets (CSS) for styling the web pages.
-- `data`: Stores data files utilized within the project.
-- `drafts`: Houses draft or work-in-progress files.
-- `favicon`: Contains favicon files for the website.
-- `fonts`: Stores font files used in the project.
-- `img`: Holds image files used across the website.
-- `index.html`: Main HTML file serving as the entry point for the web project.
+      ├── LICENSE
+      ├── README.md
+      ├── css                     #CSS folder for all styling files
+            ├── style.css
+            └── inspector.css
+      ├── data                       
+            └── labeled.csv         #Data file that stores candidate/network info, text, and label for each mention
+      ├── favicon                
+      ├── fonts                  #Stores all custom fonts, including CNN font for headers
+      ├── img                    #Stores all image and video files used across the website
+            ├── candidate_portraits
+            ├── candidate_portraits_small
+            ├── intro_page
+            ├── networks 
+            └── ...   
+            
+      └── js
 
-Feel free to explore each directory to find relevant files and resources.
+Please feel free to further explore each directory to find relevant files and documentation.
 
 ## Usage
 
@@ -27,7 +36,7 @@ are placed in the `img` directory.
 
 ## Contributing
 
-Feel free to further our work in this project by forking the repository, making changes, and creating a pull request. 
+We encourage others to further our work in this project by forking the repository, making changes, and creating a pull request. 
 We just ask that you credit this original project in any future of this repository.
 
 ## License and Disclaimer
