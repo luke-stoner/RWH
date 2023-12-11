@@ -259,7 +259,14 @@ d3.csv("data/labeled.csv", row => {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
-                tooltip.html(`${d.name}<br/>Number of Mentions: ${d.frequency.toLocaleString()}<br/>Average Sentiment: ${d.avg_sentiment.toFixed(2)}`)
+                tooltip.html(`<div style="text-align: center; font-weight: bold;">
+                                ${d.name}
+                                </div>
+                                Number of Mentions: ${d.frequency.toLocaleString()}
+                                <br/>
+                                Positive Mentions: ${d.avg_sentiment.toFixed(2)*100}%
+                            `
+                    )
                     .style("left", (event.pageX + 15) + "px")
                     .style("top", (event.pageY - 30) + "px");
             })

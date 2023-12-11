@@ -391,29 +391,35 @@ class BubbleChart {
       .style("opacity", 0)
       .on("mouseover", function (event, d) {
         // Tooltip
-        const tooltip = d3.select("#volume-bubbles")
-            .append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
+        const tooltip = d3
+          .select("#volume-bubbles")
+          .append("div")
+          .attr("class", "tooltip")
+          .style("opacity", 0);
 
         tooltip
-            .style("opacity", 1)
-            .html(`Name: ${d.data.name}<br>Number of Mentions: ${d.data.frequency.toLocaleString()}`)
-            .style("left", `${event.pageX}px`)
-            .style("top", `${event.pageY - 28}px`);
+          .style("opacity", 1)
+          .html(
+            `<div style="text-align: center; font-weight: bold;">
+              ${d.data.name}
+            </div>
+            Number of Mentions: ${d.data.frequency.toLocaleString()}`
+          )
+          .style("left", `${event.pageX}px`)
+          .style("top", `${event.pageY - 28}px`);
 
         this.__tooltip = tooltip;
       })
       .on("mouseout", function (event, d) {
         if (this.__tooltip) {
           this.__tooltip
-              .transition()
-              .duration(200) // Set duration for the transition
-              .style("opacity", 0)
-              .remove()
-              .on("end", () => {
-                this.__tooltip = null;
-              });
+            .transition()
+            .duration(200) // Set duration for the transition
+            .style("opacity", 0)
+            .remove()
+            .on("end", () => {
+              this.__tooltip = null;
+            });
         }
       });
 

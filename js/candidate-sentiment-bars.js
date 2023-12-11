@@ -155,36 +155,42 @@ class SentimentChart {
       .attr("fill", (d) => PARTY_COLOR_MAP[d.party])
       .on("mouseover", function (event, d) {
         // Tooltip
-        const tooltip = d3.select("#candidate-sentiment-bars")
-            .append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
+        const tooltip = d3
+          .select("#candidate-sentiment-bars")
+          .append("div")
+          .attr("class", "tooltip")
+          .style("opacity", 0);
 
         tooltip
-            .style("opacity", 1)
-            .html(`Name: ${d.name}<br>Positive Mentions: ${d3.format(".1%")(d.avg_sentiment)}`)
-            .style("left", `${event.pageX}px`)
-            .style("top", `${event.pageY - 28}px`);
+          .style("opacity", 1)
+          .html(
+            `<div style="text-align: center; font-weight: bold;">
+                ${d.name}
+              </div>
+              Positive Mentions: ${d3.format(".1%")(d.avg_sentiment)}`
+          )
+          .style("left", `${event.pageX}px`)
+          .style("top", `${event.pageY - 28}px`);
 
         this.__tooltip = tooltip;
       })
       .on("mouseout", function (event, d) {
         if (this.__tooltip) {
           this.__tooltip
-              .transition()
-              .duration(200) // Set duration for the transition
-              .style("opacity", 0)
-              .remove()
-              .on("end", () => {
-                this.__tooltip = null;
-              });
+            .transition()
+            .duration(200) // Set duration for the transition
+            .style("opacity", 0)
+            .remove()
+            .on("end", () => {
+              this.__tooltip = null;
+            });
         }
       });
 
     bars
       .transition()
       .duration(this.transitionDuration)
-      .attr("width", (d) => this.x(d.avg_sentiment))
+      .attr("width", (d) => this.x(d.avg_sentiment));
   }
 
   createBarExtensions(data) {

@@ -338,15 +338,27 @@ d3.csv("data/labeled.csv", row => {
                     .duration(200)
                     .style("opacity", .9);
 
-                if (column === 'volume') {
-                    tooltip.html(`${d.candidate}<br/>Number of Mentions: ${d.label.toLocaleString()}`)
-                        .style("left", (event.pageX + 12) + "px")
-                        .style("top", (event.pageY - 25) + "px");
-                } else {
-                    tooltip.html(`${d.candidate}<br/>Positive Mentions: ${formatAsPercentage(d.label)}`)
-                        .style("left", (event.pageX + 12) + "px")
-                        .style("top", (event.pageY - 25) + "px");
-                }
+                    if (column === "volume") {
+                        tooltip
+                          .html(
+                            `<div style="text-align: center; font-weight: bold;">
+                                                  ${d.candidate}
+                                               </div>
+                                              Number of Mentions: ${d.label.toLocaleString()}`
+                          )
+                          .style("left", event.pageX + 12 + "px")
+                          .style("top", event.pageY - 25 + "px");
+                      } else {
+                        tooltip
+                          .html(
+                            `<div style="text-align: center; font-weight: bold;">
+                                  ${d.candidate}
+                               </div>
+                               Positive Mentions: ${formatAsPercentage(d.label)}`
+                          )
+                          .style("left", event.pageX + 12 + "px")
+                          .style("top", event.pageY - 25 + "px");
+                      }
             })
             .on("mouseout", function(d) {
                 // Restore opacity of all lines on mouseout
