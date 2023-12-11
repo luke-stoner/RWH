@@ -1,6 +1,6 @@
 # Race for the White House
 
-This repository contains the following file structure for a web project:
+This repository contains the following file structure:
 
       ├── LICENSE
       ├── README.md
