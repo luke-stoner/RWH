@@ -1,5 +1,5 @@
 import define from "./index.js";
-import { Runtime, Library, Inspector } from "./runtime.js";
+import { Runtime, Inspector } from "./runtime.js";
 
 function whiteHouseVisualization() {
   const runtime = new Runtime();
