@@ -88,34 +88,13 @@ h3 {
   z-index: 1;
 }
 
-#election-intro p {
-  font-size: 18px;
-}
-
-#election-intro-content {
-  margin-top: 10px;
-}
-
-.form-check {
-  padding-bottom: 10px;
-}
-
-#avg-sentiment-container {
-  padding-top: 90px;
-}
-
 .tooltip {
   position: absolute;
   text-align: left;
   padding: 10px;
   font: 14px sans-serif;
   pointer-events: none;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.95
-  ); /* Adjust the opacity as needed */
+  background-color: rgba(255, 255, 255, 0.95); /* Adjust the opacity as needed */
   border: 1px solid #aaa;
   border-radius: 4px;
   box-shadow: 0 0 5px #999;
@@ -145,7 +124,7 @@ h3 {
 .dropdown-textfield {
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  margin: 0;
 }
 
 .dropdown-textfield select {
@@ -262,10 +241,6 @@ h3 {
   background-position: center;
 }
 
-#ack-content p {
-  font-size: 18px;
-}
-
 #section-3 {
   background-image: url(https://static01.nyt.com/images/2019/04/26/us/politics/25bidenrunsHFO1/25bidenrunsHFO1-videoSixteenByNine3000.jpg);
   background-repeat: no-repeat;
@@ -284,7 +259,7 @@ h3 {
 
 .redBlock {
   /* background-color: #c90a3d; */
-  background-color: #e8d3a1;
+  background-color: #E8D3A1;
 }
 
 .blueBlock {
@@ -375,30 +350,6 @@ h3 {
   left: 50%;
   transform: translate(-50%, -50%);
   filter: drop-shadow(20px 5px 4px #a8a8a8);
-}
-
-#ballot-box {
-  height: 80%;
-  position: relative;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  filter: drop-shadow(20px 5px 4px #a8a8a8);
-}
-
-.conclusion-list {
-  padding-top: 10px;
-  list-style-type: square;
-}
-.conclusion-list li {
-  margin-bottom: 10px;
-  font-size: 18px;
-  font-weight: normal;
-}
-
-#conclusion {
-  font-size: 20px;
-  font-weight: bold;
 }
 
 #section-0 {
@@ -544,6 +495,10 @@ ul {
   list-style-type: none;
 }
 
+
+
+
+
 body .testimonial .row .tabs {
   all: unset;
   margin-right: 50px;
@@ -686,6 +641,7 @@ body .testimonial .row .carousel .carousel-indicators li.active {
   height: 2px;
 }
 
+
 body .testimonial .row .carousel .carousel-inner .carousel-item .quote-wrapper {
   margin-top: 42px;
 }
@@ -773,6 +729,7 @@ body .testimonial .row .tabs li.active figure::before {
   align-items: center;
 }
 
+
 .candidate_containers {
   position: relative; /* Needed to position the text over the image */
   /* Calculate width: 100% / 5 images per row - spacing */
@@ -803,19 +760,71 @@ body .testimonial .row .tabs li.active figure::before {
   opacity: 0.2;
 }
 
-#candidate-selections-box {
-  background-color: #dec9c9;
+/*#candidate-selections-box {*/
+/*  position: relative; !* This makes it a reference for absolute positioning *!*/
+/*  !* Other styles as needed *!*/
+/*}*/
+/*.title-area {*/
+/*  display: flex; !* Enables Flexbox *!*/
+/*  align-items: center; !* Vertically centers the items in the container *!*/
+/*  justify-content: flex-start; !* Aligns items to the start (left) of the container *!*/
+/*}*/
+
+/*#title-area.col-2 {*/
+/*  display: inline-flex;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*  !*width: fit-content;*!*/
+/*  !*height: auto; !* Maintain aspect ratio *!*!*/
+/*  !*margin-right: 10px; !* Space between the icon and the text *!*!*/
+/*}*/
+
+#settings-icon{
+  max-width: -webkit-fill-available;
+}
+
+/*.title-area.col-10{*/
+/*  max-width: justify-content: ;*/
+/*}*/
+span.adjustments-title {
+  vertical-align: -webkit-baseline-middle;
+  /*padding-top: 0.5rem;*/
+}
+
+/*#settingstitle{*/
+/*  font-size: 1.2em; !* Adjust the font size as needed *!*/
+/*  !*padding-top: 0.5em;*!*/
+/*  !*padding-bottom: 1em;*!*/
+/*  font-weight: bolder;*/
+/*}*/
+
+
+.adjustments-title {
+  font-size: 1.2em; /* Adjust the font size as needed */
+  /* Add additional styling as needed */
+}
+
+
+#candidate-selections-box{
+  background-color: #E8D3A1FF;
+  /*background-color: #dec9c9;*/
   border-radius: 5px;
-  text-align: center;
+  text-align:center;
   /*margin: 5%;*/
 }
 
 .legend-section {
-  background-color: whitesmoke;
+  background-color: rgba(255, 255, 255, .7);
   border-radius: 5px;
   margin-bottom: calc(1.5rem + 1px);
   padding: 1rem;
-  padding-top: 0.5rem;
+  padding-top: .5rem;
+}
+#legend-panel-row1 {
+  justify-content: center;
+}
+#legend-panel-row2 {
+  justify-content: center;
 }
 
 .blurred-image {
@@ -838,6 +847,7 @@ body .testimonial .row .tabs li.active figure::before {
   /*filter: blur(1px);*/
 }
 
+
 .candidate-name {
   position: absolute;
   top: 50%;
@@ -856,6 +866,7 @@ body .testimonial .row .tabs li.active figure::before {
   /*filter: blur(1px);*/
   box-shadow: inset white 0 0 3px;
 }
+
 
 .candidate_containers img:hover + .candidate-name {
   transform: translate(-50%, -50%) scale(1.5); /* Scale up the text on hover */
@@ -878,11 +889,11 @@ body .testimonial .row .tabs li.active figure::before {
   transition: opacity 0.3s; /* Smooth transition for fading in/out */
 }
 
-#dynamic-chart-title {
-  text-align: center;
-  font-size: 20px;
-  font-weight: bolder;
-  margin-bottom: 1rem;
+#dynamic-chart-title{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bolder;
+    margin-bottom: 1rem;
 }
 
 .loading-spinner {
@@ -904,20 +915,15 @@ body .testimonial .row .tabs li.active figure::before {
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-#bumpchartcolumn {
+#bumpchartcolumn{
   /*background-color: #ffffff;*/
   /*border-radius: 5px;*/
   text-align: center;
   /*margin: 5%;*/
-  padding-left: 80px;
 }
 
 .datapoint-image {
@@ -925,73 +931,309 @@ body .testimonial .row .tabs li.active figure::before {
   /*//transform: scale(1.5);*/
 }
 
-canvas {
-  width: -webkit-fill-available !important;
-  max-width: -webkit-fill-available !important;
+.settingsQ{
+    text-align: left;
 }
 
-/*TELEVISION*/
-.tv {
-  width: 70%; /* Adjust as needed */
-  height: auto; /* Adjust as needed */
-  background-color: black; /* TV's outer color */
-  border-radius: 20px; /* Rounded corners for TV */
-  padding: 20px; /* Space for TV frame */
-  box-shadow: 0px 0px 10px 5px grey; /* Shadow for 3D effect */
+
+
+/* .end of andrews last viz css */
+/*.checkbox-dropdown {*/
+/*  position: relative;*/
+/*}*/
+
+/*.checkbox-list {*/
+/*  display: none;*/
+/*  position: absolute;*/
+/*  !* Style as needed to match custom-dropdown-menu *!*/
+/*}*/
+
+/*.checkbox-list label {*/
+/*  display: block;*/
+/*  !* Additional styling *!*/
+/*}*/
+
+/*!* When shown *!*/
+/*.checkbox-list.show {*/
+/*  display: block;*/
+/*}*/
+
+.custom-dropdown-menu {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 4%;
+  display: inline-block;
 }
 
-.tv-content {
+.dropdown-button {
   width: 100%;
-  height: 100%;
-  background-color: white; /* Background for the content */
-  border-radius: 10px; /* Slightly rounded corners inside the TV */
-  /* Additional styling for your content */
+  text-align: left;
 }
-/* Antennas on the top of the TV */
-.tv .antenna-left,
-.tv .antenna-right {
+
+.checkbox-list {
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Base style for checkbox labels */
+/*.checkbox-label {*/
+/*  display: block;*/
+/*  position: relative;*/
+/*  padding-left: 35px; !* Space for the custom checkbox *!*/
+/*  margin-bottom: 12px;*/
+/*  cursor: pointer;*/
+/*  font-size: 16px; !* Adjust as needed *!*/
+/*  user-select: none; !* Prevent text selection *!*/
+/*  border: 1px solid #ddd; !* Optional border for the label *!*/
+/*  border-radius: 4px; !* Rounded corners for the label *!*/
+/*  background-color: #f8f8f8; !* Light background for the label *!*/
+/*  transition: background-color 0.2s; !* Smooth background transition *!*/
+/*}*/
+
+/* Hide the default checkbox */
+.checkbox-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+/*.checkbox-label::before {*/
+/*  content: "";*/
+/*  position: absolute;*/
+/*  left: 0;*/
+/*  top: 0;*/
+/*  width: 25px; !* Width of the custom checkbox *!*/
+/*  height: 25px; !* Height of the custom checkbox *!*/
+/*  background-color: white; !* Background color of the custom checkbox *!*/
+/*  border: 2px solid #ddd; !* Border for the custom checkbox *!*/
+/*  border-radius: 4px; !* Rounded corners for the custom checkbox *!*/
+/*}*/
+
+/* Change the appearance when hovering over an item */
+/*.checkbox-label:hover {*/
+/*  background-color: #ddd; !* Light grey background on hover *!*/
+/*}*/
+/*!* Style the label when checkbox is checked *!*/
+/*.checkbox-label input[type="checkbox"]:checked ~ .checkbox-label {*/
+/*  background-color: #e9e9e9; !* Light grey background when checked *!*/
+/*}*/
+/*!* Change the appearance of the label when its checkbox is checked *!*/
+/*.checkbox-label input[type="checkbox"]:checked + .checkmark {*/
+/*  background-color: #2196F3; !* Blue background for checked items *!*/
+/*  border-color: #2196F3; !* Blue border for checked items *!*/
+/*}*/
+
+/*!* Create a checkmark icon inside the checked items *!*/
+/*.checkbox-label input[type="checkbox"]:checked + .checkmark:after {*/
+/*  content: "";*/
+/*  position: absolute;*/
+/*  left: 9px;*/
+/*  top: 5px;*/
+/*  width: 5px;*/
+/*  height: 10px;*/
+/*  border: solid white;*/
+/*  border-width: 0 3px 3px 0;*/
+/*  transform: rotate(45deg);*/
+/*}*/
+
+/* Style for the label that wraps the checkbox */
+.checkbox-label {
+  display: block;
+  position: relative;
+  padding-left: 35px; /* Space for the custom checkbox */
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px; /* Adjust as needed */
+  user-select: none; /* Prevent text selection */
+  border: 1px solid #ddd; /* Optional border for the label */
+  border-radius: 4px; /* Rounded corners for the label */
+  background-color: #f8f8f8; /* Light background for the label */
+  transition: background-color 0.2s; /* Smooth background transition */
+}
+
+/* Hide the default checkbox */
+.checkbox-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkbox-label::before {
   content: "";
   position: absolute;
-  bottom: 97%; /* Position at the top of the TV */
-  background: black;
+  left: 0;
+  top: 0;
+  width: 25px; /* Width of the custom checkbox */
+  height: 25px; /* Height of the custom checkbox */
+  background-color: white; /* Background color of the custom checkbox */
+  border: 2px solid #ddd; /* Border for the custom checkbox */
+  border-radius: 4px; /* Rounded corners for the custom checkbox */
 }
 
-/* Left antenna */
-.tv .antenna-left {
-  right: 55%; /* Start from the middle and extend leftwards */
-  height: 65px; /* Adjust the height as needed */
-  width: 6px; /* Antenna thickness */
-  transform: rotate(-30deg); /* Angle to the left */
+/*!* Style the label when checkbox is checked *!*/
+/*.checkbox-label input[type="checkbox"]:checked ~ .checkbox-label {*/
+/*  background-color: #e9e9e9; !* Light grey background when checked *!*/
+/*}*/
+
+/*!* Create a custom checkmark *!*/
+/*.checkbox-label input[type="checkbox"]:checked ~ .checkbox-label::after {*/
+/*  content: "✔"; !* Unicode checkmark symbol *!*/
+/*  position: absolute;*/
+/*  left: 5px; !* Position of the checkmark *!*/
+/*  top: 2px; !* Position of the checkmark *!*/
+/*  font-size: 20px; !* Size of the checkmark *!*/
+/*  color: #2196F3; !* Color of the checkmark *!*/
+/*}*/
+
+/* Change the appearance when hovering over an item */
+.checkbox-label:hover {
+  background-color: #f0f0f0; /* Slightly darker background on hover */
 }
 
-/* Right antenna */
-.tv .antenna-right {
-  left: 55%; /* Start from the middle and extend rightwards */
-  height: 65px; /* Adjust the height as needed */
-  width: 6px; /* Antenna thickness */
-  transform: rotate(30deg); /* Angle to the right */
+/* Adjust the styles when the checkbox is focused */
+.checkbox-label input[type="checkbox"]:focus ~ .checkbox-label::before {
+  box-shadow: 0 0 3px 3px rgba(0, 123, 255, 0.25); /* Bootstrap's focus shadow style */
 }
 
-/* Optional: Adding "legs" to the TV for a more realistic effect */
-.tv:before,
-.tv:after {
-  content: "";
+/* Style for selected checkbox labels */
+.selected-checkbox {
+  background-color: #e9e9e9; /* Light grey background for selected items */
+  border-color: #2196F3; /* Blue border for selected items */
+}
+
+/* Style for the checkmark to be shown when a checkbox is selected */
+.selected-checkbox::after {
+  content: ""; /* Unicode checkmark symbol */
   position: absolute;
-  bottom: -20px;
-  width: 50px;
-  height: 20px;
-  background: black;
+  right: 10px; /* Position from the right */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px; /* Size of the checkmark */
+  color: #2196F3; /* Color of the checkmark */
 }
 
-.tv:before {
-  left: 50px;
-}
 
-.tv:after {
-  right: 50px;
-}
+/*!* Hide the browser's default checkbox *!*/
+/*.checkbox-label input {*/
+/*  position: absolute;*/
+/*  opacity: 0;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*!* Adjust the styles for the custom checkmark box (if needed) *!*/
+/*.checkbox-label .checkmark {*/
+/*  position: absolute;*/
+/*  top: 50%;*/
+/*  left: 10px;*/
+/*  transform: translateY(-50%);*/
+/*  height: 25px;*/
+/*  width: 25px;*/
+/*  background-color: #eee;*/
+/*  border-radius: 4px; !* Optional: rounds corners *!*/
+/*  transition: background-color 0.3s; !* Smooth transition for background changes *!*/
+/*}*/
+
+/*!* On mouse-over, add a grey background color *!*/
+/*.checkbox-label:hover input ~ .checkmark {*/
+/*  background-color: #ccc;*/
+/*}*/
+
+/*!* When the checkbox is checked, add a blue background *!*/
+/*.checkbox-label input:checked ~ .checkmark {*/
+/*  background-color: #2196F3;*/
+/*}*/
+
+/*!* Create the checkmark/indicator (hidden when not checked) *!*/
+/*.checkmark:after {*/
+/*  content: "";*/
+/*  position: absolute;*/
+/*  display: none;*/
+/*}*/
+
+/*!* Show the checkmark when checked *!*/
+/*.checkbox-label input:checked ~ .checkmark:after {*/
+/*  display: block;*/
+/*}*/
+
+/*!* Style the checkmark/indicator *!*/
+/*.checkbox-label .checkmark:after {*/
+/*  left: 9px;*/
+/*  top: 5px;*/
+/*  width: 5px;*/
+/*  height: 10px;*/
+/*  border: solid white;*/
+/*  border-width: 0 3px 3px 0;*/
+/*  -webkit-transform: rotate(45deg);*/
+/*  -ms-transform: rotate(45deg);*/
+/*  transform: rotate(45deg);*/
+/*}*/
+/*!* Style for the label that wraps the checkbox *!*/
+/*.checkbox-label {*/
+/*  display: block;*/
+/*  position: relative;*/
+/*  padding-left: 35px; !* Space for the custom checkbox *!*/
+/*  margin-bottom: 12px;*/
+/*  cursor: pointer;*/
+/*  font-size: 16px; !* Adjust as needed *!*/
+/*  user-select: none; !* Prevent text selection *!*/
+/*  border: 1px solid #ddd; !* Optional border for the label *!*/
+/*  border-radius: 4px; !* Rounded corners for the label *!*/
+/*  background-color: #f8f8f8; !* Light background for the label *!*/
+/*  transition: background-color 0.2s; !* Smooth background transition *!*/
+/*}*/
+
+/*!* Hide the default checkbox *!*/
+/*.checkbox-label input[type="checkbox"] {*/
+/*  position: absolute;*/
+/*  opacity: 0;*/
+/*  cursor: pointer;*/
+/*  height: 0;*/
+/*  width: 0;*/
+/*}*/
+
+/*!* Create a custom checkbox *!*/
+/*.checkbox-label::before {*/
+/*  content: "";*/
+/*  position: absolute;*/
+/*  left: 0;*/
+/*  top: 0;*/
+/*  width: 25px; !* Width of the custom checkbox *!*/
+/*  height: 25px; !* Height of the custom checkbox *!*/
+/*  background-color: white; !* Background color of the custom checkbox *!*/
+/*  border: 2px solid #ddd; !* Border for the custom checkbox *!*/
+/*  border-radius: 4px; !* Rounded corners for the custom checkbox *!*/
+/*}*/
+
+/*!* Style the label when checkbox is checked *!*/
+/*.checkbox-label input[type="checkbox"]:checked ~ .checkbox-label {*/
+/*  background-color: #e9e9e9; !* Light grey background when checked *!*/
+/*}*/
+
+/*!* Create a custom checkmark *!*/
+/*.checkbox-label input[type="checkbox"]:checked ~ .checkbox-label::after {*/
+/*  content: "✔"; !* Unicode checkmark symbol *!*/
+/*  position: absolute;*/
+/*  left: 5px; !* Position of the checkmark *!*/
+/*  top: 2px; !* Position of the checkmark *!*/
+/*  font-size: 20px; !* Size of the checkmark *!*/
+/*  color: #2196F3; !* Color of the checkmark *!*/
+/*}*/
+
+/*!* Change the appearance when hovering over an item *!*/
+/*.checkbox-label:hover {*/
+/*  background-color: #f0f0f0; !* Slightly darker background on hover *!*/
+/*}*/
+
+/*!* Adjust the styles when the checkbox is focused *!*/
+/*.checkbox-label input[type="checkbox"]:focus ~ .checkbox-label::before {*/
+/*  box-shadow: 0 0 3px 3px rgba(0, 123, 255, 0.25); !* Bootstrap's focus shadow style *!*/
+/*}*/
+
+
