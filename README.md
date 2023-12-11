@@ -1,5 +1,17 @@
 # Race for the White House
 
+##Project Summary
+
+Welcome to the Race for the White House! This repository contains html, javascript, css, and other supporting files to 
+create a comprehensive exploration of the media's coverage of the 2024 United States Presidential Election. The data for 
+this project is scraped from the Internet Archive's TV news archive, which is updated daily and contains millions of clips
+from local, national, and internatinal news networks. `labeled.csv` contains the cleaned closed captions from clips that 
+mention 2024 presidentials candidates, along with other data such as the date and network of the mention. Finally, the 
+text from each caption was fed to a RoBERTa-based sentiment analysis model to label the mention as either positive or 
+negative. The Race for the White House leverages this data to create unique, interesting visualizations that explore how
+both coverage sentiment and volume differ across candidates and networks.
+
+
 This repository contains the following file structure:
 
       ├── LICENSE
@@ -18,7 +30,7 @@ This repository contains the following file structure:
             ├── networks 
             └── ...   
             
-      └── js
+      └── js                      #Home of all javascript files for the site, to include visualization files as well as other styling and formatting
 
 Please feel free to further explore each directory to find relevant files and documentation.
 
