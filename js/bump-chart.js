@@ -266,7 +266,11 @@ d3.csv("data/labeled.csv", row => {
             .attr("cx", (d) => xScale(d.date)) // Positioning aligned with image
             .attr("cy", (d) => yRankScale(d.rank)) // Positioning aligned with image
             .attr("r", imageSize / 1.5) // Adjust the radius to accommodate the image size and padding
-            .style("fill", (d) => d3.color(colorScale(d.candidate)).copy({opacity: 0.4}))
+            .style("fill", (d) => {
+                const originalColor = colorScale(d.candidate);
+                const lighterColor = d3.interpolate(originalColor, "#f0f0f0")(0.6); // Adjust the second color value for the desired lightness
+                return lighterColor;
+              })
             .style("stroke", (d) => colorScale(d.candidate)) // Use color scale for stroke
             .style("stroke-width", 5) // Use color scale for stroke
 
@@ -319,19 +323,19 @@ d3.csv("data/labeled.csv", row => {
                 // Decrease opacity of other lines
                 svg_bump.selectAll(".line")
                     .style("opacity", function(lineData) {
-                        return lineData.candidate === d.candidate ? 1 : 0.3;
+                        return lineData.candidate === d.candidate ? 1 : 0.2;
                     });
 
                 // Decrease opacity of other circles' strokes
                 svg_bump.selectAll(".circles")
                     .style("stroke-opacity", function(circleData) {
-                        return circleData.candidate === d.candidate ? 1 : 0.3;
+                        return circleData.candidate === d.candidate ? 1 : 0.2;
                     });
 
                 // Decrease opacity of other images
                 svg_bump.selectAll(".datapoint-image")
                     .style("opacity", function(imageData) {
-                        return imageData.candidate === d.candidate ? 1 : 0.3;
+                        return imageData.candidate === d.candidate ? 1 : 0.2;
                     });
 
                 tooltip.transition()
