@@ -55,11 +55,12 @@ const CANDIDATE_COLORS = {
   trump: "<span style='color: #f00808; font-weight: bold;'>Trump</span>",
 };
 
-let width = 624;
-let height = 352;
+let width = 1000;
+let height = 500;
 
 function _n(width, height) {
   const n = Math.round((width * height) / 80);
+  //const n = 2000;
   return n;
 }
 async function loadCSV() {
@@ -73,8 +74,8 @@ function _height(data) {
 
 function replaceCandidateNamesWithSpans(text) {
   const regex = new RegExp(
-      "\\b(" + Object.keys(CANDIDATE_COLORS).join("|") + ")\\b",
-      "gi"
+    "\\b(" + Object.keys(CANDIDATE_COLORS).join("|") + ")\\b",
+    "gi"
   );
   return text.replace(regex, (match) => {
     return CANDIDATE_COLORS[match.toLowerCase()] || match;
@@ -138,45 +139,48 @@ function _2(DOM, width, height, script, invalidation, data, n) {
       }
     }
     d3.select(canvas).on("mousemove", _.throttle(function (event) {
-      const [mouseX, mouseY] = d3.pointer(event);
-      let isOverPoint = false;
-      const canvasMidpoint = width / 2;  // Calculate canvas midpoint
+        // Get mouse coordinates
+        const [mouseX, mouseY] = d3.pointer(event);
 
-      for (const point of pointData) {
-        const dx = mouseX - point.x;
-        const dy = mouseY - point.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 25) {
-          isOverPoint = true;
-          const updatedText = replaceCandidateNamesWithSpans(point.text);
-          const formattedDate = formatDate(point.date);
-          const tooltipHTML = `
-        <div>
-          <strong>Date:</strong> ${formattedDate}<br>
-          <strong>Network:</strong> ${point.network}<br><br>
-          ${updatedText}
-        </div>
-      `;
+        // Check if mouse is over any point
+        let isOverPoint = false;
+        for (const point of pointData) {
+          const dx = mouseX - point.x;
+          const dy = mouseY - point.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 25) {
+            isOverPoint = true;
+            // Replace candidate names in point.text
+            const updatedText = replaceCandidateNamesWithSpans(point.text);
+            const formattedDate = formatDate(point.date);
 
-          tooltip
-              .html(tooltipHTML)
-              .style("opacity", 1)
-              .style("top", mouseY + 200 + "px")
-              .style("left", mouseX < canvasMidpoint ? mouseX + 420 + "px" : mouseX - tooltip.node().getBoundingClientRect().width - 420 + "px");  // Adjust position based on canvas midpoint
+            const tooltipHTML = `
+          <div>
+            <strong>Date:</strong> ${formattedDate}<br>
+            <strong>Network:</strong> ${point.network}<br><br>
+            ${updatedText}
+          </div>
+        `;
+
+            tooltip
+                .html(tooltipHTML)
+                .style("opacity", 1)
+                .style("top", mouseY + 20 + "px")
+                .style("left", mouseX + 10 + "px");
+          }
         }
-      }
 
-      if (!isOverPoint) {
-        tooltip.style("opacity", 0);
-      }
-
-      // Attach mouseout event listener to the canvas
-      d3.select(canvas).on("mouseout", function () {
-        if (tooltip) {
+        if (!isOverPoint) {
           tooltip.style("opacity", 0);
         }
-      });
-    }, 4)); // Throttle with a delay of 100ms (adjust as needed)
+
+        // Attach mouseout event listener to the canvas
+        d3.select(canvas).on("mouseout", function () {
+          if (tooltip) {
+            tooltip.style("opacity", 0);
+          }
+        });
+    }, 100)); // Throttle with a delay of 100ms (adjust as needed)
 
 
 
@@ -189,8 +193,8 @@ function _2(DOM, width, height, script, invalidation, data, n) {
 
 async function _script(require, invalidation) {
   const blob = new Blob(
-      [
-        `
+    [
+      `
 importScripts("${await require.resolve("d3-delaunay@^5.1.1")}");
 
 onmessage = event => {
@@ -243,8 +247,8 @@ onmessage = event => {
   close();
 };
 `,
-      ],
-      { type: "text/javascript" }
+    ],
+    { type: "text/javascript" }
   );
   const script = URL.createObjectURL(blob);
   invalidation.then(() => URL.revokeObjectURL(script));
@@ -253,29 +257,29 @@ onmessage = event => {
 
 function _data(FileAttachment, width, DOM) {
   return FileAttachment("image1 (1).jpg")
-      .image()
-      .then((image) => {
-        const height = Math.round((width * image.height) / image.width);
-        const context = DOM.context2d(width, height, 1);
-        context.drawImage(
-            image,
-            0,
-            0,
-            image.width,
-            image.height,
-            0,
-            0,
-            width,
-            height
-        );
-        const { data: rgba } = context.getImageData(0, 0, width, height);
-        const data = new Float64Array(width * height);
-        for (let i = 0, n = rgba.length / 4; i < n; ++i)
-          data[i] = Math.max(0, 1 - rgba[i * 4] / 254);
-        data.width = width;
-        data.height = height;
-        return data;
-      });
+    .image()
+    .then((image) => {
+      const height = Math.round((width * image.height) / image.width);
+      const context = DOM.context2d(width, height, 1);
+      context.drawImage(
+        image,
+        0,
+        0,
+        image.width,
+        image.height,
+        0,
+        0,
+        width,
+        height
+      );
+      const { data: rgba } = context.getImageData(0, 0, width, height);
+      const data = new Float64Array(width * height);
+      for (let i = 0, n = rgba.length / 4; i < n; ++i)
+        data[i] = Math.max(0, 1 - rgba[i * 4] / 254);
+      data.width = width;
+      data.height = height;
+      return data;
+    });
 }
 
 export default function define(runtime, observer) {
@@ -294,21 +298,21 @@ export default function define(runtime, observer) {
     ],
   ]);
   main.builtin(
-      "FileAttachment",
-      runtime.fileAttachments((name) => fileAttachments.get(name))
+    "FileAttachment",
+    runtime.fileAttachments((name) => fileAttachments.get(name))
   );
   main
-      .variable(observer())
-      .define(
-          ["DOM", "width", "height", "script", "invalidation", "data", "n"],
-          _2
-      );
+    .variable(observer())
+    .define(
+      ["DOM", "width", "height", "script", "invalidation", "data", "n"],
+      _2
+    );
   main
-      .variable(observer("script"))
-      .define("script", ["require", "invalidation"], _script);
+    .variable(observer("script"))
+    .define("script", ["require", "invalidation"], _script);
   main
-      .variable(observer("data"))
-      .define("data", ["FileAttachment", "width", "DOM"], _data);
+    .variable(observer("data"))
+    .define("data", ["FileAttachment", "width", "DOM"], _data);
   main.variable(observer("n")).define("n", ["width", "height"], _n);
   main.variable(observer("height")).define("height", ["data"], _height);
   return main;

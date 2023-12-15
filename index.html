@@ -59,6 +59,10 @@
   </head>
 
   <body>
+  <div id="loading">
+    <img src="https://cdn.dribbble.com/users/626506/screenshots/2661024/800600.gif" alt="Loading..."/>
+  </div>
+  <div id="main-content" style="display: none;"></div>
     <div class="row">
       <div id="fullpage">
         <!--BEGIN INTRO-->
@@ -1147,6 +1151,7 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="https://unpkg.com/d3-simple-slider"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <!--Internal Scripts-->
     <script src="js/constants.js"></script>
     <script type="module" src="js/white_house/white-house.js"></script>
@@ -1163,5 +1168,20 @@
     <script src="js/bump-chart.js"></script>
     <script src="js/impactful-events.js"></script>
     <script src="js/project-intro.js"></script>
+    <script>
+      window.addEventListener('load', function() {
+        var loading = document.getElementById('loading');
+        var mainContent = document.getElementById('main-content');
+
+        // Start the fade-out
+        loading.style.opacity = '0';
+
+        // Wait for the fade-out to finish
+        setTimeout(function() {
+          loading.style.display = 'none';
+          mainContent.style.display = 'block'; // Show the main content
+        }, 500); // This duration should match the CSS transition time
+      });
+    </script>
   </body>
 </html>
