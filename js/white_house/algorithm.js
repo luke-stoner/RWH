@@ -294,21 +294,21 @@ export default function define(runtime, observer) {
     ],
   ]);
   main.builtin(
-      "FileAttachment",
-      runtime.fileAttachments((name) => fileAttachments.get(name))
+    "FileAttachment",
+    runtime.fileAttachments((name) => fileAttachments.get(name))
   );
   main
-      .variable(observer())
-      .define(
-          ["DOM", "width", "height", "script", "invalidation", "data", "n"],
-          _2
-      );
+    .variable(observer())
+    .define(
+      ["DOM", "width", "height", "script", "invalidation", "data", "n"],
+      _2
+    );
   main
-      .variable(observer("script"))
-      .define("script", ["require", "invalidation"], _script);
+    .variable(observer("script"))
+    .define("script", ["require", "invalidation"], _script);
   main
-      .variable(observer("data"))
-      .define("data", ["FileAttachment", "width", "DOM"], _data);
+    .variable(observer("data"))
+    .define("data", ["FileAttachment", "width", "DOM"], _data);
   main.variable(observer("n")).define("n", ["width", "height"], _n);
   main.variable(observer("height")).define("height", ["data"], _height);
   return main;
