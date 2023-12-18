@@ -116,6 +116,22 @@ class CandidateIntroduction {
       "candidate-modal-mentions"
     );
 
+    const candidateWebsiteModal = document.getElementById("candidate-modal-website");
+    const candidateCampaignSite = candidate.campaign_site
+
+    if (candidateCampaignSite.endsWith('.com')) {
+      const link = document.createElement('a');
+      link.href = 'https://' + candidateCampaignSite;
+      link.textContent = candidateCampaignSite;
+
+      // Clear existing content before appending the link
+      candidateWebsiteModal.textContent = '';
+      candidateWebsiteModal.appendChild(link);
+    } else {
+      // If it doesn't end with '.com', set text content directly
+      candidateWebsiteModal.textContent = candidateCampaignSite;
+    }
+
     candidate
       .calculateMentions()
       .then((mentionCount) => {

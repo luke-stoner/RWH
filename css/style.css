@@ -532,6 +532,11 @@ h3 {
   /* Style for the label text */
 }
 
+#candidate-modal-image {
+  max-height: 250px;
+  justify-content: center;
+}
+
 #candidate-modal-bio {
   padding: 1em;
 }

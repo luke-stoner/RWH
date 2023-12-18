@@ -230,7 +230,15 @@ d3.csv("data/labeled.csv", row => {
             .attr("cx", d => xScale(d.frequency))
             .attr("cy", d => yScale(d.avg_sentiment))
             .attr("r", 20) // Adjust the radius as needed
-            .attr("fill", d => d.party === "R" ? "#c93235" : "#1475b7")
+            .attr("fill", d => {
+                if (d.party === "R") {
+                    return "#c93235"; // Red for Republican
+                } else if (d.party === "I") {
+                    return "#A9A9A9"; // Grey for Independent
+                } else {
+                    return "#1475b7"; // Blue for others (assuming "D" for Democrat)
+                }
+            })
             .style("stroke", "grey")
             .attr("opacity", 0.7);
 

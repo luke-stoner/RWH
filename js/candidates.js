@@ -7,6 +7,7 @@ class Candidate {
     image,
     state,
     birthday,
+    campaign_site,
     alternate_image,
     modal_bio
   ) {
@@ -17,6 +18,7 @@ class Candidate {
     this.image = image;
     this.state = state;
     this.birthday = birthday;
+    this.campaign_site = campaign_site;
     this.alternate_image = alternate_image;
     this.modal_bio = modal_bio;
   }
@@ -89,6 +91,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/biden.png",
     state: "Delaware",
     birthday: "November 20, 1942",
+    campaign_site: "joebiden.com",
     alternate_image:
       "https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F190520113023-joe-biden-philadelphia-05182019.jpg",
     modal_bio:
@@ -102,6 +105,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/burgum.png",
     state: "North Dakota",
     birthday: "August 1, 1956",
+    campaign_site: "*Dropped Out of Race December 4th",
     alternate_image:
       "https://media.npr.org/assets/img/2023/06/07/ap23158602259345_wide-2269bafb193844302f7aaaf56eed058319a1c011-s1400-c100.jpg",
     modal_bio:
@@ -115,6 +119,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/christie.png",
     state: "New Jersey",
     birthday: "September 6, 1962",
+    campaign_site: "chrischristie.com",
     alternate_image:
       "https://s.abcnews.com/images/Politics/ap_christie_kb_150630_16x9_992.jpg",
     modal_bio:
@@ -128,6 +133,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/desantis.png",
     state: "Florida",
     birthday: "September 14, 1978",
+    campaign_site: "rondesantis.com",
     alternate_image:
       "https://image.cnbcfm.com/api/v1/image/107250491-1685744108263-gettyimages-1258386230-desantisgilbertsc-1-10.jpeg?v=1689190175&w=929&h=523&vtcrop=y",
     modal_bio:
@@ -141,6 +147,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/elder.png",
     state: "California",
     birthday: "April 27, 1952",
+    campaign_site: "*Dropped Out of Race October 26th",
     alternate_image:
       "https://static01.nyt.com/images/2023/10/26/multimedia/26pol-elder-vjqc/26pol-elder-vjqc-videoSixteenByNine3000.jpg",
     modal_bio:
@@ -154,6 +161,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/hutchinson.png",
     state: "Arkansas",
     birthday: "December 3, 1950",
+    campaign_site: "asa2024.com",
     alternate_image:
       "https://i.abcnewsfe.com/a/80621974-a42e-472d-9d50-767adc28883f/asa-hutchinson-annoucement-02-ap-jef-230426_1682530978181_hpMain_16x9.jpg?w=992",
     modal_bio:
@@ -167,6 +175,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/haley.png",
     state: "South Carolina",
     birthday: "January 20, 1972",
+    campaign_site: "nikkihaley.com",
     alternate_image:
       "https://static01.nyt.com/images/2023/02/15/multimedia/15pol-haley-trump-vlbk/15pol-haley-trump-vlbk-videoSixteenByNine3000.jpg",
     modal_bio:
@@ -180,6 +189,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/hurd.png",
     state: "Texas",
     birthday: "August 19, 1977",
+    campaign_site: "*Dropped Out of Race October 9th",
     alternate_image:
       "https://static01.nyt.com/images/2023/06/07/multimedia/00pol-hurd-hfo-tvmk/00pol-hurd-hfo-tvmk-videoSixteenByNine3000.jpg",
     modal_bio:
@@ -193,6 +203,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/johnson.png",
     state: "Michigan",
     birthday: "January 23, 1948",
+    campaign_site: "*Dropped Out of Race October 20th",
     alternate_image:
       "https://media.cnn.com/api/v1/images/stellar/prod/231020171419-perry-johnson-file-091623.jpg?c=16x9&q=h_720,w_1280,c_fill",
     modal_bio:
@@ -206,6 +217,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/kennedy.png",
     state: "Washington, D.C",
     birthday: "January 17, 1954",
+    campaign_site: "kennedy24.com",
     alternate_image:
       "https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2023-05/230405-robert-f-kennedy-jr-se-500p-72a6a6.jpg",
     modal_bio:
@@ -219,6 +231,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/pence.png",
     state: "Indiana",
     birthday: "June 7, 1959",
+    campaign_site: "*Dropped Out of Race October 28th",
     alternate_image:
       "https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2023-10/231014-mike-pence-mjf-1707-bb6d2a.jpg",
     modal_bio:
@@ -232,6 +245,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/ramaswamy.png",
     state: "Ohio",
     birthday: "August 9, 1985",
+    campaign_site: "vivek2024.com",
     alternate_image:
       "https://media.vanityfair.com/photos/64d64685f787e518faf0090c/16:9/w_2000,h_1125,c_limit/Vivek%20Ramaswamy.jpg",
     modal_bio:
@@ -245,6 +259,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/scott.png",
     state: "South Carolina",
     birthday: " September 19, 1965",
+    campaign_site: "*Dropped Out of Race November 13th",
     alternate_image:
       "https://media.npr.org/assets/img/2023/05/22/ap23142570032377_wide-8ecec39ca8919f0352c0c36ad4b28ea01a4e37b3.jpg",
     modal_bio:
@@ -258,6 +273,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/trump.png",
     state: "Florida",
     birthday: "June 14, 1946",
+    campaign_site: "donaldjtrump.com",
     alternate_image:
       "https://s7d2.scene7.com/is/image/TWCNews/ap223108119476261_11072022",
     modal_bio:
@@ -271,6 +287,7 @@ const candidate_descriptions = [
     image: "img/candidate_portraits/williamson.png",
     state: "Iowa",
     birthday: "July 8, 1952",
+    campaign_site: "marianne2024.com",
     alternate_image:
       "https://static.politico.com/7c/c0/a6a93bad4c008f4a8c11cdd0e55f/election-2024-williamson-44761.jpg",
     modal_bio:
