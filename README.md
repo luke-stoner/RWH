@@ -1,15 +1,23 @@
-<div style="display: flex; justify-content: center; align-items: center;">
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=2000&pause=1000&color=C90A3D&center=true&vCenter=true&random=false&width=435&lines=Race+for+the+White+House" alt="Typing SVG" /></a>
+<div align="center">
+    <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=3000&pause=3000&color=C90A3D&center=true&vCenter=true&random=false&width=435&lines=Race+for+the+White+House" alt="Typing SVG" /></a>
 </div>
 
-<div style="text-align: center;">
+<div align="center">
+    <img src="img/race-for-the-white-house.png" style="width:50%; height=auto;">
+</div>
+<div align="center">
     <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="Javascript">
     <img src="https://img.shields.io/badge/d3%20js-F9A03C?style=for-the-badge&logo=d3.js&logoColor=white" alt="D3.js">
     <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap">
     <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML">
     <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS">
-    <img src="img/race-for-the-white-house.png" style="width:60%; height=auto;">
+   
 </div>
+
+<div align="center">
+    Webiste can be found <a href="https://luke-stoner.github.io/RWH" />here</a>
+</div>
+
 
 
 
