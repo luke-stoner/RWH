@@ -9,7 +9,7 @@ class Candidate {
     birthday,
     campaign_site,
     alternate_image,
-    modal_bio
+    modal_bio,
   ) {
     this.first = first;
     this.last = last;
@@ -44,7 +44,7 @@ class Candidate {
       d3.csv("data/labeled.csv")
         .then((data) => {
           const mentions = data.filter(
-            (record) => record.last_name === this.last
+            (record) => record.last_name === this.last,
           );
           const mentionCount = mentions.length;
 
@@ -61,11 +61,11 @@ class Candidate {
       d3.csv("data/labeled.csv")
         .then((data) => {
           const mentions = data.filter(
-            (record) => record.last_name === this.last
+            (record) => record.last_name === this.last,
           );
           const totalMentions = mentions.length;
           const positiveMentions = mentions.filter(
-            (record) => record.label === "1"
+            (record) => record.label === "1",
           ).length;
 
           if (totalMentions === 0) {

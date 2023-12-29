@@ -23,7 +23,7 @@ class ByNetworkVisual {
     // Filter data for networks with more than 1000 records
     this.MINIMUM_THRESHOLD = 1000;
     const filteredData = data.filter(
-      (d) => networkCounts[d.network] > this.MINIMUM_THRESHOLD
+      (d) => networkCounts[d.network] > this.MINIMUM_THRESHOLD,
     );
 
     this.minDate = d3.min(filteredData, (d) => d.date).getTime();
@@ -56,7 +56,7 @@ class ByNetworkVisual {
       const selectedMaxYear = new Date(+values[1]);
 
       const filteredData = data.filter(
-        (d) => d.date >= selectedMinYear && d.date <= selectedMaxYear
+        (d) => d.date >= selectedMinYear && d.date <= selectedMaxYear,
       );
 
       this.updateByNetwork(filteredData);
@@ -65,7 +65,7 @@ class ByNetworkVisual {
 
   updateByNetwork(data) {
     const networks = Array.from(
-      new Set(data.map((d) => NETWORK_LOOKUP[d.network] || d.network))
+      new Set(data.map((d) => NETWORK_LOOKUP[d.network] || d.network)),
     ).sort(d3.ascending);
 
     const avgScores = d3
@@ -73,10 +73,10 @@ class ByNetworkVisual {
         data,
         (v) => d3.mean(v, (d) => d.label),
         (d) => d.network,
-        (d) => d.party
+        (d) => d.party,
       )
       .map(([network, partyData]) =>
-        partyData.map(([party, avgScore]) => ({ network, party, avgScore }))
+        partyData.map(([party, avgScore]) => ({ network, party, avgScore })),
       )
       .flat();
 
@@ -85,7 +85,7 @@ class ByNetworkVisual {
       avgScores.map((d) => [
         `${NETWORK_LOOKUP[d.network] || d.network}_${d.party}`,
         d.avgScore,
-      ])
+      ]),
     );
 
     // Function to get score for a network and party, defaults to 0
@@ -95,7 +95,7 @@ class ByNetworkVisual {
     // Create sentiment arrays
     const democratSentiment = networks.map((network) => getScore(network, "D"));
     const republicanSentiment = networks.map((network) =>
-      getScore(network, "R")
+      getScore(network, "R"),
     );
 
     this.createOrUpdateChart(networks, democratSentiment, republicanSentiment);
@@ -155,7 +155,7 @@ class ByNetworkVisual {
       .attr("x", this.width - this.legendAreaBuffer * 1.5)
       .attr("y", 0.98 * this.height)
       .text(
-        `* includes networks with over ${this.MINIMUM_THRESHOLD.toLocaleString()} mentions`
+        `* includes networks with over ${this.MINIMUM_THRESHOLD.toLocaleString()} mentions`,
       )
       .style("font-size", "14px");
 

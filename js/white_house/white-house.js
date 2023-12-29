@@ -5,7 +5,7 @@ function whiteHouseVisualization() {
   const runtime = new Runtime();
   const main = runtime.module(
     define,
-    Inspector.into(document.getElementById("special-viz"))
+    Inspector.into(document.getElementById("special-viz")),
   );
 
   // Get all elements with the class "observablehq"

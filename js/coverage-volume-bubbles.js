@@ -31,7 +31,7 @@ class BubbleChart {
         photo: `img/candidate_portraits/${v[0].last_name.toLowerCase()}.png`,
         party: v[0].party,
       }),
-      (d) => `${d.first_name}_${d.last_name}`
+      (d) => `${d.first_name}_${d.last_name}`,
     );
 
     this.createVisualization(Array.from(data.values()));
@@ -92,7 +92,7 @@ class BubbleChart {
       .style("stroke", (d) => PARTY_COLOR_MAP[d.party])
       .style(
         "stroke-width",
-        (d) => `${radiusScale(d.frequency) * strokeWidth}px`
+        (d) => `${radiusScale(d.frequency) * strokeWidth}px`,
       )
       .style("opacity", 0);
 
@@ -144,12 +144,12 @@ class BubbleChart {
       .attr(
         "width",
         (d) =>
-          2 * radiusScale(d.frequency) - radiusScale(d.frequency) * strokeWidth
+          2 * radiusScale(d.frequency) - radiusScale(d.frequency) * strokeWidth,
       )
       .attr(
         "height",
         (d) =>
-          2 * radiusScale(d.frequency) - radiusScale(d.frequency) * strokeWidth
+          2 * radiusScale(d.frequency) - radiusScale(d.frequency) * strokeWidth,
       )
       .style("opacity", 0)
       .style("clip-path", "circle(50%)");
@@ -165,14 +165,14 @@ class BubbleChart {
         (d, i) =>
           cumulativeWidths[i] -
           radiusScale(d.frequency) +
-          (radiusScale(d.frequency) * strokeWidth) / 2
+          (radiusScale(d.frequency) * strokeWidth) / 2,
       )
       .attr(
         "y",
         (d) =>
           height / 2 -
           radiusScale(d.frequency) +
-          (radiusScale(d.frequency) * strokeWidth) / 2
+          (radiusScale(d.frequency) * strokeWidth) / 2,
       )
       .style("opacity", 0);
 
@@ -238,7 +238,7 @@ class BubbleChart {
                             height / 2 -
                             radiusScale(d.frequency) -
                             radiusScale(d.frequency) * strokeWidth -
-                            10
+                            10,
                         )
                         .style("opacity", 1)
                         .end() // End of the current transition
@@ -265,11 +265,11 @@ class BubbleChart {
                               .style("opacity", 0) // Fade out images
                               .attr(
                                 "x",
-                                (d) => width / 2 - radiusScale(d.frequency)
+                                (d) => width / 2 - radiusScale(d.frequency),
                               ) // Center horizontally
                               .attr(
                                 "y",
-                                (d) => height / 2 - radiusScale(d.frequency)
+                                (d) => height / 2 - radiusScale(d.frequency),
                               ); // Center vertically
 
                             // Transition for circles
@@ -303,7 +303,7 @@ class BubbleChart {
                 .duration(500)
                 .attr(
                   "transform",
-                  `translate(${translateX}, ${translateY}) scale(${scale})`
+                  `translate(${translateX}, ${translateY}) scale(${scale})`,
                 )
                 .on("end", () => {
                   // After zooming, fade out the label
@@ -403,7 +403,7 @@ class BubbleChart {
             `<div style="text-align: center; font-weight: bold;">
               ${d.data.name}
             </div>
-            Number of Mentions: ${d.data.frequency.toLocaleString()}`
+            Number of Mentions: ${d.data.frequency.toLocaleString()}`,
           )
           .style("left", `${event.pageX}px`)
           .style("top", `${event.pageY - 28}px`);
@@ -439,7 +439,7 @@ class BubbleChart {
       .style("stroke", (d) => PARTY_COLOR_MAP[d.data.party])
       .style(
         "stroke-width",
-        (d) => `${radiusScale(d.data.frequency) * strokeWidth}px`
+        (d) => `${radiusScale(d.data.frequency) * strokeWidth}px`,
       )
       .style("opacity", 1);
 
@@ -452,7 +452,7 @@ class BubbleChart {
         "r",
         (d) =>
           radiusScale(d.data.frequency) -
-          (radiusScale(d.data.frequency) * strokeWidth) / 2
+          (radiusScale(d.data.frequency) * strokeWidth) / 2,
       );
 
     // Transition for images to scale up and fade in

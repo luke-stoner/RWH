@@ -1,1 +1,1 @@
-export {default} from "./algorithm.js";
+export { default } from "./algorithm.js";

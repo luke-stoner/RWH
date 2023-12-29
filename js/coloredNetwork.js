@@ -108,7 +108,7 @@ class NetworkCoverage {
       this.createGradient(
         gradientId,
         networkData.democrat_coverage,
-        networkData.republican_coverage
+        networkData.republican_coverage,
       );
 
       let cell = this.svg
@@ -116,7 +116,7 @@ class NetworkCoverage {
         .attr("class", "cell")
         .attr(
           "transform",
-          `translate(${col * this.gridSize}, ${row * this.gridSize})`
+          `translate(${col * this.gridSize}, ${row * this.gridSize})`,
         );
 
       cell
@@ -135,6 +135,6 @@ class NetworkCoverage {
 // Usage of the class
 const networkCoverage = new NetworkCoverage(
   "#network-coverage",
-  "data/labeled.csv"
+  "data/labeled.csv",
 );
 networkCoverage.loadData(); // This will now load and display the specified networks in a 2x2 grid

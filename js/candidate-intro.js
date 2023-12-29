@@ -5,7 +5,7 @@ class CandidateIntroduction {
     }
 
     this.candidates = data.map(
-      (candidateData) => new Candidate(...Object.values(candidateData))
+      (candidateData) => new Candidate(...Object.values(candidateData)),
     );
     this.partyColors = {
       Republican: REPUBLICAN_RED,
@@ -86,10 +86,11 @@ class CandidateIntroduction {
 
     // Recalculate rowHeight for the smaller vertical spacing
     this.rowHeight =
-      2 * (this.height -
-        2 * this.margin -
-        totalCircleHeight +
-        smallerVerticalPadding) /
+      (2 *
+        (this.height -
+          2 * this.margin -
+          totalCircleHeight +
+          smallerVerticalPadding)) /
       (this.rows - 1);
 
     this.svg = d3
@@ -105,7 +106,7 @@ class CandidateIntroduction {
     candidateNameModal.textContent = `${candidate.first} ${candidate.last}`;
 
     const candidateImageModal = document.getElementById(
-      "candidate-modal-image"
+      "candidate-modal-image",
     );
     candidateImageModal.src = candidate.alternate_image;
 
@@ -113,19 +114,21 @@ class CandidateIntroduction {
     candidateBioModal.textContent = candidate.modal_bio;
 
     const candidateMentionsModal = document.getElementById(
-      "candidate-modal-mentions"
+      "candidate-modal-mentions",
     );
 
-    const candidateWebsiteModal = document.getElementById("candidate-modal-website");
-    const candidateCampaignSite = candidate.campaign_site
+    const candidateWebsiteModal = document.getElementById(
+      "candidate-modal-website",
+    );
+    const candidateCampaignSite = candidate.campaign_site;
 
-    if (candidateCampaignSite.endsWith('.com')) {
-      const link = document.createElement('a');
-      link.href = 'https://' + candidateCampaignSite;
+    if (candidateCampaignSite.endsWith(".com")) {
+      const link = document.createElement("a");
+      link.href = "https://" + candidateCampaignSite;
       link.textContent = candidateCampaignSite;
 
       // Clear existing content before appending the link
-      candidateWebsiteModal.textContent = '';
+      candidateWebsiteModal.textContent = "";
       candidateWebsiteModal.appendChild(link);
     } else {
       // If it doesn't end with '.com', set text content directly
@@ -142,7 +145,7 @@ class CandidateIntroduction {
       });
 
     const candidatePositiveModal = document.getElementById(
-      "candidate-modal-positive-percent"
+      "candidate-modal-positive-percent",
     );
 
     candidate
@@ -169,13 +172,13 @@ class CandidateIntroduction {
         (d, i) =>
           `translate(${(i % this.columns) * this.colWidth + this.margin}, ${
             Math.floor(i / this.columns) * this.rowHeight + this.margin
-          })`
+          })`,
       )
       .on("mouseover", (event, candidate) =>
-        this.handleCircleMouseOver(event, candidate)
+        this.handleCircleMouseOver(event, candidate),
       )
       .on("mouseout", (event, candidate) =>
-        this.handleCircleMouseOut(event, candidate)
+        this.handleCircleMouseOut(event, candidate),
       )
       .on("click", (event, candidate) => {
         this.isModalOpen = true;
@@ -219,7 +222,7 @@ class CandidateIntroduction {
           this.circleRadius +
           "px " +
           this.circleRadius +
-          "px)"
+          "px)",
       );
 
     // Display full name below the circle
@@ -261,7 +264,7 @@ class CandidateIntroduction {
 
   reattachMouseOutEvents() {
     this.circles.on("mouseout", (event, candidate) =>
-      this.handleCircleMouseOut(event, candidate)
+      this.handleCircleMouseOut(event, candidate),
     );
   }
 
@@ -296,7 +299,7 @@ class CandidateIntroduction {
             this.circleRadius +
             "px " +
             this.circleRadius +
-            "px)"
+            "px)",
         );
     });
   }
@@ -308,7 +311,12 @@ class CandidateIntroduction {
     const legend = this.svg
       .append("g")
       .attr("class", "legend")
-      .attr("transform", `translate(${legendX + this.circlePadding}, ${this.height - this.margin})`);
+      .attr(
+        "transform",
+        `translate(${legendX + this.circlePadding}, ${
+          this.height - this.margin
+        })`,
+      );
 
     const legendItems = legend
       .selectAll(".legend-item")
@@ -374,7 +382,7 @@ class CandidateIntroduction {
             this.circleRadius * 1.025 +
             "px " +
             this.circleRadius * 1.025 +
-            "px)"
+            "px)",
         );
     }
   }
@@ -412,7 +420,7 @@ class CandidateIntroduction {
             this.circleRadius +
             "px " +
             this.circleRadius +
-            "px)"
+            "px)",
         );
     }
   }

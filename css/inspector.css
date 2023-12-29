@@ -86,6 +86,6 @@
 }
 
 canvas {
-    width: 100%; /* Make the canvas take the full width of its container */
-    max-width: -webkit-max-content; /* Set the maximum width for WebKit browsers */
-  }
+  width: 100%; /* Make the canvas take the full width of its container */
+  max-width: -webkit-max-content; /* Set the maximum width for WebKit browsers */
+}
