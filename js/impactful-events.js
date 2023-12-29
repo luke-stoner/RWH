@@ -72,12 +72,12 @@ function initializeDashboard() {
     console.log("selectedEvent", selectedEvent);
 
     let filtered_date_data = data.filter(
-      (d) => d.date >= startDate && d.date <= endDate
+      (d) => d.date >= startDate && d.date <= endDate,
     );
 
     // filter data to only include selected candidates
     let filteredData = filtered_date_data.filter(
-      (d) => candidateStatus[d.last_name.toLowerCase()]
+      (d) => candidateStatus[d.last_name.toLowerCase()],
     );
     // Group data by candidate
     const groupedData = d3.group(filteredData, (d) => d.last_name);
@@ -91,7 +91,7 @@ function initializeDashboard() {
         .range(startDate, d3.timeDay.offset(endDate, 0))
         .map((day) => {
           const filtered = values.filter(
-            (d) => d.date.getTime() === day.getTime()
+            (d) => d.date.getTime() === day.getTime(),
           );
           let metric;
           if (column === "volume") {
@@ -125,39 +125,51 @@ function initializeDashboard() {
             let formatMonth = d.getMonth() + 1; // getMonth() returns 0-11
             let formatDay = d.getDate(); // getDate() returns 1-31
             return `${formatMonth}/${formatDay}`; // Format without leading zeros
-          })
+          }),
       );
 
-    if (column === 'volume') {
+    if (column === "volume") {
       // Define your y-axis transition and call
-      yAxis.transition().duration(500).call(d3.axisLeft(yScale))
-          .attr("class", "y-axis");
+      yAxis
+        .transition()
+        .duration(500)
+        .call(d3.axisLeft(yScale))
+        .attr("class", "y-axis");
 
       // Remove existing y-axis text
       svg.select(".y-axis-title").remove();
 
       // Append axis text
-      svg.append("text")
-          .attr("class", "y-axis-title")
-          .attr("transform", `translate(${margin.left / 2 - 63},${height / 2}) rotate(-90)`)
-          .style("text-anchor", "middle")
-          .text("Number of Mentions");
-    }
-
-    else {
+      svg
+        .append("text")
+        .attr("class", "y-axis-title")
+        .attr(
+          "transform",
+          `translate(${margin.left / 2 - 63},${height / 2}) rotate(-90)`,
+        )
+        .style("text-anchor", "middle")
+        .text("Number of Mentions");
+    } else {
       // Define y axis
-      yAxis.transition().duration(500).call(d3.axisLeft(yScale).tickFormat(d3.format(".0%")))
-          .attr("class", "y-axis");
+      yAxis
+        .transition()
+        .duration(500)
+        .call(d3.axisLeft(yScale).tickFormat(d3.format(".0%")))
+        .attr("class", "y-axis");
 
       // Remove existing y-axis text
       svg.select(".y-axis-title").remove();
 
       // Append axis text
-      svg.append("text")
-          .attr("class", "y-axis-title")
-          .attr("transform", `translate(${margin.left / 2 - 63},${height / 2}) rotate(-90)`) // Adjust the position as needed
-          .style("text-anchor", "middle")
-          .text("Positive Mentions");
+      svg
+        .append("text")
+        .attr("class", "y-axis-title")
+        .attr(
+          "transform",
+          `translate(${margin.left / 2 - 63},${height / 2}) rotate(-90)`,
+        ) // Adjust the position as needed
+        .style("text-anchor", "middle")
+        .text("Positive Mentions");
     }
 
     // Custom Line Generator
@@ -233,7 +245,7 @@ function initializeDashboard() {
         var candidateName = d3.select(this).attr("data-candidate");
         var dataValue = d.label; // Assuming 'label' holds the numerical value you want to display
         var selectedMetric = document.getElementById(
-          "line-stat-selection-impact"
+          "line-stat-selection-impact",
         ).value; // Get the selected metric's name
         var date = d.date; // Assuming 'date' holds the date value
 
@@ -244,27 +256,28 @@ function initializeDashboard() {
           dataValue % 1 !== 0 ? parseFloat(dataValue).toFixed(2) : dataValue;
 
         // Update tooltip content with candidate name in bold and colored
-        if (column==='volume') {
+        if (column === "volume") {
           tooltip
-              .html(
-                  `<strong style='color: ${
-                      candidateColorMap[candidateName.toLowerCase()]
-                  };'>${candidateName}</strong><br/>Number of Mentions: ${formattedDataValue}<br/>Date: ${formattedDate}`
-              )
-              .style("opacity", 1)
-              .style("left", event.pageX + 10 + "px")
-              .style("top", event.pageY - 10 + "px");
-        }
-        else {
+            .html(
+              `<strong style='color: ${
+                candidateColorMap[candidateName.toLowerCase()]
+              };'>${candidateName}</strong><br/>Number of Mentions: ${formattedDataValue}<br/>Date: ${formattedDate}`,
+            )
+            .style("opacity", 1)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 10 + "px");
+        } else {
           tooltip
-              .html(
-                  `<strong style='color: ${
-                      candidateColorMap[candidateName.toLowerCase()]
-                  };'>${candidateName}</strong><br/>Positive Mentions: ${d3.format(".0%")(formattedDataValue)}<br/>Date: ${formattedDate}`
-              )
-              .style("opacity", 1)
-              .style("left", event.pageX + 10 + "px")
-              .style("top", event.pageY - 10 + "px");
+            .html(
+              `<strong style='color: ${
+                candidateColorMap[candidateName.toLowerCase()]
+              };'>${candidateName}</strong><br/>Positive Mentions: ${d3.format(
+                ".0%",
+              )(formattedDataValue)}<br/>Date: ${formattedDate}`,
+            )
+            .style("opacity", 1)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 10 + "px");
         }
 
         highlightLine(candidateName);
@@ -428,7 +441,6 @@ function initializeDashboard() {
       .call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m/%d"))); // This line sets the format to month/day
     yAxis = svg.append("g");
 
-
     // Update the visualization based on a change in selection in the dropdown menu
     document
       .getElementById("line-stat-selection-impact")
@@ -524,7 +536,7 @@ function initializeDashboard() {
 
   function adjustTextSize() {
     const candidateContainers = document.querySelectorAll(
-      ".candidate_containers"
+      ".candidate_containers",
     );
 
     candidateContainers.forEach((container) => {
@@ -597,16 +609,16 @@ function initializeDashboard() {
     .append("svg")
     .attr(
       "width",
-      width_timeline + margin_timeline.left + margin_timeline.right
+      width_timeline + margin_timeline.left + margin_timeline.right,
     )
     .attr(
       "height",
-      height_timeline + margin_timeline.top + margin_timeline.bottom
+      height_timeline + margin_timeline.top + margin_timeline.bottom,
     )
     .append("g")
     .attr(
       "transform",
-      "translate(" + margin_timeline.left + "," + margin_timeline.top + ")"
+      "translate(" + margin_timeline.left + "," + margin_timeline.top + ")",
     );
 
   let timelineXScale = d3.scaleTime().range([0, width_timeline - 25]);
@@ -621,16 +633,22 @@ function initializeDashboard() {
   timelineSvg.select(".x-axis").remove();
 
   // append new x axis
-  timelineSvg.append("text")
-      .attr("transform", `translate(${width_timeline / 2},${height_timeline + margin_timeline.bottom - 10})`) // Adjust the position as needed
-      .style("text-anchor", "middle")
-      .text("Date");
+  timelineSvg
+    .append("text")
+    .attr(
+      "transform",
+      `translate(${width_timeline / 2},${
+        height_timeline + margin_timeline.bottom - 10
+      })`,
+    ) // Adjust the position as needed
+    .style("text-anchor", "middle")
+    .text("Date");
 
   function updateTimelineVisualization(startDate, endDate, column) {
     timelineYAxis.remove();
     // Filter data for candidates that are included in the other chart
     let filteredCandidatesData = filtered_date_data_timeline.filter(
-      (d) => candidateStatus[d.last_name.toLowerCase()]
+      (d) => candidateStatus[d.last_name.toLowerCase()],
     );
     timelineYScale = d3.scaleLinear().range([height_timeline, 0]);
     timelineYAxis = timelineSvg.append("g");
@@ -638,7 +656,7 @@ function initializeDashboard() {
     // Then group this filtered data
     let groupedData_timeline = d3.group(
       filteredCandidatesData,
-      (d) => d.last_name
+      (d) => d.last_name,
     );
     // const groupedData_timeline = d3.group(filtered_date_data_timeline, d => d.last_name);
     let column_timeline = column;
@@ -653,11 +671,11 @@ function initializeDashboard() {
             .every(1)
             .range(
               d3.min(values, (d) => d.date),
-              d3.max(values, (d) => d.date)
+              d3.max(values, (d) => d.date),
             )
             .map((week) => {
               let filtered_timeline = values.filter(
-                (d) => d.date >= week && d.date < d3.timeWeek.offset(week, 1)
+                (d) => d.date >= week && d.date < d3.timeWeek.offset(week, 1),
               );
               //console.log(typeof filtered_timeline)
               // console.log(filtered_timeline.length
@@ -670,7 +688,7 @@ function initializeDashboard() {
               }
             });
           return { candidate: key, values: weeklyData_timeline };
-        }
+        },
       );
       //console.log(aggregatedData_timeline)
     } else {
@@ -682,17 +700,17 @@ function initializeDashboard() {
             .every(1)
             .range(
               d3.min(values, (d) => d.date),
-              d3.max(values, (d) => d.date)
+              d3.max(values, (d) => d.date),
             )
             .map((week) => {
               let filtered_timeline = values.filter(
-                (d) => d.date >= week && d.date < d3.timeWeek.offset(week, 1)
+                (d) => d.date >= week && d.date < d3.timeWeek.offset(week, 1),
               );
               let average_timeline = d3.mean(filtered_timeline, (d) => d.label);
               return { date: week, label: average_timeline };
             });
           return { candidate: key, values: weeklyData_timeline };
-        }
+        },
       );
     }
 

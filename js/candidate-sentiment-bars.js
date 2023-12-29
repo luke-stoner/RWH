@@ -51,7 +51,7 @@ class SentimentChart {
 
       const showAll = d3.select("#show-all-sentiment").property("checked");
       self.loadData(self.dataUrl, (rawData) =>
-        SentimentChart.filterData(rawData, showAll)
+        SentimentChart.filterData(rawData, showAll),
       );
     });
   }
@@ -91,7 +91,7 @@ class SentimentChart {
       .rollups(
         rawData,
         (v) => d3.mean(v, (d) => +d.label),
-        (d) => d.first_name + " " + d.last_name
+        (d) => d.first_name + " " + d.last_name,
       )
       .map((d) => d[1]);
 
@@ -121,7 +121,7 @@ class SentimentChart {
         d3
           .axisBottom(this.x)
           .tickValues([0, 0.25, 0.5, 0.75, 1])
-          .tickFormat(d3.format(".0%"))
+          .tickFormat(d3.format(".0%")),
       );
 
     this.svg
@@ -167,7 +167,7 @@ class SentimentChart {
             `<div style="text-align: center; font-weight: bold;">
                 ${d.name}
               </div>
-              Positive Mentions: ${d3.format(".1%")(d.avg_sentiment)}`
+              Positive Mentions: ${d3.format(".1%")(d.avg_sentiment)}`,
           )
           .style("left", `${event.pageX}px`)
           .style("top", `${event.pageY - 28}px`);
@@ -298,7 +298,7 @@ class SentimentChart {
       .rollups(
         rawData,
         (v) => d3.mean(v, (d) => +d.label),
-        (d) => d.first_name + " " + d.last_name
+        (d) => d.first_name + " " + d.last_name,
       )
       .map((d) => ({
         name: d[0],
@@ -316,7 +316,7 @@ class SentimentChart {
       .rollups(
         rawData,
         (v) => v.length,
-        (d) => d.first_name + " " + d.last_name
+        (d) => d.first_name + " " + d.last_name,
       )
       .sort((a, b) => d3.descending(a[1], b[1]));
 

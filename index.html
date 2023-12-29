@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Race for the White House</title>
@@ -59,10 +59,13 @@
   </head>
 
   <body>
-  <div id="loading">
-    <img src="https://cdn.dribbble.com/users/626506/screenshots/2661024/800600.gif" alt="Loading..."/>
-  </div>
-  <div id="main-content" style="display: none;"></div>
+    <div id="loading">
+      <img
+        src="https://cdn.dribbble.com/users/626506/screenshots/2661024/800600.gif"
+        alt="Loading..."
+      />
+    </div>
+    <div id="main-content" style="display: none"></div>
     <div class="row">
       <div id="fullpage">
         <!--BEGIN INTRO-->
@@ -166,13 +169,13 @@
               <div class="col-md-6 mx-auto text-center" style="width: 50%">
                 <div class="shadow bg-white rounded" id="tv-desc">
                   <p>
-                    The White House serves as the official home of
-                    the President of the United States. As every
-                    aspiring candidate strives to secure this prestigious
-                    residence, they inevitably attract significant media
-                    scrutiny. Hover over the above voronoi stippling image
-                    to uncover additional details! Each dot on the
-                    screen corresponds to one of the <strong>50,000+</strong>
+                    The White House serves as the official home of the President
+                    of the United States. As every aspiring candidate strives to
+                    secure this prestigious residence, they inevitably attract
+                    significant media scrutiny. Hover over the above voronoi
+                    stippling image to uncover additional details! Each dot on
+                    the screen corresponds to one of the
+                    <strong>50,000+</strong>
                     candidate mentions in our dataset.
                   </p>
                 </div>
@@ -639,7 +642,10 @@
               </div>
             </div>
             <div class="row">
-              <div class="shadow p-3 mb-5 bg-white rounded col-6" id="impact-event-intro">
+              <div
+                class="shadow p-3 mb-5 bg-white rounded col-6"
+                id="impact-event-intro"
+              >
                 <p>
                   Delve into the dynamics of political influence with our
                   interactive visualization. As you've journeyed through the ebb
@@ -648,8 +654,9 @@
                   we empower you to uncover these mysteries.
                 </p>
                 <p>
-                  Select from key political events, choose the candidates of interest, and
-                  decide whether to track coverage sentiment or volume.
+                  Select from key political events, choose the candidates of
+                  interest, and decide whether to track coverage sentiment or
+                  volume.
                 </p>
                 <p>
                   This tool is designed to bring your observations full circle,
@@ -661,7 +668,11 @@
                 </p>
               </div>
               <div class="col-md-6">
-                <img src="img/breakingnews.png" id="breaking-news-image" class="img-fluid" />
+                <img
+                  src="img/breakingnews.png"
+                  id="breaking-news-image"
+                  class="img-fluid"
+                />
               </div>
             </div>
           </div>
@@ -691,7 +702,7 @@
               <div class="row title-area" id="settingstitle">
                 <div class="col-md-12 mx-auto text-center">
                   <span class="adjustments-title"
-                  >Make Your Own Adjustments</span
+                    >Make Your Own Adjustments</span
                   >
                 </div>
               </div>
@@ -725,16 +736,22 @@
                   </div>
                 </div>
               </div>
-              <div id="metric-legend-container" class="container-fluid legend-section">
+              <div
+                id="metric-legend-container"
+                class="container-fluid legend-section"
+              >
                 <div class="col-md-12 mx-auto text-center">
                   <h5 class="dropdown-textfield">
                     Impact the
                     <span class="form-group">
-                    <select class="form-control" id="line-stat-selection-impact">
-                      <option value="volume">Number of Mentions</option>
-                      <option value="sentiment">Sentiment of Coverage</option>
-                    </select>
-                  </span>
+                      <select
+                        class="form-control"
+                        id="line-stat-selection-impact"
+                      >
+                        <option value="volume">Number of Mentions</option>
+                        <option value="sentiment">Sentiment of Coverage</option>
+                      </select>
+                    </span>
                   </h5>
                 </div>
               </div>
@@ -829,7 +846,10 @@
               </div>
             </div>
             <div class="row">
-              <div class="shadow p-3 mb-5 bg-white rounded col-6" id="conclusion-col">
+              <div
+                class="shadow p-3 mb-5 bg-white rounded col-6"
+                id="conclusion-col"
+              >
                 Many of our beliefs regarding the shortcomings of television
                 media were confirmed:
 
@@ -845,9 +865,9 @@
                     adversarial candidates
                   </li>
                   <li>
-                    There is a clear incumbency advantage in the media. The coverage
-                    of both President Biden and former President Trump dwarf that of
-                    the candidates.
+                    There is a clear incumbency advantage in the media. The
+                    coverage of both President Biden and former President Trump
+                    dwarf that of the candidates.
                   </li>
                 </ul>
 
@@ -1058,7 +1078,7 @@
             </div>
             <div class="row text-center">
               <div>
-                <p style="text-align: left;" id="candidate-modal-bio"></p>
+                <p style="text-align: left" id="candidate-modal-bio"></p>
               </div>
             </div>
             <div class="row text-center">
@@ -1172,17 +1192,17 @@
     <script src="js/impactful-events.js"></script>
     <script src="js/project-intro.js"></script>
     <script>
-      window.addEventListener('load', function() {
-        var loading = document.getElementById('loading');
-        var mainContent = document.getElementById('main-content');
+      window.addEventListener("load", function () {
+        var loading = document.getElementById("loading");
+        var mainContent = document.getElementById("main-content");
 
         // Start the fade-out
-        loading.style.opacity = '0';
+        loading.style.opacity = "0";
 
         // Wait for the fade-out to finish
-        setTimeout(function() {
-          loading.style.display = 'none';
-          mainContent.style.display = 'block'; // Show the main content
+        setTimeout(function () {
+          loading.style.display = "none";
+          mainContent.style.display = "block"; // Show the main content
         }, 500); // This duration should match the CSS transition time
       });
     </script>

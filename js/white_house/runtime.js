@@ -102,18 +102,20 @@ function y(n, a, o, i) {
       ? ((s = `Map(${n.size})`), (c = _))
       : ((s = "Map()"), (c = T))
     : n instanceof Set
-    ? n instanceof n.constructor
-      ? ((s = `Set(${n.size})`), (c = g))
-      : ((s = "Set()"), (c = T))
-    : f
-    ? ((s = `${n.constructor.name}(${n.length})`), (c = C))
-    : (u = h(n))
-    ? ((s = `Immutable.${u.name}${"Record" === u.name ? "" : `(${n.size})`}`),
-      (f = u.arrayish),
-      (c = u.arrayish ? N : u.setish ? E : A))
-    : i
-    ? ((s = d(n)), (c = x))
-    : ((s = d(n)), (c = T));
+      ? n instanceof n.constructor
+        ? ((s = `Set(${n.size})`), (c = g))
+        : ((s = "Set()"), (c = T))
+      : f
+        ? ((s = `${n.constructor.name}(${n.length})`), (c = C))
+        : (u = h(n))
+          ? ((s = `Immutable.${u.name}${
+              "Record" === u.name ? "" : `(${n.size})`
+            }`),
+            (f = u.arrayish),
+            (c = u.arrayish ? N : u.setish ? E : A))
+          : i
+            ? ((s = d(n)), (c = x))
+            : ((s = d(n)), (c = T));
   const p = document.createElement("span");
   (p.className = "observablehq--expanded"), o && p.appendChild(r(o));
   const m = p.appendChild(document.createElement("a"));
@@ -242,16 +244,18 @@ function L(e, n, a, o) {
         ? ((i = `Map(${e.size})`), (s = k))
         : ((i = "Map()"), (s = U))
       : e instanceof Set
-      ? e instanceof e.constructor
-        ? ((i = `Set(${e.size})`), (s = M))
-        : ((i = "Set()"), (s = U))
-      : u
-      ? ((i = `${e.constructor.name}(${e.length})`), (s = R))
-      : (l = h(e))
-      ? ((i = `Immutable.${l.name}${"Record" === l.name ? "" : `(${e.size})`}`),
-        (u = l.arrayish),
-        (s = l.arrayish ? P : l.setish ? I : D))
-      : ((i = d(e)), (s = U)),
+        ? e instanceof e.constructor
+          ? ((i = `Set(${e.size})`), (s = M))
+          : ((i = "Set()"), (s = U))
+        : u
+          ? ((i = `${e.constructor.name}(${e.length})`), (s = R))
+          : (l = h(e))
+            ? ((i = `Immutable.${l.name}${
+                "Record" === l.name ? "" : `(${e.size})`
+              }`),
+              (u = l.arrayish),
+              (s = l.arrayish ? P : l.setish ? I : D))
+            : ((i = d(e)), (s = U)),
     n)
   ) {
     const t = document.createElement("span");
@@ -276,7 +280,7 @@ function L(e, n, a, o) {
       function (t) {
         O(f) || (t.stopPropagation(), ie(f, y(e, 0, a, o)));
       },
-      !0
+      !0,
     ),
     (s = s(e));
   for (let e = 0; !(c = s.next()).done && e < 20; ++e)
@@ -396,8 +400,8 @@ function Z(e) {
   return t < 16
     ? "\\x0" + t.toString(16)
     : t < 32
-    ? "\\x" + t.toString(16)
-    : "\\" + e;
+      ? "\\x" + t.toString(16)
+      : "\\" + e;
 }
 function J(e, t) {
   for (var n = 0; t.exec(e); ) ++n;
@@ -460,14 +464,18 @@ function oe(e, t, n, a, i) {
         return n === ee
           ? re(n, "", t)
           : (r = /^(?:async\s*)?(\w+)\s*=>/.exec(a))
-          ? re(n, "(" + r[1] + ")", t)
-          : (r = /^(?:async\s*)?\(\s*(\w+(?:\s*,\s*\w+)*)?\s*\)/.exec(a)) ||
-            (r =
-              /^(?:async\s*)?function(?:\s*\*)?(?:\s*\w+)?\s*\(\s*(\w+(?:\s*,\s*\w+)*)?\s*\)/.exec(
-                a
-              ))
-          ? re(n, r[1] ? "(" + r[1].replace(/\s*,\s*/g, ", ") + ")" : "()", t)
-          : re(n, "(…)", t);
+            ? re(n, "(" + r[1] + ")", t)
+            : (r = /^(?:async\s*)?\(\s*(\w+(?:\s*,\s*\w+)*)?\s*\)/.exec(a)) ||
+                (r =
+                  /^(?:async\s*)?function(?:\s*\*)?(?:\s*\w+)?\s*\(\s*(\w+(?:\s*,\s*\w+)*)?\s*\)/.exec(
+                    a,
+                  ))
+              ? re(
+                  n,
+                  r[1] ? "(" + r[1].replace(/\s*,\s*/g, ", ") + ")" : "()",
+                  t,
+                )
+              : re(n, "(…)", t);
       })(e, a);
     case "string":
       return (function (e, t, n, a) {
@@ -516,7 +524,7 @@ function oe(e, t, n, a, i) {
         return (
           (i.className = "observablehq--string"),
           (i.textContent = JSON.stringify(
-            e.length > 100 ? `${e.slice(0, 50)}…${e.slice(-49)}` : e
+            e.length > 100 ? `${e.slice(0, 50)}…${e.slice(-49)}` : e,
           )),
           o
         );
@@ -590,7 +598,7 @@ class Inspector {
           r.firstChild &&
             r.firstChild.classList &&
             r.firstChild.classList.contains("observablehq--expanded"),
-          n
+          n,
         )).classList.add("observablehq--inspect"),
       r.classList.remove("observablehq--running", "observablehq--error"),
       r.firstChild !== t)
@@ -636,7 +644,7 @@ function ue(e) {
           return JSON.stringify(e) + ": d[" + t + '] || ""';
         })
         .join(",") +
-      "}"
+      "}",
   );
 }
 function fe(e) {
@@ -665,8 +673,8 @@ function pe(e) {
     : ((t = e.getUTCFullYear()) < 0
         ? "-" + de(-t, 6)
         : t > 9999
-        ? "+" + de(t, 6)
-        : de(t, 4)) +
+          ? "+" + de(t, 6)
+          : de(t, 4)) +
         "-" +
         de(e.getUTCMonth() + 1, 2) +
         "-" +
@@ -682,10 +690,10 @@ function pe(e) {
             de(o, 3) +
             "Z"
           : a
-          ? "T" + de(n, 2) + ":" + de(r, 2) + ":" + de(a, 2) + "Z"
-          : r || n
-          ? "T" + de(n, 2) + ":" + de(r, 2) + "Z"
-          : "");
+            ? "T" + de(n, 2) + ":" + de(r, 2) + ":" + de(a, 2) + "Z"
+            : r || n
+              ? "T" + de(n, 2) + ":" + de(r, 2) + "Z"
+              : "");
 }
 function me(e) {
   var t = new RegExp('["' + e + "\n\r]"),
@@ -714,8 +722,8 @@ function me(e) {
           (t = i) >= o
             ? (c = !0)
             : 10 === (r = e.charCodeAt(i++))
-            ? (l = !0)
-            : 13 === r && ((l = !0), 10 === e.charCodeAt(i) && ++i),
+              ? (l = !0)
+              : 13 === r && ((l = !0), 10 === e.charCodeAt(i) && ++i),
           e.slice(a + 1, t - 1).replace(/""/g, '"')
         );
       }
@@ -753,10 +761,10 @@ function me(e) {
     return null == e
       ? ""
       : e instanceof Date
-      ? pe(e)
-      : t.test((e += ""))
-      ? '"' + e.replace(/"/g, '""') + '"'
-      : e;
+        ? pe(e)
+        : t.test((e += ""))
+          ? '"' + e.replace(/"/g, '""') + '"'
+          : e;
   }
   return {
     parse: function (e, t) {
@@ -810,7 +818,7 @@ function ge(e) {
       else if (isNaN((n = +a))) {
         if (
           !(r = a.match(
-            /^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/
+            /^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/,
           ))
         )
           continue;
@@ -870,7 +878,7 @@ function tt(e) {
 }
 function nt(
   e = "https://cdn.jsdelivr.net/npm/",
-  t = ["unpkg", "jsdelivr", "browser", "main"]
+  t = ["unpkg", "jsdelivr", "browser", "main"],
 ) {
   if (!/\/$/.test(e)) throw new Error("origin lacks trailing slash");
   function n(t) {
@@ -883,7 +891,7 @@ function nt(
           (r = fetch(n).then((e) => {
             if (!e.ok) throw new RequireError("unable to load package.json");
             return e.redirected && !Ge.has(e.url) && Ge.set(e.url, r), e.json();
-          }))
+          })),
         ),
       r
     );
@@ -955,7 +963,7 @@ function at(e) {
               (r.src = e),
               (window.define = ct),
               document.head.appendChild(r);
-          }))
+          })),
         ),
       n
     );
@@ -971,7 +979,7 @@ function at(e) {
   return (
     (o.alias = function (t) {
       return at((n, r) =>
-        n in t && ((r = null), "string" != typeof (n = t[n])) ? n : e(n, r)
+        n in t && ((r = null), "string" != typeof (n = t[n])) ? n : e(n, r),
       );
     }),
     (o.resolve = e),
@@ -1006,14 +1014,14 @@ function ct(e, t, n) {
               a = { exports: r };
             return Promise.all(
               Ze.call(t, (t) =>
-                "exports" === (t += "") ? r : "module" === t ? a : e(t)
-              )
+                "exports" === (t += "") ? r : "module" === t ? a : e(t),
+              ),
             ).then((e) => (n.apply(null, e), a.exports));
           }
         : (e) =>
             Promise.all(Ze.call(t, e)).then((e) =>
-              "function" == typeof n ? n.apply(null, e) : n
-            )
+              "function" == typeof n ? n.apply(null, e) : n,
+            ),
     );
 }
 ct.amd = {};
@@ -1052,7 +1060,7 @@ class SQLiteDatabaseClient {
       bt(
         (await this.query(`EXPLAIN QUERY PLAN ${e}`, t))
           .map((e) => e.detail)
-          .join("\n")
+          .join("\n"),
       ),
     ]);
   }
@@ -1061,7 +1069,7 @@ class SQLiteDatabaseClient {
       `SELECT NULLIF(schema, 'main') AS schema, name FROM pragma_table_list() WHERE type = 'table'${
         null == e ? "" : " AND schema = ?"
       } AND name NOT LIKE 'sqlite_%' ORDER BY schema, name`,
-      null == e ? [] : [e]
+      null == e ? [] : [e],
     );
   }
   async describeColumns({ schema: e, table: t } = {}) {
@@ -1070,7 +1078,7 @@ class SQLiteDatabaseClient {
       `SELECT name, type, "notnull" FROM pragma_table_info(?${
         null == e ? "" : ", ?"
       }) ORDER BY cid`,
-      null == e ? [t] : [t, e]
+      null == e ? [t] : [t, e],
     );
     if (!n.length) throw new Error(`table not found: ${t}`);
     return n.map(({ name: e, type: t, notnull: n }) => ({
@@ -1090,7 +1098,7 @@ class SQLiteDatabaseClient {
       ht("thead", [
         ht(
           "tr",
-          n.map((e) => ht("th", [bt(e)]))
+          n.map((e) => ht("th", [bt(e)])),
         ),
       ]),
       ht(
@@ -1098,9 +1106,9 @@ class SQLiteDatabaseClient {
         t.map((e) =>
           ht(
             "tr",
-            n.map((t) => ht("td", [bt(e[t])]))
-          )
-        )
+            n.map((t) => ht("td", [bt(e[t])])),
+          ),
+        ),
       ),
     ]);
   }
@@ -1140,22 +1148,22 @@ function pt(e) {
       return "buffer";
     default:
       return /^(?:(?:(?:VARYING|NATIVE) )?CHARACTER|(?:N|VAR|NVAR)CHAR)\(/.test(
-        e
+        e,
       )
         ? "string"
         : /^(?:DECIMAL|NUMERIC)\(/.test(e)
-        ? "number"
-        : "other";
+          ? "number"
+          : "other";
   }
 }
 function mt(e) {
   return "string" == typeof e
     ? fetch(e).then(mt)
     : e instanceof Response || e instanceof Blob
-    ? e.arrayBuffer().then(mt)
-    : e instanceof ArrayBuffer
-    ? new Uint8Array(e)
-    : e;
+      ? e.arrayBuffer().then(mt)
+      : e instanceof ArrayBuffer
+        ? new Uint8Array(e)
+        : e;
 }
 function ht(e, t, n) {
   2 === arguments.length && ((n = t), (t = void 0));
@@ -1171,12 +1179,12 @@ function wt(e, t) {
   return null == e || null == t
     ? NaN
     : e < t
-    ? -1
-    : e > t
-    ? 1
-    : e >= t
-    ? 0
-    : NaN;
+      ? -1
+      : e > t
+        ? 1
+        : e >= t
+          ? 0
+          : NaN;
 }
 function vt(e, t = wt) {
   let n,
@@ -1310,7 +1318,7 @@ class DuckDBClient {
         type: At(t),
         nullable: "NO" !== n,
         databaseType: t,
-      })
+      }),
     );
   }
   static async of(e = {}, t = {}) {
@@ -1322,13 +1330,13 @@ class DuckDBClient {
               mvp: {
                 mainModule: `${lt}${Ve.resolve("dist/duckdb-mvp.wasm")}`,
                 mainWorker: `${lt}${Ve.resolve(
-                  "dist/duckdb-browser-mvp.worker.js"
+                  "dist/duckdb-browser-mvp.worker.js",
                 )}`,
               },
               eh: {
                 mainModule: `${lt}${Ve.resolve("dist/duckdb-eh.wasm")}`,
                 mainWorker: `${lt}${Ve.resolve(
-                  "dist/duckdb-browser-eh.worker.js"
+                  "dist/duckdb-browser-eh.worker.js",
                 )}`,
               },
             }),
@@ -1366,7 +1374,7 @@ class DuckDBClient {
               await Nt(n, e, r, a);
             }
           }
-        })
+        }),
       ),
       new DuckDBClient(n)
     );
@@ -1389,7 +1397,7 @@ async function Nt(e, t, n, r) {
             if (e.toString().includes("Could not convert"))
               return await (async function (e, t, n) {
                 const r = await e.prepare(
-                  `CREATE TABLE '${n}' AS SELECT * FROM read_csv_auto(?, ALL_VARCHAR=TRUE)`
+                  `CREATE TABLE '${n}' AS SELECT * FROM read_csv_auto(?, ALL_VARCHAR=TRUE)`,
                 );
                 return await r.send(t.name);
               })(o, n, t);
@@ -1412,7 +1420,7 @@ async function Nt(e, t, n, r) {
         }
         if (/\.parquet$/i.test(n.name))
           return await o.query(
-            `CREATE VIEW '${t}' AS SELECT * FROM parquet_scan('${n.name}')`
+            `CREATE VIEW '${t}' AS SELECT * FROM parquet_scan('${n.name}')`,
           );
         throw new Error(`unknown file type: ${n.mimeType}`);
     }
@@ -1594,7 +1602,7 @@ const It = Object.assign(
               if (!i.length) {
                 if (!r.columns)
                   throw new Error(
-                    "at least one column must be explicitly specified. Received '*'."
+                    "at least one column must be explicitly specified. Received '*'.",
                   );
                 zt("\nORDER BY ", l),
                   Wt({ column: r.columns[0], direction: "ASC" }, l, n);
@@ -1604,7 +1612,7 @@ const It = Object.assign(
                   `\nFETCH NEXT ${
                     null !== s.to ? s.to - (s.from || 0) : 1e9
                   } ROWS ONLY`,
-                  l
+                  l,
                 );
             }
           } else
@@ -1613,7 +1621,7 @@ const It = Object.assign(
               null !== s.from && zt(` OFFSET ${s.from}`, l);
           return l;
         })(t, e),
-        n
+        n,
       );
     var a, o;
     if (jt(e))
@@ -1740,7 +1748,7 @@ const It = Object.assign(
             o = t.select.columns.map((t) => e.get(t));
           }
           e = e.map((e) =>
-            Object.fromEntries(t.select.columns.map((t) => [t, e[t]]))
+            Object.fromEntries(t.select.columns.map((t) => [t, e[t]])),
           );
         }
         if (t.names) {
@@ -1768,7 +1776,7 @@ const It = Object.assign(
       async function () {
         return Ft(await Ut(await e, n), arguments, t);
       },
-  }
+  },
 );
 function Pt(e) {
   const t = new WeakMap();
@@ -1800,8 +1808,8 @@ const Rt = Pt(async (e, t) => {
     return _t(e) || yt(e)
       ? Dt(e, t)
       : jt(e) && Ot(e)
-      ? Array.from(e, (e) => ({ value: e }))
-      : e;
+        ? Array.from(e, (e) => ({ value: e }))
+        : e;
   }),
   Ut = Pt(async (e, t) => {
     if (e instanceof FileAttachment) {
@@ -1822,11 +1830,11 @@ const Rt = Pt(async (e, t) => {
             const n = await Ct();
             return Ot(e) ? n.tableFromArrays({ [t]: e }) : n.tableFromJSON(e);
           })(e, t),
-          t
+          t,
         )
       : _t(e) || yt(e)
-      ? Dt(e, t)
-      : e;
+        ? Dt(e, t)
+        : e;
   });
 function Dt(
   e,
@@ -1834,7 +1842,7 @@ function Dt(
     ? (function (e) {
         return e.name.replace(/@\d+(?=\.|$)/, "").replace(/\.\w+$/, "");
       })(e)
-    : "__table"
+    : "__table",
 ) {
   return DuckDBClient.of({ [t]: e });
 }
@@ -2017,15 +2025,15 @@ function ln(e, t) {
       return "bigint" == typeof e || null == e
         ? e
         : Number.isInteger("string" != typeof e || e.trim() ? +e : NaN)
-        ? BigInt(e)
-        : void 0;
+          ? BigInt(e)
+          : void 0;
     case "integer":
     case "number":
       return "number" == typeof e
         ? e
         : null == e || ("string" == typeof e && !e.trim())
-        ? NaN
-        : Number(e);
+          ? NaN
+          : Number(e);
     case "date": {
       if (e instanceof Date || null == e) return e;
       if ("number" == typeof e) return new Date(e);
@@ -2065,7 +2073,7 @@ function fn(e, t) {
   if (!t.names) return e;
   const n = new Map(t.names.map((e) => [e.column, e]));
   return e.map((e) =>
-    Object.fromEntries(Object.keys(e).map((t) => [n.get(t)?.name ?? t, e[t]]))
+    Object.fromEntries(Object.keys(e).map((t) => [n.get(t)?.name ?? t, e[t]])),
   );
 }
 function dn(e, t, n) {
@@ -2096,7 +2104,7 @@ function mn(
         for (const e in n)
           Object.prototype.hasOwnProperty.call(n, e) && t.add(e);
     return Array.from(t);
-  })(e)
+  })(e),
 ) {
   const n = [],
     r = e.slice(0, 100);
@@ -2122,12 +2130,12 @@ function mn(
           Array.isArray(r)
             ? ++t.array
             : r instanceof Date
-            ? ++t.date
-            : r instanceof ArrayBuffer
-            ? ++t.buffer
-            : "number" === a
-            ? (++t.number, Number.isInteger(r) && ++t.integer)
-            : a in t && ++t[a];
+              ? ++t.date
+              : r instanceof ArrayBuffer
+                ? ++t.buffer
+                : "number" === a
+                  ? (++t.number, Number.isInteger(r) && ++t.integer)
+                  : a in t && ++t[a];
       else {
         if (((r = r.trim()), !r)) continue;
         ++t.defined,
@@ -2135,8 +2143,8 @@ function mn(
           /^(true|false)$/i.test(r)
             ? ++t.boolean
             : r && !isNaN(r)
-            ? (++t.number, Number.isInteger(+r) && ++t.integer)
-            : cn.test(r) && ++t.date;
+              ? (++t.number, Number.isInteger(+r) && ++t.integer)
+              : cn.test(r) && ++t.date;
       }
     }
     const a = Math.max(1, 0.9 * t.defined),
@@ -2159,13 +2167,13 @@ class Workbook {
       "number" == typeof e
         ? this.sheetNames[e]
         : this.sheetNames.includes((e += ""))
-        ? e
-        : null;
+          ? e
+          : null;
     if (null == n) throw new Error(`Sheet not found: ${e}`);
     return (function (e, { range: t, headers: n } = {}) {
       let [[r, a], [o, i]] = (function (
         e = ":",
-        { columnCount: t, rowCount: n }
+        { columnCount: t, rowCount: n },
       ) {
         if (!(e += "").match(/^[A-Z]*\d*:[A-Z]*\d*$/))
           throw new Error("Malformed range specifier");
@@ -2249,7 +2257,7 @@ async function _n(e, t, { array: n = !1, typed: r = !1 } = {}) {
       const n = new Map(t.map(({ name: e, type: t }) => [e, t]));
       return Object.assign(
         e.map((e) => dn(e, n, t)),
-        { schema: t }
+        { schema: t },
       );
     })(e, mn(e, e.columns));
   }
@@ -2557,7 +2565,7 @@ function qn(e) {
     throw new Error(
       "function" == typeof a.then
         ? "async initializers are not supported"
-        : "initializer returned something, but not a dispose function"
+        : "initializer returned something, but not a dispose function",
     );
   return {
     [Symbol.iterator]: $n,
@@ -2637,7 +2645,7 @@ var Ln = Object.freeze({
       throw new Error(
         "function" == typeof r.then
           ? "async initializers are not supported"
-          : "initializer returned something, but not a dispose function"
+          : "initializer returned something, but not a dispose function",
       );
     return {
       [Symbol.iterator]: $n,
@@ -2715,8 +2723,8 @@ function kn(e, t) {
     return 1 === p.childNodes.length
       ? p.removeChild(p.firstChild)
       : 11 === p.nodeType
-      ? ((a = t()).appendChild(p), a)
-      : p;
+        ? ((a = t()).appendChild(p), a)
+        : p;
   };
 }
 const Mn = kn(
@@ -2726,7 +2734,7 @@ const Mn = kn(
   },
   function () {
     return document.createElement("span");
-  }
+  },
 );
 function In(e) {
   let t;
@@ -2749,17 +2757,17 @@ function Un(e, t) {
   return (n = Rn.get((e = +e)))
     ? n.then(() => t)
     : (n = Date.now()) >= e
-    ? Promise.resolve(t)
-    : (function (e, t) {
-        var n = new Promise(function (n) {
-          Rn.delete(t);
-          var r = t - e;
-          if (!(r > 0)) throw new Error("invalid time");
-          if (r > 2147483647) throw new Error("too long to wait");
-          setTimeout(n, r);
-        });
-        return Rn.set(t, n), n;
-      })(n, e).then(() => t);
+      ? Promise.resolve(t)
+      : (function (e, t) {
+          var n = new Promise(function (n) {
+            Rn.delete(t);
+            var r = t - e;
+            if (!(r > 0)) throw new Error("invalid time");
+            if (r > 2147483647) throw new Error("too long to wait");
+            setTimeout(n, r);
+          });
+          return Rn.set(t, n), n;
+        })(n, e).then(() => t);
 }
 var Dn = Object.freeze({
   __proto__: null,
@@ -2789,7 +2797,7 @@ const Bn = kn(
   },
   function () {
     return document.createElementNS("http://www.w3.org/2000/svg", "g");
-  }
+  },
 );
 var zn = String.raw;
 function Wn(e) {
@@ -2849,7 +2857,7 @@ const Library = Object.assign(
                             function r() {
                               t.highlightBlock(n),
                                 n.parentNode.classList.add(
-                                  "observablehq--md-pre"
+                                  "observablehq--md-pre",
                                 );
                             }
                             t.getLanguage(n.className)
@@ -2860,8 +2868,8 @@ const Library = Object.assign(
                                       return e(
                                         je.resolve(
                                           "async-languages/" +
-                                            r.get(n.className)
-                                        )
+                                            r.get(n.className),
+                                        ),
                                       ).then((e) => {
                                         t.registerLanguage(n.className, e);
                                       });
@@ -2874,7 +2882,7 @@ const Library = Object.assign(
                   },
                   function () {
                     return document.createElement("div");
-                  }
+                  },
                 );
               });
             })(t),
@@ -2927,7 +2935,7 @@ const Library = Object.assign(
                   return (
                     (e.innerHTML = t.render(
                       xn().id,
-                      String.raw.apply(String, arguments)
+                      String.raw.apply(String, arguments),
                     )),
                     e.removeChild(e.firstChild)
                   );
@@ -2944,64 +2952,64 @@ const Library = Object.assign(
           vl: () =>
             (async function (e) {
               const [t, n, r] = await Promise.all(
-                [Me, Ie, Pe].map((t) => e(t.resolve()))
+                [Me, Ie, Pe].map((t) => e(t.resolve())),
               );
               return r.register(t, n);
             })(t),
           aapl: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/3ccff97fd2d93da734e76829b2b066eafdaac6a1fafdec0faf6ebc443271cfc109d29e80dd217468fcb2aff1e6bffdc73f356cc48feb657f35378e6abbbb63b9"
+              "https://static.observableusercontent.com/files/3ccff97fd2d93da734e76829b2b066eafdaac6a1fafdec0faf6ebc443271cfc109d29e80dd217468fcb2aff1e6bffdc73f356cc48feb657f35378e6abbbb63b9",
             ).csv({ typed: !0 }),
           alphabet: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/75d52e6c3130b1cae83cda89305e17b50f33e7420ef205587a135e8562bcfd22e483cf4fa2fb5df6dff66f9c5d19740be1cfaf47406286e2eb6574b49ffc685d"
+              "https://static.observableusercontent.com/files/75d52e6c3130b1cae83cda89305e17b50f33e7420ef205587a135e8562bcfd22e483cf4fa2fb5df6dff66f9c5d19740be1cfaf47406286e2eb6574b49ffc685d",
             ).csv({ typed: !0 }),
           cars: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/048ec3dfd528110c0665dfa363dd28bc516ffb7247231f3ab25005036717f5c4c232a5efc7bb74bc03037155cb72b1abe85a33d86eb9f1a336196030443be4f6"
+              "https://static.observableusercontent.com/files/048ec3dfd528110c0665dfa363dd28bc516ffb7247231f3ab25005036717f5c4c232a5efc7bb74bc03037155cb72b1abe85a33d86eb9f1a336196030443be4f6",
             ).csv({ typed: !0 }),
           citywages: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/39837ec5121fcc163131dbc2fe8c1a2e0b3423a5d1e96b5ce371e2ac2e20a290d78b71a4fb08b9fa6a0107776e17fb78af313b8ea70f4cc6648fad68ddf06f7a"
+              "https://static.observableusercontent.com/files/39837ec5121fcc163131dbc2fe8c1a2e0b3423a5d1e96b5ce371e2ac2e20a290d78b71a4fb08b9fa6a0107776e17fb78af313b8ea70f4cc6648fad68ddf06f7a",
             ).csv({ typed: !0 }),
           diamonds: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/87942b1f5d061a21fa4bb8f2162db44e3ef0f7391301f867ab5ba718b225a63091af20675f0bfe7f922db097b217b377135203a7eab34651e21a8d09f4e37252"
+              "https://static.observableusercontent.com/files/87942b1f5d061a21fa4bb8f2162db44e3ef0f7391301f867ab5ba718b225a63091af20675f0bfe7f922db097b217b377135203a7eab34651e21a8d09f4e37252",
             ).csv({ typed: !0 }),
           flare: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/a6b0d94a7f5828fd133765a934f4c9746d2010e2f342d335923991f31b14120de96b5cb4f160d509d8dc627f0107d7f5b5070d2516f01e4c862b5b4867533000"
+              "https://static.observableusercontent.com/files/a6b0d94a7f5828fd133765a934f4c9746d2010e2f342d335923991f31b14120de96b5cb4f160d509d8dc627f0107d7f5b5070d2516f01e4c862b5b4867533000",
             ).csv({ typed: !0 }),
           industries: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/76f13741128340cc88798c0a0b7fa5a2df8370f57554000774ab8ee9ae785ffa2903010cad670d4939af3e9c17e5e18e7e05ed2b38b848ac2fc1a0066aa0005f"
+              "https://static.observableusercontent.com/files/76f13741128340cc88798c0a0b7fa5a2df8370f57554000774ab8ee9ae785ffa2903010cad670d4939af3e9c17e5e18e7e05ed2b38b848ac2fc1a0066aa0005f",
             ).csv({ typed: !0 }),
           miserables: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/31d904f6e21d42d4963ece9c8cc4fbd75efcbdc404bf511bc79906f0a1be68b5a01e935f65123670ed04e35ca8cae3c2b943f82bf8db49c5a67c85cbb58db052"
+              "https://static.observableusercontent.com/files/31d904f6e21d42d4963ece9c8cc4fbd75efcbdc404bf511bc79906f0a1be68b5a01e935f65123670ed04e35ca8cae3c2b943f82bf8db49c5a67c85cbb58db052",
             ).json(),
           olympians: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/31ca24545a0603dce099d10ee89ee5ae72d29fa55e8fc7c9ffb5ded87ac83060d80f1d9e21f4ae8eb04c1e8940b7287d179fe8060d887fb1f055f430e210007c"
+              "https://static.observableusercontent.com/files/31ca24545a0603dce099d10ee89ee5ae72d29fa55e8fc7c9ffb5ded87ac83060d80f1d9e21f4ae8eb04c1e8940b7287d179fe8060d887fb1f055f430e210007c",
             ).csv({ typed: !0 }),
           penguins: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/715db1223e067f00500780077febc6cebbdd90c151d3d78317c802732252052ab0e367039872ab9c77d6ef99e5f55a0724b35ddc898a1c99cb14c31a379af80a"
+              "https://static.observableusercontent.com/files/715db1223e067f00500780077febc6cebbdd90c151d3d78317c802732252052ab0e367039872ab9c77d6ef99e5f55a0724b35ddc898a1c99cb14c31a379af80a",
             ).csv({ typed: !0 }),
           pizza: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/c653108ab176088cacbb338eaf2344c4f5781681702bd6afb55697a3f91b511c6686ff469f3e3a27c75400001a2334dbd39a4499fe46b50a8b3c278b7d2f7fb5"
+              "https://static.observableusercontent.com/files/c653108ab176088cacbb338eaf2344c4f5781681702bd6afb55697a3f91b511c6686ff469f3e3a27c75400001a2334dbd39a4499fe46b50a8b3c278b7d2f7fb5",
             ).csv({ typed: !0 }),
           weather: () =>
             new FileAttachment(
-              "https://static.observableusercontent.com/files/693a46b22b33db0f042728700e0c73e836fa13d55446df89120682d55339c6db7cc9e574d3d73f24ecc9bc7eb9ac9a1e7e104a1ee52c00aab1e77eb102913c1f"
+              "https://static.observableusercontent.com/files/693a46b22b33db0f042728700e0c73e836fa13d55446df89120682d55339c6db7cc9e574d3d73f24ecc9bc7eb9ac9a1e7e104a1ee52c00aab1e77eb102913c1f",
             ).csv({ typed: !0 }),
           DOM: An,
           Files: jn,
           Generators: Ln,
           Promises: Dn,
         }),
-        Object.fromEntries(Object.entries(n).map(Vn)))
+        Object.fromEntries(Object.entries(n).map(Vn))),
       );
     },
     {
@@ -3014,9 +3022,9 @@ const Library = Object.assign(
         enumerable: !0,
         configurable: !0,
       },
-    }
+    },
   ),
-  { resolveFrom: nt, requireFrom: at }
+  { resolveFrom: nt, requireFrom: at },
 );
 function Vn([e, t]) {
   return [e, { value: t, writable: !0, enumerable: !0 }];
@@ -3076,7 +3084,7 @@ function Xn(e, t) {
         Object.entries(t.shadow).map(([t, n]) => [
           t,
           new Variable(2, e).define([], n),
-        ])
+        ]),
       )
     : null;
 }
@@ -3149,27 +3157,27 @@ function ar(e, t, n) {
             (this._duplicate = n),
             o._duplicates.add(this))
           : 2 === o._type
-          ? ((this._outputs = o._outputs),
-            (o._outputs = new Set()),
-            this._outputs.forEach(function (e) {
-              e._inputs[e._inputs.indexOf(o)] = this;
-            }, this),
-            a._dirty.add(o).add(this),
-            r.set(e, this))
-          : ((o._duplicate = o._definition),
-            (this._duplicate = n),
-            (t = new Variable(3, this._module)),
-            (t._name = e),
-            (t._definition = this._definition = o._definition = rr(e)),
-            (t._outputs = o._outputs),
-            (o._outputs = new Set()),
-            t._outputs.forEach(function (e) {
-              e._inputs[e._inputs.indexOf(o)] = t;
-            }),
-            (t._duplicates = new Set([this, o])),
-            a._dirty.add(o).add(t),
-            a._updates.add(o).add(t),
-            r.set(e, t))
+            ? ((this._outputs = o._outputs),
+              (o._outputs = new Set()),
+              this._outputs.forEach(function (e) {
+                e._inputs[e._inputs.indexOf(o)] = this;
+              }, this),
+              a._dirty.add(o).add(this),
+              r.set(e, this))
+            : ((o._duplicate = o._definition),
+              (this._duplicate = n),
+              (t = new Variable(3, this._module)),
+              (t._name = e),
+              (t._definition = this._definition = o._definition = rr(e)),
+              (t._outputs = o._outputs),
+              (o._outputs = new Set()),
+              t._outputs.forEach(function (e) {
+                e._inputs[e._inputs.indexOf(o)] = t;
+              }),
+              (t._duplicates = new Set([this, o])),
+              a._dirty.add(o).add(t),
+              a._updates.add(o).add(t),
+              r.set(e, t))
         : r.set(e, this)),
       (this._name = e);
   }
@@ -3222,7 +3230,7 @@ Object.defineProperties(Variable.prototype, {
         this,
         null == e ? null : String(e),
         null == t ? [] : Zn.call(t, this._resolve, this),
-        "function" == typeof n ? n : Gn(n)
+        "function" == typeof n ? n : Gn(n),
       );
     },
     writable: !0,
@@ -3294,7 +3302,7 @@ Object.defineProperties(Module.prototype, {
                 return () => {
                   throw e;
                 };
-              })(t)
+              })(t),
             );
           }
           void 0 === t ? this._scope.set((n._name = e), n) : n.define(e, Gn(t));
@@ -3409,8 +3417,8 @@ const ur =
   "function" == typeof requestAnimationFrame
     ? requestAnimationFrame
     : "function" == typeof setImmediate
-    ? setImmediate
-    : (e) => setTimeout(e, 0);
+      ? setImmediate
+      : (e) => setTimeout(e, 0);
 function Runtime(e = new Library(), t = yr) {
   const n = this.module();
   if (
@@ -3465,7 +3473,7 @@ function br(e, t) {
   return (
     a &&
       ((r = new IntersectionObserver(
-        ([e]) => (o = e.isIntersecting) && ((n = null), i())
+        ([e]) => (o = e.isIntersecting) && ((n = null), i()),
       )),
       r.observe(a),
       e.then(() => (r.disconnect(), (r = null), s()))),
@@ -3473,9 +3481,9 @@ function br(e, t) {
       return o
         ? Promise.resolve(e)
         : r
-        ? (n || (n = new Promise((e, t) => ((i = e), (s = t)))),
-          n.then(() => e))
-        : Promise.reject();
+          ? (n || (n = new Promise((e, t) => ((i = e), (s = t)))),
+            n.then(() => e))
+          : Promise.reject();
     }
   );
 }
@@ -3516,7 +3524,7 @@ function wr(e) {
           ((a = t),
           function () {
             a.return();
-          })
+          }),
         ),
         (function (e, t, n) {
           const r = e._module._runtime;
@@ -3524,7 +3532,7 @@ function wr(e) {
           function o(e) {
             return new Promise((e) => e(n.next(a))).then(
               ({ done: t, value: n }) =>
-                t ? void 0 : Promise.resolve(n).then(e)
+                t ? void 0 : Promise.resolve(n).then(e),
             );
           }
           function i() {
@@ -3564,7 +3572,7 @@ function wr(e) {
     },
     (t) => {
       t !== nr && e._version === n && ((e._value = void 0), e._rejected(t));
-    }
+    },
   );
 }
 function vr(e, t) {
@@ -3598,7 +3606,7 @@ Object.defineProperties(Runtime.prototype, {
   _computeSoon: {
     value: function () {
       return new Promise(ur).then(() =>
-        this._disposed ? void 0 : this._computeNow()
+        this._disposed ? void 0 : this._computeNow(),
       );
     },
     writable: !0,
@@ -3711,7 +3719,7 @@ Object.defineProperties(Runtime.prototype, {
           }
           return new FileAttachment(n, t);
         },
-        { prototype: FileAttachment.prototype }
+        { prototype: FileAttachment.prototype },
       );
     },
     writable: !0,

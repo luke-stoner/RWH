@@ -9,8 +9,18 @@ const video = document.getElementById("myVideo");
 const acceptButton = document.getElementById("accept-button");
 
 const candidateColorMap = {};
-["biden", "christie", "desantis", "haley", "kennedy", "pence", "ramaswamy", "scott", "trump", "williamson"]
-    .forEach((candidate, index) => {
+[
+  "biden",
+  "christie",
+  "desantis",
+  "haley",
+  "kennedy",
+  "pence",
+  "ramaswamy",
+  "scott",
+  "trump",
+  "williamson",
+].forEach((candidate, index) => {
   if (candidate.toLowerCase() === "scott") {
     candidateColorMap[candidate.toLowerCase()] = "#72bcd4"; // Assigning light blue to scott
   } else {
@@ -41,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (destination.index === 2) {
         const paragraphs = document.querySelectorAll(
-          "#white-house-introduction p"
+          "#white-house-introduction p",
         );
         const fadeInDelay = 2000;
 
@@ -63,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
           whiteHouse,
           0.7,
           { x: "100%", opacity: 0, scale: 0.5 },
-          { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut }
+          { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut },
         );
 
         tl.to(whiteHouse, 1.5, {
@@ -76,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (destination.index == 7) {
         const candidateIntro = new CandidateIntroduction(
-          candidate_descriptions
+          candidate_descriptions,
         );
       }
 
@@ -105,10 +115,10 @@ document.addEventListener("DOMContentLoaded", function () {
       if (destination.index === 14) {
         const breakingNews = document.getElementById("breaking-news-image");
         tl.fromTo(
-            breakingNews,
-            0.7,
-            { x: "100%", opacity: 0, scale: 0.5 },
-            { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut }
+          breakingNews,
+          0.7,
+          { x: "100%", opacity: 0, scale: 0.5 },
+          { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut },
         );
 
         tl.to(breakingNews, 1.5, {
@@ -125,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
           ballotBox,
           0.7,
           { x: "100%", opacity: 0, scale: 0.5 },
-          { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut }
+          { x: "-30%", opacity: 1, scale: 1, ease: Power2.easeOut },
         );
 
         tl.to(ballotBox, 1.5, {
