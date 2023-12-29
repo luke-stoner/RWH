@@ -1,12 +1,26 @@
-# Race for the White House
+<div style="display: flex; justify-content: center; align-items: center;">
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=2000&pause=1000&color=C90A3D&center=true&vCenter=true&random=false&width=435&lines=Race+for+the+White+House" alt="Typing SVG" /></a>
+</div>
+
+<div style="text-align: center;">
+    <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="Javascript">
+    <img src="https://img.shields.io/badge/d3%20js-F9A03C?style=for-the-badge&logo=d3.js&logoColor=white" alt="D3.js">
+    <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap">
+    <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML">
+    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS">
+    <img src="img/race-for-the-white-house.png" style="width:60%; height=auto;">
+</div>
+
+
 
 ## Project Summary
 
-Welcome to the Race for the White House! This repository contains html, javascript, css, and other supporting files to 
+Welcome to 'Race for the White House,' a highly acclaimed project from Harvard CS 171 that has earned a place in the prestigious Hall of Fame.
+This repository contains html, javascript, css, and other supporting files to 
 create a comprehensive exploration of the media's coverage of the 2024 United States Presidential Election. The data for 
 this project is scraped from the Internet Archive's TV news archive, which is updated daily and contains millions of clips
-from local, national, and internatinal news networks. `labeled.csv` contains the cleaned closed captions from clips that 
-mention 2024 presidentials candidates, along with other data such as the date and network of the mention. Finally, the 
+from local, national, and international news networks. `labeled.csv` contains the cleaned closed captions from clips that 
+mention 2024 presidential candidates, along with other data such as the date and network of the mention. Finally, the 
 text from each caption was fed to a RoBERTa-based sentiment analysis model to label the mention as either positive or 
 negative. The Race for the White House leverages this data to create unique, interesting visualizations that explore how
 both coverage sentiment and volume differ across candidates and networks.
