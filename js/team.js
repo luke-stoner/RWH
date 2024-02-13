@@ -59,7 +59,7 @@ const teamMembers = [
     "MS - Data Science '24",
     "https://www.linkedin.com/in/lukestoner/",
     "https://github.com/luke-stoner",
-    "https://media.licdn.com/dms/image/D4E03AQEnyHbRnvMdGg/profile-displayphoto-shrink_400_400/0/1696390380862?e=1705536000&v=beta&t=YVfnb-FTaGbSGPzS6z8TAAuNz5lEaTFFW9m3TOcKdwI",
+    "https://media.licdn.com/dms/image/D4E03AQEnyHbRnvMdGg/profile-displayphoto-shrink_800_800/0/1696390380862?e=1713398400&v=beta&t=1P34Y8U4pVLAaMhZDzqmwKpOXIbeFA101FFinf-fKVA"
   ),
   new TeamMember(
     "Andrew Sullivan",
@@ -67,7 +67,7 @@ const teamMembers = [
     "MS - Data Science '24",
     "https://www.linkedin.com/in/andrewjosephsullivan/",
     "https://github.com/andrewsully",
-    "https://media.licdn.com/dms/image/C4D03AQFcwzfZoC8I6g/profile-displayphoto-shrink_400_400/0/1620667606933?e=1705536000&v=beta&t=g8qIOwJFPNefHGwf-mCi3YODQJHJOhSyFctg1nIct5g",
+    "https://media.licdn.com/dms/image/C4D03AQFcwzfZoC8I6g/profile-displayphoto-shrink_800_800/0/1620667606933?e=1713398400&v=beta&t=_6sBB_En3LJKlQw5EveXM0ViXNl8Tylcl1Qkgw0smfk"  
   ),
   new TeamMember(
     "Kane Norman",
@@ -75,7 +75,7 @@ const teamMembers = [
     "MS - Data Science '23",
     "https://www.linkedin.com/in/kanenorman/",
     "https://github.com/kanenorman",
-    "https://media.licdn.com/dms/image/D4E03AQGbvPkUI-QUpA/profile-displayphoto-shrink_400_400/0/1676916845284?e=1705536000&v=beta&t=kwoJyxVsjNtTxP9_N4qsh6DRxtFOt3_lOoipqi6-Wac",
+    "https://media.licdn.com/dms/image/D4E03AQGbvPkUI-QUpA/profile-displayphoto-shrink_800_800/0/1676916845284?e=1713398400&v=beta&t=6NcNkA2PEiZD849cwls4RmdQHPUw_gFAw83hlQ8sn8A"
   ),
 ];
 
