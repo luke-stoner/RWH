@@ -17,6 +17,12 @@
 <div align="center">
     Webiste can be found <a href="https://luke-stoner.github.io/RWH" />here</a>
 </div>
+<div align="center">
+    Detailed write up can be found <a href="https://medium.com/@luke_stoner/tracking-the-medias-coverage-of-the-2024-election-through-sentiment-analysis-2284352bf123" />here</a>
+</div>
+<div align="center">
+   Notice, that this is the repository for the static site. Not the version hosted on Google Cloud Platform. 
+</div>
 
 ## Project Summary
 
